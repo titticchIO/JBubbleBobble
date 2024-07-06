@@ -6,7 +6,7 @@ public class User {
 	 * nickname utente
 	 */
 	private String nickname;
-	
+		
 	/**
 	 * password utente
 	 */
@@ -92,6 +92,7 @@ public class User {
 	public int getLevel() {
 		return level;
 	}
+
 	
 	/**
 	 * Controlla se i valori di nickname e password inseriti sonon coerenti con quelli dell'utente.
@@ -106,6 +107,10 @@ public class User {
 	
 	
 	
+
+
+
+
 	/**
 	 * Classe Builder utilizzata per contruire oggetti di tipo User.
 	 */
@@ -153,9 +158,21 @@ public class User {
 		 * @param nickname
 		 * @param password
 		 */
-		public Builder(String nickname, String password) {
+		public Builder(String nickname) {
 			this.nickname = nickname;
+		}
+		
+		
+		
+		/**
+		 * Valorizza il campo password.
+		 * 
+		 * @param password
+		 * @return 			l'oggetto di tipo Builder
+		 */
+		public Builder password(String password) {
 			this.password = password;
+			return this;
 		}
 		
 		/**
@@ -224,6 +241,4 @@ public class User {
 		}
 		
 	}
-	
-
 }
