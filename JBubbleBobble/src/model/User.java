@@ -214,7 +214,7 @@ public class User {
 		}
 		
 		/**
-		 * Metodo che ritorna costruisce un'istanza di User.
+		 * Metodo che costruisce un'istanza di User.
 		 * 
 		 * @return		oggetto di tipo User
 		 */
