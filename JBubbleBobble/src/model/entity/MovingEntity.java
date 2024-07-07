@@ -1,4 +1,4 @@
-package model;
+package model.entity;
 
 public abstract class MovingEntity extends Entity {
 	// positive up, negative down
