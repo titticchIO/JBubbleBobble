@@ -1,11 +1,9 @@
 package model.entity;
 
-import model.Hitbox;
-
 public abstract class Entity {
-	private float x;
-	private float y;
-	private Hitbox hitbox;
+	protected float x;
+	protected float y;
+	protected Hitbox hitbox;
 
 	/**
 	 * Getters and Setters
@@ -16,6 +14,10 @@ public abstract class Entity {
 
 	public void setX(float x) {
 		this.x = x;
+	}
+
+	public float[] getPosition() {
+		return new float[] { x, y };
 	}
 
 	public float getY() {

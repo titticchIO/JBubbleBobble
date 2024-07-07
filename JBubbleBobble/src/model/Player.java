@@ -2,7 +2,6 @@ package model;
 
 
 import model.bubbles.PlayerBubble;
-import model.bubbles.Bubble;
 import model.entity.MovingEntity;
 
 

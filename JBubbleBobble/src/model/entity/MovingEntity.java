@@ -45,8 +45,10 @@ public abstract class MovingEntity extends Entity {
 	 * Movement
 	 */
 	public void move() {
-		setX(getX() + getxSpeed()); // moltiplicare xSpeed per una costante?
-		setY(getY() + getySpeed()); // moltiplicare ySpeed per una costante?
+		setX(getX() + getxSpeed());
+		setY(getY() + getySpeed());
+		hitbox.setX(hitbox.getX()+getxSpeed());
+		hitbox.setY(hitbox.getY()+getySpeed());
 	}
 
 	public void updateEntity() {
