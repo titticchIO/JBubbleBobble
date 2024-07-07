@@ -1,4 +1,6 @@
-package model;
+package model.bubbles;
+
+import model.MovingEntity;
 
 public class Bubble extends MovingEntity {
 	/**
@@ -13,7 +15,7 @@ public class Bubble extends MovingEntity {
 	 * tempo prima che la bolla scoppi
 	 */
 	private float lifeSpan;
-
+	
 	/**
 	 * @param travelDistance
 	 * @param travelSpeed

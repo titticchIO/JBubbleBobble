@@ -1,9 +1,21 @@
 package model;
 
+import model.bubbles.Bubble;
+
 public class Player extends MovingEntity {
 	// bolla attuale
 	private Bubble currentBubble;
-
+	// singleton
+	private Player instance;
+	
+	public Player getInstance() {
+		if (instance==null) instance=new Player();
+		return instance;
+	}
+	
+	private Player() {
+		currentBubble=new Bubble();
+	}
 
 	/**
 	 * Getters and Setters
