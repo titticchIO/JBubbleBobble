@@ -2,14 +2,14 @@ package model.bubbles;
 
 import model.enemies.Enemy;
 
-public class EnemyBubble extends Bubble {
+public class BubbleWithEnemy extends PlayerBubble {
 //	nemico contenuto nella bolla
 	private Enemy enemy;
 
 	/**
 	 * @param enemy
 	 */
-	public EnemyBubble(Enemy enemy) {
+	public BubbleWithEnemy(Enemy enemy) {
 		this.enemy = enemy;
 	}
 

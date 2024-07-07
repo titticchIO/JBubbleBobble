@@ -1,5 +1,7 @@
 package model;
 
-public class Hitbox {
 
+
+public class Hitbox{
+	
 }

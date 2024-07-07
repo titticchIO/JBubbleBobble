@@ -49,4 +49,7 @@ public abstract class MovingEntity extends Entity {
 		setY(getY() + getySpeed()); // moltiplicare ySpeed per una costante?
 	}
 
+	public void updateEntity() {
+		move();
+	};
 }

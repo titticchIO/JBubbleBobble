@@ -1,10 +1,10 @@
 package model;
 
-import model.bubbles.Bubble;
+import model.bubbles.PlayerBubble;
 
 public class Player extends MovingEntity {
 	// bolla attuale
-	private Bubble currentBubble;
+	private PlayerBubble currentBubble;
 	// singleton
 	private Player instance;
 	
@@ -14,17 +14,17 @@ public class Player extends MovingEntity {
 	}
 	
 	private Player() {
-		currentBubble=new Bubble();
+		currentBubble=new PlayerBubble();
 	}
 
 	/**
 	 * Getters and Setters
 	 */
-	public Bubble getCurrentBubble() {
+	public PlayerBubble getCurrentBubble() {
 		return currentBubble;
 	}
 
-	public void setCurrentBubble(Bubble currentBubble) {
+	public void setCurrentBubble(PlayerBubble currentBubble) {
 		this.currentBubble = currentBubble;
 	}
 }
