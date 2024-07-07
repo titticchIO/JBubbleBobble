@@ -1,4 +1,6 @@
-package model;
+package model.entity;
+
+import model.Hitbox;
 
 public abstract class Entity {
 	private float x;

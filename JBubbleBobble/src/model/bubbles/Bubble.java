@@ -1,6 +1,6 @@
 package model.bubbles;
 
-import model.MovingEntity;
+import model.entity.MovingEntity;
 
 public class Bubble extends MovingEntity {
 	/**

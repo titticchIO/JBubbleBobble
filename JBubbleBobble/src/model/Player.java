@@ -1,6 +1,7 @@
 package model;
 
 import model.bubbles.Bubble;
+import model.entity.MovingEntity;
 
 public class Player extends MovingEntity {
 	// bolla attuale
