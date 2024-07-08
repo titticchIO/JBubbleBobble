@@ -2,12 +2,7 @@ package view;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.geom.Dimension2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
@@ -15,7 +10,7 @@ public class GamePanel extends JPanel {
 
 	public GamePanel() {
 		setPanelSize();
-		img = ImageLoader.importImg("/Screenshot 2024-07-06 160035.png");
+		img = ImageLoader.importImg("/sprites/bubblun/image_5.png");
 	}
 
 	private void setPanelSize() {
