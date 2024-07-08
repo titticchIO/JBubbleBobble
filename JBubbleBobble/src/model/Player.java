@@ -9,9 +9,9 @@ public class Player extends MovingEntity {
 	// bolla attuale
 	private PlayerBubble currentBubble;
 	// singleton
-	private Player instance;
+	private static Player instance;
 	
-	public Player getInstance() {
+	public static Player getInstance() {
 		if (instance==null) instance=new Player();
 		return instance;
 	}

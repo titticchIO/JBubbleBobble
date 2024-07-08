@@ -1,10 +1,16 @@
 package model.entity;
 
-public abstract class Entity {
+import java.util.Observable;
+
+public abstract class Entity extends Observable{
 	protected float x;
 	protected float y;
 	protected Hitbox hitbox;
 
+	public Entity() {
+		hitbox=new Hitbox(x, y, 10, 10);
+	}
+	
 	/**
 	 * Getters and Setters
 	 */

@@ -15,6 +15,12 @@ public class ImageLoader {
 			output = ImageIO.read(is);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				is.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		return output;
 	}
