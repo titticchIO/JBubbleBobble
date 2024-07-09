@@ -4,4 +4,7 @@ import model.entity.Entity;
 
 public class Tile extends Entity{
 	
+	
+	
+	
 }

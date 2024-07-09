@@ -9,6 +9,8 @@ public abstract class Entity extends Observable{
 
 	public Entity() {
 		hitbox=new Hitbox(x, y, 10, 10);
+		setChanged();
+		notifyObservers("created");
 	}
 	
 	/**
