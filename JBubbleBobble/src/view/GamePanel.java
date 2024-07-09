@@ -12,7 +12,6 @@ public class GamePanel extends JPanel {
 
 	public GamePanel(PlayerView playerView) {
 		setPanelSize();
-//		requestFocus();
 		img = ImageLoader.importImg("/sprites/bubblun/image_5.png");
 		//Temp
 		this.playerView=playerView;

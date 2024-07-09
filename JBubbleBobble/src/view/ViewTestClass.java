@@ -9,7 +9,7 @@ public class ViewTestClass {
 		PlayerView playerView = new PlayerView();
 		player.addObserver(playerView);
 		PlayerController pController = new PlayerController(player);
-		GameFrame test = new GameFrame(playerView,pController);
+		GameFrame gameFrame = new GameFrame(playerView,pController);
 		while (true) {
 			try {
 				Thread.sleep(1000);
@@ -17,7 +17,7 @@ public class ViewTestClass {
 				e.printStackTrace();
 			}
 			player.updateEntity();
-			test.repaint();
+			gameFrame.repaint();
 		}
 	}
 }

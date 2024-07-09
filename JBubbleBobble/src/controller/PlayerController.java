@@ -29,7 +29,7 @@ public class PlayerController implements KeyListener {
 			player.setySpeed(-30);
 			break;
 		case KeyEvent.VK_A:
-			player.setySpeed(-30);
+			player.setxSpeed(-30);
 			break;
 		case KeyEvent.VK_S:
 			player.setySpeed(30);
