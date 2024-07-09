@@ -18,7 +18,7 @@ public class GamePanel extends JPanel {
 	}
 
 	private void setPanelSize() {
-		Dimension size = new Dimension(1280, 800);
+		Dimension size = new Dimension(1000, 400);
 		setPreferredSize(size);
 	}
 	
@@ -33,6 +33,9 @@ public class GamePanel extends JPanel {
 		if (playerView!=null)
 			playerView.render(g);
 //		g.drawImage(img, 10, 20, null);
+		
+		
+		
 	}
 
 }

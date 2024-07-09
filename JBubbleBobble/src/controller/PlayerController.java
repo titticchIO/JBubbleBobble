@@ -26,16 +26,16 @@ public class PlayerController implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()){
 		case KeyEvent.VK_W:
-			player.setySpeed(-30);
+			player.setySpeed(-5);
 			break;
 		case KeyEvent.VK_A:
-			player.setxSpeed(-30);
+			player.setxSpeed(-5);
 			break;
 		case KeyEvent.VK_S:
-			player.setySpeed(30);
+			player.setySpeed(5);
 			break;
 		case KeyEvent.VK_D:
-			player.setxSpeed(30);
+			player.setxSpeed(5);
 			break;
 		}
 	}
