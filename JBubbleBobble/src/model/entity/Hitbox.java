@@ -58,20 +58,51 @@ public class Hitbox {
 	
 	
 	/**
-	 * method to check thw collision of two hitboxes
+	 * method to check the collision with another hitbox from the top
+	 * @param hitbox
+	 * @return			boolean
+	 */
+	public boolean topHit(Hitbox hitbox) {
+		float[][] p1 = getPoints();
+		float[][] p2 = hitbox.getPoints();
+		if (p2[3][0] >= p1[0][0] && p2[3][0] <= p1[1][0] && p2[3][1] >= p1[0][1] && p2[3][1] <= p1[3][1])	//check p1 top left
+			return true;
+		if (p2[2][0] >= p1[0][0] && p2[2][0] <= p1[1][0] && p2[2][1] >= p1[0][1] && p2[2][1] <= p1[3][1])	//check p1 top right
+			return true;
+		return false;
+	}
+	
+	
+	/**
+	 * method to check the collision with another hitbox from the bottom
+	 * @param hitbox
+	 * @return			boolean
+	 */
+	public boolean bottomHit(Hitbox hitbox) {
+		float[][] p1 = getPoints();
+		float[][] p2 = hitbox.getPoints();
+		if (p2[1][0] >= p1[0][0] && p2[1][0] <= p1[1][0] && p2[1][1] >= p1[0][1] && p2[1][1] <= p1[3][1])	//check p1 bottom left
+			return true;
+		if (p2[0][0] >= p1[0][0] && p2[0][0] <= p1[1][0] && p2[0][1] >= p1[0][1] && p2[0][1] <= p1[3][1])	//check p1 bottom right
+			return true;
+		return false;
+	}
+	
+	/**
+	 * method to check the collision with another hitbox
 	 * @param hitbox
 	 * @return			boolean
 	 */
 	public boolean hit(Hitbox hitbox) {
 		float[][] p1 = getPoints();
 		float[][] p2 = hitbox.getPoints();
-		if (p2[3][0] > p1[0][0] && p2[3][0] < p1[1][0] && p2[3][1] > p1[0][1] && p2[3][1] < p1[3][1])	//check p1 top left
+		if (p2[3][0] >= p1[0][0] && p2[3][0] <= p1[1][0] && p2[3][1] >= p1[0][1] && p2[3][1] <= p1[3][1])	//check p1 top left
 			return true;
-		if (p2[2][0] > p1[0][0] && p2[2][0] < p1[1][0] && p2[2][1] > p1[0][1] && p2[2][1] < p1[3][1])	//check p1 top right
+		if (p2[2][0] >= p1[0][0] && p2[2][0] <= p1[1][0] && p2[2][1] >= p1[0][1] && p2[2][1] <= p1[3][1])	//check p1 top right
 			return true;
-		if (p2[1][0] > p1[0][0] && p2[1][0] < p1[1][0] && p2[1][1] > p1[0][1] && p2[1][1] < p1[3][1])	//check p1 bottom left
+		if (p2[1][0] >= p1[0][0] && p2[1][0] <= p1[1][0] && p2[1][1] >= p1[0][1] && p2[1][1] <= p1[3][1])	//check p1 bottom left
 			return true;
-		if (p2[0][0] > p1[0][0] && p2[0][0] < p1[1][0] && p2[0][1] > p1[0][1] && p2[0][1] < p1[3][1])	//check p1 bottom right
+		if (p2[0][0] >= p1[0][0] && p2[0][0] <= p1[1][0] && p2[0][1] >= p1[0][1] && p2[0][1] <= p1[3][1])	//check p1 bottom right
 			return true;
 		return false;
 	}
