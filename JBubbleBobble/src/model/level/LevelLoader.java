@@ -1,4 +1,4 @@
-package model;
+package model.level;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
