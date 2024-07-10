@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Observable;
 import java.util.Observer;
@@ -42,16 +43,18 @@ public class EntityView implements Observer {
 	public void setHeight(float height) {
 		this.height = height;
 	}
+	
+	public void render(Graphics g) {
+		g.drawImage(img, (int) x, (int) y, (int) width, (int) height, null);
+	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if (o instanceof Entity) {
-			Entity entity = (Entity) o;
-			setX(entity.getX());
-			setY(entity.getY());
-			setWidth(entity.getWidth());
-			setHeight(entity.getHeight());
-		}
+		Entity entity = (Entity) o;
+		setX(entity.getX());
+		setY(entity.getY());
+		setWidth(entity.getWidth());
+		setHeight(entity.getHeight());
 	}
 
 }

@@ -20,9 +20,11 @@ public class GamePanel extends JPanel {
 		tiles = new TileView[] {new TileView(), new TileView(), new TileView()};
 		Tile[] tiles2=new Tile[] {new Tile(), new Tile(), new Tile()};
 		for (int i = 0; i<3; i++) {
-			tiles2[i].setX(20+i*5);
-			tiles2[i].setY(20);
 			tiles2[i].addObserver(tiles[i]);
+			tiles2[i].setHeight(16);
+			tiles2[i].setWidth(16);
+			tiles2[i].setInitialPosition(20+i*20, 20);
+			
 		}
 	}
 
@@ -41,6 +43,11 @@ public class GamePanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		if (playerView!=null)
 			playerView.render(g);
+		if (tiles != null) {
+			for (int i = 0; i<3; i++) {
+				tiles[i].render(g);
+			}
+		}
 	}
 
 }
