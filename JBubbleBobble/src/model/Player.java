@@ -12,6 +12,8 @@ public class Player extends MovingEntity {
 	// singleton
 	private static Player instance;
 	
+	
+	
 	public static Player getInstance(float x, float y, float width, float height) {
 		if (instance==null) instance=new Player(x,y,width,height);
 		return instance;
@@ -21,6 +23,7 @@ public class Player extends MovingEntity {
 		super(x, y, width, height);
 		currentBubble=new PlayerBubble(x, y, width, height);
 	}
+	
 
 	
 	/**

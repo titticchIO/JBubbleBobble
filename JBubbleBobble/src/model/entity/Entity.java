@@ -1,10 +1,14 @@
 package model.entity;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.Observable;
 
 public class Entity extends Observable {
 	protected float x, y;
 	protected float width, height;
+	protected Rectangle hitbox;
 
 	public Entity(float x, float y, float width, float height) {
 		this.x = x;
@@ -12,7 +16,7 @@ public class Entity extends Observable {
 		this.width = width;
 		this.height = height;
 	}
-
+	
 	/**
 	 * Getters and Setters
 	 */
@@ -63,6 +67,10 @@ public class Entity extends Observable {
 		setChanged();
 		notifyObservers();
 	}
+	
+	public Rectangle getHitbox() {
+		return hitbox;
+	}
 
 	public float[] getPosition() {
 		return new float[] { x, y };
@@ -72,6 +80,8 @@ public class Entity extends Observable {
 	public float[][] getPoints() {
 		return new float[][] { { x, y }, { x + width, y }, { x, y + height }, { x + width, y + height } };
 	}
+	
+	
 	
 	
 	/**

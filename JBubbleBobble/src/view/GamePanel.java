@@ -21,7 +21,7 @@ public class GamePanel extends JPanel {
 		Tile[] tiles2=new Tile[] {new Tile(100,100, 16, 16), new Tile(101,101,16,16), new Tile(101,101,16,16)};
 		for (int i = 0; i<3; i++) {
 			tiles2[i].addObserver(tiles[i]);
-			tiles2[i].setInitialPosition(20+i*20, 20);
+			tiles2[i].setInitialPosition(32+i*16, 32);
 			
 		}
 	}

@@ -1,6 +1,14 @@
 package model.entity;
 
 import model.Player;
+import model.level.LevelLoader;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.File;
+
+import model.HelpMethods;
 
 public abstract class MovingEntity extends Entity {
 	
@@ -45,13 +53,18 @@ public abstract class MovingEntity extends Entity {
 	public void setyAcceleration(float n) {
 		setySpeed(getySpeed() + n);
 	}
+	
 
 	/**
 	 * Movement
 	 */
 	public void move() {
-		setX(getX() + getxSpeed());
-		setY(getY() + getySpeed());
+		if(HelpMethods.canMoveHere(x + xSpeed, y + ySpeed, (int)width, (int)height, LevelLoader.getLevelData())) {
+			this.x += xSpeed;
+			this.y += ySpeed;
+		}
+		setX(getX());
+		setY(getY());
 	}
 
 	public void updateEntity() {
