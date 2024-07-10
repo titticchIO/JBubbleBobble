@@ -2,20 +2,23 @@ package view;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
+import static view.GameFrame.FRAME_WIDTH;
+import static view.GameFrame.FRAME_HEIGHT;
 
 import model.tiles.Tile;
 import view.tiles.TileView;
 
 public class GamePanel extends JPanel {
-	private BufferedImage img;
 	//Temp
 	private PlayerView playerView;
 	private TileView[] tiles;
 	public GamePanel(PlayerView playerView) {
 		setPanelSize();
+<<<<<<< HEAD
 		img = ImageLoader.importImg("/blocks/normal_blocks/block_10.png");
+=======
+>>>>>>> d567b36e8266cac015e39aa681a006d39d4f550c
 		//Temp
 		this.playerView=playerView;
 		tiles = new TileView[] {new TileView(), new TileView(), new TileView()};
@@ -28,7 +31,7 @@ public class GamePanel extends JPanel {
 	}
 
 	private void setPanelSize() {
-		Dimension size = new Dimension(1000, 400);
+		Dimension size = new Dimension(FRAME_WIDTH, FRAME_HEIGHT);
 		setPreferredSize(size);
 	}
 	
@@ -42,7 +45,6 @@ public class GamePanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		if (playerView!=null)
 			playerView.render(g);
-
 	}
 
 }

@@ -7,22 +7,22 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 public class ImageLoader {
-	
+
 	public static BufferedImage importImg(String name) {
+		BufferedImage img = null;
 		InputStream is = ImageLoader.class.getResourceAsStream(name);
-		BufferedImage output=null;
 		try {
-			output = ImageIO.read(is);
+			img = ImageIO.read(is);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				is.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		return output;
+		return img;
 	}
-	
+
 }

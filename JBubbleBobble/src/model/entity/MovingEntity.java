@@ -52,8 +52,6 @@ public abstract class MovingEntity extends Entity {
 		setY(getY() + getySpeed());
 		hitbox.setX(hitbox.getX()+getxSpeed());
 		hitbox.setY(hitbox.getY()+getySpeed());
-		setChanged();
-		notifyObservers("moved");
 	}
 
 	public void updateEntity() {
