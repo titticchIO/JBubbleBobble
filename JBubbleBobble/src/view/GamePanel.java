@@ -15,10 +15,6 @@ public class GamePanel extends JPanel {
 	private TileView[] tiles;
 	public GamePanel(PlayerView playerView) {
 		setPanelSize();
-<<<<<<< HEAD
-		img = ImageLoader.importImg("/blocks/normal_blocks/block_10.png");
-=======
->>>>>>> d567b36e8266cac015e39aa681a006d39d4f550c
 		//Temp
 		this.playerView=playerView;
 		tiles = new TileView[] {new TileView(), new TileView(), new TileView()};
