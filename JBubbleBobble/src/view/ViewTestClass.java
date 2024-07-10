@@ -5,21 +5,19 @@ import java.awt.event.MouseListener;
 
 import controller.PlayerController;
 import model.Player;
-import model.entity.Hitbox;
 
-public class ViewTestClass implements Runnable, MouseListener{
-	
-	private Hitbox h1;
+public class ViewTestClass implements Runnable, MouseListener {
+
 	private Thread gameThread;
 	private final int FPS_SET = 120;
-	
+
 	public ViewTestClass() {
 		startGameLoop();
-		//creare hitbox e jframe e jpanel e metterceli dentro
-		//hitbox view osserva hitbox
-		//creare un hitbox controller test per muoverla
+		// creare hitbox e jframe e jpanel e metterceli dentro
+		// hitbox view osserva hitbox
+		// creare un hitbox controller test per muoverla
 	}
-	
+
 	private void startGameLoop() {
 		gameThread = new Thread(this);
 		gameThread.start();
@@ -40,13 +38,8 @@ public class ViewTestClass implements Runnable, MouseListener{
 			if (now - lastFrame >= timePerFrame) {
 				lastFrame = now;
 				frames++;
-				//update 
-				
-				
-				
-				
-				
-				
+				// update
+
 			}
 
 			if (System.currentTimeMillis() - lastCheck >= 1000) {
@@ -60,32 +53,30 @@ public class ViewTestClass implements Runnable, MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		h1.getX(e.getX())
-		//uguale per la y
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }
