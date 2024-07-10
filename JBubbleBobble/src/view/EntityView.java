@@ -7,7 +7,7 @@ import java.util.Observer;
 import model.entity.Entity;
 
 public class EntityView implements Observer {
-	private BufferedImage img;
+	protected BufferedImage img;
 	protected float x, y;
 	protected float width, height;
 
