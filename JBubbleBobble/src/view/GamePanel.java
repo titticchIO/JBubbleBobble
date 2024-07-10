@@ -2,8 +2,9 @@ package view;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
+import static view.GameFrame.FRAME_WIDTH;
+import static view.GameFrame.FRAME_HEIGHT;
 
 public class GamePanel extends JPanel {
 	//Temp
@@ -16,7 +17,7 @@ public class GamePanel extends JPanel {
 	}
 
 	private void setPanelSize() {
-		Dimension size = new Dimension(1000, 400);
+		Dimension size = new Dimension(FRAME_WIDTH, FRAME_HEIGHT);
 		setPreferredSize(size);
 	}
 	
