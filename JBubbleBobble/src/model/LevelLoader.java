@@ -15,6 +15,21 @@ public class LevelLoader {
 	private final static char ENEMY_4 = '4';
 	private final static char ENEMY_5 = '5';
 	private final static char ENEMY_6 = '6';
+	
+	public static String readLevelFile(int levelNum) {
+		String levelPath = "resources/levels/Livello" + levelNum + ".txt";
+		
+		String text = "";
+		try (BufferedReader br = new BufferedReader(new FileReader(levelPath))) {
+			while(br.ready()) {
+				text += br.readLine();
+			}
+		} catch (IOException e) {
+			System.err.println("ERRORE: LIVELLO NON TROVATO");
+		}
+		
+		return text;
+	}
 
 	public static String loadLevel(String levelName) {
 		StringBuilder sb = new StringBuilder();
