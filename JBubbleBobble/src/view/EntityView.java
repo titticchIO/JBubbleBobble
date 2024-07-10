@@ -43,7 +43,7 @@ public class EntityView implements Observer {
 	public void setHeight(float height) {
 		this.height = height;
 	}
-	
+
 	public void render(Graphics g) {
 		g.drawImage(img, (int) x, (int) y, (int) width, (int) height, null);
 	}

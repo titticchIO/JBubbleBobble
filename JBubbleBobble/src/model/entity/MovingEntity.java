@@ -47,7 +47,6 @@ public abstract class MovingEntity extends Entity {
 	 * Movement
 	 */
 	public void move() {
-		
 		setX(getX() + getxSpeed());
 		setY(getY() + getySpeed());
 		hitbox.setX(hitbox.getX()+getxSpeed());
