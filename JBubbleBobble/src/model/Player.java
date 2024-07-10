@@ -6,20 +6,23 @@ import model.entity.MovingEntity;
 
 
 public class Player extends MovingEntity {
+	
 	// bolla attuale
 	private PlayerBubble currentBubble;
 	// singleton
 	private static Player instance;
 	
 	public static Player getInstance() {
-		if (instance==null) instance=new Player();
+		if (instance==null) instance=new Player(200, 200, 16, 16); //valori di default della posizione e della grandezza del player
 		return instance;
 	}
 	
-	private Player() {
-		currentBubble=new PlayerBubble();
+	private Player(float x, float y, float width, float height) {
+		super(x, y, width, height);
+		currentBubble=new PlayerBubble(x, y, width, height);
 	}
 
+	
 	/**
 	 * Getters and Setters
 	 */

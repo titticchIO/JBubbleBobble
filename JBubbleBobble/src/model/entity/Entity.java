@@ -2,13 +2,15 @@ package model.entity;
 
 import java.util.Observable;
 
-public abstract class Entity extends Observable {
+public class Entity extends Observable {
 	protected float x, y;
 	protected float width, height;
-	protected Hitbox hitbox;
 
-	public Entity() {
-		hitbox = new Hitbox(x, y, 10, 10);
+	public Entity(float x, float y, float width, float height) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
 	}
 
 	/**
@@ -66,11 +68,61 @@ public abstract class Entity extends Observable {
 		return new float[] { x, y };
 	}
 
-	public Hitbox getHitbox() {
-		return hitbox;
+	
+	public float[][] getPoints() {
+		return new float[][] { { x, y }, { x + width, y }, { x, y + height }, { x + width, y + height } };
+	}
+	
+	
+	/**
+	 * method to check the collision with another hitbox from the top
+	 * @param hitbox
+	 * @return			boolean
+	 */
+	public boolean topHit(Entity entity) {
+		float[][] p1 = getPoints();
+		float[][] p2 = entity.getPoints();
+		if (p2[3][0] >= p1[0][0] && p2[3][0] <= p1[1][0] && p2[3][1] >= p1[0][1] && p2[3][1] <= p1[3][1])	//check p1 top left
+			return true;
+		if (p2[2][0] >= p1[0][0] && p2[2][0] <= p1[1][0] && p2[2][1] >= p1[0][1] && p2[2][1] <= p1[3][1])	//check p1 top right
+			return true;
+		return false;
+	}
+	
+	
+	/**
+	 * method to check the collision with another hitbox from the bottom
+	 * @param hitbox
+	 * @return			boolean
+	 */
+	public boolean bottomHit(Entity entity) {
+		float[][] p1 = getPoints();
+		float[][] p2 = entity.getPoints();
+		if (p2[1][0] >= p1[0][0] && p2[1][0] <= p1[1][0] && p2[1][1] >= p1[0][1] && p2[1][1] <= p1[3][1])	//check p1 bottom left
+			return true;
+		if (p2[0][0] >= p1[0][0] && p2[0][0] <= p1[1][0] && p2[0][1] >= p1[0][1] && p2[0][1] <= p1[3][1])	//check p1 bottom right
+			return true;
+		return false;
+	}
+	
+	/**
+	 * method to check the collision with another hitbox
+	 * @param hitbox
+	 * @return			boolean
+	 */
+	public boolean hit(Entity entity) {
+		float[][] p1 = getPoints();
+		float[][] p2 = entity.getPoints();
+		if (p2[3][0] >= p1[0][0] && p2[3][0] <= p1[1][0] && p2[3][1] >= p1[0][1] && p2[3][1] <= p1[3][1])	//check p1 top left
+			return true;
+		if (p2[2][0] >= p1[0][0] && p2[2][0] <= p1[1][0] && p2[2][1] >= p1[0][1] && p2[2][1] <= p1[3][1])	//check p1 top right
+			return true;
+		if (p2[1][0] >= p1[0][0] && p2[1][0] <= p1[1][0] && p2[1][1] >= p1[0][1] && p2[1][1] <= p1[3][1])	//check p1 bottom left
+			return true;
+		if (p2[0][0] >= p1[0][0] && p2[0][0] <= p1[1][0] && p2[0][1] >= p1[0][1] && p2[0][1] <= p1[3][1])	//check p1 bottom right
+			return true;
+		return false;
 	}
 
-	public void setHitbox(Hitbox hitbox) {
-		this.hitbox = hitbox;
-	}
 }
+

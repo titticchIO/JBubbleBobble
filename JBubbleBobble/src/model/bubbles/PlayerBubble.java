@@ -1,6 +1,7 @@
 package model.bubbles;
 
 public class PlayerBubble extends Bubble {
+	
 	/**
 	 * tempo prima che la bolla inizi a salire
 	 */
@@ -15,17 +16,19 @@ public class PlayerBubble extends Bubble {
 	 * @param travelSpeed
 	 */
 
-	public PlayerBubble() {
-//		valori di default
-		travelTime = 5; // da calibrare con la view
-		travelSpeed = 10; // da calibrare con la view
-
+	public PlayerBubble(float x, float y, float width, float height) {
+		super(x, y, width, height);
+		//valori di default
+		travelTime = 5;
+		travelSpeed = 10;
 	}
-
-	public PlayerBubble(float travelTime, float travelSpeed, float lifeSpan) {
-//		valori personalizzabili
+	
+	public PlayerBubble(float x, float y, float width, float height, float lifeSpan, float travelTime, float travelSpeed) {
+		super(x, y, width, height, lifeSpan);
+		// valori personalizzabili
 		this.travelTime = travelTime;
 		this.travelSpeed = travelSpeed;
+		
 	}
 
 	/**

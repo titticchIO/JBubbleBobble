@@ -3,18 +3,22 @@ package model.bubbles;
 import model.entity.MovingEntity;
 
 public abstract class Bubble extends MovingEntity {
+	
 	/**
 	 * tempo prima che la bolla scoppi
 	 */
 	private float lifeSpan;
-
-	public Bubble() {
-		lifeSpan = 10; // da calibrare con il controller
+	
+	public Bubble(float x, float y, float width, float height) {
+		super(x, y, width, height);
+		lifeSpan = 10;
 	}
-
-	public Bubble(float lifeSpan) {
+	
+	public Bubble(float x, float y, float width, float height, float lifeSpan) {
+		super(x, y, width, height);
 		this.lifeSpan = lifeSpan;
 	}
+
 
 	/**
 	 * Getters and Setters

@@ -3,14 +3,17 @@ package model.entity;
 import model.Player;
 
 public abstract class MovingEntity extends Entity {
+	
+	
+	public MovingEntity(float x, float y, float width, float height) {
+		super(x, y, width, height);
+	}
+
 	// positive up, negative down
 	private float xSpeed;
 	// positive right, negative left
 	private float ySpeed;
 
-	public MovingEntity() {
-
-	}
 
 	/**
 	 * Getters and Setters
@@ -50,8 +53,6 @@ public abstract class MovingEntity extends Entity {
 		
 		setX(getX() + getxSpeed());
 		setY(getY() + getySpeed());
-		hitbox.setX(hitbox.getX()+getxSpeed());
-		hitbox.setY(hitbox.getY()+getySpeed());
 	}
 
 	public void updateEntity() {

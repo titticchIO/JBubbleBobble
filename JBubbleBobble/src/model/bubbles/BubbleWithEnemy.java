@@ -3,13 +3,16 @@ package model.bubbles;
 import model.enemies.Enemy;
 
 public class BubbleWithEnemy extends PlayerBubble {
+
 //	nemico contenuto nella bolla
 	private Enemy enemy;
 
 	/**
 	 * @param enemy
 	 */
-	public BubbleWithEnemy(Enemy enemy) {
+	
+	public BubbleWithEnemy(float x, float y, float width, float height, Enemy enemy) {
+		super(x, y, width, height);
 		this.enemy = enemy;
 	}
 

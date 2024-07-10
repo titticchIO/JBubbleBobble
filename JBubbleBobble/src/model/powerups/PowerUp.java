@@ -3,7 +3,7 @@ package model.powerups;
 import model.entity.Entity;
 
 public abstract class PowerUp extends Entity{	
-	
+
 	/*
 	 * punti dati dal powerUp
 	 */
@@ -19,11 +19,11 @@ public abstract class PowerUp extends Entity{
 	 */	
 	private boolean temporariness;
 	
-	
-	public PowerUp(int point, float duration, boolean temporariness) {
+	public PowerUp(float x, float y, float width, float height, int point, float duration, boolean temporariness) {
+		super(x, y, width, height);
 		this.point = point;
 		this.duration = duration;
-		this.temporariness = temporariness;
+		this.temporariness = temporariness;	
 	}
 	
 	

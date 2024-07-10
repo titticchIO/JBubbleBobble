@@ -1,11 +1,12 @@
 package model;
 
-import model.entity.Hitbox;
+import model.entity.Entity;
+
 
 public class ModelTestClass {
 	public static void main(String[] args) {
-		Hitbox h1=new Hitbox(0, 0, 10, 20);
-		Hitbox h2=new Hitbox(9, 10, 10, 10);
-		System.out.println(h1.hit(h2));
+		Entity e1= new Entity(0, 0, 10, 20);
+		Entity e2= new Entity(9, 10, 10, 10);
+		System.out.println(e2.hit(e1));
 	}
 }
