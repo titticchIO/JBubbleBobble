@@ -18,7 +18,7 @@ public class LevelLoader {
 
 	public static String loadLevel(String levelName) {
 		StringBuilder sb = new StringBuilder();
-		try (BufferedReader br = new BufferedReader(new FileReader("levels/" + levelName+".txt"))) {
+		try (BufferedReader br = new BufferedReader(new FileReader("resources/levels/" + levelName+".txt"))) {
 			int ch;
 			while ((ch = br.read()) != -1) {
 				sb.append(ch);
