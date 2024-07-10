@@ -16,9 +16,10 @@ public class ViewTestClass implements Runnable, MouseListener {
     private Thread gameThread;
     private final int FPS_SET = 120;
 
+
     public ViewTestClass() {
     	e1 = new Entity(50, 50, 16, 16);
-        this.player = Player.getInstance();
+        this.player = Player.getInstance(200, 200, 40, 40);
         player.setInitialPosition(200, 200);
         player.updateEntity();
         PlayerView playerView = new PlayerView();
@@ -41,10 +42,6 @@ public class ViewTestClass implements Runnable, MouseListener {
         gameThread.start();
     }
 
-    public void update() {
-        player.updateEntity();
-        gameFrame.repaint();
-    }
 
     @Override
     public void run() {

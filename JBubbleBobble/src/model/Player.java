@@ -12,8 +12,8 @@ public class Player extends MovingEntity {
 	// singleton
 	private static Player instance;
 	
-	public static Player getInstance() {
-		if (instance==null) instance=new Player(200, 200, 16, 16); //valori di default della posizione e della grandezza del player
+	public static Player getInstance(float x, float y, float width, float height) {
+		if (instance==null) instance=new Player(x,y,width,height);
 		return instance;
 	}
 	
