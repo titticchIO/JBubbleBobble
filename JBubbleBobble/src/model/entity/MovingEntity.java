@@ -1,5 +1,7 @@
 package model.entity;
 
+import model.Player;
+
 public abstract class MovingEntity extends Entity {
 	// positive up, negative down
 	private float xSpeed;
@@ -45,6 +47,7 @@ public abstract class MovingEntity extends Entity {
 	 * Movement
 	 */
 	public void move() {
+		
 		setX(getX() + getxSpeed());
 		setY(getY() + getySpeed());
 		hitbox.setX(hitbox.getX()+getxSpeed());

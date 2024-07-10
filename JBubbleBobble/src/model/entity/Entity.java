@@ -14,6 +14,14 @@ public abstract class Entity extends Observable {
 	/**
 	 * Getters and Setters
 	 */
+	
+	public void setInitialPosition(float x, float y) {
+		this.x = x;
+		this.y = y;
+		setChanged();
+		notifyObservers();
+	}
+	
 	public float getX() {
 		return x;
 	}

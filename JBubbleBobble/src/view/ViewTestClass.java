@@ -1,23 +1,91 @@
 package view;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import controller.PlayerController;
 import model.Player;
+import model.entity.Hitbox;
 
-public class ViewTestClass {
-	public static void main(String[] args) {
-		Player player = Player.getInstance();
-		PlayerView playerView = new PlayerView();
-		player.addObserver(playerView);
-		PlayerController pController = new PlayerController(player);
-		GameFrame gameFrame = new GameFrame(playerView,pController);
+public class ViewTestClass implements Runnable, MouseListener{
+	
+	private Hitbox h1;
+	private Thread gameThread;
+	private final int FPS_SET = 120;
+	
+	public ViewTestClass() {
+		startGameLoop();
+		//creare hitbox e jframe e jpanel e metterceli dentro
+		//hitbox view osserva hitbox
+		//creare un hitbox controller test per muoverla
+	}
+	
+	private void startGameLoop() {
+		gameThread = new Thread(this);
+		gameThread.start();
+	}
+
+	@Override
+	public void run() {
+		double timePerFrame = 1000000000.0 / FPS_SET;
+		long lastFrame = System.nanoTime();
+		long now = System.nanoTime();
+
+		int frames = 0;
+		long lastCheck = System.currentTimeMillis();
+
 		while (true) {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+
+			now = System.nanoTime();
+			if (now - lastFrame >= timePerFrame) {
+				lastFrame = now;
+				frames++;
+				//update 
+				
+				
+				
+				
+				
+				
 			}
-			player.updateEntity();
-			gameFrame.repaint();
+
+			if (System.currentTimeMillis() - lastCheck >= 1000) {
+				lastCheck = System.currentTimeMillis();
+				System.out.println("FPS: " + frames);
+				frames = 0;
+			}
 		}
 	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		h1.getX(e.getX())
+		//uguale per la y
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
