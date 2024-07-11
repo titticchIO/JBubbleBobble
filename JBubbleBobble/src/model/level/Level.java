@@ -10,7 +10,21 @@ import model.enemies.Enemy;
 import model.entity.Entity;
 import model.tiles.Tile;
 
-public class Level extends Observable{
+public class Level extends Observable {
+
+	private Player player;
+	private List<Enemy> enemies;
+	private BubbleManager bManager;
+	private List<Tile> tiles;
+
+	public Level(int levelNum) {
+		tiles = new ArrayList<Tile>();
+		enemies = new ArrayList<Enemy>();
+		bManager = new BubbleManager();
+		// String textFile=LevelLoader.readLevelFile(levelNum);
+		LevelLoader.loadLevel(this, levelNum);
+	}
+
 	public Player getPlayer() {
 		return player;
 	}
@@ -43,20 +57,6 @@ public class Level extends Observable{
 		this.tiles = tiles;
 	}
 
-	private Player player;
-	private List<Enemy> enemies;
-	private BubbleManager bManager;
-	private List<Tile> tiles;
-
-	public Level(int levelNum, String textFile) {
-		tiles = new ArrayList<Tile>();
-		enemies = new ArrayList<Enemy>();
-		bManager = new BubbleManager();
-		//String textFile=LevelLoader.readLevelFile(levelNum);
-		LevelLoader.loadLevelFile(this,textFile);
-
-	}
-	
 	public void addPlayer(Player player) {
 		this.player = player;
 	}
@@ -64,11 +64,9 @@ public class Level extends Observable{
 	public void addEnemy(Enemy enemy) {
 		enemies.add(enemy);
 	}
-	
+
 	public void addTile(Tile tile) {
 		tiles.add(tile);
 	}
-
-
 
 }

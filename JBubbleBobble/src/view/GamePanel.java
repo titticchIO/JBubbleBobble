@@ -18,10 +18,10 @@ public class GamePanel extends JPanel {
 		//Temp
 		this.playerView=playerView;
 		tiles = new TileView[] {new TileView(), new TileView(), new TileView()};
-		Tile[] tiles2=new Tile[] {new Tile(100,100, 16, 16), new Tile(101,101,16,16), new Tile(101,101,16,16)};
+		Tile[] tiles2=new Tile[] {new Tile(100,100, 16, 16), new Tile(120,100,16,16), new Tile(140,101,16,16)};
 		for (int i = 0; i<3; i++) {
 			tiles2[i].addObserver(tiles[i]);
-			tiles2[i].setInitialPosition(32+i*16, 32);
+			tiles2[i].notifyPosition();
 			
 		}
 	}

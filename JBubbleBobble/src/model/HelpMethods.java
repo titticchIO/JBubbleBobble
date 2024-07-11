@@ -24,6 +24,6 @@ public class HelpMethods {
 
         String value = lvlData[xIndex][yIndex];
 
-        return "_".equals(value) || "|".equals(value) || "#".equals(value);  //casi in cui c'è un blocco
+        return "#".equals(value.substring(0,1));  //casi in cui c'è un blocco
     }
 }
