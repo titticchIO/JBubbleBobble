@@ -5,17 +5,15 @@ import model.HelpMethods;
 
 public abstract class MovingEntity extends Entity {
 	
-	
-	public MovingEntity(float x, float y, float width, float height) {
-		super(x, y, width, height);
-	}
-
 	// positive up, negative down
 	private float xSpeed;
 	// positive right, negative left
 	private float ySpeed;
-
-
+	
+	public MovingEntity(float x, float y, float width, float height) {
+		super(x, y, width, height);
+	}
+	
 	/**
 	 * Getters and Setters
 	 */
