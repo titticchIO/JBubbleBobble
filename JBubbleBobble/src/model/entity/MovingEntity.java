@@ -45,6 +45,17 @@ public abstract class MovingEntity extends Entity {
 		setySpeed(getySpeed() + n);
 	}
 	
+	/**
+	 * Deceleration
+	 */
+	public void setxDeceleration(float n) {
+		setxSpeed(getxSpeed() - n);
+	}
+	
+	public void setyDeceleration(float n) {
+		setySpeed(getySpeed() - n);
+	}
+	
 
 	/**
 	 * Movement
