@@ -57,10 +57,10 @@ public class LevelLoader {
 		for (String[] linea:  matrice) {
 			for (String c : linea) {
 				switch (c) {
-				case PLAYER -> level.addPlayer(Player.getInstance(x, y, 16, 16));
-				case PLATFORM_TILE -> level.addTile(new Tile(x, y, 16, 16));
-				case CEILING_TILE -> level.addTile(new Tile(x , y, 16, 16));
-				case WALL_TILE -> level.addTile(new Tile(x, y, 16, 16));
+				case PLAYER -> level.addPlayer(Player.getInstance(x*16, y*16, 16, 16));
+				case PLATFORM_TILE -> level.addTile(new Tile(x*16, y*16, 16, 16));
+				case CEILING_TILE -> level.addTile(new Tile(x*16, y*16, 16, 16));
+				case WALL_TILE -> level.addTile(new Tile(x*16, y*16, 16, 16));
 				}
 				x++;
 			}
