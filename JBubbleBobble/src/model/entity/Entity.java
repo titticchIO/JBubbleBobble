@@ -1,12 +1,10 @@
 package model.entity;
 
-import java.awt.Rectangle;
 import java.util.Observable;
 
 public class Entity extends Observable {
 	protected float x, y;
 	protected float width, height;
-	protected Rectangle hitbox;
 
 	public Entity(float x, float y, float width, float height) {
 		this.x = x;
@@ -65,10 +63,6 @@ public class Entity extends Observable {
 		setChanged();
 		notifyObservers();
 	}
-	
-	public Rectangle getHitbox() {
-		return hitbox;
-	}
 
 	public float[] getPosition() {
 		return new float[] { x, y };
@@ -119,17 +113,7 @@ public class Entity extends Observable {
 	 * @return			boolean
 	 */
 	public boolean hit(Entity entity) {
-		float[][] p1 = getPoints();
-		float[][] p2 = entity.getPoints();
-		if (p2[3][0] >= p1[0][0] && p2[3][0] <= p1[1][0] && p2[3][1] >= p1[0][1] && p2[3][1] <= p1[3][1])	//check p1 top left
-			return true;
-		if (p2[2][0] >= p1[0][0] && p2[2][0] <= p1[1][0] && p2[2][1] >= p1[0][1] && p2[2][1] <= p1[3][1])	//check p1 top right
-			return true;
-		if (p2[1][0] >= p1[0][0] && p2[1][0] <= p1[1][0] && p2[1][1] >= p1[0][1] && p2[1][1] <= p1[3][1])	//check p1 bottom left
-			return true;
-		if (p2[0][0] >= p1[0][0] && p2[0][0] <= p1[1][0] && p2[0][1] >= p1[0][1] && p2[0][1] <= p1[3][1])	//check p1 bottom right
-			return true;
-		return false;
+		return topHit(entity) || bottomHit(entity);
 	}
 
 }
