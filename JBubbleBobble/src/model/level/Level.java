@@ -48,12 +48,12 @@ public class Level extends Observable{
 	private BubbleManager bManager;
 	private List<Tile> tiles;
 
-	public Level(int levelNum) {
+	public Level(int levelNum, String textFile) {
 		tiles = new ArrayList<Tile>();
 		enemies = new ArrayList<Enemy>();
 		bManager = new BubbleManager();
-		String textFile=LevelLoader.readLevelFile(levelNum);
-		LevelLoader.loadLevel(this,textFile);
+		//String textFile=LevelLoader.readLevelFile(levelNum);
+		LevelLoader.loadLevelFile(this,textFile);
 
 	}
 	

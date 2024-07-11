@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import model.level.Level;
 import model.level.LevelLoader;
 import view.*;
 
@@ -18,7 +19,7 @@ public class Game implements Runnable {
 		PlayerController pController = new PlayerController(player);
 		gameFrame = new GameFrame(playerView, pController);
 		player.setInitialPosition(200, 200);
-		LevelLoader.loadLvl("resources/levels/Livello1.txt");
+		Level livello1 = new Level(1, "resources/levels/Livello1.txt");
 		startGameLoop();
 	}
 
