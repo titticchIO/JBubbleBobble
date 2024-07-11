@@ -1,13 +1,6 @@
 package model.entity;
 
-import model.Player;
 import model.level.LevelLoader;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.File;
-
 import model.HelpMethods;
 
 public abstract class MovingEntity extends Entity {
