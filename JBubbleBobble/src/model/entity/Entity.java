@@ -77,8 +77,8 @@ public class Entity extends Observable {
 	
 	
 	/**
-	 * method to check the collision with another hitbox from the top
-	 * @param hitbox
+	 * method to check the collision with another entity from the top
+	 * @param entity
 	 * @return			boolean
 	 */
 	public boolean topHit(Entity entity) {
@@ -93,8 +93,8 @@ public class Entity extends Observable {
 	
 	
 	/**
-	 * method to check the collision with another hitbox from the bottom
-	 * @param hitbox
+	 * method to check the collision with another entity from the bottom
+	 * @param entity
 	 * @return			boolean
 	 */
 	public boolean bottomHit(Entity entity) {
@@ -108,8 +108,8 @@ public class Entity extends Observable {
 	}
 	
 	/**
-	 * method to check the collision with another hitbox
-	 * @param hitbox
+	 * method to check the collision with another entity
+	 * @param entity
 	 * @return			boolean
 	 */
 	public boolean hit(Entity entity) {
