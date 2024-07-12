@@ -1,8 +1,11 @@
 package view;
 
+import java.awt.Graphics;
+
 import javax.swing.JFrame;
 
 import controller.PlayerController;
+import model.level.Level;
 
 public class GameFrame extends JFrame {
 	private GamePanel gamePanel;
@@ -14,8 +17,8 @@ public class GameFrame extends JFrame {
     public final static int FRAME_WIDTH = TILE_SIZE * HORIZONTAL_TILES;
     public final static int FRAME_HEIGHT = TILE_SIZE * VERTICAL_TILES;
 
-	public GameFrame(PlayerView playerView, PlayerController playerController) {
-		this.gamePanel = new GamePanel(playerView);
+	public GameFrame(PlayerView playerView, PlayerController playerController,Level level) {
+		this.gamePanel = new GamePanel(playerView,level);
 		add(gamePanel);
 
 		// Attach the PlayerController as a KeyListener
@@ -29,7 +32,13 @@ public class GameFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
-
+	
+	
+	
+	public GamePanel getGamePanel() {
+		return gamePanel;
+	}
+	
 	@Override
 	public void repaint() {
 		super.repaint();

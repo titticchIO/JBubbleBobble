@@ -1,5 +1,6 @@
 package model.level;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -81,6 +82,12 @@ public class Level extends Observable {
 		for (int i = 0; i < tiles.size(); i++) {
 			tiles.get(i).addObserver(entitiesView.get(i));
 			tiles.get(i).notifyPosition();
+		}
+	}
+	
+	public void testPaint(Graphics g) {
+		for (EntityView e: entitiesView) {
+			e.render(g);
 		}
 	}
 

@@ -20,13 +20,13 @@ public class ViewTestClass implements Runnable, MouseListener {
     public ViewTestClass() {
     	e1 = new Entity(50, 50, 16, 16);
         this.player = Player.getInstance(200, 200, 40, 40);
-        player.setInitialPosition(200, 200);
+//        player.setInitialPosition(200, 200);
         player.updateEntity();
         PlayerView playerView = new PlayerView();
         player.addObserver(playerView);
         PlayerController pController = new PlayerController(player);
         gameFrame = new GameFrame(playerView, pController);
-        player.setInitialPosition(200, 200);
+//        player.setInitialPosition(200, 200);
         // Aggiungi il MouseListener al gameFrame
         gameFrame.addMouseListener(this);
         

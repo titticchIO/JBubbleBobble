@@ -6,45 +6,42 @@ import javax.swing.JPanel;
 import static view.GameFrame.FRAME_WIDTH;
 import static view.GameFrame.FRAME_HEIGHT;
 
+import model.level.Level;
 import model.tiles.Tile;
 import view.tiles.TileView;
 
 public class GamePanel extends JPanel {
-	//Temp
+	private Level level;
 	private PlayerView playerView;
-	private TileView[] tiles;
-	public GamePanel(PlayerView playerView) {
-		setPanelSize();
-		//Temp
-		this.playerView=playerView;
-		tiles = new TileView[] {new TileView(), new TileView(), new TileView()};
-		Tile[] tiles2=new Tile[] {new Tile(100,100, 16, 16), new Tile(120,100,16,16), new Tile(140,101,16,16)};
-		for (int i = 0; i<3; i++) {
-			tiles2[i].addObserver(tiles[i]);
-			tiles2[i].notifyPosition();
-			
-		}
-	}
 
+	public GamePanel(PlayerView playerView, Level level) {
+		setPanelSize();
+		// Temp
+		this.playerView = playerView;
+		this.level = level;
+	}
+	
 	private void setPanelSize() {
 		Dimension size = new Dimension(FRAME_WIDTH, FRAME_HEIGHT);
 		setPreferredSize(size);
 	}
-	
+
+
+	public void tempPaint() {
+		
+	}
+
 	@Override
 	public void repaint() {
 		paintComponent(getGraphics());
-		
 	}
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		if (playerView!=null)
+		if (playerView != null)
 			playerView.render(g);
-		if (tiles != null) {
-			for (int i = 0; i<3; i++) {
-				tiles[i].render(g);
-			}
+		if (level!=null) {
+			level.testPaint(g);
 		}
 	}
 

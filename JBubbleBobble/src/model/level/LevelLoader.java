@@ -60,7 +60,7 @@ public class LevelLoader {
 					break;
 				case BLOCK_TILE:
 					Tile t = new Tile(x * 16, y * 16, 16, 16);					
-					EntityView tv = new TileView();			
+					EntityView tv = new TileView();
 					level.addTile(t);
 					level.addEntityView(tv);
 					break;

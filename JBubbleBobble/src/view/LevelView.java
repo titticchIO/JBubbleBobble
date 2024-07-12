@@ -12,6 +12,7 @@ import view.tiles.TileView;
 public class LevelView implements Observer {
 	private PlayerView playerView;
 	private List<TileView> tiles;
+	
 
 	public LevelView() {
 		tiles = new ArrayList<TileView>();
