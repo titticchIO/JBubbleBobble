@@ -75,6 +75,7 @@ public class Level extends Observable {
 	public void addTile(Tile tile) {
 		tiles.add(tile);
 	}
+
 	
 	public void addMovingEntitiesView(MovingEntityView movingEntityView) {
 		movingEntitiesView.add(movingEntityView);
@@ -84,7 +85,8 @@ public class Level extends Observable {
 	public void addStaticEntitiesView(StaticEntityView staticEntityView) {
 		staticEntitiesView.add(staticEntityView);
 	}
-	
+
+
 	public void loadLevelTiles() {
 		for (int i = 0; i < tiles.size(); i++) {
 			tiles.get(i).addObserver(staticEntitiesView.get(i));
@@ -92,8 +94,10 @@ public class Level extends Observable {
 		}
 	}
 	
-	public void testPaint(Graphics g) {
-		for (StaticEntityView e: staticEntitiesView) {
+
+
+	public void renderTiles(Graphics g) {
+		for (StaticEntityView e : staticEntitiesView) {
 			e.render(g);
 		}
 	}
