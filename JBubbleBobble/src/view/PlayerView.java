@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 //extends EnityView
-public class PlayerView extends EntityView {
+public class PlayerView extends MovingEntityView {
 
 	public PlayerView() {
 		img = ImageLoader.importImg("/sprites/bubblun/image_5.png");

@@ -10,9 +10,9 @@ import java.util.List;
 import model.Player;
 import model.entity.Entity;
 import model.tiles.Tile;
-import view.EntityView;
+import view.MovingEntityView;
 import view.GameFrame;
-import view.tiles.TileView;
+import view.StaticEntityView;
 
 public class LevelLoader {
 
@@ -60,7 +60,7 @@ public class LevelLoader {
 					break;
 				case BLOCK_TILE:
 					Tile t = new Tile(x * 16, y * 16, 16, 16);					
-					EntityView tv = new TileView();
+					StaticEntityView tv = new StaticEntityView("resources/blocks/normal_blocks/block_1.png");
 					level.addTile(t);
 					level.addEntityView(tv);
 					break;

@@ -9,10 +9,15 @@ import java.util.Observer;
 
 import model.entity.Entity;
 
-public class EntityView implements Observer {
+public class MovingEntityView implements Observer {
+
 	protected BufferedImage img;
 	protected float x, y;
 	protected float width, height;
+
+	public MovingEntityView(String filePath) {
+		img = ImageLoader.importImg(filePath);
+	}
 
 	public float getX() {
 		return x;
@@ -54,12 +59,12 @@ public class EntityView implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		
+
 		Entity entity = (Entity) o;
 		setX(entity.getX());
 		setY(entity.getY());
 		setWidth(entity.getWidth());
-		setHeight(entity.getHeight());	
+		setHeight(entity.getHeight());
 	}
 
 }
