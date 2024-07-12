@@ -14,7 +14,7 @@ public class Game implements Runnable {
 
 	public Game() {
 		this.player = Player.getInstance(200, 200, TILE_SIZE, TILE_SIZE);
-		PlayerView playerView = new PlayerView();
+		MovingEntityView playerView = new MovingEntityView("/sprites/bubblun/image_5.png");
 		player.addObserver(playerView);
 		PlayerController pController = new PlayerController(player);
 		player.notifyPosition();

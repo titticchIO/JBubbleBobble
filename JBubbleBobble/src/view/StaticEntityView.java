@@ -1,8 +1,14 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.Observable;
+import java.util.Observer;
 
-public class StaticEntityView {
+import model.entity.Entity;
+
+public class StaticEntityView implements Observer{
 	
 	public StaticEntityView(String filePath) {
 		img = ImageLoader.importImg(filePath);
@@ -42,6 +48,22 @@ public class StaticEntityView {
 
 	public void setHeight(float height) {
 		this.height = height;
+	}
+
+	public void render(Graphics g) {
+		g.drawImage(img, (int) x, (int) y, (int) width, (int) height, null);
+		g.setColor(Color.BLACK);
+		g.drawRect((int) x, (int) y, (int) width, (int) height);
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		Entity entity = (Entity) o;
+		setX(entity.getX());
+		setY(entity.getY());
+		setWidth(entity.getWidth());
+		setHeight(entity.getHeight());
+		
 	}
 
 }

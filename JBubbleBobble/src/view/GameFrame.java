@@ -17,7 +17,7 @@ public class GameFrame extends JFrame {
 	public final static int FRAME_WIDTH = TILE_SIZE * HORIZONTAL_TILES;
 	public final static int FRAME_HEIGHT = TILE_SIZE * VERTICAL_TILES;
 
-	public GameFrame(PlayerView playerView, PlayerController playerController, Level level) {
+	public GameFrame(MovingEntityView playerView, PlayerController playerController, Level level) {
 		this.gamePanel = new GamePanel(playerView, level);
 		add(gamePanel);
 		// Attach the PlayerController as a KeyListener
