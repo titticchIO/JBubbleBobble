@@ -24,7 +24,7 @@ public class Level extends Observable {
 	public Level(int levelNum) {
 		tiles = new ArrayList<Tile>();
 		enemies = new ArrayList<Enemy>();
-		entitiesView = new ArrayList<EntityView>();		
+		entitiesView = new ArrayList<EntityView>();
 		bManager = new BubbleManager();
 		// String textFile=LevelLoader.readLevelFile(levelNum);
 		LevelLoader.loadLevel(this, levelNum);
@@ -73,20 +73,20 @@ public class Level extends Observable {
 	public void addTile(Tile tile) {
 		tiles.add(tile);
 	}
-	
+
 	public void addEntityView(EntityView entityView) {
 		entitiesView.add(entityView);
 	}
-	
+
 	public void loadLevelTiles() {
 		for (int i = 0; i < tiles.size(); i++) {
 			tiles.get(i).addObserver(entitiesView.get(i));
 			tiles.get(i).notifyPosition();
 		}
 	}
-	
-	public void testPaint(Graphics g) {
-		for (EntityView e: entitiesView) {
+
+	public void renderTiles(Graphics g) {
+		for (EntityView e : entitiesView) {
 			e.render(g);
 		}
 	}

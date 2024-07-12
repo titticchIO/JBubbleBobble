@@ -21,7 +21,6 @@ public class Game implements Runnable {
 		Level livello1 = new Level(1);
 		livello1.loadLevelTiles();  //prova
 		gameFrame = new GameFrame(playerView, pController,livello1);
-		gameFrame.getGamePanel().tempPaint();
 		startGameLoop();
 	}
 
