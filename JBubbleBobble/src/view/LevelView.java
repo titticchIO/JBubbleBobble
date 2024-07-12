@@ -7,24 +7,25 @@ import java.util.Observer;
 
 import model.level.Level;
 import model.tiles.Tile;
-import view.tiles.TileView;
 
 public class LevelView implements Observer {
-	private PlayerView playerView;
-	private List<TileView> tiles;
-	
+	private MovingEntityView playerView;
+	private List<StaticEntityView> tiles;
+
+	// Eventually
+//	private List<MovingEntityView> movingEntities;
 
 	public LevelView() {
-		tiles = new ArrayList<TileView>();
+		tiles = new ArrayList<StaticEntityView>();
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		Level level = (Level) o;
-		for (Tile t: level.getTiles()) {
-			
+		for (Tile t : level.getTiles()) {
+
 		}
-		
+
 	}
 
 }

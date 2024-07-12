@@ -8,15 +8,15 @@ import java.util.Observer;
 
 import model.entity.Entity;
 
-public class StaticEntityView implements Observer{
-	
-	public StaticEntityView(String filePath) {
-		img = ImageLoader.importImg(filePath);
-	}
-		
+public class StaticEntityView implements Observer {
+
 	protected BufferedImage img;
 	protected float x, y;
 	protected float width, height;
+
+	public StaticEntityView(String filePath) {
+		img = ImageLoader.importImg(filePath);
+	}
 
 	public float getX() {
 		return x;
@@ -55,7 +55,7 @@ public class StaticEntityView implements Observer{
 		g.setColor(Color.BLACK);
 		g.drawRect((int) x, (int) y, (int) width, (int) height);
 	}
-	
+
 	@Override
 	public void update(Observable o, Object arg) {
 		Entity entity = (Entity) o;
@@ -63,7 +63,7 @@ public class StaticEntityView implements Observer{
 		setY(entity.getY());
 		setWidth(entity.getWidth());
 		setHeight(entity.getHeight());
-		
+
 	}
 
 }

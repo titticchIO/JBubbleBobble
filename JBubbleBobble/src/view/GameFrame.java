@@ -1,7 +1,5 @@
 package view;
 
-import java.awt.Graphics;
-
 import javax.swing.JFrame;
 
 import controller.PlayerController;
@@ -24,9 +22,7 @@ public class GameFrame extends JFrame {
 		addKeyListener(playerController);
 		setFocusable(true); // Ensure the frame is focusable
 		setFocusTraversalKeysEnabled(false); // Disable focus traversal keys
-		
-		
-		
+
 		setResizable(false);
 		pack();
 		setLocationRelativeTo(null);
