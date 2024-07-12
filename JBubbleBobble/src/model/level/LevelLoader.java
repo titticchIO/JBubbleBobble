@@ -10,6 +10,9 @@ import java.util.List;
 import model.Player;
 import model.entity.Entity;
 import model.tiles.Tile;
+import view.EntityView;
+import view.GameFrame;
+import view.tiles.TileView;
 
 public class LevelLoader {
 
@@ -26,7 +29,7 @@ public class LevelLoader {
 
 	private static String[][] readLevelFile(int levelNum) {
 
-		String[][] matrice = new String[32][30];
+		String[][] matrice = new String[GameFrame.VERTICAL_TILES][GameFrame.HORIZONTAL_TILES];
 
 		String levelPath = "resources/levels/Livello" + levelNum + ".txt";
 
@@ -52,8 +55,15 @@ public class LevelLoader {
 		for (String[] linea : matrice) {
 			for (String c : linea) {
 				switch (c.substring(0, 1)) {
-				case PLAYER -> level.addPlayer(Player.getInstance(x * 16, y * 16, 16, 16));
-				case BLOCK_TILE -> level.addTile(new Tile(x * 16, y * 16, 16, 16));
+				case PLAYER:
+					level.addPlayer(Player.getInstance(x * 16, y * 16, 16, 16));
+					break;
+				case BLOCK_TILE:
+					Tile t = new Tile(x * 16, y * 16, 16, 16);					
+					EntityView tv = new TileView();			
+					level.addTile(t);
+					level.addEntityView(tv);
+					break;
 				}
 				x++;
 			}

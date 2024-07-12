@@ -20,6 +20,7 @@ public class Game implements Runnable {
 		gameFrame = new GameFrame(playerView, pController);
 		player.notifyPosition();
 		Level livello1 = new Level(1);
+		livello1.loadLevelTiles();  //prova
 		startGameLoop();
 	}
 
