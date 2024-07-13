@@ -5,11 +5,9 @@ import view.GameFrame;
 public class HelpMethods {
 
 	public static boolean canMoveHere(float x, float y, int width, int height, String[][] lvlData) {
-		if (!isSolid(x, y, lvlData))
-			if (!isSolid(x + width, y, lvlData))
-				if (!isSolid(x, y + height, lvlData))
-					if (!isSolid(x + width, y + height, lvlData))
-						return true;
+		if (!isSolid(x, y, lvlData) && !isSolid(x + width, y, lvlData) && !isSolid(x, y + height, lvlData)
+				&& !isSolid(x + width, y + height, lvlData))
+			return true;
 		return false;
 	}
 
