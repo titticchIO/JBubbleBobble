@@ -9,6 +9,7 @@ import model.tiles.Tile;
 import view.GameFrame;
 import view.StaticEntityView;
 import static view.GameFrame.TILE_SIZE;
+import static view.GameFrame.SCALE;;
 
 public class LevelLoader {
 
