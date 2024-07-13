@@ -7,20 +7,14 @@ import view.*;
 
 public class Game implements Runnable {
 	private GameFrame gameFrame;
-	private Player player;
 	private Thread gameThread;
 	private final int FPS_SET = 120;
 	private final int UPS_SET = 200;
 
 	public Game() {
-		this.player = Player.getInstance(200, 200, TILE_SIZE, TILE_SIZE);
-		MovingEntityView playerView = new MovingEntityView("player");
-		player.addObserver(playerView);
-		PlayerController pController = new PlayerController(player);
-		player.notifyPosition();
 		Level livello1 = new Level(1);
 		LevelView livello1View=new LevelView(livello1);
-		gameFrame = new GameFrame(playerView, pController,livello1View);
+		gameFrame = new GameFrame(livello1View);
 		startGameLoop();
 	}
 
@@ -30,7 +24,7 @@ public class Game implements Runnable {
 	}
 
 	public void update() {
-		player.updateEntity();
+		Player.getInstance().updateEntity();
 		gameFrame.repaint();
 	}
 

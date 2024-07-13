@@ -12,8 +12,8 @@ public class PlayerController implements KeyListener {
 	/**
 	 * @param playerView
 	 */
-	public PlayerController(Player player) {
-		this.player = player;
+	public PlayerController() {
+		player=Player.getInstance();
 	}
 
 	@Override

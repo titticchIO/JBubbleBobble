@@ -17,6 +17,9 @@ public class LevelView implements Observer {
 //	private List<MovingEntityView> movingEntities;
 
 	public LevelView(Level level) {
+		playerView = new MovingEntityView("player");
+		level.getPlayer().addObserver(playerView);
+		level.getPlayer().notifyPosition();
 		tiles = new ArrayList<StaticEntityView>();
 		for (Tile t : level.getTiles()) {
 			StaticEntityView newTile = new StaticEntityView("tile");
@@ -26,13 +29,17 @@ public class LevelView implements Observer {
 		}
 	}
 
+	public MovingEntityView getPlayerView() {
+		return playerView;
+	}
+
 	@Override
 	public void update(Observable o, Object arg) {
 		Level level = (Level) o;
 		for (Tile t : level.getTiles()) {
 		}
 	}
-	
+
 	public void renderTiles(Graphics g) {
 		for (StaticEntityView t : tiles) {
 			t.render(g);

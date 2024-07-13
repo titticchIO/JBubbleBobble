@@ -16,11 +16,15 @@ public class GamePanel extends JPanel {
 	private MovingEntityView playerView;
 	private BufferedImage tilesImage;
 
-	public GamePanel(MovingEntityView playerView, LevelView level) {
+	public GamePanel(LevelView level) {
 		setPanelSize();
-		this.playerView = playerView;
+		this.playerView = level.getPlayerView();
 		this.level = level;
 		renderTilesOnce();
+	}
+
+	public MovingEntityView getPlayerView() {
+		return playerView;
 	}
 
 	private void setPanelSize() {
@@ -36,22 +40,23 @@ public class GamePanel extends JPanel {
 	}
 
 	@Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        // Usa double buffering per disegnare su un'immagine temporanea prima di dipingerla sul JPanel
-        Image doubleBufferedImage = createImage(getWidth(), getHeight());
-        Graphics doubleBufferedGraphics = doubleBufferedImage.getGraphics();
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		// Usa double buffering per disegnare su un'immagine temporanea prima di
+		// dipingerla sul JPanel
+		Image doubleBufferedImage = createImage(getWidth(), getHeight());
+		Graphics doubleBufferedGraphics = doubleBufferedImage.getGraphics();
 
-        if (tilesImage != null) {
-            doubleBufferedGraphics.drawImage(tilesImage, 0, 0, this);
-        }
-        if (playerView != null) {
-            playerView.render(doubleBufferedGraphics);
-        }
+		if (tilesImage != null) {
+			doubleBufferedGraphics.drawImage(tilesImage, 0, 0, this);
+		}
+		if (playerView != null) {
+			playerView.render(doubleBufferedGraphics);
+		}
 
-        g.drawImage(doubleBufferedImage, 0, 0, this);
-        doubleBufferedGraphics.dispose();
-    }
+		g.drawImage(doubleBufferedImage, 0, 0, this);
+		doubleBufferedGraphics.dispose();
+	}
 
 	@Override
 	public void repaint() {

@@ -3,16 +3,12 @@ package model.level;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 import model.Player;
-import model.entity.Entity;
 import model.tiles.Tile;
-import view.MovingEntityView;
 import view.GameFrame;
 import view.StaticEntityView;
+import static view.GameFrame.TILE_SIZE;
 
 public class LevelLoader {
 
@@ -56,7 +52,7 @@ public class LevelLoader {
 			for (String c : linea) {
 				switch (c.substring(0, 1)) {
 				case PLAYER:
-					level.addPlayer(Player.getInstance(x * 16, y * 16, 16, 16));
+					level.addPlayer(Player.getInstance(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE));
 					break;
 				case BLOCK_TILE:
 					Tile t = new Tile(x * 16, y * 16, 16, 16);
@@ -74,6 +70,12 @@ public class LevelLoader {
 	}
 
 	public static String[][] getLevelData() {
+//		for (int y=0;y<levelData.length-1;y++) {
+//			for (int x=0;x<levelData[0].length-1;x++) {
+//				if (levelData[y][x].equals("1"))
+//					levelData[y][x]=" ";
+//			}
+//		}
 		return levelData;
 	}
 }

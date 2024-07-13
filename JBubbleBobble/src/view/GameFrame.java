@@ -3,6 +3,7 @@ package view;
 import javax.swing.JFrame;
 
 import controller.PlayerController;
+import model.Player;
 import model.level.Level;
 
 public class GameFrame extends JFrame {
@@ -15,11 +16,11 @@ public class GameFrame extends JFrame {
 	public final static int FRAME_WIDTH = TILE_SIZE * HORIZONTAL_TILES;
 	public final static int FRAME_HEIGHT = TILE_SIZE * VERTICAL_TILES;
 
-	public GameFrame(MovingEntityView playerView, PlayerController playerController, LevelView level) {
-		this.gamePanel = new GamePanel(playerView, level);
+	public GameFrame(LevelView level) {
+		this.gamePanel = new GamePanel(level);
 		add(gamePanel);
 		// Attach the PlayerController as a KeyListener
-		addKeyListener(playerController);
+		addKeyListener(new PlayerController());
 		setFocusable(true); // Ensure the frame is focusable
 		setFocusTraversalKeysEnabled(false); // Disable focus traversal keys
 
@@ -33,7 +34,7 @@ public class GameFrame extends JFrame {
 	public GamePanel getGamePanel() {
 		return gamePanel;
 	}
-
+	
 	@Override
 	public void repaint() {
 		super.repaint();

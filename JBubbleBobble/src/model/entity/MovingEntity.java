@@ -61,7 +61,7 @@ public abstract class MovingEntity extends Entity {
 	 * Movement
 	 */
 	public void move() {
-		if(HelpMethods.canMoveHere(x + xSpeed, y + ySpeed, (int)width, (int)height, LevelLoader.getLevelData())) {
+		if(HelpMethods.canMoveHere(x + xSpeed, y + ySpeed, (int)width, (int)height, LevelLoader.getLevelData())) {				
 			this.x += xSpeed;
 			this.y += ySpeed;
 		}
