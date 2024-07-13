@@ -67,7 +67,6 @@ public class StaticEntityView implements Observer {
 		setY(entity.getY());
 		setWidth(entity.getWidth());
 		setHeight(entity.getHeight());
-
 	}
 
 }
