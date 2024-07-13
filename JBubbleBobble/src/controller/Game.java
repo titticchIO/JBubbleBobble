@@ -14,13 +14,13 @@ public class Game implements Runnable {
 
 	public Game() {
 		this.player = Player.getInstance(200, 200, TILE_SIZE, TILE_SIZE);
-		MovingEntityView playerView = new MovingEntityView("/sprites/bubblun/image_5.png");
+		MovingEntityView playerView = new MovingEntityView("player");
 		player.addObserver(playerView);
 		PlayerController pController = new PlayerController(player);
 		player.notifyPosition();
 		Level livello1 = new Level(1);
-		livello1.loadLevelTiles();  //prova
-		gameFrame = new GameFrame(playerView, pController,livello1);
+		LevelView livello1View=new LevelView(livello1);
+		gameFrame = new GameFrame(playerView, pController,livello1View);
 		startGameLoop();
 	}
 

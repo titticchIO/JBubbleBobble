@@ -14,8 +14,12 @@ public class StaticEntityView implements Observer {
 	protected float x, y;
 	protected float width, height;
 
-	public StaticEntityView(String filePath) {
-		img = ImageLoader.importImg(filePath);
+	public StaticEntityView(String entityName) {
+		img = switch (entityName) {
+		case "tile" -> ImageLoader.importImg("/blocks/normal_blocks/block_1.png");
+		default -> throw new IllegalArgumentException("Unexpected value: " + entityName);
+		};
+
 	}
 
 	public float getX() {

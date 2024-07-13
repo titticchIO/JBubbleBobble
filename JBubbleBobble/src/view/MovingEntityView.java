@@ -14,8 +14,11 @@ public class MovingEntityView implements Observer {
 	protected float x, y;
 	protected float width, height;
 
-	public MovingEntityView(String filePath) {
-		img = ImageLoader.importImg(filePath);
+	public MovingEntityView(String entityName) {
+		img = switch (entityName) {
+		case "player" -> ImageLoader.importImg("/sprites/bubblun/image_5.png");
+		default -> throw new IllegalArgumentException("Unexpected value: " + entityName);
+		};
 	}
 
 	public float getX() {

@@ -18,17 +18,12 @@ public class Level extends Observable {
 	private Player player;
 	private List<Enemy> enemies;
 	private List<Tile> tiles;
-	private BubbleManager bManager;	
-	private List<MovingEntityView> movingEntitiesView;
-	private List<StaticEntityView> staticEntitiesView;
+	private BubbleManager bManager;
 
 	public Level(int levelNum) {
 		tiles = new ArrayList<Tile>();
 		enemies = new ArrayList<Enemy>();
 		bManager = new BubbleManager();
-		movingEntitiesView = new ArrayList<>();	
-		staticEntitiesView = new ArrayList<>();
-		// String textFile=LevelLoader.readLevelFile(levelNum);
 		LevelLoader.loadLevel(this, levelNum);
 	}
 
@@ -75,31 +70,4 @@ public class Level extends Observable {
 	public void addTile(Tile tile) {
 		tiles.add(tile);
 	}
-
-	
-	public void addMovingEntitiesView(MovingEntityView movingEntityView) {
-		movingEntitiesView.add(movingEntityView);
-	}
-	
-	
-	public void addStaticEntitiesView(StaticEntityView staticEntityView) {
-		staticEntitiesView.add(staticEntityView);
-	}
-
-
-	public void loadLevelTiles() {
-		for (int i = 0; i < tiles.size(); i++) {
-			tiles.get(i).addObserver(staticEntitiesView.get(i));
-			tiles.get(i).notifyPosition();
-		}
-	}
-	
-
-
-	public void renderTiles(Graphics g) {
-		for (StaticEntityView e : staticEntitiesView) {
-			e.render(g);
-		}
-	}
-
 }

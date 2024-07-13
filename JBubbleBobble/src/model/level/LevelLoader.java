@@ -60,10 +60,9 @@ public class LevelLoader {
 					break;
 				case BLOCK_TILE:
 					Tile t = new Tile(x * 16, y * 16, 16, 16);
-					//StaticEntityView tv = new StaticEntityView("/blocks/normal_blocks/block_" + c.substring(1) +".png");
-					StaticEntityView tv = new StaticEntityView("/blocks/normal_blocks/block_1.png");
+					StaticEntityView tv = new StaticEntityView("tile");
 					level.addTile(t);
-					level.addStaticEntitiesView(tv);
+//					level.addStaticEntitiesView(tv);
 					break;
 				}
 				x++;

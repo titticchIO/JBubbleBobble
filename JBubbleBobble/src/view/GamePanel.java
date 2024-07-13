@@ -12,11 +12,11 @@ import static view.GameFrame.FRAME_HEIGHT;
 import model.level.Level;
 
 public class GamePanel extends JPanel {
-	private Level level;
+	private LevelView level;
 	private MovingEntityView playerView;
 	private BufferedImage tilesImage;
 
-	public GamePanel(MovingEntityView playerView, Level level) {
+	public GamePanel(MovingEntityView playerView, LevelView level) {
 		setPanelSize();
 		this.playerView = playerView;
 		this.level = level;

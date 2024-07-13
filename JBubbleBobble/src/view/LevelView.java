@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -15,17 +16,26 @@ public class LevelView implements Observer {
 	// Eventually
 //	private List<MovingEntityView> movingEntities;
 
-	public LevelView() {
+	public LevelView(Level level) {
 		tiles = new ArrayList<StaticEntityView>();
+		for (Tile t : level.getTiles()) {
+			StaticEntityView newTile = new StaticEntityView("tile");
+			t.addObserver(newTile);
+			t.notifyPosition();
+			tiles.add(newTile);
+		}
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		Level level = (Level) o;
 		for (Tile t : level.getTiles()) {
-
 		}
-
 	}
-
+	
+	public void renderTiles(Graphics g) {
+		for (StaticEntityView t : tiles) {
+			t.render(g);
+		}
+	}
 }
