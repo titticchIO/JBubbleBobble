@@ -24,7 +24,6 @@ public class Game implements Runnable {
 
 	public void update() {
 		Player.getInstance().updateEntity();
-		gameFrame.repaint();
 	}
 
 	@Override
@@ -55,7 +54,7 @@ public class Game implements Runnable {
 			}
 
 			if (deltaF >= 1) {
-				gameFrame.paintComponents(gameFrame.getGraphics());;
+				gameFrame.repaint();
 				frames++;
 				deltaF--;
 			}
