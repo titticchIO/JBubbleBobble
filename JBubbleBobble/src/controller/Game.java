@@ -2,7 +2,6 @@ package controller;
 
 import model.*;
 import model.level.Level;
-import static view.GameFrame.TILE_SIZE;
 import view.*;
 
 public class Game implements Runnable {

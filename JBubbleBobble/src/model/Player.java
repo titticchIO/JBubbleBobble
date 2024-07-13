@@ -13,6 +13,7 @@ public class Player extends MovingEntity {
 	private static Player instance;
 	
 	public static Player getInstance() {
+		if (instance==null) instance=new Player(30,30,16,16);
 		return instance;
 	}
 	

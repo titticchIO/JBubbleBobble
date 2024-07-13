@@ -12,14 +12,14 @@ import static view.GameFrame.FRAME_HEIGHT;
 import model.level.Level;
 
 public class GamePanel extends JPanel {
-	private LevelView level;
+	private LevelView levelView;
 	private MovingEntityView playerView;
 	private BufferedImage tilesImage;
 
 	public GamePanel(LevelView level) {
 		setPanelSize();
 		this.playerView = level.getPlayerView();
-		this.level = level;
+		this.levelView = level;
 		renderTilesOnce();
 	}
 
@@ -35,7 +35,7 @@ public class GamePanel extends JPanel {
 	private void renderTilesOnce() {
 		tilesImage = new BufferedImage(FRAME_WIDTH, FRAME_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		Graphics g = tilesImage.getGraphics();
-		level.renderTiles(g);
+		levelView.renderTiles(g);
 		g.dispose();
 	}
 
@@ -53,7 +53,6 @@ public class GamePanel extends JPanel {
 		if (playerView != null) {
 			playerView.render(doubleBufferedGraphics);
 		}
-
 		g.drawImage(doubleBufferedImage, 0, 0, this);
 		doubleBufferedGraphics.dispose();
 	}

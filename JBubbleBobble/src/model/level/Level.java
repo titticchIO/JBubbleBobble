@@ -1,6 +1,5 @@
 package model.level;
 
-import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -8,10 +7,7 @@ import java.util.Observable;
 import model.Player;
 import model.bubbles.BubbleManager;
 import model.enemies.Enemy;
-import model.entity.Entity;
 import model.tiles.Tile;
-import view.MovingEntityView;
-import view.StaticEntityView;
 
 public class Level extends Observable {
 

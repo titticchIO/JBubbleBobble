@@ -61,7 +61,6 @@ public class MovingEntityView implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-
 		Entity entity = (Entity) o;
 		setX(entity.getX());
 		setY(entity.getY());
