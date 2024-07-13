@@ -2,10 +2,27 @@ package model.entity;
 
 import java.util.Observable;
 
-public class Entity extends Observable {
+/**
+ * 
+ */
+public abstract class Entity extends Observable {
+	/**
+	 * Coordinates of the entity's top left corner
+	 */
 	protected float x, y;
+	/**
+	 * Width and height of the entity relative to coordinates
+	 */
 	protected float width, height;
 
+	/**
+	 * Public entity constructor
+	 * 
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 */
 	public Entity(float x, float y, float width, float height) {
 		this.x = x;
 		this.y = y;
@@ -14,59 +31,99 @@ public class Entity extends Observable {
 	}
 
 	/**
-	 * Getters and Setters
+	 * Notifies to the observers the changes in the entity's position
 	 */
-
-	
-	 public void notifyPosition() { setChanged(); notifyObservers(); }
-	 
-
-	public float getX() {
-		return x;
+	public void notifyPosition() {
+		setChanged();
+		notifyObservers();
 	}
 
+	/**
+	 * Setters
+	 */
+	
+	/**
+	 * @param x
+	 */
 	public void setX(float x) {
 		this.x = x;
 		notifyPosition();
 	}
 
-	public float getY() {
-		return y;
-	}
-
+	/**
+	 * @param y
+	 */
 	public void setY(float y) {
 		this.y = y;
 		notifyPosition();
 	}
 
-	public float getWidth() {
-		return width;
-	}
-
+	/**
+	 * @param width
+	 */
 	public void setWidth(float width) {
 		this.width = width;
 		notifyPosition();
 	}
-
-	public float getHeight() {
-		return height;
-	}
-
+	
+	/**
+	 * @param height
+	 */
 	public void setHeight(float height) {
 		this.height = height;
 		notifyPosition();
 	}
 
+	/**
+	 * Getters
+	 */
+
+	/**
+	 * @return x coordinate
+	 */
+	public float getX() {
+		return x;
+	}
+
+	/**
+	 * @return y coordinate
+	 */
+	public float getY() {
+		return y;
+	}
+
+	/**
+	 * @return entity's width
+	 */
+	public float getWidth() {
+		return width;
+	}
+
+	/**
+	 * @return entity's height
+	 */
+	public float getHeight() {
+		return height;
+	}
+
+	
+
+	/**
+	 * @return array with entity's coordinates
+	 */
 	public float[] getPosition() {
 		return new float[] { x, y };
 	}
 
+	/**
+	 * @return four entity's edges
+	 */
 	public float[][] getPoints() {
 		return new float[][] { { x, y }, { x + width, y }, { x, y + height }, { x + width, y + height } };
 	}
 
 	/**
-	 * method to check the collision with another entity from the top
+	 * Method that checks any top collision with another entity
 	 * 
 	 * @param entity
 	 * @return boolean
@@ -84,7 +141,7 @@ public class Entity extends Observable {
 	}
 
 	/**
-	 * method to check the collision with another entity from the bottom
+	 * Method that checks any bottom collision with another entity
 	 * 
 	 * @param entity
 	 * @return boolean
@@ -104,7 +161,7 @@ public class Entity extends Observable {
 	}
 
 	/**
-	 * method to check the collision with another entity
+	 * Method that checks any collision with another entity
 	 * 
 	 * @param entity
 	 * @return boolean
