@@ -26,17 +26,23 @@ public class PlayerController implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()){
 		case KeyEvent.VK_W:
-			player.setySpeed(-2);
+			player.setUp(true);
+			//player.setySpeed(-2);
 			break;
 		case KeyEvent.VK_A:
-			player.setxSpeed(-2);
+			player.setLeft(true);
+			//player.setxSpeed(-2);
 			break;
 		case KeyEvent.VK_S:
-			player.setySpeed(2);
+			player.setDown(true);
+			//player.setySpeed(2);
 			break;
 		case KeyEvent.VK_D:
-			player.setxSpeed(2);
+			player.setRight(true);
+			//player.setxSpeed(2);
 			break;
+		case KeyEvent.VK_SPACE:
+			player.setJump(true);
 		}
 	}
 
@@ -44,17 +50,23 @@ public class PlayerController implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		switch (e.getKeyCode()){
 		case KeyEvent.VK_W:
-			player.setySpeed(0);
+			player.setUp(false);
+			//player.setySpeed(0);
 			break;
 		case KeyEvent.VK_A:
-			player.setxSpeed(0);
+			player.setLeft(false);
+			//player.setxSpeed(0);
 			break;
 		case KeyEvent.VK_S:
-			player.setySpeed(0);
+			player.setDown(false);
+			//player.setySpeed(0);
 			break;
 		case KeyEvent.VK_D:
-			player.setxSpeed(0);
+			player.setRight(false);
+			//player.setxSpeed(0);
 			break;
+		case KeyEvent.VK_SPACE:
+			//player.setJump(false);
 		}
 	}
 
