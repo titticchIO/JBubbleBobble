@@ -15,15 +15,17 @@ public class HelpMethods {
 
 	private static boolean isSolid(float x, float y, String[][] lvlData) {
 		if (x < 0 || x >= GameFrame.FRAME_WIDTH) {
+			System.out.println("OUT OF BOUNDS");
 			return true;
 		}
 		if (y < 0 || y >= GameFrame.FRAME_HEIGHT) {
+			System.out.println("OUT OF BOUNDS");
 			return true;
 		}
 		int xIndex = (int) (x / GameFrame.TILE_SIZE);
 		int yIndex = (int) (y / GameFrame.TILE_SIZE);
 
-		String value = lvlData[xIndex][yIndex];
+		String value = lvlData[yIndex][xIndex];
 
 		return "#".equals(value.substring(0, 1)); // casi in cui c'è un blocco
 	}

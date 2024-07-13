@@ -58,7 +58,6 @@ public class LevelLoader {
 					Tile t = new Tile(x * 16, y * 16, 16, 16);
 					StaticEntityView tv = new StaticEntityView("tile");
 					level.addTile(t);
-//					level.addStaticEntitiesView(tv);
 					break;
 				}
 				x++;
