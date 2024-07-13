@@ -70,12 +70,6 @@ public class LevelLoader {
 	}
 
 	public static String[][] getLevelData() {
-//		for (int y=0;y<levelData.length-1;y++) {
-//			for (int x=0;x<levelData[0].length-1;x++) {
-//				if (levelData[y][x].equals("1"))
-//					levelData[y][x]=" ";
-//			}
-//		}
 		return levelData;
 	}
 }
