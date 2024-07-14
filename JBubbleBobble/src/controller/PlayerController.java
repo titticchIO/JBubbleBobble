@@ -3,6 +3,7 @@ package controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import model.entities.MovingEntity.Directions;
 import model.entities.Player;
 import view.GameFrame;
 
@@ -32,10 +33,10 @@ public class PlayerController implements KeyListener {
 			player.jump();
 			break;
 		case KeyEvent.VK_A:
-			player.setxSpeed(-2 * GameFrame.SCALE);
+			player.move(Directions.LEFT);
 			break;
 		case KeyEvent.VK_D:
-			player.setxSpeed(2 * GameFrame.SCALE);
+			player.move(Directions.RIGHT);
 			break;
 		}
 	}
@@ -47,13 +48,10 @@ public class PlayerController implements KeyListener {
 			player.setySpeed(0);
 			break;
 		case KeyEvent.VK_A:
-			player.setxSpeed(0);
-			break;
-		case KeyEvent.VK_S:
-			player.setySpeed(0);
+			player.stop();
 			break;
 		case KeyEvent.VK_D:
-			player.setxSpeed(0);
+			player.stop();
 			break;
 		}
 	}

@@ -6,6 +6,10 @@ import model.HelpMethods;
 
 public abstract class MovingEntity extends Entity {
 
+	public enum Directions {
+		RIGHT, LEFT
+	}
+
 	/**
 	 * Movement speed on x axis: positive up and negative down
 	 */
@@ -74,50 +78,6 @@ public abstract class MovingEntity extends Entity {
 		return ySpeed;
 	}
 
-	/**
-	 * Acceleration
-	 */
-
-	/**
-	 * Increments by n the speed on x axis
-	 * 
-	 * @param n
-	 */
-	public void setxAcceleration(float n) {
-		setxSpeed(getxSpeed() + n);
-	}
-
-	/**
-	 * Increments by n the speed on y axis
-	 * 
-	 * @param n
-	 */
-	public void setyAcceleration(float n) {
-		setySpeed(getySpeed() + n);
-	}
-
-	/**
-	 * Deceleration
-	 */
-
-	/**
-	 * Reduces by n the speed on x axis
-	 * 
-	 * @param n
-	 */
-	public void setxDeceleration(float n) {
-		setxSpeed(getxSpeed() - n);
-	}
-
-	/**
-	 * Reduces by n the speed on y axis
-	 * 
-	 * @param n
-	 */
-	public void setyDeceleration(float n) {
-		setySpeed(getySpeed() - n);
-	}
-
 	private void updateYPos() {
 		if (HelpMethods.canMoveHere(x, y + airSpeed, (int) width, (int) height, LevelLoader.getLevelData())) {
 			setY(y + airSpeed);
@@ -132,12 +92,6 @@ public abstract class MovingEntity extends Entity {
 		} else {
 			x = HelpMethods.getEntityXPosNextToWall(this, xSpeed);
 		}
-
-	}
-
-	public void resetInAir() {
-		inAir = false;
-		airSpeed = 0;
 	}
 
 	public void jump() {
@@ -145,6 +99,26 @@ public abstract class MovingEntity extends Entity {
 			inAir = true;
 			airSpeed = jumpSpeed;
 		}
+	}
+
+	public void resetInAir() {
+		inAir = false;
+		airSpeed = 0;
+	}
+	
+	public void stop() {
+		if (xSpeed==0) return;
+		while (xSpeed>0) 
+			xSpeed-=0.1f;
+		while (xSpeed<0)
+			xSpeed+=0.1f;
+	}
+	
+	public void move(Directions dir) {
+		if (dir == Directions.LEFT)
+			setxSpeed(-2);
+		else
+			setxSpeed(2);
 	}
 
 	/**
@@ -181,4 +155,5 @@ public abstract class MovingEntity extends Entity {
 		setChanged();
 		notifyObservers("y");
 	}
+
 }
