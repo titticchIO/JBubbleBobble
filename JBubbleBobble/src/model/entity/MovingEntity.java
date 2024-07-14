@@ -210,7 +210,7 @@ public abstract class MovingEntity extends Entity {
 				airSpeed += gravity;
 				updateXPos(xSpeed);
 			} else {
-				y += HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed);
+				y = HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed);
 				// notifyPosition();
 				if (airSpeed > 0)
 					resetInAir();
