@@ -1,4 +1,4 @@
-package model.entity;
+package model.entities;
 
 import model.level.LevelLoader;
 import view.GameFrame;
@@ -179,7 +179,7 @@ public abstract class MovingEntity extends Entity {
 	public void updateEntity() {
 		updateYPos();
 		gravity();
-
+		walk();
 		setChanged();
 		notifyObservers("y");
 	}

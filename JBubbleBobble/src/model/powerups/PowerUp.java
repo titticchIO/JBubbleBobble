@@ -1,6 +1,6 @@
 package model.powerups;
 
-import model.entity.Entity;
+import model.entities.Entity;
 
 public abstract class PowerUp extends Entity{	
 

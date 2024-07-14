@@ -1,6 +1,6 @@
 package model.tiles;
 
-import model.entity.Entity;
+import model.entities.Entity;
 
 public class Tile extends Entity{
 

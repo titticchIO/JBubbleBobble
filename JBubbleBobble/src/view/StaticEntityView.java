@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.entity.Entity;
+import model.entities.Entity;
 
 public class StaticEntityView implements Observer {
 

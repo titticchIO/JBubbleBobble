@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.Player;
+import model.entities.Player;
 import model.level.Level;
 import model.tiles.Tile;
 

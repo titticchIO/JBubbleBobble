@@ -1,7 +1,7 @@
 package model.enemies;
 
 import model.Attack;
-import model.entity.MovingEntity;
+import model.entities.MovingEntity;
 
 public abstract class Enemy extends MovingEntity implements Attack {
 	

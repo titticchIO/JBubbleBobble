@@ -3,7 +3,7 @@ package view;
 import javax.swing.JFrame;
 
 import controller.PlayerController;
-import model.Player;
+import model.entities.Player;
 import model.level.Level;
 
 public class GameFrame extends JFrame {

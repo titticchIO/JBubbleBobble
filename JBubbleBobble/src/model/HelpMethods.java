@@ -2,7 +2,7 @@ package model;
 
 import java.awt.geom.Rectangle2D;
 
-import model.entity.MovingEntity;
+import model.entities.MovingEntity;
 import view.GameFrame;
 
 public class HelpMethods {

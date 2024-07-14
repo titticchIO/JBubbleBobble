@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import model.Player;
+import model.entities.Player;
 import model.tiles.Tile;
 import view.GameFrame;
 import view.StaticEntityView;

@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import model.entities.Player;
 import model.level.Level;
 import view.*;
 

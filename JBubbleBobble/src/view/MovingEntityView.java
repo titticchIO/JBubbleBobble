@@ -7,8 +7,8 @@ import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.entity.Entity;
-import model.entity.MovingEntity;
+import model.entities.Entity;
+import model.entities.MovingEntity;
 
 public class MovingEntityView implements Observer {
 

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import model.Player;
 import model.bubbles.BubbleManager;
 import model.enemies.Enemy;
+import model.entities.Player;
 import model.tiles.Tile;
 
 public class Level extends Observable {
