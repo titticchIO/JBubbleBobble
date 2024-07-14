@@ -12,7 +12,7 @@ public class Game implements Runnable {
 
 	public Game() {
 		Level livello1 = new Level(1);
-		LevelView livello1View=new LevelView(livello1);
+		LevelView livello1View = new LevelView(livello1);
 		gameFrame = new GameFrame(livello1View);
 		startGameLoop();
 	}
@@ -30,7 +30,7 @@ public class Game implements Runnable {
 	public void run() {
 		double timePerFrame = 1000000000.0 / FPS_SET;
 		double timePerUpdate = 1000000000.0 / UPS_SET;
-
+		double timePerAnimationUpdate = 1000000000.0 / 4; // 4 aggiornamenti al secondo
 		long previousTime = System.nanoTime();
 
 		int frames = 0;
@@ -39,12 +39,14 @@ public class Game implements Runnable {
 
 		double deltaU = 0;
 		double deltaF = 0;
+		double deltaA = 0; // Delta per l'animazion
 
 		while (true) {
 			long currentTime = System.nanoTime();
 
 			deltaU += (currentTime - previousTime) / timePerUpdate;
 			deltaF += (currentTime - previousTime) / timePerFrame;
+			deltaA += (currentTime - previousTime) / timePerAnimationUpdate;
 			previousTime = currentTime;
 
 			if (deltaU >= 1) {
@@ -58,6 +60,10 @@ public class Game implements Runnable {
 				frames++;
 				deltaF--;
 			}
+			if (deltaA >= 1) {
+	            gameFrame.getGamePanel().getPlayerView().updateAnimationImg();
+	            deltaA--;
+	        }
 
 			if (System.currentTimeMillis() - lastCheck >= 1000) {
 				lastCheck = System.currentTimeMillis();
