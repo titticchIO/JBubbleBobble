@@ -1,5 +1,8 @@
 package model;
 
+import java.awt.geom.Rectangle2D;
+
+import model.entity.MovingEntity;
 import view.GameFrame;
 
 public class HelpMethods {
@@ -20,11 +23,40 @@ public class HelpMethods {
 			System.out.println("OUT OF BOUNDS");
 			return true;
 		}
-		int xIndex = (int) (x / GameFrame.TILE_SIZE);
-		int yIndex = (int) (y / GameFrame.TILE_SIZE);
+		float xIndex = x / GameFrame.TILE_SIZE;
+		float yIndex = y / GameFrame.TILE_SIZE;
 
-		String value = lvlData[yIndex][xIndex];
+		String value = lvlData[(int)yIndex][(int)xIndex];
 
 		return "#".equals(value.substring(0, 1)); // casi in cui c'è un blocco
 	}
+	
+	public static float getEntityXPosNextToWall(MovingEntity movingEntity, float xSpeed) {
+		int currentTile = (int) (movingEntity.getX() / GameFrame.TILE_SIZE);
+		if(xSpeed > 0) {
+			//right
+			int tileXPos = currentTile * GameFrame.TILE_SIZE;
+			int xOffset = (int) (GameFrame.TILE_SIZE - movingEntity.getWidth());
+			return tileXPos + xOffset -1;
+		} else {
+			//left
+			return currentTile * GameFrame.TILE_SIZE;
+		}
+	}
+	
+	public static float getEntityPosUnderRoofOrAboveFloor(MovingEntity movingEntity, float airSpeed) {
+		int currentTile = (int) (movingEntity.getY() / GameFrame.TILE_SIZE);
+		if(airSpeed > 0) {
+			//falling or touching floor
+			int tileYPos = currentTile * GameFrame.TILE_SIZE;
+			int yOffset = (int) (GameFrame.TILE_SIZE - movingEntity.getHeight());
+			return tileYPos + yOffset - 1 ;
+		} else {
+			//jumping
+			return currentTile * GameFrame.TILE_SIZE;
+		}
+		
+	}
+	
+	
 }
