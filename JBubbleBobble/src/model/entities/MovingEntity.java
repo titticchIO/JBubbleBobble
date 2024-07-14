@@ -107,11 +107,7 @@ public abstract class MovingEntity extends Entity {
 	}
 	
 	public void stop() {
-		if (xSpeed==0) return;
-		while (xSpeed>0) 
-			xSpeed-=0.1f;
-		while (xSpeed<0)
-			xSpeed+=0.1f;
+		setxSpeed(0);
 	}
 	
 	public void move(Directions dir) {
@@ -149,6 +145,7 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	public void updateEntity() {
+		System.out.println(xSpeed);
 		updateYPos();
 		gravity();
 		walk();
