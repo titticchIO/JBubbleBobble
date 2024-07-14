@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -13,15 +14,25 @@ public class MovingEntityView implements Observer {
 	private BufferedImage img;
 	private float x, y;
 	private float width, height;
-	
+	private Animation animation;
+	private Iterator<BufferedImage> animationIterator;
+
 
 	public MovingEntityView(String entityName) {
 		img = switch (entityName) {
 		case "player" -> ImageLoader.importImg("/sprites/bubblun/image_5.png");
 		default -> throw new IllegalArgumentException("Unexpected value: " + entityName);
 		};
+		if (entityName.equals("player")){
+			animation=new Animation();
+			animationIterator=animation.iterator();
+		}
 	}
-
+	
+	public void updateAnimationImg() {
+		img=animationIterator.next();
+	}
+	
 	public float getX() {
 		return x;
 	}

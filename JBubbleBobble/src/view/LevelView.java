@@ -36,6 +36,10 @@ public class LevelView implements Observer {
 		}
 	}
 
+	public void updatePlayerAnimation() {
+		playerView.updateAnimationImg();
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
