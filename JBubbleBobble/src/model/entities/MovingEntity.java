@@ -129,19 +129,16 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	public void gravity() {
-		if (!HelpMethods.isSolid((int) x, (int) y, LevelLoader.getLevelData())) {
-			if (HelpMethods.canMoveHere(x, y + airSpeed, (int) width, (int) height, LevelLoader.getLevelData())) {
-				y += airSpeed;
-				airSpeed += gravity;
-			} else {
-				y = HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed);
-				if (airSpeed > 0)
-					resetInAir();
-				else
-					airSpeed = fallSpeedAfterCollision;
-			}
+		if (HelpMethods.canMoveHere(x, y + airSpeed, (int) width, (int) height, LevelLoader.getLevelData())) {
+			y += airSpeed;
+			airSpeed += gravity;
+		} else {
+			y = HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed);
+			if (airSpeed > 0)
+				resetInAir();
+			else
+				airSpeed = fallSpeedAfterCollision;
 		}
-
 	}
 
 	public void updateEntity() {
