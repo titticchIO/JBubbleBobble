@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import model.Player;
+import view.GameFrame;
 
 
 public class PlayerController implements KeyListener {
@@ -26,23 +27,16 @@ public class PlayerController implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()){
 		case KeyEvent.VK_W:
-			player.setUp(true);
-			//player.setySpeed(-2);
+			player.jump();
 			break;
 		case KeyEvent.VK_A:
-			player.setLeft(true);
-			//player.setxSpeed(-2);
-			break;
-		case KeyEvent.VK_S:
-			player.setDown(true);
-			//player.setySpeed(2);
+			player.setxSpeed(-2*GameFrame.SCALE);
+			player.walk();
 			break;
 		case KeyEvent.VK_D:
-			player.setRight(true);
-			//player.setxSpeed(2);
+			player.setxSpeed(2*GameFrame.SCALE);
+			player.walk();
 			break;
-		case KeyEvent.VK_SPACE:
-			player.setJump(true);
 		}
 	}
 
@@ -50,23 +44,17 @@ public class PlayerController implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		switch (e.getKeyCode()){
 		case KeyEvent.VK_W:
-			player.setUp(false);
-			//player.setySpeed(0);
+			player.setySpeed(0);
 			break;
 		case KeyEvent.VK_A:
-			player.setLeft(false);
-			//player.setxSpeed(0);
+			player.setxSpeed(0);
 			break;
 		case KeyEvent.VK_S:
-			player.setDown(false);
-			//player.setySpeed(0);
+			player.setySpeed(0);
 			break;
 		case KeyEvent.VK_D:
-			player.setRight(false);
-			//player.setxSpeed(0);
+			player.setxSpeed(0);
 			break;
-		case KeyEvent.VK_SPACE:
-			//player.setJump(false);
 		}
 	}
 

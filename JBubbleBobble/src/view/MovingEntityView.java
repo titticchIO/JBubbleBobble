@@ -8,6 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import model.entity.Entity;
+import model.entity.MovingEntity;
 
 public class MovingEntityView implements Observer {
 
@@ -17,22 +18,21 @@ public class MovingEntityView implements Observer {
 	private Animation animation;
 	private Iterator<BufferedImage> animationIterator;
 
-
 	public MovingEntityView(String entityName) {
 		img = switch (entityName) {
 		case "player" -> ImageLoader.importImg("/sprites/bubblun/image_5.png");
 		default -> throw new IllegalArgumentException("Unexpected value: " + entityName);
 		};
-		if (entityName.equals("player")){
-			animation=new Animation();
-			animationIterator=animation.iterator();
+		if (entityName.equals("player")) {
+			animation = new Animation();
+			animationIterator = animation.iterator();
 		}
 	}
-	
+
 	public void updateAnimationImg() {
-		img=animationIterator.next();
+		img = animationIterator.next();
 	}
-	
+
 	public float getX() {
 		return x;
 	}
@@ -73,11 +73,26 @@ public class MovingEntityView implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		Entity entity = (Entity) o;
-		setX(entity.getX());
-		setY(entity.getY());
-		setWidth(entity.getWidth());
-		setHeight(entity.getHeight());
+		MovingEntity entity = (MovingEntity) o;
+		String msg = (String) arg;
+
+		switch (msg) {
+		case "initial":
+			setWidth(entity.getWidth());
+			setHeight(entity.getHeight());
+			setX(entity.getX());
+			setY(entity.getY());
+			break;
+		case "walking":
+			setX(entity.getX());
+			break;
+		case "y":
+			setY(entity.getY());
+			break;
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + msg);
+		}
+
 	}
 
 }

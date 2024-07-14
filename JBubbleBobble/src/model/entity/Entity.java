@@ -33,7 +33,7 @@ public abstract class Entity extends Observable {
 	 */
 	public void notifyPosition() {
 		setChanged();
-		notifyObservers();
+		notifyObservers("initial");
 	}
 
 	/**
