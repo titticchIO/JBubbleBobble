@@ -152,9 +152,7 @@ public abstract class MovingEntity extends Entity {
 	 */
 	public void walk() {
 //		moving = true;
-
 		updateXPos();
-
 		setChanged();
 		notifyObservers("walking");
 
