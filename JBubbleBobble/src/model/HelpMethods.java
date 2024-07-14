@@ -1,7 +1,5 @@
 package model;
 
-import java.awt.geom.Rectangle2D;
-
 import model.entities.MovingEntity;
 import view.GameFrame;
 
@@ -32,17 +30,17 @@ public class HelpMethods {
 	}
 
 	public static float getEntityXPosNextToWall(MovingEntity movingEntity, float xSpeed) {
-		int currentTile = (int) (movingEntity.getX() / GameFrame.TILE_SIZE);
-		if (xSpeed > 0) {
-			// right
-			int tileXPos = currentTile * GameFrame.TILE_SIZE;
-			int xOffset = (int) (GameFrame.TILE_SIZE - movingEntity.getWidth());
-			return tileXPos + xOffset - 1 + movingEntity.getWidth();
-		} else {
-			// left
-			return currentTile * GameFrame.TILE_SIZE;
-		}
+	    int currentTile = (int) (movingEntity.getX() / GameFrame.TILE_SIZE);
+	    if (xSpeed > 0) {
+	        // right
+	        int tileXPos = (currentTile + 1) * GameFrame.TILE_SIZE;
+	        return tileXPos - movingEntity.getWidth();
+	    } else {
+	        // left
+	        return currentTile * GameFrame.TILE_SIZE;
+	    }
 	}
+
 
 	public static float getEntityPosUnderRoofOrAboveFloor(MovingEntity movingEntity, float airSpeed) {
 		int currentTile = (int) (movingEntity.getY() / GameFrame.TILE_SIZE);

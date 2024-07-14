@@ -145,7 +145,6 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	public void updateEntity() {
-		System.out.println(xSpeed);
 		updateYPos();
 		gravity();
 		walk();

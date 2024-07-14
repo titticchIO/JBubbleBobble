@@ -53,7 +53,7 @@ public class LevelLoader {
 			for (String c : linea) {
 				switch (c.substring(0, 1)) {
 				case PLAYER:
-					level.addPlayer(Player.getInstance(x * TILE_SIZE, y * TILE_SIZE-1, TILE_SIZE, TILE_SIZE));
+					level.addPlayer(Player.getInstance(x * TILE_SIZE, y * TILE_SIZE-1, TILE_SIZE-1*SCALE, TILE_SIZE));
 					break;
 				case BLOCK_TILE:
 					Tile t = new Tile(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);

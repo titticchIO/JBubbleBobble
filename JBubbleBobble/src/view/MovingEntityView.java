@@ -19,6 +19,9 @@ public class MovingEntityView implements Observer {
 	private Iterator<BufferedImage> animationIterator;
 
 	public MovingEntityView(String entityName) {
+		width=GameFrame.TILE_SIZE;
+		height=GameFrame.TILE_SIZE;
+		
 		img = switch (entityName) {
 		case "player" -> ImageLoader.importImg("/sprites/bubblun/image_5.png");
 		default -> throw new IllegalArgumentException("Unexpected value: " + entityName);
@@ -78,8 +81,6 @@ public class MovingEntityView implements Observer {
 
 		switch (msg) {
 		case "initial":
-			setWidth(entity.getWidth());
-			setHeight(entity.getHeight());
 			setX(entity.getX());
 			setY(entity.getY());
 			break;
