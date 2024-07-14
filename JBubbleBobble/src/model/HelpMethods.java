@@ -12,7 +12,7 @@ public class HelpMethods {
 		return false;
 	}
 
-	private static boolean isSolid(float x, float y, String[][] lvlData) {
+	public static boolean isSolid(float x, float y, String[][] lvlData) {
 		if (x < 0 || x >= GameFrame.FRAME_WIDTH) {
 			System.out.println("OUT OF BOUNDS");
 			return true;
@@ -30,17 +30,16 @@ public class HelpMethods {
 	}
 
 	public static float getEntityXPosNextToWall(MovingEntity movingEntity, float xSpeed) {
-	    int currentTile = (int) (movingEntity.getX() / GameFrame.TILE_SIZE);
-	    if (xSpeed > 0) {
-	        // right
-	        int tileXPos = (currentTile + 1) * GameFrame.TILE_SIZE;
-	        return tileXPos - movingEntity.getWidth();
-	    } else {
-	        // left
-	        return currentTile * GameFrame.TILE_SIZE;
-	    }
+		int currentTile = (int) (movingEntity.getX() / GameFrame.TILE_SIZE);
+		if (xSpeed > 0) {
+			// right
+			int tileXPos = (currentTile + 1) * GameFrame.TILE_SIZE;
+			return tileXPos - movingEntity.getWidth();
+		} else {
+			// left
+			return currentTile * GameFrame.TILE_SIZE;
+		}
 	}
-
 
 	public static float getEntityPosUnderRoofOrAboveFloor(MovingEntity movingEntity, float airSpeed) {
 		int currentTile = (int) (movingEntity.getY() / GameFrame.TILE_SIZE);
@@ -53,7 +52,6 @@ public class HelpMethods {
 			// jumping
 			return (currentTile * GameFrame.TILE_SIZE);
 		}
-
 	}
 
 }

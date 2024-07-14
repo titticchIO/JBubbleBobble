@@ -105,11 +105,11 @@ public abstract class MovingEntity extends Entity {
 		inAir = false;
 		airSpeed = 0;
 	}
-	
+
 	public void stop() {
 		setxSpeed(0);
 	}
-	
+
 	public void move(Directions dir) {
 		if (dir == Directions.LEFT)
 			setxSpeed(-2);
@@ -129,7 +129,7 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	public void gravity() {
-		if (inAir) {
+		if (!HelpMethods.isSolid((int) x, (int) y, LevelLoader.getLevelData())) {
 			if (HelpMethods.canMoveHere(x, y + airSpeed, (int) width, (int) height, LevelLoader.getLevelData())) {
 				y += airSpeed;
 				airSpeed += gravity;
