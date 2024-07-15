@@ -35,8 +35,9 @@ public class Sprite extends JButton{
 	public void render(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;  // Cast to Graphics2D
 	    float thickness = 2;  // Define the thickness you want
-	    g2.setStroke(new BasicStroke(thickness));  // Set the stroke thickness
-	    g2.drawRect(x*EditorPanel.SQUARE_SIZE, y*EditorPanel.SQUARE_SIZE, (int) side_length, (int) side_length);  // Draw the rectangle
+		g2.setStroke(new BasicStroke(thickness));  // Set the stroke thickness
+		g2.drawRect(x * EditorPanel.SQUARE_SIZE, y * EditorPanel.SQUARE_SIZE, (int) side_length, (int) side_length);  // Draw the rectangle
+		g2.drawImage(img, x* EditorPanel.SQUARE_SIZE + 2, y* EditorPanel.SQUARE_SIZE + 3, (int) side_length - 3, (int) side_length - 3, null);
 	}
 	
 }
