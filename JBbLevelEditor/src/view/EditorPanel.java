@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -20,12 +21,12 @@ public class EditorPanel extends JPanel {
 
 	public EditorPanel() {
 		setSize();
-
+		setBackground(Color.LIGHT_GRAY);
 		sprites = new ArrayList<Sprite>();
 		setLayout(new GridLayout(ROWS, COLS));
 		for (int y = 0; y < ROWS; y++) {
 			for (int x = 0; x < COLS; x++) {
-				Sprite sprite = new Sprite(x, y, SQUARE_SIZE, ImageLoader.importImg("/sprites/bubblun/image_5.png"));
+				Sprite sprite = new Sprite(x, y, SQUARE_SIZE);
 				add(sprite);
 				sprites.add(sprite);
 			}
@@ -37,6 +38,9 @@ public class EditorPanel extends JPanel {
 		super.paintComponent(g);
 		for (Sprite s : sprites) {
 			s.render(g);
+			if (s.getImg()!=null) {
+				s.drawSprite(g);
+			}
 		}
 	}
 
