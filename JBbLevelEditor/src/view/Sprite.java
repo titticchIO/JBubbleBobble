@@ -15,8 +15,20 @@ public class Sprite extends JButton{
 		this.y = y;
 		this.side_length = side_length;
 		this.img = img;
-		
 		setVisible(false);
+		setEnabled(true);
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public float getSide_length() {
+		return side_length;
 	}
 
 	public void render(Graphics g) {

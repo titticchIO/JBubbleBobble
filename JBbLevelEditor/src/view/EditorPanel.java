@@ -44,4 +44,8 @@ public class EditorPanel extends JPanel{
 		Dimension size = new Dimension(PANEL_WIDTH,PANEL_HEIGHT);
 		setPreferredSize(size);
 	}
+
+	public List<Sprite> getSprites() {
+		return sprites;
+	}
 }
