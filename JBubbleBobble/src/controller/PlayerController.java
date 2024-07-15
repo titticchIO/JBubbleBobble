@@ -47,10 +47,12 @@ public class PlayerController implements KeyListener {
 			player.setySpeed(0);
 			break;
 		case KeyEvent.VK_A:
-			player.stop();
+			if (player.getxSpeed() < 0)
+				player.stop();
 			break;
 		case KeyEvent.VK_D:
-			player.stop();
+			if (player.getxSpeed() > 0)
+				player.stop();
 			break;
 		}
 	}

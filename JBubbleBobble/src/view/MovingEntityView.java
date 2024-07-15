@@ -70,8 +70,10 @@ public class MovingEntityView implements Observer {
 
 	public void render(Graphics g) {
 		g.drawImage(img, (int) x, (int) y, (int) width, (int) height, null);
-		g.setColor(Color.BLACK);
-		g.drawRect((int) x, (int) y, (int) width, (int) height);
+
+		//DRAW HITBOX
+//		g.setColor(Color.BLACK);
+//		g.drawRect((int) x, (int) y, (int) width, (int) height);
 	}
 
 	@Override

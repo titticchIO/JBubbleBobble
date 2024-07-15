@@ -25,8 +25,8 @@ public abstract class MovingEntity extends Entity {
 
 	// jumping and gravity
 	private float airSpeed = 0f;
-	private float gravity = 0.04f * GameFrame.SCALE;
-	private float jumpSpeed = -2.25f * GameFrame.SCALE;
+	private float gravity = 0.02f * GameFrame.SCALE;
+	private float jumpSpeed = -1.25f * GameFrame.SCALE;
 	private float fallSpeedAfterCollision = 0.5f * GameFrame.SCALE;
 	private boolean inAir = false;
 
