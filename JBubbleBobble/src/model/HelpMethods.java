@@ -1,6 +1,7 @@
 package model;
 
 import model.entities.MovingEntity;
+import model.level.LevelLoader;
 import view.GameFrame;
 
 public class HelpMethods {
@@ -54,14 +55,31 @@ public class HelpMethods {
 		}
 	}
 
+//	checks if any of the pixels under the entity are solid
 	public static boolean isEntityGrounded(MovingEntity movingEntity, String[][] lvlData) {
-		for (float x=movingEntity.getX();x<movingEntity.getX()+movingEntity.getWidth();x++) {
-			if (isSolid(x, movingEntity.getY()+movingEntity.getHeight()+1, lvlData))
+		for (float x = movingEntity.getX(); x < movingEntity.getX() + movingEntity.getWidth(); x++) {
+			if (isSolid(x, movingEntity.getY() + movingEntity.getHeight() + 1, lvlData))
 				return true;
 		}
 		return false;
-		
-//		return isSolid(movingEntity.getX()+movingEntity.getWidth()+1, movingEntity.getY()+movingEntity.getHeight()+1, lvlData);
+	}
+	
+//	checks if any pixel in the line is solid
+	public static boolean isSolidHorizontalLine(float x1, float x2, float y) {
+		for (float x = x1; x <= x2; x += 0.1) {
+			if (isSolid(x, y, LevelLoader.getLevelData()))
+				return true;
+		}
+		return false;
+	}
+
+//	checks if any pixel in the line is solid
+	public static boolean isSolidVerticalLine(float x, float y1, float y2) {
+		for (float y = y1; y <= y2; y += 0.1) {
+			if (isSolid(x, y, LevelLoader.getLevelData()))
+				return true;
+		}
+		return false;
 	}
 
 }

@@ -25,6 +25,7 @@ public class MovingEntityView implements Observer {
 		img = switch (entityName) {
 		case "player" -> ImageLoader.importImg("/sprites/bubblun/image_5.png");
 		case "Zen-Chan" -> ImageLoader.importImg("/sprites/zen-chan/image_487.png");
+		case "Monsta" -> ImageLoader.importImg("/sprites/monsta/image_444.png");
 		default -> throw new IllegalArgumentException("Unexpected value: " + entityName);
 		};
 		if (entityName.equals("player")) {

@@ -13,13 +13,13 @@ public abstract class MovingEntity extends Entity {
 	/**
 	 * Movement speed on x axis: positive up and negative down
 	 */
-	private float xSpeed;
+	protected float xSpeed;
 
 	private boolean moving;
 	private int playerSpeed = 2;
 
 	// jumping and gravity
-	private float airSpeed = 0f;
+	protected float airSpeed = 0f;
 	private float gravity = 0.02f * GameFrame.SCALE;
 	private float jumpSpeed = -1.25f * GameFrame.SCALE;
 	private float fallSpeedAfterCollision = 0.5f * GameFrame.SCALE;
@@ -59,7 +59,7 @@ public abstract class MovingEntity extends Entity {
 		return xSpeed;
 	}
 
-	private void updateYPos() {
+	protected void updateYPos() {
 		if (HelpMethods.canMoveHere(x, y + airSpeed, (int) width, (int) height, LevelLoader.getLevelData())) {
 			setY(y + airSpeed);
 		} else {

@@ -2,12 +2,12 @@ package model.enemies;
 
 import static model.HelpMethods.isSolid;
 
-import model.level.LevelLoader;;
+import model.level.LevelLoader;
 
 public class Zen_chan extends Enemy {
 
-	public Zen_chan(float x, float y, float width, float height, String name) {
-		super(x, y, width, height, name);
+	public Zen_chan(float x, float y, float width, float height) {
+		super(x, y, width, height, "Zen-Chan");
 		setxSpeed(0.5f);
 	}
 
