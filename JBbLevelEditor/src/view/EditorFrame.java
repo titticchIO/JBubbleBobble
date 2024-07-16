@@ -10,10 +10,13 @@ import javax.swing.JFrame;
 
 public class EditorFrame extends JFrame {
 	EditorPanel editorPanel;
+	SpriteSelectionScrollPane selectionPane;
 	public EditorFrame() {
 		setLayout(new BorderLayout());
 		editorPanel=new EditorPanel();
+		selectionPane=new SpriteSelectionScrollPane();
 		add(editorPanel,BorderLayout.CENTER);
+		add(selectionPane,BorderLayout.SOUTH);
 		pack();
 		setLocationRelativeTo(null);
 		setResizable(false);
