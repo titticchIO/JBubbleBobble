@@ -54,4 +54,14 @@ public class HelpMethods {
 		}
 	}
 
+	public static boolean isEntityGrounded(MovingEntity movingEntity, String[][] lvlData) {
+		for (float x=movingEntity.getX();x<movingEntity.getX()+movingEntity.getWidth();x++) {
+			if (isSolid(x, movingEntity.getY()+movingEntity.getHeight()+1, lvlData))
+				return true;
+		}
+		return false;
+		
+//		return isSolid(movingEntity.getX()+movingEntity.getWidth()+1, movingEntity.getY()+movingEntity.getHeight()+1, lvlData);
+	}
+
 }

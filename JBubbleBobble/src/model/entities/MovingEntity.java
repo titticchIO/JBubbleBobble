@@ -15,11 +15,6 @@ public abstract class MovingEntity extends Entity {
 	 */
 	private float xSpeed;
 
-	/**
-	 * Movement speed on y axis: positive right and negative left
-	 */
-	private float ySpeed;
-
 	private boolean moving;
 	private int playerSpeed = 2;
 
@@ -54,13 +49,6 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	/**
-	 * @param ySpeed
-	 */
-	public void setySpeed(float ySpeed) {
-		this.ySpeed = ySpeed;
-	}
-
-	/**
 	 * Getters
 	 */
 
@@ -69,13 +57,6 @@ public abstract class MovingEntity extends Entity {
 	 */
 	public float getxSpeed() {
 		return xSpeed;
-	}
-
-	/**
-	 * @return movement speed on y axis
-	 */
-	public float getySpeed() {
-		return ySpeed;
 	}
 
 	private void updateYPos() {
@@ -103,7 +84,15 @@ public abstract class MovingEntity extends Entity {
 
 	public void resetInAir() {
 		inAir = false;
-		airSpeed = 0;
+		airSpeed = 0.000000000000000000000000f;
+	}
+
+	public float getAirSpeed() {
+		return airSpeed;
+	}
+
+	public void setAirSpeed(float airSpeed) {
+		this.airSpeed = airSpeed;
 	}
 
 	public void stop() {
@@ -112,9 +101,9 @@ public abstract class MovingEntity extends Entity {
 
 	public void move(Directions dir) {
 		if (dir == Directions.LEFT)
-			setxSpeed(-2);
+			setxSpeed((int)-1);
 		else
-			setxSpeed(2);
+			setxSpeed((int)1);
 	}
 
 	/**
@@ -130,6 +119,8 @@ public abstract class MovingEntity extends Entity {
 
 	public void gravity() {
 		if (HelpMethods.canMoveHere(x, y + airSpeed, (int) width, (int) height, LevelLoader.getLevelData())) {
+			if (!HelpMethods.isEntityGrounded(this, LevelLoader.getLevelData()))
+				inAir = true;
 			y += airSpeed;
 			airSpeed += gravity;
 		} else {
@@ -142,6 +133,7 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	public void updateEntity() {
+//		System.out.println(HelpMethods.isEntityGrounded(this, LevelLoader.getLevelData()));
 		updateYPos();
 		gravity();
 		walk();

@@ -43,9 +43,6 @@ public class PlayerController implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		switch (e.getKeyCode()) {
-		case KeyEvent.VK_W:
-			player.setySpeed(0);
-			break;
 		case KeyEvent.VK_A:
 			if (player.getxSpeed() < 0)
 				player.stop();
