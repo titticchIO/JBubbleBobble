@@ -101,9 +101,9 @@ public abstract class MovingEntity extends Entity {
 
 	public void move(Directions dir) {
 		if (dir == Directions.LEFT)
-			setxSpeed((int)-1);
+			setxSpeed((int) -1);
 		else
-			setxSpeed((int)1);
+			setxSpeed((int) 1);
 	}
 
 	/**

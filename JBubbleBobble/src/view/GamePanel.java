@@ -53,6 +53,11 @@ public class GamePanel extends JPanel {
 		if (playerView != null) {
 			playerView.render(doubleBufferedGraphics);
 		}
+		if (levelView.getEnemies() != null) {
+			for (MovingEntityView e : levelView.getEnemies()) {
+				e.render(doubleBufferedGraphics);
+			}
+		}
 		g.drawImage(doubleBufferedImage, 0, 0, this);
 		doubleBufferedGraphics.dispose();
 	}
