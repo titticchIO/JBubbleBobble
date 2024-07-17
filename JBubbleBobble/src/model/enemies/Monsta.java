@@ -17,7 +17,8 @@ public class Monsta extends Enemy {
 		if (isSolidHorizontalLine(x, x + width, y - 1) || isSolidHorizontalLine(x, x + width, y + height + 1)) {
 			airSpeed *= -1;
 		}
-		if (isSolidVerticalLine(x - 1, y, y + height) || isSolidHorizontalLine(x + width + 1, y, y + height)) {
+		if (isSolidVerticalLine(x - 1, y, y + height) || isSolidVerticalLine(x + width + 1, y, y + height)) {
+			System.out.println("horizontal bounce");
 			xSpeed *= -1;
 		}
 	}

@@ -57,13 +57,10 @@ public class HelpMethods {
 
 //	checks if any of the pixels under the entity are solid
 	public static boolean isEntityGrounded(MovingEntity movingEntity, String[][] lvlData) {
-		for (float x = movingEntity.getX(); x < movingEntity.getX() + movingEntity.getWidth(); x++) {
-			if (isSolid(x, movingEntity.getY() + movingEntity.getHeight() + 1, lvlData))
-				return true;
-		}
-		return false;
+		return isSolidHorizontalLine(movingEntity.getX(), movingEntity.getX() + movingEntity.getWidth(),
+				movingEntity.getY() + movingEntity.getHeight() + 1);
 	}
-	
+
 //	checks if any pixel in the line is solid
 	public static boolean isSolidHorizontalLine(float x1, float x2, float y) {
 		for (float x = x1; x <= x2; x += 0.1) {
