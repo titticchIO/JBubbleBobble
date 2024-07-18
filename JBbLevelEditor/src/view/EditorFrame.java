@@ -13,8 +13,8 @@ public class EditorFrame extends JFrame {
 
     public EditorFrame() {
         setLayout(new BorderLayout());
-        editorPanel = new EditorPanel(this);
         selectionPane = new SpriteSelectionScrollPane();
+        editorPanel = new EditorPanel(this,selectionPane);
         
         // Creazione del bottone con la scritta "Click Me"
         myButton = new JButton("SALVA");

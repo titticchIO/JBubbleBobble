@@ -24,9 +24,11 @@ public class EditorPanel extends JPanel {
 	public static final int SQUARE_SIZE = DEFAULT_SQUARE_SIZE * (int) SCALE;
 	public static final int PANEL_WIDTH = SQUARE_SIZE * COLS;
 	public static final int PANEL_HEIGHT = SQUARE_SIZE * ROWS;
-	private Map<Sprite, String> sprites; 
+	private Map<Sprite, String> sprites;
+	private SpriteSelectionScrollPane selPane;
 
-	public EditorPanel(EditorFrame ef) {
+	public EditorPanel(EditorFrame ef, SpriteSelectionScrollPane selPane) {
+		this.selPane = selPane;
 		setSize();
 		setBackground(Color.LIGHT_GRAY);
 		sprites = new HashMap<Sprite, String>();
@@ -37,23 +39,20 @@ public class EditorPanel extends JPanel {
 				sprite.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						if (SpriteSelectionScrollPane.isSelected()) {
-							String imgPath = SpriteSelectionScrollPane.getActualSelection();
-							BufferedImage img = ImageLoader.importImg(imgPath);
-							sprite.updateSprite(img);
-							ef.repaint();
-							String[] cord = sprites.get(sprite).split(":");
-							int y = Integer.parseInt(cord[0]);
-							int x = Integer.parseInt(cord[1]);
-							LevelMaker.setTile(y, x, "#1");
-						}
-						else {System.out.println("niente è selezionato");}						
+						String imgPath = selPane.getCurrentPath();
+						BufferedImage img = ImageLoader.importImg(imgPath);
+						sprite.updateSprite(img);
+						ef.repaint();
+						String[] cord = sprites.get(sprite).split(":");
+						int y = Integer.parseInt(cord[0]);
+						int x = Integer.parseInt(cord[1]);
+						LevelMaker.setTile(y, x, "#1");
 					}
 				});
 				sprites.put(sprite, y + ":" + x);
 				add(sprite);
-				}
 			}
+		}
 	}
 
 	@Override
@@ -61,7 +60,7 @@ public class EditorPanel extends JPanel {
 		super.paintComponent(g);
 		for (Sprite s : sprites.keySet()) {
 			s.render(g);
-			if (s.getImg()!=null) {
+			if (s.getImg() != null) {
 				s.drawSprite(g);
 			}
 		}

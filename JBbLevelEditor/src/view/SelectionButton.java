@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,4 +27,23 @@ public class SelectionButton extends JToggleButton {
 		img = ImageLoader.importImg(path);
 		setIcon(new ImageIcon(img));
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(img);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SelectionButton other = (SelectionButton) obj;
+		return Objects.equals(img, other.img);
+	}
+	
+	
 }
