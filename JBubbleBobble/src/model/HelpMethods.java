@@ -35,10 +35,10 @@ public class HelpMethods {
 		int currentTile = (int) (movingEntity.getX() / GameFrame.TILE_SIZE);
 		if (xSpeed > 0) {
 			// right
-			int tileXPos = (currentTile + 1) * GameFrame.TILE_SIZE;
-//			int xOffset = (int) (GameFrame.TILE_SIZE - movingEntity.getWidth());
-			int xOffset = 0;
-			return tileXPos+xOffset - movingEntity.getWidth()-1*SCALE;
+			int tileXPos = (currentTile+1 ) * GameFrame.TILE_SIZE;
+			int xOffset = (int) (GameFrame.TILE_SIZE - movingEntity.getWidth());
+//			int xOffset = 0;
+			return tileXPos+xOffset - movingEntity.getWidth()-SCALE;
 		} else {
 			// left
 			return currentTile * GameFrame.TILE_SIZE;
