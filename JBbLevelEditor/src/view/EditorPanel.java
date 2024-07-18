@@ -17,11 +17,11 @@ import javax.swing.JPanel;
 import model.LevelMaker;
 
 public class EditorPanel extends JPanel {
-	public static final int ROWS = 25;
+	public static final int ROWS = 24;
 	public static final int COLS = 30;
-	public static final int DEFAULT_SQUARE_SIZE = 30;
-	public static final float SCALE = 1.0f;
-	public static final int SQUARE_SIZE = DEFAULT_SQUARE_SIZE * (int) SCALE;
+	public static final int DEFAULT_SQUARE_SIZE = 20;
+	public static final float SCALE = 1.5f;
+	public static final int SQUARE_SIZE = (int) (DEFAULT_SQUARE_SIZE * SCALE);
 	public static final int PANEL_WIDTH = SQUARE_SIZE * COLS;
 	public static final int PANEL_HEIGHT = SQUARE_SIZE * ROWS;
 	private Map<Sprite, String> sprites;

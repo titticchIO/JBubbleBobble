@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 import javax.swing.ImageIcon;
@@ -12,8 +13,11 @@ public class SelectionButton extends JToggleButton {
 
 	public SelectionButton(String path) {
 		img = ImageLoader.importImg(path);
-		setIcon(new ImageIcon(img));
-		setPreferredSize(new Dimension(20 * (int) SCALE, 20 * (int) SCALE));
+
+		Image scaledImg = img.getScaledInstance(40 * (int) SCALE, 40 * (int) SCALE,
+				Image.SCALE_SMOOTH);
+		setIcon(new ImageIcon(scaledImg));
+		setPreferredSize(new Dimension(40 * (int) SCALE, 40 * (int) SCALE));
 	}
 
 	@Override
