@@ -3,6 +3,7 @@ package model;
 import model.entities.MovingEntity;
 import model.level.LevelLoader;
 import view.GameFrame;
+import static view.GameFrame.SCALE;
 
 public class HelpMethods {
 
@@ -35,7 +36,9 @@ public class HelpMethods {
 		if (xSpeed > 0) {
 			// right
 			int tileXPos = (currentTile + 1) * GameFrame.TILE_SIZE;
-			return tileXPos - movingEntity.getWidth();
+//			int xOffset = (int) (GameFrame.TILE_SIZE - movingEntity.getWidth());
+			int xOffset = 0;
+			return tileXPos+xOffset - movingEntity.getWidth()-1*SCALE;
 		} else {
 			// left
 			return currentTile * GameFrame.TILE_SIZE;

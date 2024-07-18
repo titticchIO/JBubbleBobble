@@ -14,7 +14,7 @@ public class Game implements Runnable {
 	private Level currentLevel;
 
 	public Game() {
-		Level livello1 = new Level(1);
+		Level livello1 = new Level(2);
 		this.currentLevel = livello1;
 		LevelView livello1View = new LevelView(livello1);
 		gameFrame = new GameFrame(livello1View);
