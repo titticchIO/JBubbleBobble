@@ -20,17 +20,30 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 
 	public SpriteSelectionScrollPane() {
 		buttons = new HashMap<>();
-		SelectionButton b1=new SelectionButton("/blocks/normal_blocks/block_3.png");
+		SelectionButton b1 = new SelectionButton("/blocks/normal_blocks/block_3.png");
 		buttons.put(b1, "/blocks/normal_blocks/block_3.png");
 		buttons.put(new SelectionButton("/blocks/normal_blocks/block_4.png"), "/blocks/normal_blocks/block_4.png");
 		buttons.put(new SelectionButton("/blocks/normal_blocks/block_5.png"), "/blocks/normal_blocks/block_5.png");
 		buttons.put(new SelectionButton("/blocks/normal_blocks/block_6.png"), "/blocks/normal_blocks/block_6.png");
 		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
+		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
+		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
+		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
+		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
+		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
+		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
+		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
+		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
+		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
+		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
+		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
+		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
 		b1.setSelected(true);
 		setCurrentPath("/blocks/normal_blocks/block_3.png");
 		setSize();
 		setLayout(new ScrollPaneLayout());
-		JPanel buttonPanel = new JPanel(new GridLayout(3, 3));
+		JPanel buttonPanel = new JPanel(new GridLayout(17, 1));
+		buttonPanel.setSize(new Dimension(50, PANEL_HEIGHT));
 		for (SelectionButton b : buttons.keySet()) {
 			b.addActionListener(new ActionListener() {
 				@Override
@@ -47,7 +60,7 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 	}
 
 	private void setSize() {
-		Dimension size = new Dimension(200, PANEL_HEIGHT);
+		Dimension size = new Dimension(60, PANEL_HEIGHT);
 		setPreferredSize(size);
 	}
 
