@@ -58,8 +58,7 @@ public class LevelLoader {
 					level.addPlayer(Player.getInstance(x * TILE_SIZE, y * TILE_SIZE-1, TILE_SIZE-1, TILE_SIZE));
 					break;
 				case BLOCK_TILE:
-					Tile t = new Tile(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-					StaticEntityView tv = new StaticEntityView("tile");
+					Tile t = new Tile(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE,c.substring(1, 2));
 					level.addTile(t);
 					break;
 				case ZEN_CHAN:

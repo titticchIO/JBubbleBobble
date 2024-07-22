@@ -51,6 +51,7 @@ public class LevelMaker {
 		if (y >= 0 && y < ROWS && x >= 0 && x < COLS) {
 			level[y][x] = tile;
 		} else {
+			System.out.println(x+"|"+y);
 			throw new IndexOutOfBoundsException("Posizione fuori dai limiti del livello");
 		}
 	}

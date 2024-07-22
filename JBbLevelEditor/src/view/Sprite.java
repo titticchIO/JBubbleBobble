@@ -30,20 +30,24 @@ public class Sprite extends JButton {
 	public float getSideLength() {
 		return sideLength;
 	}
-	
+
 	public BufferedImage getImg() {
 		return img;
 	}
 
 	public void updateSprite(BufferedImage img) {
-		this.img=img;
+		this.img = img;
 	}
-	
+
 	public void drawSprite(Graphics g) {
-		g.drawImage(img, x * EditorPanel.SQUARE_SIZE + 2, y * EditorPanel.SQUARE_SIZE + 3, (int) sideLength - 3,
-				(int) sideLength - 3, null);
+		if (img != null)
+			g.drawImage(img, x * EditorPanel.SQUARE_SIZE + 2, y * EditorPanel.SQUARE_SIZE + 3, (int) sideLength - 3,
+					(int) sideLength - 3, null);
+		else
+			g.clearRect(x * EditorPanel.SQUARE_SIZE + 2, y * EditorPanel.SQUARE_SIZE + 3, (int) sideLength - 3,
+					(int) sideLength - 3);
 	}
-	
+
 	public void render(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		float thickness = 2;

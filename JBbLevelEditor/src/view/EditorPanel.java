@@ -4,12 +4,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.JPanel;
@@ -24,32 +21,46 @@ public class EditorPanel extends JPanel {
 	public static final int SQUARE_SIZE = (int) (DEFAULT_SQUARE_SIZE * SCALE);
 	public static final int PANEL_WIDTH = SQUARE_SIZE * COLS;
 	public static final int PANEL_HEIGHT = SQUARE_SIZE * ROWS;
-	private Map<Sprite, String> sprites;
+	private Sprite[][] sprites;
 	private SpriteSelectionScrollPane selPane;
+	private boolean isMousePressed = false;
 
 	public EditorPanel(EditorFrame ef, SpriteSelectionScrollPane selPane) {
 		this.selPane = selPane;
 		setSize();
 		setBackground(Color.LIGHT_GRAY);
-		sprites = new HashMap<Sprite, String>();
+		sprites = new Sprite[ROWS][COLS];
 		setLayout(new GridLayout(ROWS, COLS));
 		for (int y = 0; y < ROWS; y++) {
 			for (int x = 0; x < COLS; x++) {
+				final int xCopy = x;
+				final int yCopy = y;
 				Sprite sprite = new Sprite(x, y, SQUARE_SIZE);
-				sprite.addActionListener(new ActionListener() {
+				sprite.addMouseListener(new MouseAdapter() {
 					@Override
-					public void actionPerformed(ActionEvent e) {
-						String imgPath = selPane.getCurrentPath();
-						BufferedImage img = ImageLoader.importImg(imgPath);
-						sprite.updateSprite(img);
-						ef.repaint();
-						String[] cord = sprites.get(sprite).split(":");
-						int y = Integer.parseInt(cord[0]);
-						int x = Integer.parseInt(cord[1]);
-						LevelMaker.setTile(y, x, "#1");
+					public void mousePressed(MouseEvent e) {
+						isMousePressed = true;
+						updateSprite(sprite, xCopy, yCopy);
+					}
+
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						isMousePressed = false;
 					}
 				});
-				sprites.put(sprite, y + ":" + x);
+				sprite.addMouseMotionListener(new MouseAdapter() {
+					@Override
+					public void mouseDragged(MouseEvent e) {
+						if (isMousePressed) {
+							// Get the absolute position of the mouse event
+							int x = (e.getXOnScreen() - getLocationOnScreen().x) / SQUARE_SIZE;
+							int y = (e.getYOnScreen() - getLocationOnScreen().y) / SQUARE_SIZE;
+							System.out.println(x+"|"+y);
+							updateSprite(sprites[y][x], x, y);
+						}
+					}
+				});
+				sprites[y][x] = sprite;
 				add(sprite);
 			}
 		}
@@ -58,12 +69,13 @@ public class EditorPanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for (Sprite s : sprites.keySet()) {
-			s.render(g);
-			if (s.getImg() != null) {
-				s.drawSprite(g);
+		for (Sprite[] row : sprites)
+			for (Sprite s : row) {
+				s.render(g);
+				if (s.getImg() != null) {
+					s.drawSprite(g);
+				}
 			}
-		}
 	}
 
 	private void setSize() {
@@ -71,7 +83,17 @@ public class EditorPanel extends JPanel {
 		setPreferredSize(size);
 	}
 
-	public Map<Sprite, String> getSprites() {
+	public Sprite[][] getSprites() {
 		return sprites;
+	}
+
+	private void updateSprite(Sprite sprite, int x, int y) {
+		SelectionButton button = selPane.getCurrentButton();
+		if (button != null)
+			sprite.updateSprite(button.getImg());
+		else
+			sprite.updateSprite(null);
+		LevelMaker.setTile(y, x, button.getCode());
+		repaint();
 	}
 }

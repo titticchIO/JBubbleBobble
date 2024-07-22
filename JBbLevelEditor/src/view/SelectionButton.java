@@ -10,14 +10,22 @@ import static view.EditorPanel.SCALE;
 
 public class SelectionButton extends JToggleButton {
 	private BufferedImage img;
+	private String code;
 
-	public SelectionButton(String path) {
-		img = ImageLoader.importImg(path);
-
-		Image scaledImg = img.getScaledInstance(40 * (int) SCALE, 40 * (int) SCALE,
-				Image.SCALE_SMOOTH);
+	public SelectionButton(BufferedImage img,String code) {
+		this.img = img;
+		this.code=code;
+		Image scaledImg = img.getScaledInstance(40 * (int) SCALE, 40 * (int) SCALE, Image.SCALE_SMOOTH);
 		setIcon(new ImageIcon(scaledImg));
 		setPreferredSize(new Dimension(40 * (int) SCALE, 40 * (int) SCALE));
+	}
+
+
+	public BufferedImage getImg() {
+		return img;
+	}
+	public String getCode() {
+		return code;
 	}
 
 	@Override
@@ -37,12 +45,3 @@ public class SelectionButton extends JToggleButton {
 		return Objects.equals(img, other.img);
 	}
 }
-
-/*
- * public SelectionButton(Sprites spriteName) { img = switch (spriteName) { case
- * PLAYER -> ImageLoader.importImg("/sprites/bubblun/image_5.png"); case BLOCK
- * -> ImageLoader.importImg("/blocks/normal_blocks/block_3.png"); case ENEMY ->
- * ImageLoader.importImg("/sprites/invader/image_1.png"); default -> throw new
- * IllegalArgumentException("Unexpected value: " + spriteName); }; setIcon(new
- * ImageIcon(img)); }
- */

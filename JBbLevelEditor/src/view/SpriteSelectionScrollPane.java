@@ -5,7 +5,11 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,55 +21,27 @@ import static view.EditorPanel.SCALE;
 
 public class SpriteSelectionScrollPane extends JScrollPane {
 	// List<SelectionButton> buttons;
-	private Map<SelectionButton, String> buttons;
-	private String currentPath;
+	private List<SelectionButton> buttons;
+	private SelectionButton selectedButton;
 
 	public SpriteSelectionScrollPane() {
-		buttons = new HashMap<>();
-		SelectionButton b1 = new SelectionButton("/blocks/normal_blocks/block_3.png");
-		//------------------------------------------------------------------------------------------------------------
-		buttons.put(b1, "/blocks/normal_blocks/block_3.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_4.png"), "/blocks/normal_blocks/block_4.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_5.png"), "/blocks/normal_blocks/block_5.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_6.png"), "/blocks/normal_blocks/block_6.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		buttons.put(new SelectionButton("/blocks/normal_blocks/block_7.png"), "/blocks/normal_blocks/block_7.png");
-		//------------------------------------------------------------------------------------------------------------
-		
-		b1.setSelected(true);
-		setCurrentPath("/blocks/normal_blocks/block_3.png");
+		buttons = new ArrayList<SelectionButton>();
+		//add the player button
+		buttons.add(new SelectionButton(Images.PLAYER.getImg(),"P"));
+		addBlocks();
+		//add a blank button
+		buttons.add(new SelectionButton(Images.EMPTY_BLOCK.getImg()," "));
 		setSize();
 		setLayout(new ScrollPaneLayout());
 		JPanel buttonPanel = new JPanel(new GridLayout(buttons.size(), 1));
-		buttonPanel.setSize(new Dimension((int)(100*SCALE), (int)(buttons.size()*40*SCALE)));
-		for (SelectionButton b : buttons.keySet()) {
+		buttonPanel.setSize(new Dimension((int) (100 * SCALE), (int) (buttons.size() * 40 * SCALE)));
+		for (SelectionButton b : buttons) {
 			b.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					deselectAllButtons();
 					b.setSelected(true);
-					setCurrentPath(buttons.get(b));
+					setCurrentButton(b);
 				}
 			});
 			buttonPanel.add(b);
@@ -74,28 +50,40 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 
 	}
 
+	private void addBlocks() {
+		SelectionButton b1 = new SelectionButton(Images.BLOCK1.getImg(),"#1");
+		b1.setSelected(true);
+		setCurrentButton(b1);
+		buttons.add(b1);
+		buttons.add(new SelectionButton(Images.BLOCK2.getImg(),"#2"));
+		buttons.add(new SelectionButton(Images.BLOCK3.getImg(),"#3"));
+		buttons.add(new SelectionButton(Images.BLOCK4.getImg(),"#4"));
+		buttons.add(new SelectionButton(Images.BLOCK5.getImg(),"#5"));
+		buttons.add(new SelectionButton(Images.BLOCK6.getImg(),"#6"));
+	}
+
 	private void setSize() {
-		Dimension size = new Dimension((int)(40*SCALE), PANEL_HEIGHT);
+		Dimension size = new Dimension((int) (40 * SCALE), PANEL_HEIGHT);
 		setPreferredSize(size);
 	}
 
 	private void deselectAllButtons() {
-		for (SelectionButton b : buttons.keySet())
+		for (SelectionButton b : buttons)
 			b.setSelected(false);
 	}
 
-	public String getCurrentPath() {
-		return currentPath;
+	public SelectionButton getCurrentButton() {
+		return selectedButton;
 	}
 
-	public void setCurrentPath(String currentPath) {
-		this.currentPath = currentPath;
+	public void setCurrentButton(SelectionButton selectedButton) {
+		this.selectedButton = selectedButton;
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for (SelectionButton b : buttons.keySet())
+		for (SelectionButton b : buttons)
 			b.repaint();
 	}
 }

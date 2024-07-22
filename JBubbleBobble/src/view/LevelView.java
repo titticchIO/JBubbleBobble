@@ -23,7 +23,7 @@ public class LevelView implements Observer {
 		spawnEnemies(level);
 		tiles = new ArrayList<StaticEntityView>();
 		for (Tile t : level.getTiles()) {
-			StaticEntityView newTile = new StaticEntityView("tile");
+			StaticEntityView newTile = new StaticEntityView("tile"+t.getType());
 			t.addObserver(newTile);
 			t.notifyPosition();
 			tiles.add(newTile);
