@@ -31,6 +31,7 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 		addBlocks();
 		//add a blank button
 		buttons.add(new SelectionButton(Images.EMPTY_BLOCK.getImg()," "));
+		addEnemies();
 		setSize();
 		setLayout(new ScrollPaneLayout());
 		JPanel buttonPanel = new JPanel(new GridLayout(buttons.size(), 1));
@@ -61,7 +62,12 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 		buttons.add(new SelectionButton(Images.BLOCK5.getImg(),"#5"));
 		buttons.add(new SelectionButton(Images.BLOCK6.getImg(),"#6"));
 	}
-
+	
+	private void addEnemies() {
+		buttons.add(new SelectionButton(Images.ZEN_CHAN.getImg(), "Z"));
+		buttons.add(new SelectionButton(Images.MONSTA.getImg(), "M"));
+	}
+	
 	private void setSize() {
 		Dimension size = new Dimension((int) (40 * SCALE), PANEL_HEIGHT);
 		setPreferredSize(size);
