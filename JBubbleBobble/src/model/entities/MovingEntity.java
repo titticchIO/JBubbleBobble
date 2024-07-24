@@ -76,7 +76,7 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	public void jump() {
-		if (!inAir) {
+		if (!inAir && !HelpMethods.isEntityInsideWall(x, y, width, height, LevelLoader.getLevelData())) {
 			inAir = true;
 			airSpeed = jumpSpeed;
 		}
@@ -84,7 +84,7 @@ public abstract class MovingEntity extends Entity {
 
 	public void resetInAir() {
 		inAir = false;
-		airSpeed = 0.000000000000000000000000f;
+		airSpeed = 0.0f;
 	}
 
 	public float getAirSpeed() {
@@ -112,33 +112,36 @@ public abstract class MovingEntity extends Entity {
 	public void walk() {
 //		moving = true;
 		updateXPos();
-		setChanged();
-		notifyObservers("walking");
 
 	}
 
 	public void gravity() {
-		if (HelpMethods.canMoveHere(x, y + airSpeed, (int) width, (int) height, LevelLoader.getLevelData())) {
-			if (!HelpMethods.isEntityGrounded(this, LevelLoader.getLevelData()))
-				inAir = true;
+		if (airSpeed < 0) {
 			y += airSpeed;
 			airSpeed += gravity;
 		} else {
-			y = HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed);
-			if (airSpeed > 0)
-				resetInAir();
-			else
-				airSpeed = fallSpeedAfterCollision;
+			if (HelpMethods.canMoveHere(x, y + airSpeed, (int) width, (int) height, LevelLoader.getLevelData())) {
+				if (!HelpMethods.isEntityGrounded(this, LevelLoader.getLevelData()))
+					inAir = true;
+				y += airSpeed;
+				airSpeed += gravity;
+			} else {
+				y = HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed);
+				if (airSpeed > 0)
+					resetInAir();
+				else {
+					airSpeed = fallSpeedAfterCollision;
+				}
+			}
 		}
 	}
 
 	public void updateEntity() {
-//		System.out.println(HelpMethods.isEntityGrounded(this, LevelLoader.getLevelData()));
 		updateYPos();
 		gravity();
 		walk();
 		setChanged();
-		notifyObservers("y");
+		notifyObservers();
 	}
 
 }

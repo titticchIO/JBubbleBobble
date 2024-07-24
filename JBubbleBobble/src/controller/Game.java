@@ -9,8 +9,9 @@ import view.*;
 public class Game implements Runnable {
 	private GameFrame gameFrame;
 	private Thread gameThread;
+	private final float GAME_SPEED = 1.0f;
 	private final int FPS_SET = 120;
-	private final int UPS_SET = 200;
+	private final int UPS_SET = (int) (200* GAME_SPEED);
 	private Level currentLevel;
 
 	public Game() {

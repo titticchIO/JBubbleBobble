@@ -31,14 +31,19 @@ public class HelpMethods {
 		return "#".equals(value.substring(0, 1)); // casi in cui c'è un blocco
 	}
 
+	public static boolean isEntityInsideWall(float x, float y, float width, float height, String[][] lvlData) {
+		return isSolid(x, y, lvlData) || isSolid(x + width, y, lvlData) || isSolid(x, y + height, lvlData)
+				|| isSolid(x + width, y + height, lvlData);
+	}
+
 	public static float getEntityXPosNextToWall(MovingEntity movingEntity, float xSpeed) {
 		int currentTile = (int) (movingEntity.getX() / GameFrame.TILE_SIZE);
 		if (xSpeed > 0) {
 			// right
-			int tileXPos = (currentTile+1 ) * GameFrame.TILE_SIZE;
+			int tileXPos = (currentTile + 1) * GameFrame.TILE_SIZE;
 			int xOffset = (int) (GameFrame.TILE_SIZE - movingEntity.getWidth());
 //			int xOffset = 0;
-			return tileXPos+xOffset - movingEntity.getWidth()-SCALE;
+			return tileXPos + xOffset - movingEntity.getWidth() - SCALE;
 		} else {
 			// left
 			return currentTile * GameFrame.TILE_SIZE;
@@ -46,6 +51,7 @@ public class HelpMethods {
 	}
 
 	public static float getEntityPosUnderRoofOrAboveFloor(MovingEntity movingEntity, float airSpeed) {
+		System.out.println("test");
 		int currentTile = (int) (movingEntity.getY() / GameFrame.TILE_SIZE);
 		if (airSpeed > 0) {
 			// falling or touching floor

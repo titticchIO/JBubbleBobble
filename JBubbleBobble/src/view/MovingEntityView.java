@@ -81,23 +81,8 @@ public class MovingEntityView implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		MovingEntity entity = (MovingEntity) o;
-		String msg = (String) arg;
-
-		switch (msg) {
-		case "initial":
-			setX(entity.getX());
-			setY(entity.getY());
-			break;
-		case "walking":
-			setX(entity.getX());
-			break;
-		case "y":
-			setY(entity.getY());
-			break;
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + msg);
-		}
-
+		setX(entity.getX());
+		setY(entity.getY());
 	}
 
 }
