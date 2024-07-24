@@ -6,8 +6,6 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JPanel;
 
@@ -55,7 +53,6 @@ public class EditorPanel extends JPanel {
 							// Get the absolute position of the mouse event
 							int x = (e.getXOnScreen() - getLocationOnScreen().x) / SQUARE_SIZE;
 							int y = (e.getYOnScreen() - getLocationOnScreen().y) / SQUARE_SIZE;
-							System.out.println(x+"|"+y);
 							updateSprite(sprites[y][x], x, y);
 						}
 					}

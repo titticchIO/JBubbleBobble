@@ -51,7 +51,6 @@ public class HelpMethods {
 	}
 
 	public static float getEntityPosUnderRoofOrAboveFloor(MovingEntity movingEntity, float airSpeed) {
-		System.out.println("test");
 		int currentTile = (int) (movingEntity.getY() / GameFrame.TILE_SIZE);
 		if (airSpeed > 0) {
 			// falling or touching floor

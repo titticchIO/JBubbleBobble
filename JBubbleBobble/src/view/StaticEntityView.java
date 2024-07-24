@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Observable;
@@ -16,12 +15,12 @@ public class StaticEntityView implements Observer {
 
 	public StaticEntityView(String entityName) {
 		img = switch (entityName) {
-		case "tile1" -> ImageLoader.importImg("/blocks/normal_blocks/block_1.png");
-		case "tile2" -> ImageLoader.importImg("/blocks/normal_blocks/block_3.png");
-		case "tile3" -> ImageLoader.importImg("/blocks/normal_blocks/block_5.png");
-		case "tile4" -> ImageLoader.importImg("/blocks/normal_blocks/block_6.png");
-		case "tile5" -> ImageLoader.importImg("/blocks/normal_blocks/block_10.png");
-		case "tile6" -> ImageLoader.importImg("/blocks/normal_blocks/block_11.png");
+		case "tile1" -> Images.BLOCK1.getImg();
+		case "tile2" -> Images.BLOCK2.getImg();
+		case "tile3" -> Images.BLOCK3.getImg();
+		case "tile4" -> Images.BLOCK4.getImg();
+		case "tile5" -> Images.BLOCK5.getImg();
+		case "tile6" -> Images.BLOCK6.getImg();
 		default -> throw new IllegalArgumentException("Unexpected value: " + entityName);
 		};
 
