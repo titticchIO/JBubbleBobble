@@ -19,11 +19,13 @@ public class MovingEntityView implements Observer {
 	private Iterator<BufferedImage> animationIterator;
 
 	public MovingEntityView(String entityName) {
-		width=GameFrame.TILE_SIZE;
-		height=GameFrame.TILE_SIZE;
-		
+		width = GameFrame.TILE_SIZE;
+		height = GameFrame.TILE_SIZE;
+
 		img = switch (entityName) {
 		case "player" -> ImageLoader.importImg("/sprites/bubblun/image_5.png");
+		case "Zen-Chan" -> ImageLoader.importImg("/sprites/zen-chan/image_487.png");
+		case "Monsta" -> ImageLoader.importImg("/sprites/monsta/image_444.png");
 		default -> throw new IllegalArgumentException("Unexpected value: " + entityName);
 		};
 		if (entityName.equals("player")) {
@@ -71,7 +73,7 @@ public class MovingEntityView implements Observer {
 	public void render(Graphics g) {
 		g.drawImage(img, (int) x, (int) y, (int) width, (int) height, null);
 
-		//DRAW HITBOX
+		// DRAW HITBOX
 //		g.setColor(Color.BLACK);
 //		g.drawRect((int) x, (int) y, (int) width, (int) height);
 	}
@@ -79,23 +81,8 @@ public class MovingEntityView implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		MovingEntity entity = (MovingEntity) o;
-		String msg = (String) arg;
-
-		switch (msg) {
-		case "initial":
-			setX(entity.getX());
-			setY(entity.getY());
-			break;
-		case "walking":
-			setX(entity.getX());
-			break;
-		case "y":
-			setY(entity.getY());
-			break;
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + msg);
-		}
-
+		setX(entity.getX());
+		setY(entity.getY());
 	}
 
 }

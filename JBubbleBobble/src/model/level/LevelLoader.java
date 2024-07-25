@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import model.enemies.Monsta;
+import model.enemies.Zen_chan;
 import model.entities.Player;
 import model.tiles.Tile;
 import view.GameFrame;
@@ -15,8 +17,8 @@ public class LevelLoader {
 
 	private final static String BLOCK_TILE = "#";
 	private final static String PLAYER = "P";
-	private final static String ENEMY_1 = "1";
-	private final static String ENEMY_2 = "2";
+	private final static String ZEN_CHAN = "Z";
+	private final static String MONSTA = "M";
 	private final static String ENEMY_3 = "3";
 	private final static String ENEMY_4 = "4";
 	private final static String ENEMY_5 = "5";
@@ -53,12 +55,17 @@ public class LevelLoader {
 			for (String c : linea) {
 				switch (c.substring(0, 1)) {
 				case PLAYER:
-					level.addPlayer(Player.getInstance(x * TILE_SIZE, y * TILE_SIZE-1, TILE_SIZE-1*SCALE, TILE_SIZE));
+					level.addPlayer(Player.getInstance(x * TILE_SIZE, y * TILE_SIZE-1, TILE_SIZE-1, TILE_SIZE));
 					break;
 				case BLOCK_TILE:
-					Tile t = new Tile(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-					StaticEntityView tv = new StaticEntityView("tile");
+					Tile t = new Tile(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE,c.substring(1, 2));
 					level.addTile(t);
+					break;
+				case ZEN_CHAN:
+					level.addEnemy(new Zen_chan(x * TILE_SIZE, y * TILE_SIZE-1, TILE_SIZE, TILE_SIZE));
+					break;
+				case MONSTA:
+					level.addEnemy(new Monsta(x * TILE_SIZE, y * TILE_SIZE-1, TILE_SIZE, TILE_SIZE));
 					break;
 				}
 				x++;

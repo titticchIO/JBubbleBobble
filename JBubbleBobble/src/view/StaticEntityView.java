@@ -16,7 +16,12 @@ public class StaticEntityView implements Observer {
 
 	public StaticEntityView(String entityName) {
 		img = switch (entityName) {
-		case "tile" -> ImageLoader.importImg("/blocks/normal_blocks/block_3.png");
+		case "tile1" -> ImageLoader.importImg("/blocks/normal_blocks/block_1.png");
+		case "tile2" -> ImageLoader.importImg("/blocks/normal_blocks/block_3.png");
+		case "tile3" -> ImageLoader.importImg("/blocks/normal_blocks/block_5.png");
+		case "tile4" -> ImageLoader.importImg("/blocks/normal_blocks/block_6.png");
+		case "tile5" -> ImageLoader.importImg("/blocks/normal_blocks/block_10.png");
+		case "tile6" -> ImageLoader.importImg("/blocks/normal_blocks/block_11.png");
 		default -> throw new IllegalArgumentException("Unexpected value: " + entityName);
 		};
 

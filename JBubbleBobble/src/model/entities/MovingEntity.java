@@ -13,21 +13,16 @@ public abstract class MovingEntity extends Entity {
 	/**
 	 * Movement speed on x axis: positive up and negative down
 	 */
-	private float xSpeed;
-
-	/**
-	 * Movement speed on y axis: positive right and negative left
-	 */
-	private float ySpeed;
+	protected float xSpeed;
 
 	private boolean moving;
 	private int playerSpeed = 2;
 
 	// jumping and gravity
-	private float airSpeed = 0f;
+	protected float airSpeed = 0f;
 	private float gravity = 0.02f * GameFrame.SCALE;
 	private float jumpSpeed = -1.25f * GameFrame.SCALE;
-	private float fallSpeedAfterCollision = 0.5f * GameFrame.SCALE;
+	private float fallSpeedAfterCollision = 0.3f * GameFrame.SCALE;
 	private boolean inAir = false;
 
 	/**
@@ -54,13 +49,6 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	/**
-	 * @param ySpeed
-	 */
-	public void setySpeed(float ySpeed) {
-		this.ySpeed = ySpeed;
-	}
-
-	/**
 	 * Getters
 	 */
 
@@ -71,14 +59,7 @@ public abstract class MovingEntity extends Entity {
 		return xSpeed;
 	}
 
-	/**
-	 * @return movement speed on y axis
-	 */
-	public float getySpeed() {
-		return ySpeed;
-	}
-
-	private void updateYPos() {
+	protected void updateYPos() {
 		if (HelpMethods.canMoveHere(x, y + airSpeed, (int) width, (int) height, LevelLoader.getLevelData())) {
 			setY(y + airSpeed);
 		} else {
@@ -95,7 +76,7 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	public void jump() {
-		if (!inAir) {
+		if (!inAir && !HelpMethods.isEntityInsideWall(x, y, width, height, LevelLoader.getLevelData())) {
 			inAir = true;
 			airSpeed = jumpSpeed;
 		}
@@ -103,7 +84,15 @@ public abstract class MovingEntity extends Entity {
 
 	public void resetInAir() {
 		inAir = false;
-		airSpeed = 0;
+		airSpeed = 0.0f;
+	}
+
+	public float getAirSpeed() {
+		return airSpeed;
+	}
+
+	public void setAirSpeed(float airSpeed) {
+		this.airSpeed = airSpeed;
 	}
 
 	public void stop() {
@@ -112,9 +101,9 @@ public abstract class MovingEntity extends Entity {
 
 	public void move(Directions dir) {
 		if (dir == Directions.LEFT)
-			setxSpeed(-2);
+			setxSpeed((int) -1);
 		else
-			setxSpeed(2);
+			setxSpeed((int) 1);
 	}
 
 	/**
@@ -123,21 +112,27 @@ public abstract class MovingEntity extends Entity {
 	public void walk() {
 //		moving = true;
 		updateXPos();
-		setChanged();
-		notifyObservers("walking");
 
 	}
 
 	public void gravity() {
-		if (HelpMethods.canMoveHere(x, y + airSpeed, (int) width, (int) height, LevelLoader.getLevelData())) {
+		if (airSpeed < 0) {
 			y += airSpeed;
 			airSpeed += gravity;
 		} else {
-			y = HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed);
-			if (airSpeed > 0)
-				resetInAir();
-			else
-				airSpeed = fallSpeedAfterCollision;
+			if (HelpMethods.canMoveHere(x, y + airSpeed, (int) width, (int) height, LevelLoader.getLevelData())) {
+				if (!HelpMethods.isEntityGrounded(this, LevelLoader.getLevelData()))
+					inAir = true;
+				y += airSpeed;
+				airSpeed += gravity;
+			} else {
+				y = HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed);
+				if (airSpeed > 0)
+					resetInAir();
+				else {
+					airSpeed = fallSpeedAfterCollision;
+				}
+			}
 		}
 	}
 
@@ -146,7 +141,7 @@ public abstract class MovingEntity extends Entity {
 		gravity();
 		walk();
 		setChanged();
-		notifyObservers("y");
+		notifyObservers();
 	}
 
 }

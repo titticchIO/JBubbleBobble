@@ -1,7 +1,9 @@
 package model;
 
 import model.entities.MovingEntity;
+import model.level.LevelLoader;
 import view.GameFrame;
+import static view.GameFrame.SCALE;
 
 public class HelpMethods {
 
@@ -29,12 +31,19 @@ public class HelpMethods {
 		return "#".equals(value.substring(0, 1)); // casi in cui c'è un blocco
 	}
 
+	public static boolean isEntityInsideWall(float x, float y, float width, float height, String[][] lvlData) {
+		return isSolid(x, y, lvlData) || isSolid(x + width, y, lvlData) || isSolid(x, y + height, lvlData)
+				|| isSolid(x + width, y + height, lvlData);
+	}
+
 	public static float getEntityXPosNextToWall(MovingEntity movingEntity, float xSpeed) {
 		int currentTile = (int) (movingEntity.getX() / GameFrame.TILE_SIZE);
 		if (xSpeed > 0) {
 			// right
 			int tileXPos = (currentTile + 1) * GameFrame.TILE_SIZE;
-			return tileXPos - movingEntity.getWidth();
+			int xOffset = (int) (GameFrame.TILE_SIZE - movingEntity.getWidth());
+//			int xOffset = 0;
+			return tileXPos + xOffset - movingEntity.getWidth() - SCALE;
 		} else {
 			// left
 			return currentTile * GameFrame.TILE_SIZE;
@@ -42,6 +51,7 @@ public class HelpMethods {
 	}
 
 	public static float getEntityPosUnderRoofOrAboveFloor(MovingEntity movingEntity, float airSpeed) {
+		System.out.println("test");
 		int currentTile = (int) (movingEntity.getY() / GameFrame.TILE_SIZE);
 		if (airSpeed > 0) {
 			// falling or touching floor
@@ -52,6 +62,30 @@ public class HelpMethods {
 			// jumping
 			return (currentTile * GameFrame.TILE_SIZE);
 		}
+	}
+
+//	checks if any of the pixels under the entity are solid
+	public static boolean isEntityGrounded(MovingEntity movingEntity, String[][] lvlData) {
+		return isSolidHorizontalLine(movingEntity.getX(), movingEntity.getX() + movingEntity.getWidth(),
+				movingEntity.getY() + movingEntity.getHeight() + 1);
+	}
+
+//	checks if any pixel in the line is solid
+	public static boolean isSolidHorizontalLine(float x1, float x2, float y) {
+		for (float x = x1; x <= x2; x += 0.1) {
+			if (isSolid(x, y, LevelLoader.getLevelData()))
+				return true;
+		}
+		return false;
+	}
+
+//	checks if any pixel in the line is solid
+	public static boolean isSolidVerticalLine(float x, float y1, float y2) {
+		for (float y = y1; y <= y2; y += 0.1) {
+			if (isSolid(x, y, LevelLoader.getLevelData()))
+				return true;
+		}
+		return false;
 	}
 
 }

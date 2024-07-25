@@ -1,6 +1,7 @@
 package model.entities;
 
 import model.bubbles.PlayerBubble;
+import static view.GameFrame.SCALE;
 
 public class Player extends MovingEntity {
 
@@ -11,7 +12,7 @@ public class Player extends MovingEntity {
 
 	public static Player getInstance() {
 		if (instance == null)
-			instance = new Player(30, 30, 16, 16);
+			instance = new Player(30, 30, 16*SCALE, 16*SCALE);
 		return instance;
 	}
 
