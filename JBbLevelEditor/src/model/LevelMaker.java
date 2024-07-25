@@ -71,43 +71,18 @@ public class LevelMaker {
 		try {
 			File file = new File(filePath);
 
-			if (!file.exists()) {
-				if (file.createNewFile()) {
-					System.out.println("New file created: " + filePath);
-				} else {
-					System.err.println("Error creating file: " + filePath);
-					return; // Exit method if file creation fails
-				}
-			}
+			if (!file.exists())
+				file.createNewFile();
 
-			try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+			try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
 				bw.write(toString());
-				System.out.println("Level " + levelNum + " saved successfully!");
-			} catch (IOException e) {
-				System.err.println("Error writing to file: " + e.getMessage());
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			System.err.println("Error accessing file: " + e.getMessage());
-		}
 
-//		String filePath = "JBubbleBobbleProg/JBubbleBobble/resources/levels/Livello" + levelNum + ".txt";
-//
-//		
-//		try {
-//			File file = new File(filePath);
-//			
-//			if (!file.exists())
-//				file.createNewFile();
-//			
-//			try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
-//				bw.write(toString());
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {
