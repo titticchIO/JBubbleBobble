@@ -25,6 +25,8 @@ public class Banebou extends Enemy {
 	public void updateEntity() {
 		super.updateEntity();
 		switchDirection();
+//		prima o poi dovrà saltare/rimbalzare
+//		jump();
 	}
 
 }
