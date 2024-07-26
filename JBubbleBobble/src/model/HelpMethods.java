@@ -41,9 +41,9 @@ public class HelpMethods {
 		if (xSpeed > 0) {
 			// right
 			int tileXPos = (currentTile + 1) * GameFrame.TILE_SIZE;
-			int xOffset = (int) (GameFrame.TILE_SIZE - movingEntity.getWidth());
+//			int xOffset = (int) (GameFrame.TILE_SIZE - movingEntity.getWidth());
 //			int xOffset = 0;
-			return tileXPos + xOffset - movingEntity.getWidth() - SCALE;
+			return tileXPos - movingEntity.getWidth() - 1;
 		} else {
 			// left
 			return currentTile * GameFrame.TILE_SIZE;
@@ -56,7 +56,7 @@ public class HelpMethods {
 			// falling or touching floor
 			int tileYPos = currentTile * GameFrame.TILE_SIZE;
 			int yOffset = (int) (GameFrame.TILE_SIZE - movingEntity.getHeight());
-			return tileYPos + yOffset - 1 + movingEntity.getHeight();
+			return tileYPos + yOffset - 1;
 		} else {
 			// jumping
 			return (currentTile * GameFrame.TILE_SIZE);

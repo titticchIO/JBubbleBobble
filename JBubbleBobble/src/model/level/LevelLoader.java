@@ -4,14 +4,16 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import model.enemies.Banebou;
 import model.enemies.Monsta;
 import model.enemies.Zen_chan;
 import model.entities.Player;
 import model.tiles.Tile;
-import view.GameFrame;
-import view.StaticEntityView;
-import static view.GameFrame.TILE_SIZE;
-import static view.GameFrame.SCALE;;
+
+import static model.Settings.TILE_SIZE;
+import static model.Settings.VERTICAL_TILES;
+import static model.Settings.HORIZONTAL_TILES;
+import static model.Settings.SCALE;
 
 public class LevelLoader {
 
@@ -19,7 +21,7 @@ public class LevelLoader {
 	private final static String PLAYER = "P";
 	private final static String ZEN_CHAN = "Z";
 	private final static String MONSTA = "M";
-	private final static String ENEMY_3 = "3";
+	private final static String BANEBOU = "B";
 	private final static String ENEMY_4 = "4";
 	private final static String ENEMY_5 = "5";
 	private final static String ENEMY_6 = "6";
@@ -28,7 +30,7 @@ public class LevelLoader {
 
 	private static String[][] readLevelFile(int levelNum) {
 
-		String[][] matrice = new String[GameFrame.VERTICAL_TILES][GameFrame.HORIZONTAL_TILES];
+		String[][] matrice = new String[VERTICAL_TILES][HORIZONTAL_TILES];
 
 		String levelPath = "resources/levels/Livello" + levelNum + ".txt";
 
@@ -55,17 +57,20 @@ public class LevelLoader {
 			for (String c : linea) {
 				switch (c.substring(0, 1)) {
 				case PLAYER:
-					level.addPlayer(Player.getInstance(x * TILE_SIZE, y * TILE_SIZE-1, TILE_SIZE-1, TILE_SIZE));
+					level.addPlayer(
+							Player.getInstance(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - SCALE, TILE_SIZE - SCALE));
 					break;
 				case BLOCK_TILE:
-					Tile t = new Tile(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE,c.substring(1, 2));
-					level.addTile(t);
+					level.addTile(new Tile(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE, c.substring(1, 2)));
 					break;
 				case ZEN_CHAN:
-					level.addEnemy(new Zen_chan(x * TILE_SIZE, y * TILE_SIZE-1, TILE_SIZE, TILE_SIZE));
+					level.addEnemy(new Zen_chan(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
 					break;
 				case MONSTA:
-					level.addEnemy(new Monsta(x * TILE_SIZE, y * TILE_SIZE-1, TILE_SIZE, TILE_SIZE));
+					level.addEnemy(new Monsta(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
+					break;
+				case BANEBOU:
+					level.addEnemy(new Banebou(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
 					break;
 				}
 				x++;

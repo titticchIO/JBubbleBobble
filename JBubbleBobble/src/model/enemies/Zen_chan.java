@@ -11,14 +11,11 @@ public class Zen_chan extends Enemy {
 		setxSpeed(0.5f);
 	}
 
-	public boolean isOnEdge() {
-		return !isSolid(x - 1, y + height + 1, LevelLoader.getLevelData())
-				|| !isSolid(x + width + 1, y + height + 1, LevelLoader.getLevelData());
-	}
-
 	public void switchDirection() {
-		if (isOnEdge()) {
-			setxSpeed(getxSpeed() * -1);
+		if (!isSolid(x - 1, y + height + 1, LevelLoader.getLevelData())) {
+			setxSpeed(0.5f);
+		} else if (!isSolid(x + width + 1, y + height + 1, LevelLoader.getLevelData())) {
+			setxSpeed(-0.5f);
 		}
 	}
 

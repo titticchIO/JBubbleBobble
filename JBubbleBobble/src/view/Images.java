@@ -3,8 +3,8 @@ package view;
 import java.awt.image.BufferedImage;
 
 public enum Images {
-	PLAYER("P"), BLOCK1("1"), BLOCK2("2"), BLOCK3("3"), BLOCK4("4"), BLOCK5("5"), BLOCK6("6"),
-	ZEN_CHAN("Z"), MONSTA("M");
+	PLAYER("P"), BLOCK1("1"), BLOCK2("2"), BLOCK3("3"), BLOCK4("4"), BLOCK5("5"), BLOCK6("6"), ZEN_CHAN("Z"),
+	MONSTA("M"), BANEBOU("B");
 
 	BufferedImage img;
 
@@ -19,6 +19,7 @@ public enum Images {
 		case "6" -> ImageLoader.importImg("/blocks/normal_blocks/block_11.png");
 		case "Z" -> ImageLoader.importImg("/sprites/zen-chan/image_487.png");
 		case "M" -> ImageLoader.importImg("/sprites/monsta/image_444.png");
+		case "B" -> ImageLoader.importImg("/sprites/banebou/image_2.png");
 		default -> throw new IllegalArgumentException("Unexpected value: " + code);
 		};
 	}

@@ -53,7 +53,14 @@ public class EditorPanel extends JPanel {
 							// Get the absolute position of the mouse event
 							int x = (e.getXOnScreen() - getLocationOnScreen().x) / SQUARE_SIZE;
 							int y = (e.getYOnScreen() - getLocationOnScreen().y) / SQUARE_SIZE;
-							updateSprite(sprites[y][x], x, y);
+							try {
+								updateSprite(sprites[y][x], x, y);								
+							} catch (Exception e2) {
+								System.err.println("Coordinate outside level bounds");
+							}
+							
+								
+							
 						}
 					}
 				});

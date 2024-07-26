@@ -26,12 +26,12 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 
 	public SpriteSelectionScrollPane() {
 		buttons = new ArrayList<SelectionButton>();
-		//add the player button
-		buttons.add(new SelectionButton(Images.PLAYER.getImg(),"P"));
+		// add the player button
+		buttons.add(new SelectionButton(Images.PLAYER.getImg(), "P"));
 		addBlocks();
-		//add a blank button
-		buttons.add(new SelectionButton(Images.EMPTY_BLOCK.getImg()," "));
 		addEnemies();
+		// add a blank button
+		buttons.add(new SelectionButton(Images.EMPTY_BLOCK.getImg(), " "));
 		setSize();
 		setLayout(new ScrollPaneLayout());
 		JPanel buttonPanel = new JPanel(new GridLayout(buttons.size(), 1));
@@ -52,22 +52,23 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 	}
 
 	private void addBlocks() {
-		SelectionButton b1 = new SelectionButton(Images.BLOCK1.getImg(),"#1");
+		SelectionButton b1 = new SelectionButton(Images.BLOCK1.getImg(), "#1");
 		b1.setSelected(true);
 		setCurrentButton(b1);
 		buttons.add(b1);
-		buttons.add(new SelectionButton(Images.BLOCK2.getImg(),"#2"));
-		buttons.add(new SelectionButton(Images.BLOCK3.getImg(),"#3"));
-		buttons.add(new SelectionButton(Images.BLOCK4.getImg(),"#4"));
-		buttons.add(new SelectionButton(Images.BLOCK5.getImg(),"#5"));
-		buttons.add(new SelectionButton(Images.BLOCK6.getImg(),"#6"));
+		buttons.add(new SelectionButton(Images.BLOCK2.getImg(), "#2"));
+		buttons.add(new SelectionButton(Images.BLOCK3.getImg(), "#3"));
+		buttons.add(new SelectionButton(Images.BLOCK4.getImg(), "#4"));
+		buttons.add(new SelectionButton(Images.BLOCK5.getImg(), "#5"));
+		buttons.add(new SelectionButton(Images.BLOCK6.getImg(), "#6"));
 	}
-	
+
 	private void addEnemies() {
 		buttons.add(new SelectionButton(Images.ZEN_CHAN.getImg(), "Z"));
 		buttons.add(new SelectionButton(Images.MONSTA.getImg(), "M"));
+		buttons.add(new SelectionButton(Images.BANEBOU.getImg(), "B"));
 	}
-	
+
 	private void setSize() {
 		Dimension size = new Dimension((int) (40 * SCALE), PANEL_HEIGHT);
 		setPreferredSize(size);
