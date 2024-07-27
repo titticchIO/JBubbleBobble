@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import game.model.enemies.Banebou;
-import game.model.enemies.Monsta;
-import game.model.enemies.Zen_chan;
+import game.model.enemies.*;
 import game.model.entities.Player;
 import game.model.tiles.Tile;
 
@@ -22,6 +20,8 @@ public class LevelLoader {
 	private final static String ZEN_CHAN = "Z";
 	private final static String MONSTA = "M";
 	private final static String BANEBOU = "B";
+	private final static String MIGHTA = "I";
+	private final static String PULPUL = "U";
 	private final static String ENEMY_4 = "4";
 	private final static String ENEMY_5 = "5";
 	private final static String ENEMY_6 = "6";
@@ -71,6 +71,12 @@ public class LevelLoader {
 					break;
 				case BANEBOU:
 					level.addEnemy(new Banebou(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
+					break;
+				case MIGHTA:
+					level.addEnemy(new Mighta(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
+					break;
+				case PULPUL:
+					level.addEnemy(new Pulpul(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
 					break;
 				}
 				x++;
