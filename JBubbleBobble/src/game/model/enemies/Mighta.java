@@ -6,7 +6,7 @@ import game.model.level.LevelLoader;
 public class Mighta extends Enemy {
 
 	public Mighta(float x, float y, float width, float height) {
-		super(x, y, width, height, "Maita");
+		super(x, y, width, height, "Mighta");
 		setxSpeed(0.5f);
 		setxSpeed(0.25f);
 	}
