@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
-
+import static game.model.Settings.TILE_SIZE;
 import game.model.entities.MovingEntity;
 
 public class MovingEntityView implements Observer {
@@ -18,8 +18,8 @@ public class MovingEntityView implements Observer {
 	private Iterator<BufferedImage> animationIterator;
 
 	public MovingEntityView(String entityName) {
-		width = GameFrame.TILE_SIZE;
-		height = GameFrame.TILE_SIZE;
+		width = TILE_SIZE;
+		height = TILE_SIZE;
 
 		img = switch (entityName) {
 		case "player" -> Images.PLAYER.getImg();

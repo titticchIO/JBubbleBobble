@@ -6,8 +6,8 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
-import static game.view.GameFrame.FRAME_WIDTH;
-import static game.view.GameFrame.FRAME_HEIGHT;
+import static game.model.Settings.GAME_WIDTH;
+import static game.model.Settings.GAME_HEIGHT;
 
 import game.model.level.Level;
 
@@ -28,12 +28,12 @@ public class GamePanel extends JPanel {
 	}
 
 	private void setPanelSize() {
-		Dimension size = new Dimension(FRAME_WIDTH, FRAME_HEIGHT);
+		Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT);
 		setPreferredSize(size);
 	}
 
 	private void renderTilesOnce() {
-		tilesImage = new BufferedImage(FRAME_WIDTH, FRAME_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+		tilesImage = new BufferedImage(GAME_WIDTH, GAME_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		Graphics g = tilesImage.getGraphics();
 		levelView.renderTiles(g);
 		g.dispose();
