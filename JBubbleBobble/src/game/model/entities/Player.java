@@ -1,7 +1,7 @@
 package game.model.entities;
 
 import game.model.bubbles.PlayerBubble;
-import static game.view.GameFrame.SCALE;
+import static game.model.Settings.SCALE;
 
 public class Player extends MovingEntity {
 

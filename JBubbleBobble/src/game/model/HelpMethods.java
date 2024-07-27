@@ -2,8 +2,11 @@ package game.model;
 
 import game.model.entities.MovingEntity;
 import game.model.level.LevelLoader;
-import game.view.GameFrame;
-import static game.view.GameFrame.SCALE;
+
+import static game.model.Settings.GAME_HEIGHT;
+import static game.model.Settings.GAME_WIDTH;
+import static game.model.Settings.TILE_SIZE;
+import static game.model.Settings.SCALE;
 
 public class HelpMethods {
 
@@ -15,16 +18,16 @@ public class HelpMethods {
 	}
 
 	public static boolean isSolid(float x, float y, String[][] lvlData) {
-		if (x < 0 || x >= GameFrame.FRAME_WIDTH) {
+		if (x < 0 || x >= GAME_WIDTH) {
 			System.out.println("OUT OF BOUNDS");
 			return true;
 		}
-		if (y < 0 || y >= GameFrame.FRAME_HEIGHT) {
+		if (y < 0 || y >=GAME_HEIGHT) {
 			System.out.println("OUT OF BOUNDS");
 			return true;
 		}
-		float xIndex = x / GameFrame.TILE_SIZE;
-		float yIndex = y / GameFrame.TILE_SIZE;
+		float xIndex = x / TILE_SIZE;
+		float yIndex = y / TILE_SIZE;
 
 		String value = lvlData[(int) yIndex][(int) xIndex];
 
@@ -37,29 +40,29 @@ public class HelpMethods {
 	}
 
 	public static float getEntityXPosNextToWall(MovingEntity movingEntity, float xSpeed) {
-		int currentTile = (int) (movingEntity.getX() / GameFrame.TILE_SIZE);
+		int currentTile = (int) (movingEntity.getX() / TILE_SIZE);
 		if (xSpeed > 0) {
 			// right
-			int tileXPos = (currentTile + 1) * GameFrame.TILE_SIZE;
+			int tileXPos = (currentTile + 1) * TILE_SIZE;
 //			int xOffset = (int) (GameFrame.TILE_SIZE - movingEntity.getWidth());
 //			int xOffset = 0;
 			return tileXPos - movingEntity.getWidth() - 1;
 		} else {
 			// left
-			return currentTile * GameFrame.TILE_SIZE;
+			return currentTile * TILE_SIZE;
 		}
 	}
 
 	public static float getEntityPosUnderRoofOrAboveFloor(MovingEntity movingEntity, float airSpeed) {
-		int currentTile = (int) (movingEntity.getY() / GameFrame.TILE_SIZE);
+		int currentTile = (int) (movingEntity.getY() / TILE_SIZE);
 		if (airSpeed > 0) {
 			// falling or touching floor
-			int tileYPos = currentTile * GameFrame.TILE_SIZE;
-			int yOffset = (int) (GameFrame.TILE_SIZE - movingEntity.getHeight());
+			int tileYPos = currentTile * TILE_SIZE;
+			int yOffset = (int) (TILE_SIZE - movingEntity.getHeight());
 			return tileYPos + yOffset - 1;
 		} else {
 			// jumping
-			return (currentTile * GameFrame.TILE_SIZE);
+			return (currentTile * TILE_SIZE);
 		}
 	}
 

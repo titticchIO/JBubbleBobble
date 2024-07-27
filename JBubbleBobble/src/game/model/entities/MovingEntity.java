@@ -1,8 +1,8 @@
 package game.model.entities;
 
 import game.model.level.LevelLoader;
-import game.view.GameFrame;
 import game.model.HelpMethods;
+import static game.model.Settings.SCALE;
 
 public abstract class MovingEntity extends Entity {
 
@@ -20,9 +20,9 @@ public abstract class MovingEntity extends Entity {
 
 	// jumping and gravity
 	protected float airSpeed = 0f;
-	private float gravity = 0.02f * GameFrame.SCALE;
-	private float jumpSpeed = -1.25f * GameFrame.SCALE;
-	private float fallSpeedAfterCollision = 0.3f * GameFrame.SCALE;
+	private float gravity = 0.02f * SCALE;
+	private float jumpSpeed = -1.25f * SCALE;
+	private float fallSpeedAfterCollision = 0.3f * SCALE;
 	private boolean inAir = false;
 
 	/**
@@ -137,7 +137,7 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	public void updateEntity() {
-		updateYPos();
+//		updateYPos();
 		gravity();
 		walk();
 		setChanged();
