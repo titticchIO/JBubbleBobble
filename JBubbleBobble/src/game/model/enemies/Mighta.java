@@ -3,9 +3,9 @@ package game.model.enemies;
 import static game.model.HelpMethods.isSolid;
 import game.model.level.LevelLoader;
 
-public class Maita extends Enemy {
+public class Mighta extends Enemy {
 
-	public Maita(float x, float y, float width, float height) {
+	public Mighta(float x, float y, float width, float height) {
 		super(x, y, width, height, "Maita");
 		setxSpeed(0.5f);
 		setxSpeed(0.25f);

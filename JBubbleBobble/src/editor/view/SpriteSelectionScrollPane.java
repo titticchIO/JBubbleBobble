@@ -67,6 +67,8 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 		buttons.add(new SelectionButton(Images.ZEN_CHAN.getImg(), "Z"));
 		buttons.add(new SelectionButton(Images.MONSTA.getImg(), "M"));
 		buttons.add(new SelectionButton(Images.BANEBOU.getImg(), "B"));
+		buttons.add(new SelectionButton(Images.MIGHTA.getImg(), "I"));
+		buttons.add(new SelectionButton(Images.PULPUL.getImg(), "U"));
 	}
 
 	private void setSize() {
