@@ -1,4 +1,4 @@
-package editor.view;
+package utils;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

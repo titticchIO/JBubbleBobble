@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import utils.ImageLoader;
 
 public class Animation implements Iterable<BufferedImage> {
 	private List<BufferedImage> animationsFrames;

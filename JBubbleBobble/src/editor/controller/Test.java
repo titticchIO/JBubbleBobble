@@ -2,7 +2,7 @@ package editor.controller;
 
 import java.awt.image.BufferedImage;
 
-import editor.view.ImageLoader;
+import utils.ImageLoader;
 
 public class Test {
 	public static void main(String[] args) {

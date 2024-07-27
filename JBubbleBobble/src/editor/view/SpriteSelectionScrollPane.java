@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneLayout;
 
+import utils.Images;
+
 import static editor.view.EditorPanel.PANEL_HEIGHT;
 import static editor.view.EditorPanel.SQUARE_SIZE;
 import static editor.view.EditorPanel.SCALE;

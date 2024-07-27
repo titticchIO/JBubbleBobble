@@ -8,6 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 import static game.model.Settings.TILE_SIZE;
 import game.model.entities.MovingEntity;
+import utils.Images;
 
 public class MovingEntityView implements Observer {
 

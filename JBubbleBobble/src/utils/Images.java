@@ -1,12 +1,10 @@
-package game.view;
+package utils;
 
 import java.awt.image.BufferedImage;
 
-import editor.view.ImageLoader;
-
 public enum Images {
-	PLAYER("P"), BLOCK1("1"), BLOCK2("2"), BLOCK3("3"), BLOCK4("4"), BLOCK5("5"), BLOCK6("6"), ZEN_CHAN("Z"),
-	MONSTA("M"), BANEBOU("B"),MIGHTA("I"), PULPUL("U");;
+	PLAYER("P"), BLOCK1("1"), BLOCK2("2"), BLOCK3("3"), BLOCK4("4"), BLOCK5("5"), BLOCK6("6"), EMPTY_BLOCK("0"),
+	ZEN_CHAN("Z"), MONSTA("M"), BANEBOU("B"), MIGHTA("I"), PULPUL("U");
 
 	BufferedImage img;
 
@@ -24,7 +22,9 @@ public enum Images {
 		case "B" -> ImageLoader.importImg("/sprites/banebou/image_2.png");
 		case "I" -> ImageLoader.importImg("/sprites/mighta/image_25.png");
 		case "U" -> ImageLoader.importImg("/sprites/pulpul/image_397.png");
-		
+
+		case "0" -> ImageLoader.importImg("/EmptyTile.png");
+
 		default -> throw new IllegalArgumentException("Unexpected value: " + code);
 		};
 	}
