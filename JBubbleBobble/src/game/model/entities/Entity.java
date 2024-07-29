@@ -1,8 +1,11 @@
 package game.model.entities;
 
+import java.util.Objects;
 import java.util.Observable;
 
-
+/**
+ * 
+ */
 public abstract class Entity extends Observable {
 	/**
 	 * Coordinates of the entity's top left corner
@@ -39,7 +42,7 @@ public abstract class Entity extends Observable {
 	/**
 	 * Setters
 	 */
-	
+
 	/**
 	 * @param x
 	 */
@@ -63,7 +66,7 @@ public abstract class Entity extends Observable {
 		this.width = width;
 		notifyPosition();
 	}
-	
+
 	/**
 	 * @param height
 	 */
@@ -104,8 +107,6 @@ public abstract class Entity extends Observable {
 		return height;
 	}
 
-	
-
 	/**
 	 * @return array with entity's coordinates
 	 */
@@ -129,9 +130,11 @@ public abstract class Entity extends Observable {
 	public boolean topHit(Entity entity) {
 		float[][] p1 = getPoints();
 		float[][] p2 = entity.getPoints();
-		if (p2[3][0] >= p1[0][0] && p2[3][0] <= p1[1][0] && p2[3][1] >= p1[0][1] && p2[3][1] <= p1[3][1]) // checks p1 (top-left)
+		if (p2[3][0] >= p1[0][0] && p2[3][0] <= p1[1][0] && p2[3][1] >= p1[0][1] && p2[3][1] <= p1[3][1]) // checks p1
+																											// (top-left)
 			return true;
-		if (p2[2][0] >= p1[0][0] && p2[2][0] <= p1[1][0] && p2[2][1] >= p1[0][1] && p2[2][1] <= p1[3][1]) // checks p1 (top-right)
+		if (p2[2][0] >= p1[0][0] && p2[2][0] <= p1[1][0] && p2[2][1] >= p1[0][1] && p2[2][1] <= p1[3][1]) // checks p1
+																											// (top-right)
 			return true;
 		return false;
 	}
@@ -145,9 +148,11 @@ public abstract class Entity extends Observable {
 	public boolean bottomHit(Entity entity) {
 		float[][] p1 = getPoints();
 		float[][] p2 = entity.getPoints();
-		if (p2[1][0] >= p1[0][0] && p2[1][0] <= p1[1][0] && p2[1][1] >= p1[0][1] && p2[1][1] <= p1[3][1]) // check p1 (bottom-left)
+		if (p2[1][0] >= p1[0][0] && p2[1][0] <= p1[1][0] && p2[1][1] >= p1[0][1] && p2[1][1] <= p1[3][1]) // check p1
+																											// (bottom-left)
 			return true;
-		if (p2[0][0] >= p1[0][0] && p2[0][0] <= p1[1][0] && p2[0][1] >= p1[0][1] && p2[0][1] <= p1[3][1]) // check p1 (bottom-right)
+		if (p2[0][0] >= p1[0][0] && p2[0][0] <= p1[1][0] && p2[0][1] >= p1[0][1] && p2[0][1] <= p1[3][1]) // check p1
+																											// (bottom-right)
 			return true;
 		return false;
 	}
@@ -162,4 +167,23 @@ public abstract class Entity extends Observable {
 		return topHit(entity) || bottomHit(entity);
 	}
 
+	@Override
+	public int hashCode() {
+		int k = 13;
+		k = k * 17 + (int) x;
+		k = k * 17 + (int) y;
+		k = k * 17 + (int) width;
+		k = k * 17 + (int) width;
+		return k;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null || getClass() != obj.getClass())
+			return false;
+		Entity other = (Entity) obj;
+		return height == other.height && width == other.width && x == other.x && y == other.y;
+	}
 }
