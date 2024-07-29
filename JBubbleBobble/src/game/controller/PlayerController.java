@@ -28,9 +28,6 @@ public class PlayerController implements KeyListener {
 		case KeyEvent.VK_W:
 			player.jump();
 			break;
-		case KeyEvent.VK_SPACE:
-			player.jump();
-			break;
 		case KeyEvent.VK_A:
 			player.move(Directions.LEFT);
 			break;
