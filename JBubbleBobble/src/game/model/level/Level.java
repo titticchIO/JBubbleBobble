@@ -20,6 +20,7 @@ public class Level extends Observable {
 		tiles = new ArrayList<Tile>();
 		enemies = new ArrayList<Enemy>();
 		bManager = new BubbleManager();
+		bManager=new BubbleManager();
 		LevelLoader.loadLevel(this, levelNum);
 	}
 

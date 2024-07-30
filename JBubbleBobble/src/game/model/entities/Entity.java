@@ -32,11 +32,11 @@ public abstract class Entity extends Observable {
 	}
 
 	/**
-	 * Notifies to the observers the changes in the entity's position
+	 * Notifies to the observers the entity's initial position
 	 */
 	public void notifyPosition() {
 		setChanged();
-		notifyObservers("initial");
+		notifyObservers();
 	}
 
 	/**

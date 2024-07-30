@@ -1,5 +1,6 @@
 package game.model.entities;
 
+import game.model.bubbles.BubbleManager;
 import game.model.bubbles.PlayerBubble;
 import static game.model.Settings.SCALE;
 
@@ -37,4 +38,9 @@ public class Player extends MovingEntity {
 	public void setCurrentBubble(PlayerBubble currentBubble) {
 		this.currentBubble = currentBubble;
 	}
+	
+	public void shootBubble(BubbleManager bubbleManager) {
+		bubbleManager.createBubble(x, y);
+	}
+	
 }
