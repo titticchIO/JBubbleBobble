@@ -12,9 +12,9 @@ public class Zen_chan extends Enemy {
 	}
 
 	public void switchDirection() {
-		if (!isSolid(x - 1, y + height + 1, LevelLoader.getLevelData())) {
+		if (!isSolid(x - 1, y + height + 1)) {
 			setxSpeed(0.5f);
-		} else if (!isSolid(x + width + 1, y + height + 1, LevelLoader.getLevelData())) {
+		} else if (!isSolid(x + width + 1, y + height + 1)) {
 			setxSpeed(-0.5f);
 		}
 	}

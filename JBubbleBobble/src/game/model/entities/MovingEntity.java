@@ -21,7 +21,7 @@ public abstract class MovingEntity extends Entity {
 	// jumping and gravity
 	protected float airSpeed = 0f;
 	private float gravity = 0.02f * SCALE;
-	private float jumpSpeed = -1.25f * SCALE;
+	private float jumpSpeed = -2.0f * SCALE;
 	private float fallSpeedAfterCollision = 0.3f * SCALE;
 	private boolean inAir = false;
 
@@ -60,10 +60,10 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	protected void updateYPos() {
-		if (airSpeed < 0) {
+		if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(x, y, width, height)) {
 			setY(y + airSpeed);
 		} else {
-			if (HelpMethods.canMoveHere(x, y + airSpeed, (int) width, (int) height, LevelLoader.getLevelData())) {
+			if (HelpMethods.canMoveHere(x, y + airSpeed, (int) width, (int) height)) {
 				setY(y + airSpeed);
 			} else {
 				setY(HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed));
@@ -77,7 +77,8 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	private void updateXPos() {
-		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width, (int) height, LevelLoader.getLevelData())) {
+		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width, (int) height)
+				|| HelpMethods.isEntityInsideWall(x, y, width, height)) {
 			setX(x + xSpeed);
 		} else {
 			setX(HelpMethods.getEntityXPosNextToWall(this, xSpeed));
@@ -85,7 +86,7 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	public void jump() {
-		if (!inAir && !HelpMethods.isEntityInsideWall(x, y, width, height, LevelLoader.getLevelData())) {
+		if (!inAir && !HelpMethods.isEntityInsideWall(x, y, width, height)) {
 			inAir = true;
 			airSpeed = jumpSpeed;
 		}
@@ -125,7 +126,7 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	public void gravity() {
-		if (!HelpMethods.isEntityGrounded(this, LevelLoader.getLevelData())) {
+		if (!HelpMethods.isEntityGrounded(this)) {
 			inAir = true;
 			airSpeed += gravity;
 		}
@@ -135,6 +136,7 @@ public abstract class MovingEntity extends Entity {
 		updateYPos();
 		gravity();
 		walk();
+		System.out.println(HelpMethods.isEntityInsideWall(x, y, width, height));
 		setChanged();
 		notifyObservers();
 	}

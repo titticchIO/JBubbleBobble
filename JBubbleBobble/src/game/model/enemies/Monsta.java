@@ -23,7 +23,7 @@ public class Monsta extends Enemy {
 	}
 
 	protected void updateXPos() {
-		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width, (int) height, LevelLoader.getLevelData())) {
+		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width, (int) height)) {
 			setX(x + xSpeed);
 		} else {
 			x = HelpMethods.getEntityXPosNextToWall(this, xSpeed);

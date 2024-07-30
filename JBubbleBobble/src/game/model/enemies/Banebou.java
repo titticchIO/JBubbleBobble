@@ -13,10 +13,10 @@ public class Banebou extends Enemy {
 	}
 
 	public void switchDirection() {
-		if (!isSolid(x - 1, y + height + 1, LevelLoader.getLevelData())) {
+		if (!isSolid(x - 1, y + height + 1)) {
 			setxSpeed(1);
 		}
-		if (!isSolid(x + width + 1, y + height + 1, LevelLoader.getLevelData())) {
+		if (!isSolid(x + width + 1, y + height + 1)) {
 			setxSpeed(-1);
 		}
 	}

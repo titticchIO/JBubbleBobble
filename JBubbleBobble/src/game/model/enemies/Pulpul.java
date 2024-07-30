@@ -12,8 +12,8 @@ public class Pulpul extends Enemy {
 	}
 
 	public boolean isOnEdge() {
-		return !isSolid(x - 1, y + height + 1, LevelLoader.getLevelData())
-				|| !isSolid(x + width + 1, y + height + 1, LevelLoader.getLevelData());
+		return !isSolid(x - 1, y + height + 1)
+				|| !isSolid(x + width + 1, y + height + 1);
 	}
 
 	public void switchDirection() {
