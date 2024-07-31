@@ -1,7 +1,7 @@
 package game.model;
 
 import game.model.entities.MovingEntity;
-import game.model.level.LevelLoader;
+import utils.LevelLoader;
 
 import static game.model.Settings.GAME_HEIGHT;
 import static game.model.Settings.GAME_WIDTH;

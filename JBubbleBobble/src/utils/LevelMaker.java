@@ -1,4 +1,4 @@
-package editor.model;
+package utils;
 
 import java.io.*;
 import java.util.ArrayList;

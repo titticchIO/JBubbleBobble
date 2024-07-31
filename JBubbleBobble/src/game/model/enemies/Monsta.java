@@ -1,9 +1,10 @@
 package game.model.enemies;
 
 import game.model.HelpMethods;
+import utils.LevelLoader;
+
 import static game.model.HelpMethods.isSolidHorizontalLine;
 import static game.model.HelpMethods.isSolidVerticalLine;
-import game.model.level.LevelLoader;
 
 public class Monsta extends Enemy {
 

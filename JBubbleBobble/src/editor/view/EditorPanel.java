@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-import editor.model.LevelMaker;
+import utils.LevelMaker;
 
 public class EditorPanel extends JPanel {
 	public static final int ROWS = 24;

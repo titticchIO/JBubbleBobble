@@ -1,4 +1,4 @@
-package game.model.level;
+package utils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import game.model.enemies.*;
 import game.model.entities.Player;
+import game.model.level.Level;
 import game.model.tiles.Tile;
 
 import static game.model.Settings.TILE_SIZE;
