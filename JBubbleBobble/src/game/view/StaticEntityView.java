@@ -9,7 +9,7 @@ import utils.Images;
 
 import game.model.entities.Entity;
 
-public class StaticEntityView implements Observer {
+public class StaticEntityView extends EntityView implements Observer {
 
 	protected BufferedImage img;
 	protected float x, y;

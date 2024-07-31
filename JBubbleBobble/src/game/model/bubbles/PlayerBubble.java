@@ -67,7 +67,7 @@ public class PlayerBubble extends Bubble {
 	 */
 	private void rise() {
 //		fa salire la bolla
-//		setySpeed(5); // da calibrare con la view
+		setAirSpeed(5); // da calibrare con la view
 		setxSpeed(0); // da calibrare con la view
 	}
 

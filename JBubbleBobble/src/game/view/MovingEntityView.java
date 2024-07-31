@@ -1,7 +1,6 @@
 package game.view;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 import java.util.Observable;
@@ -10,7 +9,7 @@ import static game.model.Settings.TILE_SIZE;
 import game.model.entities.MovingEntity;
 import utils.Images;
 
-public class MovingEntityView implements Observer {
+public class MovingEntityView extends EntityView implements Observer {
 
 	private BufferedImage img;
 	private float x, y;
@@ -86,8 +85,8 @@ public class MovingEntityView implements Observer {
 		g.drawImage(img, (int) x, (int) y, (int) width, (int) height, null);
 
 		// DRAW HITBOX
-		// g.setColor(Color.BLACK);
-		// g.drawRect((int) x, (int) y, (int) width, (int) height);
+//		 g.setColor(Color.BLACK);
+//		 g.drawRect((int) x, (int) y, (int) width, (int) height);
 	}
 
 	@Override
