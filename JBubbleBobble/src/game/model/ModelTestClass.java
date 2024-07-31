@@ -9,5 +9,7 @@ public class ModelTestClass {
 		System.out.println(b.getLifeSpan());
 		b.updateEntity();
 		System.out.println(b.getLifeSpan());
+		b.updateEntity();
+		System.out.println(b.getLifeSpan());
 	}
 }

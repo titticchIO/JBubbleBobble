@@ -55,7 +55,11 @@ public class PlayerBubble extends Bubble {
 	 * metodo per far decrementare la lifeSpan
 	 */
 	private void decreaseTravelTime(float k) {
-		setLifeSpan(travelTime - k);
+		setTravelTime(travelTime - k);
+	}
+
+	public void setTravelTime(float travelTime) {
+		this.travelTime = travelTime;
 	}
 
 	/**
@@ -80,7 +84,7 @@ public class PlayerBubble extends Bubble {
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		System.out.println(getLifeSpan());
+//		System.out.println(getLifeSpan());
 		if (travelTime >= 0)
 			decreaseTravelTime(1); // decrementa il tempo prima che la bolla inizi a salire (valore da calibrare
 									// con la view)

@@ -46,7 +46,7 @@ public abstract class Bubble extends MovingEntity {
 
 	@Override
 	public void updateEntity() {
-//		System.out.println(lifeSpan);
+		System.out.println(lifeSpan);
 		if (lifeSpan > 0) {
 			decreaseLifeSpan(10.0f); // decrementa la lifespan della bolla (valore da calibrare con la view)
 		}
