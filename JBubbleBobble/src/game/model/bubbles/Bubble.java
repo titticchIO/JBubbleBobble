@@ -11,7 +11,7 @@ public abstract class Bubble extends MovingEntity {
 
 	public Bubble(float x, float y, float width, float height) {
 		super(x, y, width, height);
-		lifeSpan = 100000000;
+		lifeSpan = 1000;
 	}
 
 	public Bubble(float x, float y, float width, float height, float lifeSpan) {
@@ -34,7 +34,7 @@ public abstract class Bubble extends MovingEntity {
 	 * metodo per far decrementare la lifeSpan
 	 */
 	private void decreaseLifeSpan(float k) {
-		setLifeSpan(lifeSpan - k);
+		setLifeSpan(getLifeSpan() - k);
 	}
 
 	/**
@@ -46,10 +46,13 @@ public abstract class Bubble extends MovingEntity {
 
 	@Override
 	public void updateEntity() {
-		if (lifeSpan <= 0)
-			pop();
+//		System.out.println(lifeSpan);
+		if (lifeSpan > 0) {
+			decreaseLifeSpan(10.0f); // decrementa la lifespan della bolla (valore da calibrare con la view)
+		}
 		else
-			decreaseLifeSpan(10); // decrementa la lifespan della bolla (valore da calibrare con la view)
+			pop();
+
 		setChanged();
 		notifyObservers();
 	}

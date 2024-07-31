@@ -26,6 +26,10 @@ public class BubbleManager extends Observable {
 		setChanged();
 		notifyObservers(newBubble);
 	}
+	
+	public void removeBubble(Bubble bubble) {
+		bubbles.remove(bubble);
+	}
 
 	public List<Bubble> getBubbles() {
 		return bubbles;

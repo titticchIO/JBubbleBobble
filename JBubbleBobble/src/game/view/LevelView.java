@@ -80,7 +80,7 @@ public class LevelView implements Observer {
 			Bubble newBubble=(Bubble)arg;
 			MovingEntityView newBubbleView=new MovingEntityView("Bubble");
 			newBubble.addObserver(newBubbleView);
-			
+			bubbles.add(newBubbleView);
 		}
 
 	}

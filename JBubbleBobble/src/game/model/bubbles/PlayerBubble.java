@@ -62,7 +62,8 @@ public class PlayerBubble extends Bubble {
 	 * metodo per far scoppiare la bolla
 	 */
 	public void pop() {
-//		setChanged, notify...
+		System.out.println("popped");
+		BubbleManager.getInstance().removeBubble(this);
 	}
 
 	/**
@@ -79,6 +80,7 @@ public class PlayerBubble extends Bubble {
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
+		System.out.println(getLifeSpan());
 		if (travelTime >= 0)
 			decreaseTravelTime(1); // decrementa il tempo prima che la bolla inizi a salire (valore da calibrare
 									// con la view)
