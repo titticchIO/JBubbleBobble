@@ -67,6 +67,12 @@ public class LevelView implements Observer {
 	public List<MovingEntityView> getEnemies() {
 		return enemies;
 	}
+	
+	
+
+	public List<MovingEntityView> getBubbles() {
+		return bubbles;
+	}
 
 	@Override
 	public void update(Observable o, Object arg) {
