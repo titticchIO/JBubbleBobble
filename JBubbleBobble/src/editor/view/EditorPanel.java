@@ -90,6 +90,15 @@ public class EditorPanel extends JPanel {
 	public Sprite[][] getSprites() {
 		return sprites;
 	}
+	
+	public static void setEmptySprites(Sprite[][] sprites) {
+	    for (int y = 0; y < ROWS; y++) {
+	        for (int x = 0; x < COLS; x++) {
+	            sprites[y][x].updateSprite(null); // Imposta il sprite come vuoto
+	        }
+	    }
+	}
+
 
 	private void updateSprite(Sprite sprite, int x, int y) {
 		SelectionButton button = selPane.getCurrentButton();

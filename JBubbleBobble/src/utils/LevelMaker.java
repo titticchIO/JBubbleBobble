@@ -22,7 +22,7 @@ public class LevelMaker {
 		emptyLevel();
 	}
 
-	public void emptyLevel() {
+	public static void emptyLevel() {
 		for (int i = 0; i < ROWS; i++) {
 			for (int j = 0; j < COLS; j++) {
 				level[i][j] = " ";
@@ -68,7 +68,7 @@ public class LevelMaker {
 
 	public static void saveLevelToFile(int levelNum) {
 		
-		String filePath = "resources/levels/Livello2.txt";
+		String filePath = "resources/levels/Livello" + levelNum + ".txt";
 
 		try {
 			File file = new File(filePath);

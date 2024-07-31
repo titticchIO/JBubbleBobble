@@ -29,7 +29,7 @@ public class LevelLoader {
 
 	private static String[][] levelData;
 
-	private static String[][] readLevelFile(int levelNum) {
+	public static String[][] readLevelFile(int levelNum) {
 
 		String[][] matrice = new String[VERTICAL_TILES][HORIZONTAL_TILES];
 
