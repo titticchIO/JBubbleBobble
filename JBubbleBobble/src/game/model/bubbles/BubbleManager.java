@@ -1,6 +1,7 @@
 package game.model.bubbles;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
@@ -21,14 +22,16 @@ public class BubbleManager extends Observable {
 	}
 
 	public void createBubble(float x, float y) {
-		Bubble newBubble=new PlayerBubble(x, y, Settings.TILE_SIZE, Settings.TILE_SIZE);
+		Bubble newBubble = new PlayerBubble(x, y, Settings.TILE_SIZE, Settings.TILE_SIZE);
 		bubbles.add(newBubble);
 		setChanged();
 		notifyObservers(newBubble);
 	}
-	
+
 	public void removeBubble(Bubble bubble) {
 		bubbles.remove(bubble);
+		setChanged();
+		notifyObservers(bubble);
 	}
 
 	public List<Bubble> getBubbles() {
@@ -36,8 +39,16 @@ public class BubbleManager extends Observable {
 	}
 
 	public void updateBubbles() {
-		for (Bubble b : bubbles) {
-			b.updateEntity();
+		Iterator<Bubble> iterator = bubbles.iterator();
+		while (iterator.hasNext()) {
+			Bubble bubble = iterator.next();
+			if (bubble.isPopped()) {
+				iterator.remove();
+				setChanged();
+				notifyObservers(bubble);
+			} else {
+				bubble.updateEntity();
+			}
 		}
 	}
 }

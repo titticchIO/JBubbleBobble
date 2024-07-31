@@ -67,8 +67,6 @@ public class LevelView implements Observer {
 	public List<MovingEntityView> getEnemies() {
 		return enemies;
 	}
-	
-	
 
 	public List<MovingEntityView> getBubbles() {
 		return bubbles;
@@ -77,10 +75,14 @@ public class LevelView implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		if (arg instanceof Bubble) {
-			Bubble newBubble=(Bubble)arg;
-			MovingEntityView newBubbleView=new MovingEntityView("Bubble");
-			newBubble.addObserver(newBubbleView);
-			bubbles.add(newBubbleView);
+			Bubble bubble = (Bubble) arg;
+			if (!bubble.isPopped()) {
+				MovingEntityView newBubbleView = new MovingEntityView("Bubble");
+				bubble.addObserver(newBubbleView);
+				bubbles.add(newBubbleView);
+			}else {
+				bubbles.remove(bubble);
+			}
 		}
 
 	}
