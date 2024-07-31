@@ -1,7 +1,8 @@
 package game.model.enemies;
 
 import static game.model.HelpMethods.isSolid;
-import game.model.level.LevelLoader;
+
+import utils.LevelLoader;
 
 public class Mighta extends Enemy {
 

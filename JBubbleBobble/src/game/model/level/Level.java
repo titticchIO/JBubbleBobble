@@ -8,6 +8,7 @@ import game.model.bubbles.BubbleManager;
 import game.model.enemies.Enemy;
 import game.model.entities.Player;
 import game.model.tiles.Tile;
+import utils.LevelLoader;
 
 public class Level {
 

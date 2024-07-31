@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import editor.model.LevelMaker;
+import utils.LevelMaker;
 
 public class EditorFrame extends JFrame {
     EditorPanel editorPanel;

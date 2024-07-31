@@ -1,7 +1,8 @@
 package game.model.entities;
 
-import game.model.level.LevelLoader;
 import game.model.HelpMethods;
+import utils.LevelLoader;
+
 import static game.model.Settings.SCALE;
 
 public abstract class MovingEntity extends Entity {
