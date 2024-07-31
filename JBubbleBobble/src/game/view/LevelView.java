@@ -15,7 +15,7 @@ import game.model.tiles.Tile;
 
 public class LevelView implements Observer {
 	private MovingEntityView playerView;
-	private List<StaticEntityView> tiles;
+	private List<EntityView> tiles;
 	private List<MovingEntityView> enemies;
 	private List<MovingEntityView> bubbles;
 
@@ -26,9 +26,9 @@ public class LevelView implements Observer {
 		enemies = new ArrayList<MovingEntityView>();
 		spawnEnemies(level);
 
-		tiles = new ArrayList<StaticEntityView>();
+		tiles = new ArrayList<EntityView>();
 		for (Tile t : level.getTiles()) {
-			StaticEntityView newTile = new StaticEntityView("tile" + t.getType());
+			EntityView newTile = new EntityView("tile" + t.getType());
 			t.addObserver(newTile);
 			t.notifyPosition();
 			tiles.add(newTile);
@@ -55,7 +55,7 @@ public class LevelView implements Observer {
 	}
 
 	public void renderTiles(Graphics g) {
-		for (StaticEntityView t : tiles) {
+		for (EntityView t : tiles) {
 			t.render(g);
 		}
 	}

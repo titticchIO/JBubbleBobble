@@ -9,7 +9,7 @@ import static game.model.Settings.TILE_SIZE;
 import game.model.entities.MovingEntity;
 import utils.Images;
 
-public class MovingEntityView extends EntityView implements Observer {
+public class MovingEntityView implements Observer {
 
 	private BufferedImage img;
 	private float x, y;
