@@ -3,22 +3,21 @@ package game.model.bubbles;
 import game.model.entities.MovingEntity;
 
 public abstract class Bubble extends MovingEntity {
-	
+
 	/**
 	 * tempo prima che la bolla scoppi
 	 */
 	private float lifeSpan;
-	
+
 	public Bubble(float x, float y, float width, float height) {
 		super(x, y, width, height);
-		lifeSpan = 10;
+		lifeSpan = 100000000;
 	}
-	
+
 	public Bubble(float x, float y, float width, float height, float lifeSpan) {
 		super(x, y, width, height);
 		this.lifeSpan = lifeSpan;
 	}
-
 
 	/**
 	 * Getters and Setters
@@ -51,6 +50,8 @@ public abstract class Bubble extends MovingEntity {
 			pop();
 		else
 			decreaseLifeSpan(10); // decrementa la lifespan della bolla (valore da calibrare con la view)
+		setChanged();
+		notifyObservers();
 	}
 
 }

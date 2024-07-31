@@ -1,30 +1,39 @@
 package game.model.bubbles;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Observable;
 
 import game.model.Settings;
 
-public class BubbleManager {
+public class BubbleManager extends Observable {
 	private List<Bubble> bubbles;
+	private static BubbleManager instance;
 
-	public BubbleManager() {
+	public static BubbleManager getInstance() {
+		if (instance == null)
+			instance = new BubbleManager();
+		return instance;
+	}
+
+	private BubbleManager() {
 		bubbles = new ArrayList<Bubble>();
 	}
 
-	public BubbleManager(PlayerBubble... bubbles) {
-		this.bubbles = new ArrayList<Bubble>(Arrays.asList(bubbles));
+	public void createBubble(float x, float y) {
+		Bubble newBubble=new PlayerBubble(x, y, Settings.TILE_SIZE, Settings.TILE_SIZE);
+		bubbles.add(newBubble);
+		setChanged();
+		notifyObservers(newBubble);
 	}
 
-	public void createBubble(float x, float y) {
-		bubbles.add(new PlayerBubble(x, y, Settings.TILE_SIZE, Settings.TILE_SIZE));
+	public List<Bubble> getBubbles() {
+		return bubbles;
 	}
 
 	public void updateBubbles() {
 		for (Bubble b : bubbles) {
 			b.updateEntity();
 		}
-
 	}
 }

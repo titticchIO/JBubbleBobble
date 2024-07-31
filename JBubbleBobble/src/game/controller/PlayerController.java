@@ -3,6 +3,7 @@ package game.controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import game.model.bubbles.BubbleManager;
 import game.model.entities.MovingEntity.Directions;
 import game.model.entities.Player;
 import game.view.GameFrame;
@@ -34,6 +35,9 @@ public class PlayerController implements KeyListener {
 		case KeyEvent.VK_D:
 			player.move(Directions.RIGHT);
 			break;
+		case KeyEvent.VK_SPACE:
+			player.shootBubble(BubbleManager.getInstance());
+		
 		}
 	}
 

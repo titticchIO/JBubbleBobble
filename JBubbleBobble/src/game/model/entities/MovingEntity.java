@@ -136,7 +136,6 @@ public abstract class MovingEntity extends Entity {
 		updateYPos();
 		gravity();
 		walk();
-		System.out.println(HelpMethods.isEntityInsideWall(x, y, width, height));
 		setChanged();
 		notifyObservers();
 	}

@@ -1,6 +1,7 @@
 package game.controller;
 
 import game.model.*;
+import game.model.bubbles.BubbleManager;
 import game.model.enemies.Enemy;
 import game.model.entities.Player;
 import game.model.level.Level;
@@ -11,13 +12,14 @@ public class Game implements Runnable {
 	private Thread gameThread;
 	private final float GAME_SPEED = 1.0f;
 	private final int FPS_SET = 120;
-	private final int UPS_SET = (int) (200* GAME_SPEED);
+	private final int UPS_SET = (int) (200 * GAME_SPEED);
 	private Level currentLevel;
 
 	public Game() {
 		Level livello1 = new Level(2);
 		this.currentLevel = livello1;
 		LevelView livello1View = new LevelView(livello1);
+		BubbleManager.getInstance().addObserver(livello1View);
 		gameFrame = new GameFrame(livello1View);
 		startGameLoop();
 	}
@@ -28,10 +30,7 @@ public class Game implements Runnable {
 	}
 
 	public void update() {
-		Player.getInstance().updateEntity();
-		for (Enemy e : currentLevel.getEnemies()) {
-			e.updateEntity();
-		}
+		currentLevel.updateLevel();
 	}
 
 	@Override

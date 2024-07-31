@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import game.model.bubbles.Bubble;
+import game.model.bubbles.BubbleManager;
 import game.model.enemies.Enemy;
 import game.model.entities.Player;
 import game.model.level.Level;
@@ -15,18 +17,28 @@ public class LevelView implements Observer {
 	private MovingEntityView playerView;
 	private List<StaticEntityView> tiles;
 	private List<MovingEntityView> enemies;
+	private List<MovingEntityView> bubbles;
 
 	public LevelView(Level level) {
 		playerView = new MovingEntityView("player");
 		Player.getInstance().addObserver(playerView);
+
 		enemies = new ArrayList<MovingEntityView>();
 		spawnEnemies(level);
+
 		tiles = new ArrayList<StaticEntityView>();
 		for (Tile t : level.getTiles()) {
-			StaticEntityView newTile = new StaticEntityView("tile"+t.getType());
+			StaticEntityView newTile = new StaticEntityView("tile" + t.getType());
 			t.addObserver(newTile);
 			t.notifyPosition();
 			tiles.add(newTile);
+		}
+
+		bubbles = new ArrayList<MovingEntityView>();
+		for (Bubble b : BubbleManager.getInstance().getBubbles()) {
+			MovingEntityView bubble = new MovingEntityView("Bubble");
+			b.addObserver(bubble);
+			bubbles.add(bubble);
 		}
 	}
 
@@ -34,7 +46,6 @@ public class LevelView implements Observer {
 		for (Enemy e : level.getEnemies()) {
 			MovingEntityView enemyView = new MovingEntityView(e.getName());
 			e.addObserver(enemyView);
-//			e.notifyPosition();
 			enemies.add(enemyView);
 		}
 	}
@@ -53,13 +64,19 @@ public class LevelView implements Observer {
 		playerView.updateAnimationImg();
 	}
 
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public List<MovingEntityView> getEnemies() {
 		return enemies;
 	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if (arg instanceof Bubble) {
+			Bubble newBubble=(Bubble)arg;
+			MovingEntityView newBubbleView=new MovingEntityView("Bubble");
+			newBubble.addObserver(newBubbleView);
+			
+		}
+
+	}
+
 }

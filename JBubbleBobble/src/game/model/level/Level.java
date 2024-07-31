@@ -9,7 +9,7 @@ import game.model.enemies.Enemy;
 import game.model.entities.Player;
 import game.model.tiles.Tile;
 
-public class Level extends Observable {
+public class Level {
 
 	private Player player;
 	private List<Enemy> enemies;
@@ -19,8 +19,7 @@ public class Level extends Observable {
 	public Level(int levelNum) {
 		tiles = new ArrayList<Tile>();
 		enemies = new ArrayList<Enemy>();
-		bManager = new BubbleManager();
-		bManager=new BubbleManager();
+		bManager = BubbleManager.getInstance();
 		LevelLoader.loadLevel(this, levelNum);
 	}
 
@@ -67,4 +66,13 @@ public class Level extends Observable {
 	public void addTile(Tile tile) {
 		tiles.add(tile);
 	}
+	
+	public void updateLevel() {
+		player.updateEntity();
+		for (Enemy e: enemies) {
+			e.updateEntity();
+		}
+		bManager.updateBubbles();
+	}
+	
 }
