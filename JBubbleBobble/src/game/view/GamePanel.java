@@ -12,15 +12,23 @@ import static game.model.Settings.GAME_HEIGHT;
 import game.model.level.Level;
 
 public class GamePanel extends JPanel {
+	private static GamePanel instance;
 	private LevelView levelView;
 	private MovingEntityView playerView;
 	private BufferedImage tilesImage;
 
-	public GamePanel(LevelView level) {
+	private GamePanel(LevelView level) {
 		setPanelSize();
 		this.playerView = level.getPlayerView();
 		this.levelView = level;
 		renderTilesOnce();
+	}
+	
+	public static GamePanel getInstance() {
+		if (instance == null) {
+			instance = new GamePanel(new LevelView(new Level(2)));
+		}
+		return instance;
 	}
 
 	public MovingEntityView getPlayerView() {
