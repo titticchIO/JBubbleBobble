@@ -75,6 +75,9 @@ public class LevelView implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		if (arg instanceof Bubble) {
+			for (EntityView e: enemies) {
+				System.out.println(e.getX()+" | "+e.getY());
+			}
 			Bubble bubble = (Bubble) arg;
 			if (!bubble.isPopped()) {
 				MovingEntityView newBubbleView = new MovingEntityView("Bubble");

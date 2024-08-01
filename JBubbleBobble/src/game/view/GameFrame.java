@@ -10,8 +10,8 @@ public class GameFrame extends JFrame {
 	private GamePanel gamePanel;
 	
 
-	public GameFrame() {
-		this.gamePanel = GamePanel.getInstance();
+	public GameFrame(LevelView levelView) {
+		this.gamePanel = new GamePanel(levelView);
 		add(gamePanel);
 		// Attach the PlayerController as a KeyListener
 		addKeyListener(new PlayerController());

@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.Observable;
 import java.util.Observer;
 import utils.Images;
-
+import game.model.enemies.Zen_chan;
 import game.model.entities.Entity;
 
 public class EntityView implements Observer {
@@ -13,6 +13,7 @@ public class EntityView implements Observer {
 	protected BufferedImage img;
 	protected float x, y;
 	protected float width, height;
+	private boolean toDelete;
 
 	public EntityView(String entityName) {
 		img = switch (entityName) {
@@ -74,6 +75,13 @@ public class EntityView implements Observer {
 		this.x = x;
 		this.y = y;
 	}
+	public boolean isToDelete() {
+		return toDelete;
+	}
+
+	public BufferedImage getImg() {
+		return img;
+	}
 
 	public void render(Graphics g) {
 		g.drawImage(img, (int) x, (int) y, (int) width, (int) height, null);
@@ -84,13 +92,14 @@ public class EntityView implements Observer {
 	public void delete(Graphics g) {
 		g.clearRect((int) x, (int) y, (int) width, (int) height);
 	}
-
+	
 	@Override
 	public void update(Observable o, Object arg) {
-		if (arg instanceof String && ((String)arg).equals("pop")) {
-			delete(GamePanel.getInstance().getGraphics());
+		if (arg instanceof String && ((String) arg).equals("pop")) {
+			toDelete = true;
 		} else {
 			Entity entity = (Entity) o;
+
 			setX(entity.getX());
 			setY(entity.getY());
 			setWidth(entity.getWidth());

@@ -1,13 +1,9 @@
 package game.view;
 
-import java.awt.Graphics;
+
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 import java.util.Observable;
-
-import static game.model.Settings.TILE_SIZE;
-import game.model.entities.MovingEntity;
-import utils.Images;
 
 public class MovingEntityView extends EntityView {
 

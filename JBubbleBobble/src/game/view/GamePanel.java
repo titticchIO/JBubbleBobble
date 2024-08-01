@@ -12,23 +12,18 @@ import static game.model.Settings.GAME_HEIGHT;
 import game.model.level.Level;
 
 public class GamePanel extends JPanel {
-	private static GamePanel instance;
 	private LevelView levelView;
 	private MovingEntityView playerView;
 	private BufferedImage tilesImage;
 
-	private GamePanel(LevelView level) {
+	
+//	NON AGGIUNGERE IL PATTERN SINGLETON!!!!!
+	
+	public GamePanel(LevelView level) {
 		setPanelSize();
 		this.playerView = level.getPlayerView();
 		this.levelView = level;
 		renderTilesOnce();
-	}
-	
-	public static GamePanel getInstance() {
-		if (instance == null) {
-			instance = new GamePanel(new LevelView(new Level(2)));
-		}
-		return instance;
 	}
 
 	public MovingEntityView getPlayerView() {
@@ -66,12 +61,16 @@ public class GamePanel extends JPanel {
 				e.render(doubleBufferedGraphics);
 			}
 		}
-		if(levelView.getBubbles()!=null) {
-			for (MovingEntityView b: levelView.getBubbles()) {
-				b.render(doubleBufferedGraphics);
+		if (levelView.getBubbles() != null) {
+			for (MovingEntityView b : levelView.getBubbles()) {
+				if (!b.isToDelete())
+					b.render(doubleBufferedGraphics);
+				else {
+					b.delete(doubleBufferedGraphics);
+				}
 			}
 		}
-			
+
 		g.drawImage(doubleBufferedImage, 0, 0, this);
 		doubleBufferedGraphics.dispose();
 	}
