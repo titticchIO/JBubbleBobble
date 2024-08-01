@@ -16,9 +16,8 @@ public class GamePanel extends JPanel {
 	private MovingEntityView playerView;
 	private BufferedImage tilesImage;
 
-	
 //	NON AGGIUNGERE IL PATTERN SINGLETON!!!!!
-	
+
 	public GamePanel(LevelView level) {
 		setPanelSize();
 		this.playerView = level.getPlayerView();
@@ -65,9 +64,8 @@ public class GamePanel extends JPanel {
 			for (MovingEntityView b : levelView.getBubbles()) {
 				if (!b.isToDelete())
 					b.render(doubleBufferedGraphics);
-				else {
+				else
 					b.delete(doubleBufferedGraphics);
-				}
 			}
 		}
 
@@ -75,13 +73,4 @@ public class GamePanel extends JPanel {
 		doubleBufferedGraphics.dispose();
 	}
 
-	@Override
-	public void repaint() {
-		if (playerView != null) {
-			super.repaint((int) playerView.getX(), (int) playerView.getY(), (int) playerView.getWidth(),
-					(int) playerView.getHeight());
-		} else {
-			super.repaint();
-		}
-	}
 }

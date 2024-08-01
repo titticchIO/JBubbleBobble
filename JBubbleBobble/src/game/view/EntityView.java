@@ -2,6 +2,7 @@ package game.view;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 import utils.Images;
@@ -14,6 +15,8 @@ public class EntityView implements Observer {
 	protected float x, y;
 	protected float width, height;
 	private boolean toDelete;
+	
+	private Observable observedEntity;
 
 	public EntityView(String entityName) {
 		img = switch (entityName) {
@@ -75,6 +78,15 @@ public class EntityView implements Observer {
 		this.x = x;
 		this.y = y;
 	}
+	
+	public void setObservedEntity(Observable observedEntity) {
+        this.observedEntity = observedEntity;
+    }
+
+	public boolean isObserving(Observable observable) {
+        return this.observedEntity == observable;
+    }
+	
 	public boolean isToDelete() {
 		return toDelete;
 	}
@@ -92,7 +104,7 @@ public class EntityView implements Observer {
 	public void delete(Graphics g) {
 		g.clearRect((int) x, (int) y, (int) width, (int) height);
 	}
-	
+
 	@Override
 	public void update(Observable o, Object arg) {
 		if (arg instanceof String && ((String) arg).equals("pop")) {
@@ -105,6 +117,26 @@ public class EntityView implements Observer {
 			setWidth(entity.getWidth());
 			setHeight(entity.getHeight());
 		}
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(height, img, width, x, y);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EntityView other = (EntityView) obj;
+		return Float.floatToIntBits(height) == Float.floatToIntBits(other.height) && Objects.equals(img, other.img)
+				&& Float.floatToIntBits(width) == Float.floatToIntBits(other.width)
+				&& Float.floatToIntBits(x) == Float.floatToIntBits(other.x)
+				&& Float.floatToIntBits(y) == Float.floatToIntBits(other.y);
 	}
 
 }
