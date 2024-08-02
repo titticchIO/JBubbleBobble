@@ -1,5 +1,6 @@
 package game.model.bubbles;
 
+import game.model.HelpMethods;
 import game.model.entities.MovingEntity;
 
 public abstract class Bubble extends MovingEntity {
@@ -13,7 +14,7 @@ public abstract class Bubble extends MovingEntity {
 
 	public Bubble(float x, float y, float width, float height) {
 		super(x, y, width, height);
-		lifeSpan = 1000;
+		lifeSpan = 10000;
 	}
 
 	public Bubble(float x, float y, float width, float height, float lifeSpan) {
@@ -54,11 +55,26 @@ public abstract class Bubble extends MovingEntity {
 	}
 
 	@Override
+	protected void updateYPos() {
+		if (HelpMethods.canMoveHere(x, y + airSpeed, (int) width, (int) height)) {
+			setY(y + airSpeed);
+			setxSpeed(0);
+		} else {
+			setY(HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed));
+			setxSpeed(-1);
+		}
+	}
+	
+	
+	@Override
 	public void updateEntity() {
-		if (lifeSpan > 0) {
-			decreaseLifeSpan(10.0f); // decrementa la lifespan della bolla (valore da calibrare con la view)
-		} else
+		if (lifeSpan <= 0) {
 			pop();
+		} else {
+			decreaseLifeSpan(10.0f); // decrementa la lifespan della bolla (valore da calibrare con la view)
+		}
+		updateXPos();
+		updateYPos();
 		setChanged();
 		notifyObservers();
 	}

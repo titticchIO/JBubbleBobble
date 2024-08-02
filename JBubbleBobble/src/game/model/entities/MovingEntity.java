@@ -77,7 +77,7 @@ public abstract class MovingEntity extends Entity {
 
 	}
 
-	private void updateXPos() {
+	public void updateXPos() {
 		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width, (int) height)
 				|| HelpMethods.isEntityInsideWall(x, y, width, height)) {
 			setX(x + xSpeed);
@@ -117,15 +117,6 @@ public abstract class MovingEntity extends Entity {
 			setxSpeed((int) 1);
 	}
 
-	/**
-	 * Movement
-	 */
-	public void walk() {
-//		moving = true;
-		updateXPos();
-
-	}
-
 	public void gravity() {
 		if (!HelpMethods.isEntityGrounded(this)) {
 			inAir = true;
@@ -134,9 +125,9 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	public void updateEntity() {
+		updateXPos();
 		updateYPos();
 		gravity();
-		walk();
 		setChanged();
 		notifyObservers();
 	}

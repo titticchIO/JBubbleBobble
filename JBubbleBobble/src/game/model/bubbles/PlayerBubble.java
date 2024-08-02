@@ -1,15 +1,11 @@
 package game.model.bubbles;
 
 public class PlayerBubble extends Bubble {
-	
+
 	/**
 	 * tempo prima che la bolla inizi a salire
 	 */
 	private float travelTime;
-	/**
-	 * velocità iniziale della bolla
-	 */
-	private float travelSpeed;
 
 	/**
 	 * @param travelDistance
@@ -18,38 +14,22 @@ public class PlayerBubble extends Bubble {
 
 	public PlayerBubble(float x, float y, float width, float height) {
 		super(x, y, width, height);
-		//valori di default
-		travelTime = 5;
-		travelSpeed = 10;
+		// valori di default
+		travelTime = 100;
+		xSpeed = 1;
 	}
-	
-	public PlayerBubble(float x, float y, float width, float height, float lifeSpan, float travelTime, float travelSpeed) {
+
+	public PlayerBubble(float x, float y, float width, float height, float lifeSpan, float travelTime, float xSpeed) {
 		super(x, y, width, height, lifeSpan);
 		// valori personalizzabili
 		this.travelTime = travelTime;
-		this.travelSpeed = travelSpeed;
-		
+		this.xSpeed = xSpeed;
+
 	}
 
 	/**
 	 * Getters and Setters
 	 */
-
-	public float getTravelDistance() {
-		return travelTime;
-	}
-
-	public void setTravelDistance(float travelTime) {
-		this.travelTime = travelTime;
-	}
-
-	public float getTravelSpeed() {
-		return travelSpeed;
-	}
-
-	public void setTravelSpeed(float lifeSpan) {
-		this.travelSpeed = lifeSpan;
-	}
 
 	/**
 	 * metodo per far decrementare la lifeSpan
@@ -67,21 +47,24 @@ public class PlayerBubble extends Bubble {
 	 */
 	private void rise() {
 //		fa salire la bolla
-		setAirSpeed(5); // da calibrare con la view
-		setxSpeed(0); // da calibrare con la view
+		setAirSpeed(-1); // da calibrare con la view
+		setxSpeed(0);
+		decreaseTravelTime(1);
+		
 	}
-
-
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (travelTime >= 0)
-			decreaseTravelTime(1); // decrementa il tempo prima che la bolla inizi a salire (valore da calibrare
-									// con la view)
-		else {
+		if (travelTime > 0)
+			decreaseTravelTime(1);
+		else if (travelTime == 0) {
 			rise();
 		}
+
+		setChanged();
+		notifyObservers();
+
 	}
 
 }
