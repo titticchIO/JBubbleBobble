@@ -8,22 +8,35 @@ public class PlayerBubble extends Bubble {
 	private float travelTime;
 
 	/**
-	 * @param travelDistance
-	 * @param travelSpeed
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param xSpeed
+	 * @param airSpeed
+	 * @param lifeSpan
+	 * @param travelTime
 	 */
+	private PlayerBubble(float x, float y, float width, float height, float xSpeed, float airSpeed, float lifeSpan,
+			float travelTime) {
+		super(x, y, width, height);
+		this.xSpeed = xSpeed;
+		this.airSpeed = airSpeed;
+		this.lifeSpan = lifeSpan;
+		this.travelTime = travelTime;
+	}
 
+	/**
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 */
 	public PlayerBubble(float x, float y, float width, float height) {
 		super(x, y, width, height);
 		// valori di default
 		travelTime = 100;
 		xSpeed = 1;
-	}
-
-	public PlayerBubble(float x, float y, float width, float height, float lifeSpan, float travelTime, float xSpeed) {
-		super(x, y, width, height, lifeSpan);
-		// valori personalizzabili
-		this.travelTime = travelTime;
-		this.xSpeed = xSpeed;
 
 	}
 
@@ -50,7 +63,7 @@ public class PlayerBubble extends Bubble {
 		setAirSpeed(-1); // da calibrare con la view
 		setxSpeed(0);
 		decreaseTravelTime(1);
-		
+
 	}
 
 	@Override
@@ -61,10 +74,47 @@ public class PlayerBubble extends Bubble {
 		else if (travelTime == 0) {
 			rise();
 		}
-
+//		System.out.println(xSpeed);
 		setChanged();
 		notifyObservers();
 
 	}
 
+	public static class Builder {
+		private float x, y, width, height;
+		private float xSpeed, airSpeed;
+		private float lifeSpan = 10000;
+		private float travelTime = 100;
+
+		public Builder(float x, float y, float width, float height) {
+			this.x = x;
+			this.y = y;
+			this.width = width;
+			this.height = height;
+		}
+
+		public Builder xSpeed(float xSpeed) {
+			this.xSpeed = xSpeed;
+			return this;
+		}
+
+		public Builder airSpeed(float airSpeed) {
+			this.airSpeed = airSpeed;
+			return this;
+		}
+
+		public Builder lifeSpan(float lifeSpan) {
+			this.lifeSpan = lifeSpan;
+			return this;
+		}
+
+		public Builder travelTime(float travelTime) {
+			this.travelTime = travelTime;
+			return this;
+		}
+
+		public PlayerBubble build() {
+			return new PlayerBubble(x, y, width, height, xSpeed, airSpeed, lifeSpan, travelTime);
+		}
+	}
 }

@@ -16,8 +16,8 @@ public abstract class MovingEntity extends Entity {
 	 */
 	protected float xSpeed;
 
-	private boolean moving;
-	private int playerSpeed = 2;
+//	private boolean moving;
+//	private int playerSpeed = 2;
 
 	// jumping and gravity
 	protected float airSpeed = 0f;
@@ -64,7 +64,7 @@ public abstract class MovingEntity extends Entity {
 		if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(x, y, width, height)) {
 			setY(y + airSpeed);
 		} else {
-			if (HelpMethods.canMoveHere(x, y + airSpeed, (int) width, (int) height)) {
+			if (HelpMethods.canMoveHere(x+xSpeed, y + airSpeed, width, height)) {
 				setY(y + airSpeed);
 			} else {
 				setY(HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed));
@@ -78,11 +78,11 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	public void updateXPos() {
-		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width, (int) height)
+		if (HelpMethods.canMoveHere(x + xSpeed, y+airSpeed, (int) width, (int) height)
 				|| HelpMethods.isEntityInsideWall(x, y, width, height)) {
 			setX(x + xSpeed);
 		} else {
-			setX(HelpMethods.getEntityXPosNextToWall(this, xSpeed));
+			setX(HelpMethods.getEntityXPosNextToWall(this));
 		}
 	}
 

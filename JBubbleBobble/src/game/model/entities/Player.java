@@ -4,6 +4,8 @@ import game.model.bubbles.BubbleManager;
 import game.model.bubbles.PlayerBubble;
 import static game.model.Settings.SCALE;
 
+import game.model.Settings;
+
 public class Player extends MovingEntity {
 
 	// bolla attuale
@@ -38,9 +40,15 @@ public class Player extends MovingEntity {
 	public void setCurrentBubble(PlayerBubble currentBubble) {
 		this.currentBubble = currentBubble;
 	}
-	
+
 	public void shootBubble(BubbleManager bubbleManager) {
-		bubbleManager.createBubble(x, y);
+		if (xSpeed > 0) {
+			bubbleManager.createBubble(x + Settings.TILE_SIZE, y, 1);
+			System.out.println("right");
+		} else {
+			bubbleManager.createBubble(x - Settings.TILE_SIZE, y, -1);
+			System.out.println("left");
+		}
 	}
-	
+
 }

@@ -21,8 +21,8 @@ public class BubbleManager extends Observable {
 		bubbles = new ArrayList<Bubble>();
 	}
 
-	public void createBubble(float x, float y) {
-		Bubble newBubble = new PlayerBubble(x, y, Settings.TILE_SIZE, Settings.TILE_SIZE);
+	public void createBubble(float x, float y,float xSpeed) {
+		Bubble newBubble=new PlayerBubble.Builder(x, y, Settings.TILE_SIZE, Settings.TILE_SIZE).xSpeed(xSpeed).build();
 		bubbles.add(newBubble);
 		setChanged();
 		notifyObservers(newBubble);

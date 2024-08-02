@@ -24,10 +24,10 @@ public class Monsta extends Enemy {
 	}
 
 	public void updateXPos() {
-		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width, (int) height)) {
+		if (HelpMethods.canMoveHere(x + xSpeed, y, width, height)) {
 			setX(x + xSpeed);
 		} else {
-			x = HelpMethods.getEntityXPosNextToWall(this, xSpeed);
+			x = HelpMethods.getEntityXPosNextToWall(this);
 		}
 	}
 

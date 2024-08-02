@@ -8,7 +8,7 @@ public abstract class Bubble extends MovingEntity {
 	/**
 	 * tempo prima che la bolla scoppi
 	 */
-	private float lifeSpan;
+	protected float lifeSpan;
 
 	private boolean popped;
 
@@ -56,16 +56,16 @@ public abstract class Bubble extends MovingEntity {
 
 	@Override
 	protected void updateYPos() {
-		if (HelpMethods.canMoveHere(x, y + airSpeed, (int) width, (int) height)) {
+		if (HelpMethods.canMoveHere(x, y + airSpeed, width, height)) {
 			setY(y + airSpeed);
 			setxSpeed(0);
 		} else {
 			setY(HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed));
 			setxSpeed(-1);
+			System.out.println("go left");
 		}
 	}
-	
-	
+
 	@Override
 	public void updateEntity() {
 		if (lifeSpan <= 0) {
@@ -78,5 +78,7 @@ public abstract class Bubble extends MovingEntity {
 		setChanged();
 		notifyObservers();
 	}
+
+
 
 }

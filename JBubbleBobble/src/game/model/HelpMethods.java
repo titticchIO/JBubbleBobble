@@ -10,7 +10,7 @@ import static game.model.Settings.SCALE;
 
 public class HelpMethods {
 
-	public static boolean canMoveHere(float x, float y, int width, int height) {
+	public static boolean canMoveHere(float x, float y, float width, float height) {
 		if (!isSolid(x, y) && !isSolid(x + width, y) && !isSolid(x, y + height) && !isSolid(x + width, y + height))
 			return true;
 		return false;
@@ -38,9 +38,9 @@ public class HelpMethods {
 		return isSolid(x, y) || isSolid(x + width, y) || isSolid(x, y + height) || isSolid(x + width, y + height);
 	}
 
-	public static float getEntityXPosNextToWall(MovingEntity movingEntity, float xSpeed) {
+	public static float getEntityXPosNextToWall(MovingEntity movingEntity) {
 		int currentTile = (int) (movingEntity.getX() / TILE_SIZE);
-		if (xSpeed > 0) {
+		if (movingEntity.getxSpeed() > 0) {
 			// right
 			int tileXPos = (currentTile + 1) * TILE_SIZE;
 //			int xOffset = (int) (GameFrame.TILE_SIZE - movingEntity.getWidth());
