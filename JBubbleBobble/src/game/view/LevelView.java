@@ -43,7 +43,7 @@ public class LevelView implements Observer {
 	}
 
 	public void spawnEnemies(Level level) {
-		for (Enemy e : level.getEnemies()) {
+		for (Enemy e : level.geteManager().getEnemies()) {
 			MovingEntityView enemyView = new MovingEntityView(e.getName());
 			e.addObserver(enemyView);
 			enemies.add(enemyView);

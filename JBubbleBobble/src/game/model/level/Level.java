@@ -3,11 +3,12 @@ package game.model.level;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Optional;
 
 import game.model.bubbles.BubbleManager;
 import game.model.bubbles.Bubble;
 import game.model.enemies.Enemy;
-import game.model.entities.Entity;
+import game.model.enemies.EnemyManager;
 import game.model.entities.Player;
 import game.model.tiles.Tile;
 import utils.LevelLoader;
@@ -15,13 +16,13 @@ import utils.LevelLoader;
 public class Level {
 
 	private Player player;
-	private List<Enemy> enemies;
 	private List<Tile> tiles;
+	private EnemyManager eManager;
 	private BubbleManager bManager;
 
 	public Level(int levelNum) {
 		tiles = new ArrayList<Tile>();
-		enemies = new ArrayList<Enemy>();
+		eManager = EnemyManager.getInstance();
 		bManager = BubbleManager.getInstance();
 		LevelLoader.loadLevel(this, levelNum);
 	}
@@ -34,12 +35,12 @@ public class Level {
 		this.player = player;
 	}
 
-	public List<Enemy> getEnemies() {
-		return enemies;
+	public EnemyManager geteManager() {
+		return eManager;
 	}
 
-	public void setEnemies(List<Enemy> enemies) {
-		this.enemies = enemies;
+	public void seteManager(EnemyManager eManager) {
+		this.eManager = eManager;
 	}
 
 	public BubbleManager getbManager() {
@@ -63,41 +64,35 @@ public class Level {
 	}
 
 	public void addEnemy(Enemy enemy) {
-		enemies.add(enemy);
+		eManager.addEnemy(enemy);
 	}
 
 	public void addTile(Tile tile) {
 		tiles.add(tile);
 	}
 
-	public Entity checkCollisions() {
-		// Check collisions with enemies
-		for (Enemy enemy : enemies) {
-			if (player.hit(enemy)) {
-				System.out.println("Collisione con un nemico");
-				return enemy;
-			}
-		}
-
-		// Check collisions with bubbles
-		for (Bubble bubble : bManager.getBubbles()) {
-			if (player.hit(bubble)) {
-				System.out.println("Collisione con una bolla");
-				return bubble;
-			}
-		}
-
-		// No collisions detected
-		return null;
+	public Optional<Enemy> checkEnemiesCollisions() {
+		return eManager.getEnemies().stream()
+				.filter(x -> x.hit(player))
+				.findFirst();
+	}
+	
+	public Optional<Bubble> checkBubblesCollisions() {
+		return bManager.getBubbles().stream()
+				.filter(x -> x.hit(player))
+				.findFirst();
 	}
 
 	public void updateLevel() {
 		player.updateEntity();
-		for (Enemy e : enemies) {
-			e.updateEntity();
-		}
+		eManager.updateEnemies();
 		bManager.updateBubbles();
-		checkCollisions();
+		Optional<Enemy> oe = checkEnemiesCollisions();
+		if (oe.isPresent()) System.out.println("Hittato enemy");
+		
+		Optional<Bubble> ob = checkBubblesCollisions();
+		if (ob.isPresent()) System.out.println("Hittato bolla");
+		
 	}
 
 }
