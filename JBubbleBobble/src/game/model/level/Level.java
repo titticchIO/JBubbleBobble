@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Observable;
 
 import game.model.bubbles.BubbleManager;
+import game.model.bubbles.Bubble;
 import game.model.enemies.Enemy;
+import game.model.entities.Entity;
 import game.model.entities.Player;
 import game.model.tiles.Tile;
 import utils.LevelLoader;
@@ -67,13 +69,35 @@ public class Level {
 	public void addTile(Tile tile) {
 		tiles.add(tile);
 	}
-	
+
+	public Entity checkCollisions() {
+		// Check collisions with enemies
+		for (Enemy enemy : enemies) {
+			if (player.hit(enemy)) {
+				System.out.println("Collisione con un nemico");
+				return enemy;
+			}
+		}
+
+		// Check collisions with bubbles
+		for (Bubble bubble : bManager.getBubbles()) {
+			if (player.hit(bubble)) {
+				System.out.println("Collisione con una bolla");
+				return bubble;
+			}
+		}
+
+		// No collisions detected
+		return null;
+	}
+
 	public void updateLevel() {
 		player.updateEntity();
-		for (Enemy e: enemies) {
+		for (Enemy e : enemies) {
 			e.updateEntity();
 		}
 		bManager.updateBubbles();
+		checkCollisions();
 	}
-	
+
 }

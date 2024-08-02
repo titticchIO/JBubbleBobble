@@ -137,12 +137,13 @@ public abstract class Entity extends Observable {
 	 * @return boolean
 	 */
 	public boolean topHit(Entity entity) {
-		float[][] p1 = getTopPoints();
-		float[][] p2 = entity.getBottomPoints();
-
-		return Arrays.stream(p2).anyMatch(point2 -> 
-				Arrays.stream(p1).anyMatch(point1 -> point2[0] >= point1[0] 
-						&& point2[0] <= point1[1] && point2[1] >= point1[1] && point2[1] <= point1[1]));
+		float[][] p1 = getPoints();
+		float[][] p2 = entity.getPoints();
+		if (p2[3][0] >= p1[0][0] && p2[3][0] <= p1[1][0] && p2[3][1] >= p1[0][1] && p2[3][1] <= p1[3][1]) // checks p1
+			return true;
+		if (p2[2][0] >= p1[0][0] && p2[2][0] <= p1[1][0] && p2[2][1] >= p1[0][1] && p2[2][1] <= p1[3][1]) // checks p1
+			return true;
+		return false;
 	}
 
 	/**
@@ -152,12 +153,13 @@ public abstract class Entity extends Observable {
 	 * @return boolean
 	 */
 	public boolean bottomHit(Entity entity) {
-		float[][] p1 = getBottomPoints();
-		float[][] p2 = entity.getTopPoints();
-
-		return Arrays.stream(p2).anyMatch(point2 -> 
-				Arrays.stream(p1).anyMatch(point1 -> point2[0] >= point1[0]
-				&& point2[0] <= point1[1] && point2[1] >= point1[1] && point2[1] <= point1[1]));
+		float[][] p1 = getPoints();
+		float[][] p2 = entity.getPoints();
+		if (p2[1][0] >= p1[0][0] && p2[1][0] <= p1[1][0] && p2[1][1] >= p1[0][1] && p2[1][1] <= p1[3][1]) // check p1
+			return true;
+		if (p2[0][0] >= p1[0][0] && p2[0][0] <= p1[1][0] && p2[0][1] >= p1[0][1] && p2[0][1] <= p1[3][1]) // check p1
+			return true;
+		return false;
 	}
 
 	/**
