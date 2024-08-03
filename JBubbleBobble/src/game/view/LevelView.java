@@ -20,7 +20,7 @@ public class LevelView implements Observer {
 	private List<MovingEntityView> bubbles;
 
 	public LevelView(Level level) {
-		playerView = new MovingEntityView("player");
+		playerView = new MovingEntityView("P1");
 		Player.getInstance().addObserver(playerView);
 
 		enemies = new ArrayList<MovingEntityView>();
@@ -28,7 +28,7 @@ public class LevelView implements Observer {
 
 		tiles = new ArrayList<EntityView>();
 		for (Tile t : level.getTiles()) {
-			EntityView newTile = new EntityView("tile" + t.getType());
+			EntityView newTile = new EntityView(t.getImageCode());
 			t.addObserver(newTile);
 			t.notifyPosition();
 			tiles.add(newTile);
@@ -36,7 +36,7 @@ public class LevelView implements Observer {
 
 		bubbles = new ArrayList<MovingEntityView>();
 		for (Bubble b : BubbleManager.getInstance().getBubbles()) {
-			MovingEntityView bubble = new MovingEntityView("Bubble");
+			MovingEntityView bubble = new MovingEntityView(b.getImageCode());
 			b.addObserver(bubble);
 			bubbles.add(bubble);
 		}
@@ -44,7 +44,7 @@ public class LevelView implements Observer {
 
 	public void spawnEnemies(Level level) {
 		for (Enemy e : level.geteManager().getEnemies()) {
-			MovingEntityView enemyView = new MovingEntityView(e.getName());
+			MovingEntityView enemyView = new MovingEntityView(e.getImageCode());
 			e.addObserver(enemyView);
 			enemies.add(enemyView);
 		}
@@ -78,7 +78,7 @@ public class LevelView implements Observer {
 
 			Bubble bubble = (Bubble) arg;
 			if (!bubble.isPopped()) {
-				MovingEntityView newBubbleView = new MovingEntityView("Bubble");
+				MovingEntityView newBubbleView = new MovingEntityView("B1");
 				newBubbleView.setObservedEntity(bubble);
 				bubble.addObserver(newBubbleView);
 				bubbles.add(newBubbleView);

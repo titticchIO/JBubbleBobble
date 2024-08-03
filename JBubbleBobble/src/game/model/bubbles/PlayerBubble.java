@@ -17,9 +17,9 @@ public class PlayerBubble extends Bubble {
 	 * @param lifeSpan
 	 * @param travelTime
 	 */
-	private PlayerBubble(float x, float y, float width, float height, float xSpeed, float airSpeed, float lifeSpan,
+	private PlayerBubble(float x, float y, float width, float height, String imageCode, float xSpeed, float airSpeed, float lifeSpan,
 			float travelTime) {
-		super(x, y, width, height);
+		super(x, y, width, height, imageCode);
 		this.xSpeed = xSpeed;
 		this.airSpeed = airSpeed;
 		this.lifeSpan = lifeSpan;
@@ -32,8 +32,8 @@ public class PlayerBubble extends Bubble {
 	 * @param width
 	 * @param height
 	 */
-	public PlayerBubble(float x, float y, float width, float height) {
-		super(x, y, width, height);
+	public PlayerBubble(float x, float y, float width, float height, String imageCode) {
+		super(x, y, width, height, imageCode);
 		// valori di default
 		travelTime = 100;
 		xSpeed = 1;
@@ -82,15 +82,17 @@ public class PlayerBubble extends Bubble {
 
 	public static class Builder {
 		private float x, y, width, height;
+		private String imagePath;
 		private float xSpeed, airSpeed;
 		private float lifeSpan = 10000;
 		private float travelTime = 100;
 
-		public Builder(float x, float y, float width, float height) {
+		public Builder(float x, float y, float width, float height, String imagePath) {
 			this.x = x;
 			this.y = y;
 			this.width = width;
 			this.height = height;
+			this.imagePath = imagePath;
 		}
 
 		public Builder xSpeed(float xSpeed) {
@@ -114,7 +116,7 @@ public class PlayerBubble extends Bubble {
 		}
 
 		public PlayerBubble build() {
-			return new PlayerBubble(x, y, width, height, xSpeed, airSpeed, lifeSpan, travelTime);
+			return new PlayerBubble(x, y, width, height, imagePath, xSpeed, airSpeed, lifeSpan, travelTime);
 		}
 	}
 }

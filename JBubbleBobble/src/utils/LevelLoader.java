@@ -16,16 +16,23 @@ import static game.model.Settings.SCALE;
 
 public class LevelLoader {
 
-	private final static String BLOCK_TILE = "#";
+	private final static String BLOCK = "#";
 	private final static String PLAYER = "P";
+	private final static String ENEMY = "E";
+	private final static String BUBBLE = "B";
+	
+	
 	private final static String ZEN_CHAN = "Z";
 	private final static String MONSTA = "M";
-	private final static String BANEBOU = "B";
+	private final static String BANEBOU = "N";
 	private final static String MIGHTA = "I";
 	private final static String PULPUL = "U";
+	
+	/*
 	private final static String ENEMY_4 = "4";
 	private final static String ENEMY_5 = "5";
 	private final static String ENEMY_6 = "6";
+	*/
 
 	private static String[][] levelData;
 
@@ -56,30 +63,36 @@ public class LevelLoader {
 		int y = 0;
 		for (String[] linea : matrice) {
 			for (String c : linea) {
-				switch (c.substring(0, 1)) {
-				case PLAYER:
-					level.addPlayer(
-							Player.getInstance(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - SCALE, TILE_SIZE - SCALE));
-					break;
-				case BLOCK_TILE:
-					level.addTile(new Tile(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE, c.substring(1, 2)));
-					break;
-				case ZEN_CHAN:
-					level.addEnemy(new Zen_chan(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
-					break;
-				case MONSTA:
-					level.addEnemy(new Monsta(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
-					break;
-				case BANEBOU:
-					level.addEnemy(new Banebou(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
-					break;
-				case MIGHTA:
-					level.addEnemy(new Mighta(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
-					break;
-				case PULPUL:
-					level.addEnemy(new Pulpul(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
-					break;
+				String type = c.substring(0, 1);
+				if (!type.equals(" ")) {
+					switch (type) {
+					case PLAYER:
+						level.addPlayer(
+								Player.getInstance(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - SCALE, TILE_SIZE - SCALE, c));
+						break;
+						
+					case BLOCK:
+						level.addTile(new Tile(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE, c));
+						break;
+						
+					case ZEN_CHAN:
+						level.addEnemy(new Zen_chan(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1, c));
+						break;
+					case MONSTA:
+						level.addEnemy(new Monsta(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1, c));
+						break;
+					case BANEBOU:
+						level.addEnemy(new Banebou(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1, c));
+						break;
+					case MIGHTA:
+						level.addEnemy(new Mighta(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1, c));
+						break;
+					case PULPUL:
+						level.addEnemy(new Pulpul(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1, c));
+						break;			
+					}
 				}
+				
 				x++;
 			}
 			x = 0;

@@ -9,6 +9,8 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
+import utils.Images;
+import utils.ImagesTest;
 import utils.LevelMaker;
 
 public class EditorPanel extends JPanel {
@@ -87,6 +89,23 @@ public class EditorPanel extends JPanel {
 		setPreferredSize(size);
 	}
 
+	public void loadLevel(String[][] levelData) {
+	    for (int y = 0; y < levelData.length; y++) {
+	        for (int x = 0; x < levelData[y].length; x++) {
+	            if (!levelData[y][x].equals(" ")) {
+	            	System.out.println(levelData[y][x]);
+	            	String type = levelData[y][x].substring(0,1);
+		            String number = levelData[y][x].substring(1,2);
+	                // Aggiorna il singolo sprite con l'immagine corrispondente
+	                sprites[y][x].updateSprite(ImagesTest.getImage(type, number));
+	            }	            
+	        }
+	    }
+	    repaint(); // Ridisegna il pannello per riflettere le modifiche
+	}
+
+	
+	
 	public Sprite[][] getSprites() {
 		return sprites;
 	}
@@ -97,6 +116,10 @@ public class EditorPanel extends JPanel {
 	            sprites[y][x].updateSprite(null); // Imposta il sprite come vuoto
 	        }
 	    }
+	}
+	
+	public void setSprites(Sprite[][] sprites) {
+		this.sprites = sprites;
 	}
 
 

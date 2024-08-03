@@ -20,19 +20,19 @@ public class Player extends MovingEntity {
 
 	public static Player getInstance() {
 		if (instance == null)
-			instance = new Player(30, 30, 16 * SCALE, 16 * SCALE);
+			instance = new Player(30, 30, 16 * SCALE, 16 * SCALE, "P1");
 		return instance;
 	}
 
-	public static Player getInstance(float x, float y, float width, float height) {
+	public static Player getInstance(float x, float y, float width, float height, String imageCode) {
 		if (instance == null)
-			instance = new Player(x, y, width, height);
+			instance = new Player(x, y, width, height, imageCode);
 		return instance;
 	}
 
-	private Player(float x, float y, float width, float height) {
-		super(x, y, width, height);
-		currentBubble = new PlayerBubble(x, y, width, height);
+	private Player(float x, float y, float width, float height, String imageCode) {
+		super(x, y, width, height, imageCode);
+		currentBubble = new PlayerBubble(x, y, width, height, imageCode);
 	}
 
 	/**

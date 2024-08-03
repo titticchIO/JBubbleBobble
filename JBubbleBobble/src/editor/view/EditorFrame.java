@@ -45,15 +45,24 @@ public class EditorFrame extends JFrame {
 
         // ActionListener per il pulsante "Apri Griglia"
         openGridButton.addActionListener(e -> {
-            // Azione per aprire una griglia esistente
             String inputValue = JOptionPane.showInputDialog(this, "Inserisci il numero del livello da aprire:");
-            
+
             if (inputValue != null && !inputValue.isEmpty()) {
                 try {
                     int numero = Integer.parseInt(inputValue);
-                    //LevelLoader.readLevelFile(numero);
-                    
-                    //editorPanel.openGrid(numero);
+                    String[][] levelData = LevelLoader.readLevelFile(numero);
+
+                    if (levelData != null) {
+                        getContentPane().remove(editorPanel); // Rimuovi il pannello esistente
+                        editorPanel = new EditorPanel(this, selectionPane); // Crea un nuovo EditorPanel
+                        LevelMaker.setLevel(levelData);
+                        editorPanel.loadLevel(levelData); // Carica i dati del livello
+                        add(editorPanel, BorderLayout.CENTER); // Aggiungi il nuovo EditorPanel al frame
+                        revalidate(); // Aggiorna il layout del frame
+                        repaint(); // Ridisegna il frame
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Errore: livello non trovato.", "Errore", JOptionPane.ERROR_MESSAGE);
+                    }
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(this, "Per favore, inserisci un numero valido.", "Errore", JOptionPane.ERROR_MESSAGE);
                 }

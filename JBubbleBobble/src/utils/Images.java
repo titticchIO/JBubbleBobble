@@ -11,6 +11,8 @@ public enum Images {
 	Images(String code) {
 		img = switch (code) {
 		case "P" -> ImageLoader.importImg("/sprites/bubblun/image_5.png");
+		
+		case "#" -> ImageLoader.importImg("/blocks/normal_blocks/block_1.png");
 
 		case "1" -> ImageLoader.importImg("/blocks/normal_blocks/block_1.png");
 		case "2" -> ImageLoader.importImg("/blocks/normal_blocks/block_3.png");

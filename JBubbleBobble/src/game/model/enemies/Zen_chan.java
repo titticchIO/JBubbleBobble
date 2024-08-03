@@ -6,8 +6,8 @@ import utils.LevelLoader;
 
 public class Zen_chan extends Enemy {
 
-	public Zen_chan(float x, float y, float width, float height) {
-		super(x, y, width, height, "Zen-Chan");
+	public Zen_chan(float x, float y, float width, float height, String imageCode) {
+		super(x, y, width, height, imageCode, "Zen-Chan");
 		setxSpeed(0.5f);
 	}
 

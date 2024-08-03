@@ -8,8 +8,8 @@ import static game.model.HelpMethods.isSolidVerticalLine;
 
 public class Monsta extends Enemy {
 
-	public Monsta(float x, float y, float width, float height) {
-		super(x, y, width, height, "Monsta");
+	public Monsta(float x, float y, float width, float height, String imageCode) {
+		super(x, y, width, height, imageCode, "Monsta");
 		setxSpeed(1);
 		setAirSpeed(1);
 	}

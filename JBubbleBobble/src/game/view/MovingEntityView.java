@@ -10,11 +10,11 @@ public class MovingEntityView extends EntityView {
 	private Animation animation;
 	private Iterator<BufferedImage> animationIterator;
 
-	public MovingEntityView(String entityName) {
+	public MovingEntityView(String imageCode) {
 
-		super(entityName);
+		super(imageCode);
 
-		if (entityName.equals("player")) {
+		if (imageCode.substring(0,1).equals("P")) {
 			animation = new Animation();
 			animationIterator = animation.iterator();
 		}

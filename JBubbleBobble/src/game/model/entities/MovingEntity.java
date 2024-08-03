@@ -36,8 +36,8 @@ public abstract class MovingEntity extends Entity {
 	 * @param width
 	 * @param height
 	 */
-	public MovingEntity(float x, float y, float width, float height) {
-		super(x, y, width, height);
+	public MovingEntity(float x, float y, float width, float height, String imageCode) {
+		super(x, y, width, height, imageCode);
 	}
 
 	/**

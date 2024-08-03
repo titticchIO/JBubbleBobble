@@ -11,6 +11,8 @@ public abstract class Entity extends Observable {
 	/**
 	 * Coordinates of the entity's top left corner
 	 */
+	protected String imageCode;
+	
 	protected float x, y;
 	/**
 	 * Width and height of the entity relative to coordinates
@@ -25,11 +27,18 @@ public abstract class Entity extends Observable {
 	 * @param width
 	 * @param height
 	 */
-	public Entity(float x, float y, float width, float height) {
+	public Entity(float x, float y, float width, float height, String imageCode) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.imageCode = imageCode;
+		
+	}
+	
+	
+	public String getImageCode() {
+		return imageCode;
 	}
 
 	/**

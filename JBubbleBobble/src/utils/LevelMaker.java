@@ -21,6 +21,10 @@ public class LevelMaker {
 		setWalls(wallTile);
 		emptyLevel();
 	}
+	
+	public static void setLevel(String[][] levelData) {
+		level = levelData;
+	}
 
 	public static void emptyLevel() {
 		for (int i = 0; i < ROWS; i++) {

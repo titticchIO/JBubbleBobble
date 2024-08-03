@@ -9,8 +9,8 @@ public abstract class Enemy extends MovingEntity {
 	 */
 	private String name;
 
-	public Enemy(float x, float y, float width, float height, String name) {
-		super(x, y, width, height);
+	public Enemy(float x, float y, float width, float height, String imageCode, String name) {
+		super(x, y, width, height, imageCode);
 		this.name = name;
 	}
 

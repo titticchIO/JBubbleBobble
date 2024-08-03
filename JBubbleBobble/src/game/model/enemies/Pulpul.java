@@ -6,8 +6,8 @@ import utils.LevelLoader;
 
 public class Pulpul extends Enemy {
 
-	public Pulpul(float x, float y, float width, float height) {
-		super(x, y, width, height, "Pulpul");
+	public Pulpul(float x, float y, float width, float height, String imageCode) {
+		super(x, y, width, height, imageCode, "Pulpul");
 		setxSpeed(1);
 		setAirSpeed(1);
 	}
