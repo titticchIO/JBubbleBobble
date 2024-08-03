@@ -15,6 +15,8 @@ public abstract class MovingEntity extends Entity {
 	 * Movement speed on x axis: positive up and negative down
 	 */
 	protected float xSpeed;
+	
+	protected Directions direction;
 
 //	private boolean moving;
 //	private int playerSpeed = 2;
@@ -122,6 +124,10 @@ public abstract class MovingEntity extends Entity {
 			inAir = true;
 			airSpeed += gravity;
 		}
+	}
+	
+	public void setDirections(Directions direction) {
+		this.direction = direction;
 	}
 
 	public void updateEntity() {

@@ -2,12 +2,17 @@ package game.model.entities;
 
 import game.model.bubbles.BubbleManager;
 import game.model.bubbles.PlayerBubble;
+import game.model.entities.MovingEntity.Directions;
+
 import static game.model.Settings.SCALE;
 
 import game.model.Settings;
 
 public class Player extends MovingEntity {
 
+	protected Directions direction;
+	
+	
 	// bolla attuale
 	private PlayerBubble currentBubble;
 	// singleton
@@ -42,7 +47,7 @@ public class Player extends MovingEntity {
 	}
 
 	public void shootBubble(BubbleManager bubbleManager) {
-		if (xSpeed > 0) {
+		if (direction == Directions.RIGHT) {
 			bubbleManager.createBubble(x + Settings.TILE_SIZE, y, 1);
 			System.out.println("right");
 		} else {
@@ -50,5 +55,10 @@ public class Player extends MovingEntity {
 			System.out.println("left");
 		}
 	}
+	
+	public void setDirections(Directions direction) {
+		this.direction = direction;
+	}
+
 
 }

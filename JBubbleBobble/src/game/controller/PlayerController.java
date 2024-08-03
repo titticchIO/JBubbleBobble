@@ -31,9 +31,11 @@ public class PlayerController implements KeyListener {
 			break;
 		case KeyEvent.VK_A:
 			player.move(Directions.LEFT);
+			player.setDirections(Directions.LEFT);
 			break;
 		case KeyEvent.VK_D:
 			player.move(Directions.RIGHT);
+			player.setDirections(Directions.RIGHT);
 			break;
 		case KeyEvent.VK_SPACE:
 			player.shootBubble(BubbleManager.getInstance());
