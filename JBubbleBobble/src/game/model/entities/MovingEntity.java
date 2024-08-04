@@ -1,6 +1,7 @@
 package game.model.entities;
 
 import game.model.HelpMethods;
+import game.model.Settings;
 import utils.LevelLoader;
 
 import static game.model.Settings.SCALE;
@@ -63,7 +64,10 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	protected void updateYPos() {
-		if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(x, y, width, height)) {
+		if (y > Settings.GAME_HEIGHT) {
+			setY(-1);
+		}
+		else if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(x, y, width, height)) {
 			setY(y + airSpeed);
 		} else {
 			if (HelpMethods.canMoveHere(x+xSpeed, y + airSpeed, width, height)) {

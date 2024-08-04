@@ -16,7 +16,7 @@ public class Game implements Runnable {
 	private Level currentLevel;
 
 	public Game() {
-		Level livello1 = new Level(2);
+		Level livello1 = new Level(777);
 		this.currentLevel = livello1;
 		LevelView livello1View = new LevelView(livello1);
 		BubbleManager.getInstance().addObserver(livello1View);
