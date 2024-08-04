@@ -93,7 +93,11 @@ public abstract class Bubble extends MovingEntity {
 		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width - 1, (int) height - 1)) {
 			setX(x + xSpeed);
 		} else {
-			setX(HelpMethods.getEntityXPosNextToWall(this));
+			if (HelpMethods.isEntityInsideWall(x , y, width - 1, height - 1))
+				pop();
+			else {
+				setX(HelpMethods.getEntityXPosNextToWall(this));
+			}		
 		}
 	}
 
