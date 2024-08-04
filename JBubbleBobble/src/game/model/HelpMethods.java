@@ -18,14 +18,16 @@ public class HelpMethods {
 
 	public static boolean isSolid(float x, float y) {
 		String[][] lvlData = LevelLoader.getLevelData();
-		if (x < 0 || x >= GAME_WIDTH) {
-			System.out.println("OUT OF BOUNDS");
+		
+		if (x < 0 ||  x >= GAME_WIDTH ) {
+//			System.out.println("OUT OF BOUNDS");
 			return true;
 		}
 		if (y < 0 || y >= GAME_HEIGHT) {
-			System.out.println("OUT OF BOUNDS");
-			return true;
+//			System.out.println("OUT OF BOUNDS");
+			return false;
 		}
+
 		float xIndex = x / TILE_SIZE;
 		float yIndex = y / TILE_SIZE;
 

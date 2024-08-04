@@ -55,7 +55,7 @@ public class Player extends MovingEntity {
 			}
 		} else {
 			if (!HelpMethods.isEntityInsideWall(x - Settings.TILE_SIZE, y, width, height)) {
-			bubbleManager.createBubble(x - Settings.TILE_SIZE, y, -2 );
+			bubbleManager.createBubble(x - Settings.TILE_SIZE, y, -2);
 			System.out.println("left");
 			}
 		}

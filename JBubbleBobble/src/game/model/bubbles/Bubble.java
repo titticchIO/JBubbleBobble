@@ -9,9 +9,9 @@ public abstract class Bubble extends MovingEntity {
 	/**
 	 * tempo prima che la bolla scoppi
 	 */
-	
+
 	protected float timeHorizontalMoving = 1000.0f;
-	
+
 	protected float lifeSpan;
 
 	private boolean popped;
@@ -33,7 +33,7 @@ public abstract class Bubble extends MovingEntity {
 	public float getLifeSpan() {
 		return lifeSpan;
 	}
-	
+
 	public float getTimeHorizontalMoving() {
 		return timeHorizontalMoving;
 	}
@@ -41,11 +41,10 @@ public abstract class Bubble extends MovingEntity {
 	public void setLifeSpan(float lifeSpan) {
 		this.lifeSpan = lifeSpan;
 	}
-	
+
 	public void setTimeHorizontalMoving(float timeHorizontalMoving) {
 		this.timeHorizontalMoving = timeHorizontalMoving;
 	}
-	
 
 	/**
 	 * metodo per far decrementare la lifeSpan
@@ -53,7 +52,7 @@ public abstract class Bubble extends MovingEntity {
 	private void decreaseLifeSpan(float k) {
 		setLifeSpan(getLifeSpan() - k);
 	}
-	
+
 	private void decreaseTimeHorizontalMoving(float k) {
 		setTimeHorizontalMoving(getTimeHorizontalMoving() - k);
 	}
@@ -74,30 +73,28 @@ public abstract class Bubble extends MovingEntity {
 
 	@Override
 	protected void updateYPos() {
-		if (y + airSpeed <= Settings.TILE_DEFAULT_SIZE && !HelpMethods.canMoveHere(x, y + airSpeed, width, height)) {
+		if (y < 0) {
+			pop();
+		}
+		else if (y + airSpeed <= Settings.TILE_DEFAULT_SIZE && !HelpMethods.canMoveHere(x, y + airSpeed, width, height)) {
 			setY(HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed));
 			setxSpeed(0);
 		} else {
 			setY(y + airSpeed);
 			setxSpeed(0);
-			
-			//setY(HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed));
-			//setxSpeed();
-			//System.out.println("go left");
+
+			// setY(HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed));
+			// setxSpeed();
+			// System.out.println("go left");
 		}
 	}
-	
-	
+
 	@Override
 	public void updateXPos() {
 		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width - 1, (int) height - 1)) {
 			setX(x + xSpeed);
 		} else {
-			if (HelpMethods.isEntityInsideWall(x , y, width - 1, height - 1))
-				pop();
-			else {
-				setX(HelpMethods.getEntityXPosNextToWall(this));
-			}		
+			setX(HelpMethods.getEntityXPosNextToWall(this));
 		}
 	}
 
@@ -107,14 +104,14 @@ public abstract class Bubble extends MovingEntity {
 			pop();
 		} else {
 			decreaseLifeSpan(10.0f);// decrementa la lifespan della bolla (valore da calibrare con la view)
-			decreaseTimeHorizontalMoving(10.0f);//decrementa il tempo prima che vada a salire la bolla
+			decreaseTimeHorizontalMoving(10.0f);// decrementa il tempo prima che vada a salire la bolla
 		}
-		if (timeHorizontalMoving <= 0) updateYPos();
-		else updateXPos();
+		if (timeHorizontalMoving <= 0)
+			updateYPos();
+		else
+			updateXPos();
 		setChanged();
 		notifyObservers();
 	}
-
-
 
 }
