@@ -48,10 +48,10 @@ public class Player extends MovingEntity {
 
 	public void shootBubble(BubbleManager bubbleManager) {
 		if (direction == Directions.RIGHT) {
-			bubbleManager.createBubble(x + Settings.TILE_SIZE, y, 1 + xSpeed);
+			bubbleManager.createBubble(x + Settings.TILE_SIZE, y, (1+xSpeed));
 			System.out.println("right");
 		} else {
-			bubbleManager.createBubble(x - Settings.TILE_SIZE, y, -1 + xSpeed);
+			bubbleManager.createBubble(x - Settings.TILE_SIZE, y, - 1+xSpeed );
 			System.out.println("left");
 		}
 	}
