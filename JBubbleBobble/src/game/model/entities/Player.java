@@ -6,6 +6,7 @@ import game.model.entities.MovingEntity.Directions;
 
 import static game.model.Settings.SCALE;
 
+import game.model.HelpMethods;
 import game.model.Settings;
 
 public class Player extends MovingEntity {
@@ -48,11 +49,15 @@ public class Player extends MovingEntity {
 
 	public void shootBubble(BubbleManager bubbleManager) {
 		if (direction == Directions.RIGHT) {
-			bubbleManager.createBubble(x + Settings.TILE_SIZE, y, (1+xSpeed));
-			System.out.println("right");
+			if (!HelpMethods.isEntityInsideWall(x + Settings.TILE_SIZE, y, width, height)) {
+				bubbleManager.createBubble(x + Settings.TILE_SIZE, y, 2);
+				System.out.println("right");
+			}
 		} else {
-			bubbleManager.createBubble(x - Settings.TILE_SIZE, y, - 1+xSpeed );
+			if (!HelpMethods.isEntityInsideWall(x - Settings.TILE_SIZE, y, width, height)) {
+			bubbleManager.createBubble(x - Settings.TILE_SIZE, y, -2 );
 			System.out.println("left");
+			}
 		}
 	}
 	
