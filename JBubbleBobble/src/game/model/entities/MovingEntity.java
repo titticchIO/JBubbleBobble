@@ -16,7 +16,7 @@ public abstract class MovingEntity extends Entity {
 	 * Movement speed on x axis: positive up and negative down
 	 */
 	protected float xSpeed;
-	
+
 	protected Directions direction;
 
 //	private boolean moving;
@@ -27,6 +27,7 @@ public abstract class MovingEntity extends Entity {
 	private float gravity = 0.02f * SCALE;
 	private float jumpSpeed = -2.0f * SCALE;
 	private float fallSpeedAfterCollision = 0.3f * SCALE;
+	private float maxFallingSpeed = 2;
 	private boolean inAir = false;
 
 	/**
@@ -66,11 +67,10 @@ public abstract class MovingEntity extends Entity {
 	protected void updateYPos() {
 		if (y > Settings.GAME_HEIGHT) {
 			setY(-1);
-		}
-		else if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(x, y, width, height)) {
+		} else if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(x, y, width, height)) {
 			setY(y + airSpeed);
 		} else {
-			if (HelpMethods.canMoveHere(x+xSpeed, y + airSpeed, width, height)) {
+			if (HelpMethods.canMoveHere(x + xSpeed, y + airSpeed, width, height)) {
 				setY(y + airSpeed);
 			} else {
 				setY(HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed));
@@ -84,7 +84,7 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	public void updateXPos() {
-		if (HelpMethods.canMoveHere(x + xSpeed, y+airSpeed, (int) width, (int) height)
+		if (HelpMethods.canMoveHere(x + xSpeed, y + airSpeed, (int) width, (int) height)
 				|| HelpMethods.isEntityInsideWall(x, y, width, height)) {
 			setX(x + xSpeed);
 		} else {
@@ -124,12 +124,12 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	public void gravity() {
-		if (!HelpMethods.isEntityGrounded(this)) {
+		if (!HelpMethods.isEntityGrounded(this) && airSpeed < maxFallingSpeed) {
 			inAir = true;
 			airSpeed += gravity;
 		}
 	}
-	
+
 	public void setDirections(Directions direction) {
 		this.direction = direction;
 	}
