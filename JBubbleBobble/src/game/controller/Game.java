@@ -33,6 +33,7 @@ public class Game implements Runnable {
 	public void update() {
 		switch (GameState.state) {
 		case MENU:
+			//forse superfluo
 			menu.update();
 			break;
 		case PLAYING:
@@ -42,16 +43,6 @@ public class Game implements Runnable {
 		
 	}
 	
-	public void repaint() {
-		switch (GameState.state) {
-		case MENU:
-			menu.repaint();
-			break;
-		case PLAYING:
-			playing.repaint();
-			break;
-		}
-	}
 	
 	
 	@Override
