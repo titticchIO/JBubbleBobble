@@ -1,26 +1,27 @@
 package game.controller;
 
-import game.model.*;
-import game.model.bubbles.BubbleManager;
-import game.model.enemies.Enemy;
-import game.model.entities.Player;
 import game.model.level.Level;
 import game.view.*;
+import game.controller.gamestates.Playing;
+
+import java.awt.Graphics;
+
+import game.controller.gamestates.GameState;
+import game.controller.gamestates.Menu;
 
 public class Game implements Runnable {
-	private GameFrame gameFrame;
 	private Thread gameThread;
 	private final float GAME_SPEED = 1.0f;
 	private final int FPS_SET = 120;
 	private final int UPS_SET = (int) (200 * GAME_SPEED);
-	private Level currentLevel;
+	private GameFrame gameFrame;
+
+	private Playing playing;
+	private Menu menu;
 
 	public Game() {
-		Level livello1 = new Level(777);
-		this.currentLevel = livello1;
-		LevelView livello1View = new LevelView(livello1);
-		BubbleManager.getInstance().addObserver(livello1View);
-		gameFrame = new GameFrame(livello1View);
+		playing = new Playing(this);
+		
 		startGameLoop();
 	}
 
@@ -30,9 +31,29 @@ public class Game implements Runnable {
 	}
 
 	public void update() {
-		currentLevel.updateLevel();
+		switch (GameState.state) {
+		case MENU:
+			menu.update();
+			break;
+		case PLAYING:
+			playing.update();
+			break;
+		}
+		
 	}
-
+	
+	public void repaint() {
+		switch (GameState.state) {
+		case MENU:
+			menu.repaint();
+			break;
+		case PLAYING:
+			playing.repaint();
+			break;
+		}
+	}
+	
+	
 	@Override
 	public void run() {
 		double timePerFrame = 1000000000.0 / FPS_SET;

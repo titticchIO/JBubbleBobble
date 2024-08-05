@@ -39,7 +39,6 @@ public class PlayerController implements KeyListener {
 			break;
 		case KeyEvent.VK_SPACE:
 			player.shootBubble(BubbleManager.getInstance());
-		
 		}
 	}
 
