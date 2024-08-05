@@ -41,31 +41,47 @@ public class HelpMethods {
 	}
 
 	public static float getEntityXPosNextToWall(MovingEntity movingEntity) {
-		int currentTile = (int) (movingEntity.getX() / TILE_SIZE);
-		if (movingEntity.getxSpeed() > 0) {
-			// right
-			int tileXPos = (currentTile + 1) * TILE_SIZE;
-//			int xOffset = (int) (GameFrame.TILE_SIZE - movingEntity.getWidth());
-//			int xOffset = 0;
-			return tileXPos - movingEntity.getWidth() - 1;
-		} else {
-			// left
-			return currentTile * TILE_SIZE;
-		}
+	    float x = movingEntity.getX();
+	    float y = movingEntity.getY();
+	    float width = movingEntity.getWidth();
+	    float height = movingEntity.getHeight();
+	    float xSpeed = movingEntity.getxSpeed();
+
+	    if (xSpeed > 0) { // Moving right
+	        // Stop just before the right side of the entity intersects a solid block
+	        int xTilePos = (int) ((x + width) / TILE_SIZE);
+	        float xPosNextToWall = xTilePos * TILE_SIZE - width - 0.1f+TILE_SIZE;
+	        return xPosNextToWall;
+	    } else if (xSpeed < 0) { // Moving left
+	        // Stop just before the left side of the entity intersects a solid block
+	        int xTilePos = (int) (x / TILE_SIZE);
+	        float xPosNextToWall = (xTilePos + 1) * TILE_SIZE + 0.1f-TILE_SIZE;
+	        return xPosNextToWall;
+	    }
+
+	    return x; // If not moving, return current x position
 	}
+	
 
 	public static float getEntityPosUnderRoofOrAboveFloor(MovingEntity movingEntity, float airSpeed) {
-		int currentTile = (int) (movingEntity.getY() / TILE_SIZE);
-		if (airSpeed > 0) {
-			// falling or touching floor
-			int tileYPos = currentTile * TILE_SIZE;
-			int yOffset = (int) (TILE_SIZE - movingEntity.getHeight());
-			return tileYPos + yOffset - 1;
-		} else {
-			// jumping
-			return (currentTile * TILE_SIZE);
-		}
+	    float x = movingEntity.getX();
+	    float y = movingEntity.getY();
+	    float width = movingEntity.getWidth();
+	    float height = movingEntity.getHeight();
+
+	    if (airSpeed < 0) { // Moving upwards, hitting the roof
+	        int yTilePos = (int) (y / TILE_SIZE);
+	        float yPosUnderRoof = (yTilePos + 1) * TILE_SIZE + 0.1f;
+	        return yPosUnderRoof;
+	    } else if (airSpeed > 0) { // Moving downwards, landing on the floor
+	        int yTilePos = (int) ((y + height) / TILE_SIZE);
+	        float yPosAboveFloor = yTilePos * TILE_SIZE - height - 0.1f+TILE_SIZE;
+	        return yPosAboveFloor;
+	    }
+
+	    return y; // If not moving vertically, return current y position
 	}
+
 
 //	checks if any of the pixels under the entity are solid
 	public static boolean isEntityGrounded(MovingEntity movingEntity) {
