@@ -85,7 +85,7 @@ public abstract class MovingEntity extends Entity {
 
 	public void updateXPos() {
 		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width, (int) height)
-				|| HelpMethods.isEntityInsideWall(x, y, width, height)) {
+				|| (HelpMethods.isEntityInsideWall(x, y, width, height) && (x + xSpeed >= Settings.TILE_SIZE && x + xSpeed + width <= Settings.GAME_WIDTH - Settings.TILE_SIZE))) {
 			setX(x + xSpeed);
 		} else {
 			setX(HelpMethods.getEntityXPosNextToWall(this));

@@ -22,7 +22,7 @@ public class BubbleManager extends Observable {
 	}
 
 	public void createBubble(float x, float y,float xSpeed) {
-		Bubble newBubble=new PlayerBubble.Builder(x, y, Settings.TILE_SIZE, Settings.TILE_SIZE, "B1").xSpeed(xSpeed).build();
+		Bubble newBubble=new PlayerBubble.Builder(x, y, Settings.TILE_SIZE - 1, Settings.TILE_SIZE - 1, "B1").xSpeed(xSpeed).build();
 		bubbles.add(newBubble);
 		setChanged();
 		notifyObservers(newBubble);

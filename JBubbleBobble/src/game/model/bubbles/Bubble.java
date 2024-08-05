@@ -91,7 +91,7 @@ public abstract class Bubble extends MovingEntity {
 
 	@Override
 	public void updateXPos() {
-		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width - 1, (int) height - 1)) {
+		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width, (int) height)) {
 			setX(x + xSpeed);
 		} else {
 			setX(HelpMethods.getEntityXPosNextToWall(this));
