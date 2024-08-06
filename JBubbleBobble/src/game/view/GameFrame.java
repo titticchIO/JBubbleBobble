@@ -1,20 +1,20 @@
 package game.view;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 
+import game.controller.Game;
 import game.controller.PlayerController;
-import game.model.entities.Player;
-import game.model.level.Level;
 
 public class GameFrame extends JFrame {
 	private GamePanel gamePanel;
-	
 
-	public GameFrame(LevelView levelView) {
-		this.gamePanel = new GamePanel(levelView);
+	public GameFrame(Game game, PlayerController playerController, ActionListener actionListener) {
+		this.gamePanel = new GamePanel(actionListener);
 		add(gamePanel);
 		// Attach the PlayerController as a KeyListener
-		addKeyListener(new PlayerController());
+		addKeyListener(playerController);
 		setFocusable(true); // Ensure the frame is focusable
 		setFocusTraversalKeysEnabled(false); // Disable focus traversal keys
 
@@ -28,7 +28,7 @@ public class GameFrame extends JFrame {
 	public GamePanel getGamePanel() {
 		return gamePanel;
 	}
-	
+
 	@Override
 	public void repaint() {
 		super.repaint();

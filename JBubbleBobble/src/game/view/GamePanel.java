@@ -3,6 +3,7 @@ package game.view;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JButton;
@@ -11,33 +12,39 @@ import static game.model.Settings.GAME_WIDTH;
 import static game.model.Settings.GAME_HEIGHT;
 
 import game.controller.gamestates.GameState;
+import game.model.bubbles.BubbleManager;
 import game.model.level.Level;
 
 public class GamePanel extends JPanel {
 	private LevelView levelView;
 	private MovingEntityView playerView;
 	private BufferedImage tilesImage;
-	
+	private MenuPanel menuPanel;
+
 //	private MenuPanel menuPanel
 
 //	NON AGGIUNGERE IL PATTERN SINGLETON!!!!!
 
-	public GamePanel(LevelView level) {
+	public GamePanel(ActionListener actionListener) {
 		setPanelSize();
-		this.playerView = level.getPlayerView();
-		this.levelView = level;
-		renderTilesOnce();
-		
-		//add menu panel
-		
+
+		menuPanel = new MenuPanel(actionListener);
+		add(menuPanel);
+
 	}
 
-	public void startGame() {
+	private void initPlayingClasses(LevelView levelView) {
+		this.levelView = levelView;
+		BubbleManager.getInstance().addObserver(levelView);
+		playerView = levelView.getPlayerView();
 		renderTilesOnce();
 	}
-	
-	
-	
+
+	public void startGame(LevelView levelView) {
+		initPlayingClasses(levelView);
+		renderTilesOnce();
+	}
+
 	public MovingEntityView getPlayerView() {
 		return playerView;
 	}
@@ -57,16 +64,16 @@ public class GamePanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 
-		switch(GameState.state) {
+		switch (GameState.state) {
 		case MENU:
 
-//			menuPanel.setVisible(true);
-			
+			menuPanel.setVisible(true);
+
 			break;
 		case PLAYING:
 
-//			menuPanel.setVisible(false);
-			
+			menuPanel.setVisible(false);
+
 			super.paintComponent(g);
 			// Usa double buffering per disegnare su un'immagine temporanea prima di
 			// dipingerla sul JPanel
@@ -98,10 +105,9 @@ public class GamePanel extends JPanel {
 			break;
 		default:
 			break;
-		
+
 		}
-		
-		
+
 	}
 
 }

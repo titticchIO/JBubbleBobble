@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import game.controller.Game;
+import game.controller.PlayerController;
 import game.model.bubbles.BubbleManager;
 import game.model.entities.MovingEntity.Directions;
 import game.model.level.Level;
@@ -15,21 +16,21 @@ public class Playing extends State implements Statemethods {
 	private GameFrame gameFrame;
 	private Level currentLevel;
 
-	public Playing(Game game) {
+	public Playing(Game game, GameFrame gameFrame) {
 		super(game);
-		initClasses();
+		initClasses(gameFrame);
 	}
-	
-	private void initClasses() {
+
+	private void initClasses(GameFrame gameFrame) {
 		Level livello1 = new Level(777);
 		currentLevel = livello1;
-		LevelView livello1View = new LevelView(livello1);
-		BubbleManager.getInstance().addObserver(livello1View);
-		gameFrame = new GameFrame(livello1View);
+		this.gameFrame = gameFrame;
 	}
-	
-	
-	
+
+	public Level getCurrentLevel() {
+		return currentLevel;
+	}
+
 	@Override
 	public void update() {
 		currentLevel.updateLevel();

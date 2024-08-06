@@ -8,9 +8,9 @@ import javax.imageio.ImageIO;
 
 public class ImageLoader {
 
-	public static BufferedImage importImg(String name) {
+	public static BufferedImage importImg(String path) {
 		BufferedImage img = null;
-		InputStream is = ImageLoader.class.getResourceAsStream(name);
+		InputStream is = ImageLoader.class.getResourceAsStream(path);
 		try {
 			img = ImageIO.read(is);
 		} catch (IOException e) {

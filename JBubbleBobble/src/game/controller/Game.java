@@ -1,10 +1,11 @@
 package game.controller;
 
-import game.model.level.Level;
 import game.view.*;
 import game.controller.gamestates.Playing;
+import game.controller.gamestates.State;
 
-import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import game.controller.gamestates.GameState;
 import game.controller.gamestates.Menu;
@@ -16,16 +17,37 @@ public class Game implements Runnable {
 	private final int UPS_SET = (int) (200 * GAME_SPEED);
 	private GameFrame gameFrame;
 
+	private State state;
 	private Playing playing;
 	private Menu menu;
 
 	public Game() {
-		playing = new Playing(this);
-		
-		startGameLoop();
+		ActionListener actionListener = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GameState.state = GameState.PLAYING;
+				startGameLoop();
+			}
+		};
+		gameFrame = new GameFrame(this, new PlayerController(this), actionListener);
+		playing = new Playing(this, gameFrame);
+		menu = new Menu(this);
+
+	}
+
+	public Playing getPlaying() {
+		return playing;
+	}
+
+	public Menu getMenu() {
+		return menu;
 	}
 
 	private void startGameLoop() {
+		LevelView levelView = new LevelView(playing.getCurrentLevel());
+
+		gameFrame.getGamePanel().startGame(levelView);
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
@@ -33,18 +55,16 @@ public class Game implements Runnable {
 	public void update() {
 		switch (GameState.state) {
 		case MENU:
-			//forse superfluo
+			// forse superfluo
 			menu.update();
 			break;
 		case PLAYING:
 			playing.update();
 			break;
 		}
-		
+
 	}
-	
-	
-	
+
 	@Override
 	public void run() {
 		double timePerFrame = 1000000000.0 / FPS_SET;

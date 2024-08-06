@@ -3,19 +3,16 @@ package game.controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import game.model.bubbles.BubbleManager;
-import game.model.entities.MovingEntity.Directions;
-import game.model.entities.Player;
-import game.view.GameFrame;
+import game.controller.gamestates.GameState;
 
 public class PlayerController implements KeyListener {
-	private Player player;
+	private Game game;
 
 	/**
-	 * @param playerView
+	 * @param game
 	 */
-	public PlayerController() {
-		player = Player.getInstance();
+	public PlayerController(Game game) {
+		this.game = game;
 	}
 
 	@Override
@@ -25,33 +22,24 @@ public class PlayerController implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		switch (e.getKeyCode()) {
-		case KeyEvent.VK_W:
-			player.jump();
+		switch (GameState.state) {
+		case MENU:
+			game.getMenu().keyPressed(e);
 			break;
-		case KeyEvent.VK_A:
-			player.move(Directions.LEFT);
-			player.setDirections(Directions.LEFT);
+		case PLAYING:
+			game.getPlaying().keyPressed(e);
 			break;
-		case KeyEvent.VK_D:
-			player.move(Directions.RIGHT);
-			player.setDirections(Directions.RIGHT);
-			break;
-		case KeyEvent.VK_SPACE:
-			player.shootBubble(BubbleManager.getInstance());
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		switch (e.getKeyCode()) {
-		case KeyEvent.VK_A:
-			if (player.getxSpeed() < 0)
-				player.stop();
+		switch (GameState.state) {
+		case MENU:
+			game.getMenu().keyReleased(e);
 			break;
-		case KeyEvent.VK_D:
-			if (player.getxSpeed() > 0)
-				player.stop();
+		case PLAYING:
+			game.getPlaying().keyReleased(e);
 			break;
 		}
 	}
