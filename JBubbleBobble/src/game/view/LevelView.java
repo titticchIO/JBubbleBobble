@@ -2,6 +2,7 @@ package game.view;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -35,10 +36,13 @@ public class LevelView implements Observer {
 		}
 
 		bubbles = new ArrayList<MovingEntityView>();
-		for (Bubble b : BubbleManager.getInstance().getBubbles()) {
-			MovingEntityView bubble = new MovingEntityView(b.getImageCode());
-			b.addObserver(bubble);
-			bubbles.add(bubble);
+		
+		Iterator<Bubble> iterator = BubbleManager.getInstance().getBubbles().iterator();
+		while (iterator.hasNext()) {
+		    Bubble b = iterator.next();
+		    MovingEntityView bubble = new MovingEntityView(b.getImageCode());
+		    b.addObserver(bubble);
+		    bubbles.add(bubble);
 		}
 	}
 

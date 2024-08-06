@@ -76,7 +76,7 @@ public abstract class Bubble extends MovingEntity {
 		if (y < 0) {
 			pop();
 		}
-		else if (y + airSpeed <= Settings.TILE_DEFAULT_SIZE && !HelpMethods.canMoveHere(x, y + airSpeed, width, height)) {
+		else if (y + airSpeed <= Settings.TILE_SIZE && !HelpMethods.canMoveHere(x, y + airSpeed, width, height)) {
 			setY(HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed));
 			setxSpeed(0);
 		} else {
