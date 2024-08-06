@@ -20,6 +20,7 @@ public class ImagesTest {
         imageMap.put("M", "/enemies/monsta/image_");
         imageMap.put("N", "/enemies/banebou/image_");
         imageMap.put("U", "/enemies/pulpul/image_");
+        imageMap.put("S", "/enemies/skelmonsta/image_");
     }
 
     public static BufferedImage getImage(String type, String number) {

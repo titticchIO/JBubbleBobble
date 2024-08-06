@@ -7,7 +7,7 @@ import utils.LevelLoader;
 public class Mighta extends Enemy {
 
 	public Mighta(float x, float y, float width, float height, String imageCode) {
-		super(x, y, width, height, imageCode, "Mighta");
+		super(x, y, width, height, imageCode);
 		setxSpeed(0.5f);
 		setxSpeed(0.25f);
 	}

@@ -27,6 +27,7 @@ public class LevelLoader {
 	private final static String BANEBOU = "N";
 	private final static String MIGHTA = "I";
 	private final static String PULPUL = "U";
+	private final static String SKELMONSTA = "S";
 	
 	/*
 	private final static String ENEMY_4 = "4";
@@ -89,7 +90,9 @@ public class LevelLoader {
 						break;
 					case PULPUL:
 						level.addEnemy(new Pulpul(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1, c));
-						break;			
+						break;		
+					case SKELMONSTA:
+						level.addEnemy(new SkelMonsta(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1, c));
 					}
 				}
 				

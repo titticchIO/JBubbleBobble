@@ -7,7 +7,7 @@ import utils.LevelLoader;
 public class Banebou extends Enemy {
 
 	public Banebou(float x, float y, float width, float height, String imageCode) {
-		super(x, y, width, height, imageCode, "Banebou");
+		super(x, y, width, height, imageCode);
 		setxSpeed(1);
 //		setAirSpeed(1);
 	}

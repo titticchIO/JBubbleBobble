@@ -88,6 +88,7 @@ public class SpriteSelectionScrollPane extends JScrollPane {
         enemies.add(new SelectionButton(ImagesTest.getImage("N", "1"), "N1"));
         enemies.add(new SelectionButton(ImagesTest.getImage("I", "1"), "I1"));
         enemies.add(new SelectionButton(ImagesTest.getImage("U", "1"), "U1"));
+        enemies.add(new SelectionButton(ImagesTest.getImage("S", "1"), "S1"));
     }
 
     private void addPlayers() {

@@ -7,7 +7,7 @@ import utils.LevelLoader;
 public class Zen_chan extends Enemy {
 
 	public Zen_chan(float x, float y, float width, float height, String imageCode) {
-		super(x, y, width, height, imageCode, "Zen-Chan");
+		super(x, y, width, height, imageCode);
 		setxSpeed(0.5f);
 	}
 

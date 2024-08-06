@@ -88,7 +88,10 @@ public class GamePanel extends JPanel {
 			}
 			if (levelView.getEnemies() != null) {
 				for (MovingEntityView e : levelView.getEnemies()) {
-					e.render(doubleBufferedGraphics);
+					if (!e.isToDelete())
+						e.render(doubleBufferedGraphics);
+					else
+						e.delete(doubleBufferedGraphics);
 				}
 			}
 			if (levelView.getBubbles() != null) {

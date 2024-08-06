@@ -26,7 +26,7 @@ public abstract class MovingEntity extends Entity {
 	protected float airSpeed = 0f;
 	private float gravity = 0.02f * SCALE;
 	private float jumpSpeed = -2.0f * SCALE;
-	private float fallSpeedAfterCollision = 0.3f * SCALE;
+	protected float fallSpeedAfterCollision = 0.3f * SCALE;
 	private float maxFallingSpeed = 2;
 	private boolean inAir = false;
 
@@ -56,6 +56,10 @@ public abstract class MovingEntity extends Entity {
 	/**
 	 * Getters
 	 */
+	
+	public String getImageCode() {
+		return imageCode;
+	}
 
 	/**
 	 * @return movement speed on x axis
