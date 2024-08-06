@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -11,9 +12,11 @@ import utils.LevelLoader;
 import utils.LevelMaker;
 
 public class EditorFrame extends JFrame {
-    EditorPanel editorPanel;
-    SpriteSelectionScrollPane selectionPane;
-    JButton myButton;
+    private EditorPanel editorPanel;
+    private SpriteSelectionScrollPane selectionPane;
+    private JButton myButton;
+    private String actualLevelNumber = "";
+    private JLabel actualLevel; // Dichiara JLabel come variabile d'istanza
 
     public EditorFrame() {
         setLayout(new BorderLayout());
@@ -26,22 +29,25 @@ public class EditorFrame extends JFrame {
         // Pulsanti per creare nuova griglia e aprirne una esistente
         JButton newGridButton = new JButton("Nuovo");
         JButton openGridButton = new JButton("Apri");
+        actualLevel = new JLabel(actualLevelNumber); // Inizializza JLabel
         
         // Aggiunta dei pulsanti al pannello
         topPanel.add(newGridButton);
         topPanel.add(openGridButton);
+        topPanel.add(actualLevel);
 
-     // ActionListener per il pulsante "Nuova Griglia"
+        // ActionListener per il pulsante "Nuova Griglia"
         newGridButton.addActionListener(e -> {
             // Azione per creare una nuova griglia
             LevelMaker.emptyLevel(); // Presumendo che questo svuoti il livello corrente
             getContentPane().remove(editorPanel); // Rimuovi il pannello esistente
             editorPanel = new EditorPanel(this, selectionPane); // Crea un nuovo EditorPanel
             add(editorPanel, BorderLayout.CENTER); // Aggiungi il nuovo EditorPanel al frame
+            actualLevelNumber = ""; // Resetta il numero del livello
+            actualLevel.setText("Livello " + actualLevelNumber); // Aggiorna l'etichetta
             revalidate(); // Aggiorna il layout del frame
             repaint(); // Ridisegna il frame
         });
-
 
         // ActionListener per il pulsante "Apri Griglia"
         openGridButton.addActionListener(e -> {
@@ -57,6 +63,8 @@ public class EditorFrame extends JFrame {
                         editorPanel = new EditorPanel(this, selectionPane); // Crea un nuovo EditorPanel
                         LevelMaker.setLevel(levelData);
                         editorPanel.loadLevel(levelData); // Carica i dati del livello
+                        actualLevelNumber = String.valueOf(numero);
+                        actualLevel.setText("Livello " + actualLevelNumber); // Aggiorna l'etichetta
                         add(editorPanel, BorderLayout.CENTER); // Aggiungi il nuovo EditorPanel al frame
                         revalidate(); // Aggiorna il layout del frame
                         repaint(); // Ridisegna il frame
@@ -74,12 +82,14 @@ public class EditorFrame extends JFrame {
 
         // Aggiunta dell'ActionListener al bottone
         myButton.addActionListener(e -> {
-            String inputValue = JOptionPane.showInputDialog(this, "Inserisci il numero del livello:");
+            String inputValue = JOptionPane.showInputDialog(this, "Inserisci il numero del livello da salvare:");
             
             if (inputValue != null && !inputValue.isEmpty()) {
                 try {
                     int numero = Integer.parseInt(inputValue);
                     LevelMaker.saveLevelToFile(numero);
+                    actualLevelNumber = String.valueOf(numero);
+                    actualLevel.setText("Livello " + actualLevelNumber); // Aggiorna l'etichetta
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(this, "Per favore, inserisci un numero valido.", "Errore", JOptionPane.ERROR_MESSAGE);
                 }
