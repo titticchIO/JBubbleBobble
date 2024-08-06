@@ -3,25 +3,45 @@ package game.view;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import static game.model.Settings.GAME_WIDTH;
 import static game.model.Settings.GAME_HEIGHT;
 
+import game.controller.gamestates.GameState;
+import game.model.bubbles.BubbleManager;
 import game.model.level.Level;
 
 public class GamePanel extends JPanel {
 	private LevelView levelView;
 	private MovingEntityView playerView;
 	private BufferedImage tilesImage;
+	private MenuPanel menuPanel;
+
+//	private MenuPanel menuPanel
 
 //	NON AGGIUNGERE IL PATTERN SINGLETON!!!!!
 
-	public GamePanel(LevelView level) {
+	public GamePanel(ActionListener actionListener) {
 		setPanelSize();
-		this.playerView = level.getPlayerView();
-		this.levelView = level;
+
+		menuPanel = new MenuPanel(actionListener);
+		add(menuPanel);
+
+	}
+
+	private void initPlayingClasses(LevelView levelView) {
+		this.levelView = levelView;
+		BubbleManager.getInstance().addObserver(levelView);
+		playerView = levelView.getPlayerView();
+		renderTilesOnce();
+	}
+
+	public void startGame(LevelView levelView) {
+		initPlayingClasses(levelView);
 		renderTilesOnce();
 	}
 
@@ -43,34 +63,51 @@ public class GamePanel extends JPanel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		// Usa double buffering per disegnare su un'immagine temporanea prima di
-		// dipingerla sul JPanel
-		Image doubleBufferedImage = createImage(getWidth(), getHeight());
-		Graphics doubleBufferedGraphics = doubleBufferedImage.getGraphics();
 
-		if (tilesImage != null) {
-			doubleBufferedGraphics.drawImage(tilesImage, 0, 0, this);
-		}
-		if (playerView != null) {
-			playerView.render(doubleBufferedGraphics);
-		}
-		if (levelView.getEnemies() != null) {
-			for (MovingEntityView e : levelView.getEnemies()) {
-				e.render(doubleBufferedGraphics);
+		switch (GameState.state) {
+		case MENU:
+
+			menuPanel.setVisible(true);
+
+			break;
+		case PLAYING:
+
+			menuPanel.setVisible(false);
+
+			super.paintComponent(g);
+			// Usa double buffering per disegnare su un'immagine temporanea prima di
+			// dipingerla sul JPanel
+			Image doubleBufferedImage = createImage(getWidth(), getHeight());
+			Graphics doubleBufferedGraphics = doubleBufferedImage.getGraphics();
+
+			if (tilesImage != null) {
+				doubleBufferedGraphics.drawImage(tilesImage, 0, 0, this);
 			}
-		}
-		if (levelView.getBubbles() != null) {
-			for (MovingEntityView b : levelView.getBubbles()) {
-				if (!b.isToDelete())
-					b.render(doubleBufferedGraphics);
-				else
-					b.delete(doubleBufferedGraphics);
+			if (playerView != null) {
+				playerView.render(doubleBufferedGraphics);
 			}
+			if (levelView.getEnemies() != null) {
+				for (MovingEntityView e : levelView.getEnemies()) {
+					e.render(doubleBufferedGraphics);
+				}
+			}
+			if (levelView.getBubbles() != null) {
+				for (MovingEntityView b : levelView.getBubbles()) {
+					if (!b.isToDelete())
+						b.render(doubleBufferedGraphics);
+					else
+						b.delete(doubleBufferedGraphics);
+				}
+			}
+
+			g.drawImage(doubleBufferedImage, 0, 0, this);
+			doubleBufferedGraphics.dispose();
+			break;
+		default:
+			break;
+
 		}
 
-		g.drawImage(doubleBufferedImage, 0, 0, this);
-		doubleBufferedGraphics.dispose();
 	}
 
 }

@@ -1,18 +1,31 @@
 package game.view;
 
-import javax.swing.*;
+
+import java.awt.event.ActionListener;
+
 import java.awt.BorderLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import game.controller.Game;
+
 import game.controller.PlayerController;
-import game.model.entities.Player;
-import game.model.level.Level;
 
 public class GameFrame extends JFrame {
     private GamePanel gamePanel;
     private JLabel scoreLabel;
     private JLabel topScoreLabel;
 
-    public GameFrame(LevelView levelView) {
-        this.gamePanel = new GamePanel(levelView);
+
+
+
+	public GameFrame(Game game, PlayerController playerController, ActionListener actionListener) {
+		this.gamePanel = new GamePanel(actionListener);
+		// Attach the PlayerController as a KeyListener
+		addKeyListener(playerController);
+		setFocusable(true); // Ensure the frame is focusable
+		setFocusTraversalKeysEnabled(false); // Disable focus traversal keys
 
         // Creare un pannello superiore per mostrare il punteggio
         JPanel topPanel = new JPanel();
@@ -26,10 +39,7 @@ public class GameFrame extends JFrame {
         add(topPanel, BorderLayout.NORTH);
         add(gamePanel, BorderLayout.CENTER);
 
-        // Attach the PlayerController as a KeyListener
-        addKeyListener(new PlayerController());
-        setFocusable(true); // Ensure the frame is focusable
-        setFocusTraversalKeysEnabled(false); // Disable focus traversal keys
+        
 
         setResizable(false);
         pack();

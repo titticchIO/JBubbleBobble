@@ -1,36 +1,68 @@
 package game.controller;
 
-import game.model.*;
-import game.model.bubbles.BubbleManager;
-import game.model.enemies.Enemy;
-import game.model.entities.Player;
-import game.model.level.Level;
 import game.view.*;
+import game.controller.gamestates.Playing;
+import game.controller.gamestates.State;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import game.controller.gamestates.GameState;
+import game.controller.gamestates.Menu;
 
 public class Game implements Runnable {
-	private GameFrame gameFrame;
 	private Thread gameThread;
 	private final float GAME_SPEED = 1.0f;
 	private final int FPS_SET = 120;
 	private final int UPS_SET = (int) (200 * GAME_SPEED);
-	private Level currentLevel;
+	private GameFrame gameFrame;
+
+	private State state;
+	private Playing playing;
+	private Menu menu;
 
 	public Game() {
-		Level livello1 = new Level(777);
-		this.currentLevel = livello1;
-		LevelView livello1View = new LevelView(livello1);
-		BubbleManager.getInstance().addObserver(livello1View);
-		gameFrame = new GameFrame(livello1View);
-		startGameLoop();
+		ActionListener actionListener = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GameState.state = GameState.PLAYING;
+				startGameLoop();
+			}
+		};
+		gameFrame = new GameFrame(this, new PlayerController(this), actionListener);
+		playing = new Playing(this, gameFrame);
+		menu = new Menu(this);
+
+	}
+
+	public Playing getPlaying() {
+		return playing;
+	}
+
+	public Menu getMenu() {
+		return menu;
 	}
 
 	private void startGameLoop() {
+		LevelView levelView = new LevelView(playing.getCurrentLevel());
+
+		gameFrame.getGamePanel().startGame(levelView);
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
 
 	public void update() {
-		currentLevel.updateLevel();
+		switch (GameState.state) {
+		case MENU:
+			// forse superfluo
+			menu.update();
+			break;
+		case PLAYING:
+			playing.update();
+			break;
+		}
+
 	}
 
 	@Override
