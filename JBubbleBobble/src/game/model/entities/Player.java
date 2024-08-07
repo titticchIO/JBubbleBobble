@@ -49,11 +49,11 @@ public class Player extends MovingEntity {
 	public void shootBubble(BubbleManager bubbleManager) {
 		if (direction == Directions.RIGHT) {
 			if (!HelpMethods.isEntityInsideWall(x + Settings.TILE_SIZE, y, width, height)) {
-				bubbleManager.createBubble(x + Settings.TILE_SIZE, y, 2);
+				bubbleManager.createBubble(x + Settings.TILE_SIZE, y-1, 2);
 			}
 		} else {
 			if (!HelpMethods.isEntityInsideWall(x - Settings.TILE_SIZE, y, width, height)) {
-				bubbleManager.createBubble(x - Settings.TILE_SIZE, y, -2);
+				bubbleManager.createBubble(x - Settings.TILE_SIZE, y-1, -2);
 			}
 		}
 	}
