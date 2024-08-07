@@ -2,7 +2,7 @@ package game.model.enemies;
 
 import static game.model.HelpMethods.isSolid;
 
-import utils.LevelLoader;
+import game.model.level.LevelLoader;
 
 public class Banebou extends Enemy {
 

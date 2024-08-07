@@ -1,8 +1,10 @@
-package utils;
+package editor.view;
 
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
+
+import game.view.ImageLoader;
 
 public class ImagesTest {
 

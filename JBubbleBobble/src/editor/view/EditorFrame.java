@@ -8,8 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import utils.LevelLoader;
-import utils.LevelMaker;
+import game.model.level.LevelLoader;
+import game.model.level.LevelMaker;
 
 public class EditorFrame extends JFrame {
     private EditorPanel editorPanel;

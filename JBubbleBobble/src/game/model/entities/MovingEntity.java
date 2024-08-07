@@ -2,7 +2,7 @@ package game.model.entities;
 
 import game.model.HelpMethods;
 import game.model.Settings;
-import utils.LevelLoader;
+import game.model.level.LevelLoader;
 
 import static game.model.Settings.SCALE;
 

@@ -5,8 +5,8 @@ import java.awt.image.BufferedImage;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
-import utils.Images;
-import utils.ImagesTest;
+
+import editor.view.ImagesTest;
 import game.model.enemies.Zen_chan;
 import game.model.entities.Entity;
 

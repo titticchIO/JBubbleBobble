@@ -2,7 +2,8 @@ package game.model.enemies;
 
 import game.model.HelpMethods;
 import game.model.Settings;
-import utils.LevelLoader;
+import game.model.level.LevelLoader;
+
 import java.util.Random;
 
 import static game.model.HelpMethods.isSolidHorizontalLine;

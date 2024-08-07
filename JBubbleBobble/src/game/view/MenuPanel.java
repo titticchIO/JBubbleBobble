@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import game.model.Settings;
-import utils.ImageLoader;
 
 public class MenuPanel extends JPanel {
 	private JButton playButton;

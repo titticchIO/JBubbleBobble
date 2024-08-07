@@ -1,6 +1,8 @@
-package utils;
+package editor.view;
 
 import java.awt.image.BufferedImage;
+
+import game.view.ImageLoader;
 
 public enum Images {
 	PLAYER("P"), BLOCK1("1"), BLOCK2("2"), BLOCK3("3"), BLOCK4("4"), BLOCK5("5"), BLOCK6("6"), EMPTY_BLOCK("0"),

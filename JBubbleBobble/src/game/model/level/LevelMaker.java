@@ -1,4 +1,4 @@
-package utils;
+package game.model.level;
 
 import java.io.*;
 import java.util.ArrayList;
