@@ -11,8 +11,8 @@ public abstract class Enemy extends MovingEntity {
 	
 	protected boolean popped;
 
-	public Enemy(float x, float y, float width, float height, String imageCode) {
-		super(x, y, width, height, imageCode);
+	public Enemy(float x, float y, float width, float height, String positionCode) {
+		super(x, y, width, height, positionCode);
 		this.name = name;
 	}
 
@@ -30,5 +30,7 @@ public abstract class Enemy extends MovingEntity {
 	public boolean isPopped() {
 		return popped;
 	}
+	
+	
 
 }

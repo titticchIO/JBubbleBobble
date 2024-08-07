@@ -6,6 +6,8 @@ import game.model.Settings;
 import static game.model.Settings.SCALE;
 
 public abstract class MovingEntity extends Entity {
+	
+	protected boolean toChange = false;
 
 	// Direzioni di movimento possibili
     public enum Directions {
@@ -37,10 +39,12 @@ public abstract class MovingEntity extends Entity {
 	 * @param y
 	 * @param width
 	 * @param height
+	 * @param type TODO
 	 */
-	public MovingEntity(float x, float y, float width, float height, String imageCode) {
-		super(x, y, width, height, imageCode);
-		direction = Directions.RIGHT; // Direzione iniziale
+
+	public MovingEntity(float x, float y, float width, float height, String positionCode) {
+		super(x, y, width, height, positionCode);
+		direction = Directions.RIGHT;
 	}
 
 	/**
@@ -58,8 +62,8 @@ public abstract class MovingEntity extends Entity {
 	 * Getters
 	 */
 
-	public String getImageCode() {
-		return imageCode;
+	public String getPositionCode() {
+		return positionCode;
 	}
 
 	/**
@@ -67,6 +71,10 @@ public abstract class MovingEntity extends Entity {
 	 */
 	public float getxSpeed() {
 		return xSpeed;
+	}
+	
+	public boolean isToChange() {
+		return toChange;
 	}
 
 	protected void updateYPos() {
@@ -150,13 +158,35 @@ public abstract class MovingEntity extends Entity {
 	public void setDirections(Directions direction) {
 		this.direction = direction;
 	}
+	
+	public void updateImage() {
+		toChange = false;
+		//if((x < 0 || x > Settings.GAME_WIDTH) || (y < 0 || y + height > Settings.GAME_HEIGHT)) pop();
+		if (xSpeed < 0 && !positionCode.equals("left")) {
+			toChange = true;
+			setPositionCode("left");
+		} else if (xSpeed >= 0 && !positionCode.equals("right")){
+			toChange = true;
+			setPositionCode("right");
+		} 
+	}
+	
+	
 
 	public void updateEntity() {
+		updateImage();
 		updateXPos();
 		updateYPos();
 		gravity();
 		setChanged();
 		notifyObservers();
 	}
+	
+	
+	
+	
+	public abstract String getType();
+	
+	
 
 }

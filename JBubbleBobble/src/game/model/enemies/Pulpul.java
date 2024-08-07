@@ -1,3 +1,4 @@
+
 package game.model.enemies;
 
 import java.util.Random;
@@ -7,6 +8,8 @@ import game.model.HelpMethods;
 import static game.model.HelpMethods.isSolid;
 
 public class Pulpul extends Enemy {
+	
+	private final String type = "U";
 
 	private Random random;
 	private long lastChangeTime;
@@ -94,5 +97,10 @@ public class Pulpul extends Enemy {
 				randomizeDirection();
 			}
 		}
+	}
+
+	@Override
+	public String getType() {
+		return type;
 	}
 }

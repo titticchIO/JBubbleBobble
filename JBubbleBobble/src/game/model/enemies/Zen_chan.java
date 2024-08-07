@@ -5,9 +5,11 @@ import static game.model.HelpMethods.isSolid;
 import game.model.level.LevelLoader;
 
 public class Zen_chan extends Enemy {
+	
+	private final String type = "Z"; 
 
-	public Zen_chan(float x, float y, float width, float height, String imageCode) {
-		super(x, y, width, height, imageCode);
+	public Zen_chan(float x, float y, float width, float height, String positionCode) {
+		super(x, y, width, height, positionCode);
 		setxSpeed(0.5f);
 	}
 
@@ -23,6 +25,11 @@ public class Zen_chan extends Enemy {
 	public void updateEntity() {
 		super.updateEntity();
 		switchDirection();
+	}
+
+	@Override
+	public String getType() {
+		return type;
 	}
 
 }

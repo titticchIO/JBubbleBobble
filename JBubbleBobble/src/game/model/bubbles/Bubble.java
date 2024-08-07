@@ -9,6 +9,8 @@ public abstract class Bubble extends MovingEntity {
 	/**
 	 * tempo prima che la bolla scoppi
 	 */
+	
+	private final String type = "B";
 
 	protected float timeHorizontalMoving = 1000.0f;
 
@@ -16,14 +18,14 @@ public abstract class Bubble extends MovingEntity {
 
 	private boolean popped;
 
-	public Bubble(float x, float y, float width, float height, String imageCode) {
-		super(x, y, width, height, imageCode);
+	public Bubble(float x, float y, float width, float height, String positionCode) {
+		super(x, y, width, height, positionCode);
 		lifeSpan = 10000;
 		timeHorizontalMoving = 500;
 	}
 
-	public Bubble(float x, float y, float width, float height, String imageCode, float lifeSpan) {
-		super(x, y, width, height, imageCode);
+	public Bubble(float x, float y, float width, float height, String positionCode, float lifeSpan) {
+		super(x, y, width, height, positionCode);
 		this.lifeSpan = lifeSpan;
 	}
 
@@ -77,6 +79,10 @@ public abstract class Bubble extends MovingEntity {
 		} else 
 			setY(y+airSpeed);
 		}
+	
+	public String getType() {
+		return type;
+	}
 	
 
 	@Override

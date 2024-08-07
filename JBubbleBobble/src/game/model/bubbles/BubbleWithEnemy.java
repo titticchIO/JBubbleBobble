@@ -11,8 +11,8 @@ public class BubbleWithEnemy extends PlayerBubble {
 	 * @param enemy
 	 */
 	
-	public BubbleWithEnemy(float x, float y, float width, float height, String imageCode, Enemy enemy) {
-		super(x, y, width, height, imageCode);
+	public BubbleWithEnemy(float x, float y, float width, float height, String positionCode, Enemy enemy) {
+		super(x, y, width, height, positionCode);
 		this.enemy = enemy;
 	}
 

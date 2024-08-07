@@ -6,6 +6,8 @@ import game.model.HelpMethods;
 import game.model.Settings;
 
 public class Banebou extends Enemy {
+	
+	private final String type = "N";
 
 	public Banebou(float x, float y, float width, float height, String imageCode) {
 		super(x, y, width, height, imageCode);
@@ -59,5 +61,10 @@ public class Banebou extends Enemy {
 			inAir = true;
 			airSpeed += gravity;
 		}
+	}
+
+	@Override
+	public String getType() {
+		return type;
 	}
 }

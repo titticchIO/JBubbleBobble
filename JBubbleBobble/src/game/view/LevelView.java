@@ -20,15 +20,16 @@ public class LevelView implements Observer {
     private List<MovingEntityView> bubbles;
 
     public LevelView(Level level) {
-        playerView = new MovingEntityView("P1");
-        Player.getInstance().addObserver(playerView);
+    	Player p = Player.getInstance();
+        playerView = new MovingEntityView(p.getType(), p.getPositionCode());
+        p.addObserver(playerView);
 
         enemies = new CopyOnWriteArrayList<>();
         spawnEnemies(level);
 
         tiles = new CopyOnWriteArrayList<>();
         for (Tile t : level.getTiles()) {
-            EntityView newTile = new EntityView(t.getImageCode());
+            EntityView newTile = new EntityView(t.getType(), t.getPositionCode());
             t.addObserver(newTile);
             t.notifyPosition();
             tiles.add(newTile);
@@ -37,7 +38,7 @@ public class LevelView implements Observer {
         bubbles = new CopyOnWriteArrayList<>();
 
         for (Bubble b : BubbleManager.getInstance().getBubbles()) {
-            MovingEntityView bubble = new MovingEntityView(b.getImageCode());
+            MovingEntityView bubble = new MovingEntityView(b.getType(), b.getPositionCode());
             b.addObserver(bubble);
             bubbles.add(bubble);
         }
@@ -45,7 +46,7 @@ public class LevelView implements Observer {
 
     public void spawnEnemies(Level level) {
         for (Enemy e : level.geteManager().getEnemies()) {
-            MovingEntityView enemyView = new MovingEntityView(e.getImageCode());
+            MovingEntityView enemyView = new MovingEntityView(e.getType(), e.getPositionCode());
             e.addObserver(enemyView);
             enemies.add(enemyView);
         }
@@ -61,9 +62,11 @@ public class LevelView implements Observer {
         }
     }
 
+    /*
     public void updatePlayerAnimation() {
         playerView.updateAnimationImg();
     }
+    */
 
     public List<MovingEntityView> getEnemies() {
         return enemies;
@@ -78,7 +81,7 @@ public class LevelView implements Observer {
         if (arg instanceof Bubble) {
             Bubble bubble = (Bubble) arg;
             if (!bubble.isPopped()) {
-                MovingEntityView newBubbleView = new MovingEntityView("B1");
+                MovingEntityView newBubbleView = new MovingEntityView("B", "1");
                 newBubbleView.setObservedEntity(bubble);
                 bubble.addObserver(newBubbleView);
                 bubbles.add(newBubbleView);
@@ -90,7 +93,7 @@ public class LevelView implements Observer {
         if(arg instanceof Enemy) {
         	Enemy enemy = (Enemy) arg;
         	if (!enemy.isPopped()) {
-        		MovingEntityView newEnemyView = new MovingEntityView(enemy.getImageCode());
+        		MovingEntityView newEnemyView = new MovingEntityView(enemy.getType(), enemy.getPositionCode());
         		newEnemyView.setObservedEntity(enemy);
         		enemy.addObserver(newEnemyView);
         		enemies.add(newEnemyView);

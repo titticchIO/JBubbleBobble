@@ -100,7 +100,8 @@ public class Game implements Runnable {
 				deltaF--;
 			}
 			if (deltaA >= 1) {
-				gameFrame.getGamePanel().getPlayerView().updateAnimationImg();
+				//gameFrame.getGamePanel().getPlayerView().updateAnimationImg();
+				gameFrame.getGamePanel().getPlayerView();
 				deltaA--;
 			}
 

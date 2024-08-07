@@ -7,6 +7,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import editor.view.ImagesTest;
+import game.model.Images;
+import game.model.enemies.Monsta;
 import game.model.enemies.Zen_chan;
 import game.model.entities.Entity;
 
@@ -15,13 +17,13 @@ public class EntityView implements Observer {
 	protected BufferedImage img;
 	protected float x, y;
 	protected float width, height;
-	private boolean toDelete;
+	protected boolean toDelete;
 	
 	private Observable observedEntity;
 
-	public EntityView(String imageCode) {
+	public EntityView(String type, String positionCode) {
 		
-		img = ImagesTest.getImage(imageCode);
+		img = Images.getImage(type, positionCode);
 		/*
 		img = switch (entityName) {
 		// Tiles
@@ -116,6 +118,14 @@ public class EntityView implements Observer {
 			toDelete = true;
 		} else {
 			Entity entity = (Entity) o;
+			
+			/*
+			if (o instanceof Monsta) {
+				// Aggiorna l'immagine in base alla direzione
+		        String direction = entity.getPositionCode(); // Ottieni la direzione (left o right)
+		        img = Images.getImage("M", direction); // Aggiorna l'immagine in base alla direzione
+			}
+			*/
 
 			setX(entity.getX());
 			setY(entity.getY());

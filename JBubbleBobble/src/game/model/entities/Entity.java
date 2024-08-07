@@ -11,7 +11,8 @@ public abstract class Entity extends Observable {
 	/**
 	 * Coordinates of the entity's top left corner
 	 */
-	protected String imageCode;
+	
+	protected String positionCode;
 	
 	protected float x, y;
 	/**
@@ -27,18 +28,21 @@ public abstract class Entity extends Observable {
 	 * @param width
 	 * @param height
 	 */
-	public Entity(float x, float y, float width, float height, String imageCode) {
+	public Entity(float x, float y, float width, float height, String positionCode) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		this.imageCode = imageCode;
+		this.positionCode = positionCode;
 		
 	}
 	
+	public void setPositionCode(String positionCode) {
+		this.positionCode = positionCode;
+	}
 	
-	public String getImageCode() {
-		return imageCode;
+	public String getPositionCode() {
+		return positionCode;
 	}
 
 	/**
@@ -200,4 +204,6 @@ public abstract class Entity extends Observable {
 		Entity other = (Entity) obj;
 		return height == other.height && width == other.width && x == other.x && y == other.y;
 	}
+	
+
 }
