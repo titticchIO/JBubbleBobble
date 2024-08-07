@@ -12,8 +12,7 @@ import game.model.Settings;
 public class Player extends MovingEntity {
 
 	protected Directions direction;
-	
-	
+
 	// bolla attuale
 	private PlayerBubble currentBubble;
 	// singleton
@@ -51,19 +50,16 @@ public class Player extends MovingEntity {
 		if (direction == Directions.RIGHT) {
 			if (!HelpMethods.isEntityInsideWall(x + Settings.TILE_SIZE, y, width, height)) {
 				bubbleManager.createBubble(x + Settings.TILE_SIZE, y, 2);
-				System.out.println("right");
 			}
 		} else {
 			if (!HelpMethods.isEntityInsideWall(x - Settings.TILE_SIZE, y, width, height)) {
-			bubbleManager.createBubble(x - Settings.TILE_SIZE, y, -2);
-			System.out.println("left");
+				bubbleManager.createBubble(x - Settings.TILE_SIZE, y, -2);
 			}
 		}
 	}
-	
+
 	public void setDirections(Directions direction) {
 		this.direction = direction;
 	}
-
 
 }

@@ -56,7 +56,7 @@ public abstract class MovingEntity extends Entity {
 	/**
 	 * Getters
 	 */
-	
+
 	public String getImageCode() {
 		return imageCode;
 	}
@@ -74,25 +74,37 @@ public abstract class MovingEntity extends Entity {
 		} else if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(x, y, width, height)) {
 			setY(y + airSpeed);
 		} else {
-			if (HelpMethods.canMoveHere(x, y + airSpeed, width, height)) {
-				setY(y + airSpeed);
-			} else {
-				setY(HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed));
-				if (airSpeed > 0)
-					resetInAir();
-				else
-					airSpeed = fallSpeedAfterCollision;
+			float delta = 0;
+			while (delta < airSpeed && HelpMethods.canMoveHere(x, y + delta, width, height))
+				delta += 0.01;
+			if (delta < airSpeed) {
+				setY(y - 1);
+				resetInAir();
 			}
+			setY(y + delta);
 		}
 
 	}
 
 	public void updateXPos() {
 		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width, (int) height)
-				|| (HelpMethods.isEntityInsideWall(x, y, width, height) && (x + xSpeed >= Settings.TILE_SIZE && x + xSpeed + width <= Settings.GAME_WIDTH - Settings.TILE_SIZE))) {
+				|| (HelpMethods.isEntityInsideWall(x, y, width, height) && (x + xSpeed >= Settings.TILE_SIZE
+						&& x + xSpeed + width <= Settings.GAME_WIDTH - Settings.TILE_SIZE))) {
 			setX(x + xSpeed);
 		} else {
-			setX(HelpMethods.getEntityXPosNextToWall(this));
+			float delta = 0;
+			if (xSpeed > 0) {
+				while (delta < xSpeed && HelpMethods.canMoveHere(x + delta, y, width, height))
+					delta += 0.01;
+				if (delta < xSpeed)
+					setX(x - 1);
+			} else {
+				while (delta > xSpeed && HelpMethods.canMoveHere(x + delta, y, width, height))
+					delta -= 0.01;
+				if (delta > xSpeed)
+					setX(x + 1);
+			}
+			setX(x + delta);
 		}
 	}
 

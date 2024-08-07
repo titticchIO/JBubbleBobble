@@ -61,7 +61,6 @@ public abstract class Bubble extends MovingEntity {
 	 * metodo per far scoppiare la bolla
 	 */
 	public void pop() {
-		System.out.println("popped");
 		popped = true;
 		setChanged();
 		notifyObservers("pop");
@@ -75,8 +74,7 @@ public abstract class Bubble extends MovingEntity {
 	protected void updateYPos() {
 		if (y < 0) {
 			pop();
-		}
-		else if (y + airSpeed <= Settings.TILE_SIZE && !HelpMethods.canMoveHere(x, y + airSpeed, width, height)) {
+		} else if (y + airSpeed <= Settings.TILE_SIZE && !HelpMethods.canMoveHere(x, y + airSpeed, width, height)) {
 			setY(HelpMethods.getEntityPosUnderRoofOrAboveFloor(this, airSpeed));
 			setxSpeed(0);
 		} else {
