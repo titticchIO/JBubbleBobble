@@ -2,15 +2,15 @@ package game.model.entities;
 
 import game.model.HelpMethods;
 import game.model.Settings;
-import game.model.level.LevelLoader;
 
 import static game.model.Settings.SCALE;
 
 public abstract class MovingEntity extends Entity {
 
-	public enum Directions {
-		RIGHT, LEFT
-	}
+	// Direzioni di movimento possibili
+    public enum Directions {
+        UP, DOWN, LEFT, RIGHT
+    }
 
 	/**
 	 * Movement speed on x axis: positive up and negative down
@@ -24,11 +24,11 @@ public abstract class MovingEntity extends Entity {
 
 	// jumping and gravity
 	protected float airSpeed = 0f;
-	private float gravity = 0.02f * SCALE;
-	private float jumpSpeed = -2.0f * SCALE;
+	protected float gravity = 0.02f * SCALE;
+	protected float jumpSpeed = -2.0f * SCALE;
 	protected float fallSpeedAfterCollision = 0.3f * SCALE;
-	private float maxFallingSpeed = 2;
-	private boolean inAir = false;
+	protected float maxFallingSpeed = 2;
+	protected boolean inAir = false;
 
 	/**
 	 * MovingEntity constructor calls Entity's super constructor
@@ -40,6 +40,7 @@ public abstract class MovingEntity extends Entity {
 	 */
 	public MovingEntity(float x, float y, float width, float height, String imageCode) {
 		super(x, y, width, height, imageCode);
+		direction = Directions.RIGHT; // Direzione iniziale
 	}
 
 	/**
