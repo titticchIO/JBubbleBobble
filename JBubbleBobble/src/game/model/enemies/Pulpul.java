@@ -28,22 +28,22 @@ public class Pulpul extends Enemy {
 		int randomInt = random.nextInt(4);
 		switch (randomInt) {
 		case 0:
-			direction = Directions.UP;
+			direction = Direction.UP;
 			setAirSpeed(-1);
 			setxSpeed(0);
 			break;
 		case 1:
-			direction = Directions.DOWN;
+			direction = Direction.DOWN;
 			setAirSpeed(1);
 			setxSpeed(0);
 			break;
 		case 2:
-			direction = Directions.LEFT;
+			direction = Direction.LEFT;
 			setxSpeed(-1);
 			setAirSpeed(0);
 			break;
 		case 3:
-			direction = Directions.RIGHT;
+			direction = Direction.RIGHT;
 			setxSpeed(1);
 			setAirSpeed(0);
 			break;
@@ -78,11 +78,10 @@ public class Pulpul extends Enemy {
 
 	@Override
 	public void updateXPos() {
-		if (direction == Directions.LEFT || direction == Directions.RIGHT) {
+		if (direction == Direction.LEFT || direction == Direction.RIGHT) {
 			if (HelpMethods.canMoveHere(x + xSpeed, y, width, height)) {
 				setX(x + xSpeed);
 			} else {
-				System.out.println("cannot move x");
 				// Cambia direzione se incontra un ostacolo
 				randomizeDirection();
 			}
@@ -95,7 +94,7 @@ public class Pulpul extends Enemy {
 			setY(-1);
 		} else if (y < -2) {
 			setY(Settings.GAME_HEIGHT);
-		} else if (direction == Directions.UP || direction == Directions.DOWN) {
+		} else if (direction == Direction.UP || direction == Direction.DOWN) {
 			if (HelpMethods.canMoveHere(x, y + airSpeed, width, height)) {
 				setY(y + airSpeed);
 			} else {

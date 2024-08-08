@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import game.controller.Game;
 import game.controller.PlayerController;
 import game.model.bubbles.BubbleManager;
-import game.model.entities.MovingEntity.Directions;
+import game.model.entities.MovingEntity.Direction;
 import game.model.level.Level;
 import game.view.GameFrame;
 import game.view.LevelView;
@@ -72,12 +72,12 @@ public class Playing extends State implements Statemethods {
 			currentLevel.getPlayer().jump();
 			break;
 		case KeyEvent.VK_A:
-			currentLevel.getPlayer().move(Directions.LEFT);
-			currentLevel.getPlayer().setDirections(Directions.LEFT);
+			currentLevel.getPlayer().setDirection(Direction.LEFT);
+			currentLevel.getPlayer().move(1);
 			break;
 		case KeyEvent.VK_D:
-			currentLevel.getPlayer().move(Directions.RIGHT);
-			currentLevel.getPlayer().setDirections(Directions.RIGHT);
+			currentLevel.getPlayer().setDirection(Direction.RIGHT);
+			currentLevel.getPlayer().move(1);
 			break;
 		case KeyEvent.VK_SPACE:
 			currentLevel.getPlayer().shootBubble(BubbleManager.getInstance());
@@ -89,11 +89,11 @@ public class Playing extends State implements Statemethods {
 	public void keyReleased(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_A:
-			if (currentLevel.getPlayer().getxSpeed() < 0)
+			if (currentLevel.getPlayer().getxSpeed() <= 0)
 				currentLevel.getPlayer().stop();
 			break;
 		case KeyEvent.VK_D:
-			if (currentLevel.getPlayer().getxSpeed() > 0)
+			if (currentLevel.getPlayer().getxSpeed() >= 0)
 				currentLevel.getPlayer().stop();
 			break;
 		}
