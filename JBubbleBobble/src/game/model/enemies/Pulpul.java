@@ -4,11 +4,12 @@ package game.model.enemies;
 import java.util.Random;
 
 import game.model.HelpMethods;
+import game.model.Settings;
 
 import static game.model.HelpMethods.isSolid;
 
 public class Pulpul extends Enemy {
-	
+
 	private final String type = "U";
 
 	private Random random;
@@ -81,6 +82,7 @@ public class Pulpul extends Enemy {
 			if (HelpMethods.canMoveHere(x + xSpeed, y, width, height)) {
 				setX(x + xSpeed);
 			} else {
+				System.out.println("cannot move x");
 				// Cambia direzione se incontra un ostacolo
 				randomizeDirection();
 			}
@@ -89,7 +91,11 @@ public class Pulpul extends Enemy {
 
 	@Override
 	public void updateYPos() {
-		if (direction == Directions.UP || direction == Directions.DOWN) {
+		if (y > Settings.GAME_HEIGHT + 1) {
+			setY(-1);
+		} else if (y < -2) {
+			setY(Settings.GAME_HEIGHT);
+		} else if (direction == Directions.UP || direction == Directions.DOWN) {
 			if (HelpMethods.canMoveHere(x, y + airSpeed, width, height)) {
 				setY(y + airSpeed);
 			} else {

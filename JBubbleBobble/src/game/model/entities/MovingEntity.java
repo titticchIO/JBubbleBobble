@@ -84,8 +84,10 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	protected void updateYPos() {
-		if (y > Settings.GAME_HEIGHT) {
+		if (y > Settings.GAME_HEIGHT+1) {
 			setY(-1);
+		}else if(y<-2) {
+			setY(Settings.GAME_HEIGHT);
 		} else if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(x, y, width, height)) {
 			setY(y + airSpeed);
 		} else {
