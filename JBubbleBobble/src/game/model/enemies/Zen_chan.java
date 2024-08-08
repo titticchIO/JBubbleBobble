@@ -1,23 +1,35 @@
 package game.model.enemies;
 
-import static game.model.HelpMethods.isSolid;
+import static game.model.HelpMethods.isSolidVerticalLine;
+import static game.model.HelpMethods.isEntityInsideWall;
+
+import java.util.Random;
 
 import game.model.level.LevelLoader;
 
 public class Zen_chan extends Enemy {
-	
-	private final String type = "Z"; 
+
+	private final String type = "Z";
 
 	public Zen_chan(float x, float y, float width, float height, String positionCode) {
 		super(x, y, width, height, positionCode);
 		setxSpeed(0.5f);
+		setJumpSpeed(-1.5f);
 	}
 
 	public void switchDirection() {
-		if (!isSolid(x - 1, y + height + 1)) {
-			setxSpeed(0.5f);
-		} else if (!isSolid(x + width + 1, y + height + 1)) {
-			setxSpeed(-0.5f);
+		if(isEntityInsideWall(x, y, width, height))
+			return;
+		switch (direction) {
+		case LEFT -> {
+			if (isSolidVerticalLine(x - 1, y, y + height))
+				setDirection(Direction.RIGHT);
+		}
+
+		case RIGHT -> {
+			if (isSolidVerticalLine(x + width + 1, y, y + height))
+				setDirection(Direction.LEFT);
+		}
 		}
 	}
 
@@ -25,6 +37,8 @@ public class Zen_chan extends Enemy {
 	public void updateEntity() {
 		super.updateEntity();
 		switchDirection();
+		move(0.5f);
+		if (new Random().nextInt(0, 500)==0) jump();
 	}
 
 	@Override

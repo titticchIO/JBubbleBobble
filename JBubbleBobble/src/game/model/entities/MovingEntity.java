@@ -6,25 +6,20 @@ import game.model.Settings;
 import static game.model.Settings.SCALE;
 
 public abstract class MovingEntity extends Entity {
-	
+
 	protected boolean toChange = false;
 
-	// Direzioni di movimento possibili
-    public enum Directions {
-        UP, DOWN, LEFT, RIGHT
-    }
+	// Possible movement directions
+	public enum Direction {
+		UP, DOWN, LEFT, RIGHT, STILL
+	}
 
-	/**
-	 * Movement speed on x axis: positive up and negative down
-	 */
+	// Movement speed on the x-axis: positive for right, negative for left
 	protected float xSpeed;
 
-	protected Directions direction;
+	protected Direction direction;
 
-//	private boolean moving;
-//	private int playerSpeed = 2;
-
-	// jumping and gravity
+	// Jumping and gravity variables
 	protected float airSpeed;
 	protected float gravity;
 	
@@ -37,18 +32,18 @@ public abstract class MovingEntity extends Entity {
 	protected boolean inAir;
 
 	/**
-	 * MovingEntity constructor calls Entity's super constructor
+	 * MovingEntity constructor. Initializes movement parameters and calls the super
+	 * constructor from Entity.
 	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param type TODO
+	 * @param x            x-coordinate of the entity
+	 * @param y            y-coordinate of the entity
+	 * @param width        Width of the entity
+	 * @param height       Height of the entity
+	 * @param positionCode Code to identify the position
 	 */
-
 	public MovingEntity(float x, float y, float width, float height, String positionCode) {
 		super(x, y, width, height, positionCode);
-		direction = Directions.RIGHT;
+		direction = Direction.RIGHT;
 		airSpeed = 0;
 		gravity = 0.02f * SCALE;
 		jumpSpeed = -2.0f * SCALE;
@@ -58,20 +53,37 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	/**
-	 * Setters
-	 */
-
-	/**
-	 * @param xSpeed
+	 * Sets the speed on the x-axis.
+	 * 
+	 * @param xSpeed Speed on the x-axis
 	 */
 	public void setxSpeed(float xSpeed) {
 		this.xSpeed = xSpeed;
 	}
 
 	/**
-	 * Getters
+	 * Returns the speed on the x-axis.
+	 * 
+	 * @return Speed on the x-axis
 	 */
+	public float getxSpeed() {
+		return xSpeed;
+	}
 
+	/**
+	 * Sets the movement direction.
+	 * 
+	 * @param direction Movement direction
+	 */
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
+
+	/**
+	 * Returns the position code.
+	 * 
+	 * @return Position code
+	 */
 	public String getPositionCode() {
 		return positionCode;
 	}
@@ -81,36 +93,40 @@ public abstract class MovingEntity extends Entity {
 	}
 	
 	/**
-	 * @return movement speed on x axis
+	 * Sets the air speed (airSpeed).
+	 * 
+	 * @param airSpeed Air speed
 	 */
-	public float getxSpeed() {
-		return xSpeed;
+	public void setAirSpeed(float airSpeed) {
+		this.airSpeed = airSpeed;
 	}
-	
+
+	/**
+	 * Returns the air speed (airSpeed).
+	 * 
+	 * @return Air speed
+	 */
+	public float getAirSpeed() {
+		return airSpeed;
+	}
+
+	public void setJumpSpeed(float jumpSpeed) {
+		this.jumpSpeed = jumpSpeed;
+	}
+
+	/**
+	 * Returns whether the entity's image needs to be changed.
+	 * 
+	 * @return true if the image needs to be changed, false otherwise
+	 */
 	public boolean isToChange() {
 		return toChange;
 	}
 
-	protected void updateYPos() {
-		if (y > Settings.GAME_HEIGHT+1) {
-			setY(-1);
-		}else if(y<-2) {
-			setY(Settings.GAME_HEIGHT);
-		} else if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(x, y, width, height)) {
-			setY(y + airSpeed);
-		} else {
-			float delta = 0;
-			while (delta < airSpeed && HelpMethods.canMoveHere(x, y + delta, width, height))
-				delta += 0.01;
-			if (delta < airSpeed) {
-				setY(y - 1);
-				resetInAir();
-			}
-			setY(y + delta);
-		}
-
-	}
-
+	/**
+	 * Updates the x-axis position based on speed and the ability to move. Also
+	 * handles collisions.
+	 */
 	public void updateXPos() {
 		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width, (int) height)
 				|| (HelpMethods.isEntityInsideWall(x, y, width, height) && (x + xSpeed >= Settings.TILE_SIZE
@@ -133,6 +149,47 @@ public abstract class MovingEntity extends Entity {
 		}
 	}
 
+	/**
+	 * Updates the y-axis position based on air speed and the ability to move. Also
+	 * handles gravity and collisions.
+	 */
+	protected void updateYPos() {
+		if (y > Settings.GAME_HEIGHT + 1) {
+			setY(-1);
+		} else if (y < -2) {
+			setY(Settings.GAME_HEIGHT);
+		} else if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(x, y, width, height)) {
+			setY(y + airSpeed);
+		} else {
+			float delta = 0;
+			while (delta < airSpeed && HelpMethods.canMoveHere(x, y + delta, width, height))
+				delta += 0.01;
+			if (delta < airSpeed) {
+				setY(y - 1);
+				resetInAir();
+			}
+			setY(y + delta);
+		}
+	}
+
+	/**
+	 * Checks if the entity's image needs to be updated based on movement direction
+	 * and updates the position code accordingly.
+	 */
+	public void updateImage() {
+		toChange = false;
+		if (xSpeed < 0 && !positionCode.equals("left")) {
+			toChange = true;
+			setPositionCode("left");
+		} else if (xSpeed >= 0 && !positionCode.equals("right")) {
+			toChange = true;
+			setPositionCode("right");
+		}
+	}
+
+	/**
+	 * Makes the entity jump if it's not in the air and not inside a wall.
+	 */
 	public void jump() {
 		if (!inAir && !HelpMethods.isEntityInsideWall(x, y, width, height)) {
 			inAir = true;
@@ -141,30 +198,18 @@ public abstract class MovingEntity extends Entity {
 		}
 	}
 
+	/**
+	 * Resets the in-air state (inAir) and air speed (airSpeed).
+	 */
 	public void resetInAir() {
 		inAir = false;
 		airSpeed = 0.0f;
 	}
 
-	public float getAirSpeed() {
-		return airSpeed;
-	}
-
-	public void setAirSpeed(float airSpeed) {
-		this.airSpeed = airSpeed;
-	}
-
-	public void stop() {
-		setxSpeed(0);
-	}
-
-	public void move(Directions dir) {
-		if (dir == Directions.LEFT)
-			setxSpeed((int) -1);
-		else
-			setxSpeed((int) 1);
-	}
-
+	/**
+	 * Handles the entity's gravity, increasing air speed up to a maximum if the
+	 * entity is not grounded.
+	 */
 	public void gravity() {
 		if (!HelpMethods.isEntityGrounded(this) && airSpeed < maxFallingSpeed) {
 			inAir = true;
@@ -172,24 +217,31 @@ public abstract class MovingEntity extends Entity {
 		}
 	}
 
-	public void setDirections(Directions direction) {
-		this.direction = direction;
+	/**
+	 * Stops the entity's movement by setting the direction to STILL and xSpeed to
+	 * 0.
+	 */
+	public void stop() {
+		setDirection(Direction.STILL);
+		setxSpeed(0);
 	}
-	
-	public void updateImage() {
-		toChange = false;
-		//if((x < 0 || x > Settings.GAME_WIDTH) || (y < 0 || y + height > Settings.GAME_HEIGHT)) pop();
-		if (xSpeed < 0 && !positionCode.equals("left")) {
-			toChange = true;
-			setPositionCode("left");
-		} else if (xSpeed >= 0 && !positionCode.equals("right")){
-			toChange = true;
-			setPositionCode("right");
-		} 
-	}
-	
-	
 
+	/**
+	 * Moves the entity based on the current direction and specified speed.
+	 * 
+	 * @param speed Movement speed
+	 */
+	public void move(float speed) {
+		switch (direction) {
+		case LEFT -> setxSpeed(-1 * speed);
+		case RIGHT -> setxSpeed(speed);
+		}
+	}
+
+	/**
+	 * Updates the entity's state, including movement, gravity, and image. Notifies
+	 * observers of changes.
+	 */
 	public void updateEntity() {
 		updateImage();
 		updateXPos();
@@ -198,12 +250,12 @@ public abstract class MovingEntity extends Entity {
 		setChanged();
 		notifyObservers();
 	}
-	
-	
-	
-	
-	public abstract String getType();
-	
-	
 
+	/**
+	 * Abstract method that must be implemented by subclasses to return the type of
+	 * entity.
+	 * 
+	 * @return Entity type
+	 */
+	public abstract String getType();
 }

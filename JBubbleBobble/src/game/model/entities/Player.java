@@ -2,7 +2,7 @@ package game.model.entities;
 
 import game.model.bubbles.BubbleManager;
 import game.model.bubbles.PlayerBubble;
-import game.model.entities.MovingEntity.Directions;
+import game.model.entities.MovingEntity.Direction;
 
 import static game.model.Settings.SCALE;
 
@@ -13,7 +13,7 @@ public class Player extends MovingEntity {
 	
 	private final String type = "P";
 
-	protected Directions direction;
+
 
 	// bolla attuale
 	private PlayerBubble currentBubble;
@@ -62,7 +62,7 @@ public class Player extends MovingEntity {
 	}
 
 	public void shootBubble(BubbleManager bubbleManager) {
-		if (direction == Directions.RIGHT) {
+		if (direction == Direction.RIGHT) {
 			if (!HelpMethods.isEntityInsideWall(x + Settings.TILE_SIZE, y, width, height)) {
 				bubbleManager.createBubble(x + Settings.TILE_SIZE, y-1, 2);
 			}
@@ -73,7 +73,7 @@ public class Player extends MovingEntity {
 		}
 	}
 
-	public void setDirections(Directions direction) {
+	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
 

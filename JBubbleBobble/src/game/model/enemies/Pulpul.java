@@ -24,23 +24,23 @@ public class Pulpul extends Enemy {
 	
 	private void changeDirection() {
 		switch (direction) {
-		case Directions.LEFT: 
-			direction = Directions.RIGHT;
+		case Direction.LEFT: 
+			direction = Direction.RIGHT;
 			setxSpeed(0.7f);
 			setAirSpeed(0);
 			break;
-		case Directions.RIGHT:
-			direction = Directions.LEFT;
+		case Direction.RIGHT:
+			direction = Direction.LEFT;
 			setxSpeed(-0.7f);
 			setAirSpeed(0);
 			break;
-		case Directions.UP:
-			direction = Directions.DOWN;
+		case Direction.UP:
+			direction = Direction.DOWN;
 			setAirSpeed(0.7f);
 			setxSpeed(0);
 			break;
-		case Directions.DOWN:
-			direction = Directions.UP;
+		case Direction.DOWN:
+			direction = Direction.UP;
 			setAirSpeed(-0.7f);
 			setxSpeed(0);
 			break;
@@ -53,22 +53,22 @@ public class Pulpul extends Enemy {
 		int randomInt = random.nextInt(4);
 		switch (randomInt) {
 		case 0:
-			direction = Directions.UP;
+			direction = Direction.UP;
 			setAirSpeed(-0.7f);
 			setxSpeed(0);
 			break;
 		case 1:
-			direction = Directions.DOWN;
+			direction = Direction.DOWN;
 			setAirSpeed(0.7f);
 			setxSpeed(0);
 			break;
 		case 2:
-			direction = Directions.LEFT;
+			direction = Direction.LEFT;
 			setxSpeed(-0.7f);
 			setAirSpeed(0);
 			break;
 		case 3:
-			direction = Directions.RIGHT;
+			direction = Direction.RIGHT;
 			setxSpeed(0.7f);
 			setAirSpeed(0);
 			break;
@@ -87,7 +87,7 @@ public class Pulpul extends Enemy {
 	public void updateEntity() {
 		checkAndChangeDirection(); // Verifica se deve cambiare direzione
 		// Aggiornamento della posizione basato sulla direzione corrente
-		if (direction == Directions.LEFT || direction == Directions.RIGHT)
+		if (direction == Direction.LEFT || direction == Direction.RIGHT)
 			updateXPos();
 		else
 			updateYPos();
