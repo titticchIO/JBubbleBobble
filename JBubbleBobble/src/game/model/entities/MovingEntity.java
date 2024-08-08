@@ -27,6 +27,10 @@ public abstract class MovingEntity extends Entity {
 	// jumping and gravity
 	protected float airSpeed;
 	protected float gravity;
+	
+
+
+
 	protected float jumpSpeed;
 	protected float fallSpeedAfterCollision;
 	protected float maxFallingSpeed;
@@ -72,6 +76,10 @@ public abstract class MovingEntity extends Entity {
 		return positionCode;
 	}
 
+	public void setJumpSpeed(float jumpSpeed) {
+		this.jumpSpeed = jumpSpeed;
+	}
+	
 	/**
 	 * @return movement speed on x axis
 	 */
@@ -129,6 +137,7 @@ public abstract class MovingEntity extends Entity {
 		if (!inAir && !HelpMethods.isEntityInsideWall(x, y, width, height)) {
 			inAir = true;
 			airSpeed = jumpSpeed;
+			System.out.println("Is jumping");
 		}
 	}
 

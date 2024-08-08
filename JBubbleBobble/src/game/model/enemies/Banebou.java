@@ -2,67 +2,71 @@ package game.model.enemies;
 
 import static game.model.HelpMethods.isSolid;
 
+import java.util.Random;
+
 import game.model.HelpMethods;
-import game.model.Settings;
 
 public class Banebou extends Enemy {
 	
 	private final String type = "N";
+	
+	private long lastChangeTime;
+	private long changeInterval;
 
 	public Banebou(float x, float y, float width, float height, String imageCode) {
 		super(x, y, width, height, imageCode);
-		setxSpeed(1);
-		setAirSpeed(0);
+		setxSpeed(0.7f);
+		setJumpSpeed(-1.5f);
+		lastChangeTime = System.currentTimeMillis();
+		changeInterval = 8000;
 	}
 
-	public void switchDirection() {
-		if (isSolid(x - 1, y + height) || isSolid(x + width + 1, y + height)) {
-			setxSpeed(-getxSpeed());
+	private void changeDirection() {
+		changeInterval = new Random().nextLong(8000, 10000);
+		switch (direction) {
+		case Directions.LEFT: 
+			direction = Directions.RIGHT;
+			setxSpeed(0.7f);
+			break;
+		case Directions.RIGHT:
+			direction = Directions.LEFT;
+			setxSpeed(-0.7f);
+			break;
+		default:
+			break;
+		}
+	}
+
+	
+	public void checkAndChangeDirection() {
+		long currentTime = System.currentTimeMillis();
+		if (currentTime - lastChangeTime > changeInterval) {
+			changeDirection();
+			lastChangeTime = currentTime;
+		}
+	}
+	
+	@Override
+	public void updateXPos() {
+		if (HelpMethods.canMoveHere(x + xSpeed, y, width, height)) {
+			setX(x + xSpeed);
+		} else {
+			// Cambia direzione se incontra un ostacolo
+			changeDirection();
 		}
 	}
 
 	@Override
 	public void updateEntity() {
+		System.out.println(HelpMethods.canMoveHere(x, y+airSpeed, width, height));
 		super.updateEntity();
 		jump();
-		switchDirection();
+		checkAndChangeDirection(); // Verifica se deve cambiare direzione
+		// Aggiornamento della posizione basato sulla direzione corrente
+		setChanged();
+		notifyObservers();
 	}
-
-	@Override
-	public void jump() {
-		System.out.println(inAir);
-		if (!inAir) {
-			inAir = true;
-			airSpeed = jumpSpeed;
-		}
-	}
-
-	@Override
-	public void updateYPos() {
-		if (y > Settings.GAME_HEIGHT) {
-			setY(-1);
-		} else if (airSpeed <= 0 || isSolid(x, y + height)) {
-			setAirSpeed(0);
-		} else {
-			float delta = 0;
-			while (delta < airSpeed && HelpMethods.canMoveHere(x, y + delta, width, height))
-				delta += 0.01;
-			if (delta < airSpeed) {
-				setY(y - 1);
-				resetInAir();
-			}
-			setY(y + delta);
-		}
-	}
-
-	@Override
-	public void gravity() {
-		if (!HelpMethods.isEntityGrounded(this) && airSpeed < maxFallingSpeed) {
-			inAir = true;
-			airSpeed += gravity;
-		}
-	}
-
+	
 	@Override
 	public String getType() {
 		return type;
