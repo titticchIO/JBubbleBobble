@@ -18,14 +18,14 @@ public abstract class Bubble extends MovingEntity {
 
 	private boolean popped;
 
-	public Bubble(float x, float y, float width, float height, String positionCode) {
-		super(x, y, width, height, positionCode);
+	public Bubble(float x, float y, float width, float height) {
+		super(x, y, width, height);
 		lifeSpan = 10000;
 		timeHorizontalMoving = 500;
 	}
 
-	public Bubble(float x, float y, float width, float height, String positionCode, float lifeSpan) {
-		super(x, y, width, height, positionCode);
+	public Bubble(float x, float y, float width, float height, float lifeSpan) {
+		super(x, y, width, height);
 		this.lifeSpan = lifeSpan;
 	}
 

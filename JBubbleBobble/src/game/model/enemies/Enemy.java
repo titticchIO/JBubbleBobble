@@ -7,17 +7,17 @@ public abstract class Enemy extends MovingEntity {
 	/**
 	 * Nome del nemico
 	 */
-	private String name;
+	private String code;
 	
 	protected boolean popped;
 
-	public Enemy(float x, float y, float width, float height, String positionCode) {
-		super(x, y, width, height, positionCode);
-		this.name = name;
+	public Enemy(float x, float y, float width, float height,String code) {
+		super(x, y, width, height);
+		this.code = code;
 	}
 
-	public String getName() {
-		return name;
+	public String getCode() {
+		return code;
 	}
 	
 	public void pop() {

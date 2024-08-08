@@ -11,8 +11,8 @@ public class Zen_chan extends Enemy {
 
 	private final String type = "Z";
 
-	public Zen_chan(float x, float y, float width, float height, String positionCode) {
-		super(x, y, width, height, positionCode);
+	public Zen_chan(float x, float y, float width, float height) {
+		super(x, y, width, height, "zen-Chan");
 		setxSpeed(0.5f);
 		setJumpSpeed(-1.5f);
 	}

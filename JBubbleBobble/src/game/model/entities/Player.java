@@ -22,32 +22,32 @@ public class Player extends MovingEntity {
 
 	public static Player getInstance() {
 		if (instance == null)
-			instance = new Player(30, 30, 16 * SCALE, 16 * SCALE, "P1");
+			instance = new Player(30, 30, 16 * SCALE, 16 * SCALE);
 		return instance;
 	}
 	
-	@Override
-	public void updateImage() {
-		toChange = false;
-		if (xSpeed == 0) {
-			if (!positionCode.equals("static")) {
-				toChange = true;
-				setPositionCode("static");
-			}
-		} else {
-			super.updateImage();
-		}
-	}
+//	@Override
+//	public void updateImage() {
+//		toChange = false;
+//		if (xSpeed == 0) {
+//			if (!positionCode.equals("static")) {
+//				toChange = true;
+//				setPositionCode("static");
+//			}
+//		} else {
+//			super.updateImage();
+//		}
+//	}
 
-	public static Player getInstance(float x, float y, float width, float height, String positionCode) {
+	public static Player getInstance(float x, float y, float width, float height) {
 		if (instance == null)
-			instance = new Player(x, y, width, height, positionCode);
+			instance = new Player(x, y, width, height);
 		return instance;
 	}
 
-	private Player(float x, float y, float width, float height, String positionCode) {
-		super(x, y, width, height, positionCode);
-		currentBubble = new PlayerBubble(x, y, width, height, positionCode);
+	private Player(float x, float y, float width, float height) {
+		super(x, y, width, height);
+		currentBubble = new PlayerBubble(x, y, width, height);
 	}
 
 	/**
@@ -71,10 +71,6 @@ public class Player extends MovingEntity {
 				bubbleManager.createBubble(x - Settings.TILE_SIZE, y-1, -2);
 			}
 		}
-	}
-
-	public void setDirection(Direction direction) {
-		this.direction = direction;
 	}
 
 	@Override

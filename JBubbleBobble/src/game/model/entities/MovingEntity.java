@@ -7,11 +7,9 @@ import static game.model.Settings.SCALE;
 
 public abstract class MovingEntity extends Entity {
 
-	protected boolean toChange = false;
-
 	// Possible movement directions
 	public enum Direction {
-		UP, DOWN, LEFT, RIGHT, STILL
+		UP, DOWN, LEFT, RIGHT, STATIC
 	}
 
 	// Movement speed on the x-axis: positive for right, negative for left
@@ -22,9 +20,6 @@ public abstract class MovingEntity extends Entity {
 	// Jumping and gravity variables
 	protected float airSpeed;
 	protected float gravity;
-	
-
-
 
 	protected float jumpSpeed;
 	protected float fallSpeedAfterCollision;
@@ -41,9 +36,9 @@ public abstract class MovingEntity extends Entity {
 	 * @param height       Height of the entity
 	 * @param positionCode Code to identify the position
 	 */
-	public MovingEntity(float x, float y, float width, float height, String positionCode) {
-		super(x, y, width, height, positionCode);
-		direction = Direction.RIGHT;
+	public MovingEntity(float x, float y, float width, float height) {
+		super(x, y, width, height);
+		direction = Direction.STATIC;
 		airSpeed = 0;
 		gravity = 0.02f * SCALE;
 		jumpSpeed = -2.0f * SCALE;
@@ -77,21 +72,14 @@ public abstract class MovingEntity extends Entity {
 	 */
 	public void setDirection(Direction direction) {
 		this.direction = direction;
-	}
-
-	/**
-	 * Returns the position code.
-	 * 
-	 * @return Position code
-	 */
-	public String getPositionCode() {
-		return positionCode;
+		setChanged();
+		notifyObservers(direction.name());
 	}
 
 	public void setJumpSpeed(float jumpSpeed) {
 		this.jumpSpeed = jumpSpeed;
 	}
-	
+
 	/**
 	 * Sets the air speed (airSpeed).
 	 * 
@@ -108,16 +96,6 @@ public abstract class MovingEntity extends Entity {
 	 */
 	public float getAirSpeed() {
 		return airSpeed;
-	}
-
-
-	/**
-	 * Returns whether the entity's image needs to be changed.
-	 * 
-	 * @return true if the image needs to be changed, false otherwise
-	 */
-	public boolean isToChange() {
-		return toChange;
 	}
 
 	/**
@@ -169,20 +147,20 @@ public abstract class MovingEntity extends Entity {
 		}
 	}
 
-	/**
-	 * Checks if the entity's image needs to be updated based on movement direction
-	 * and updates the position code accordingly.
-	 */
-	public void updateImage() {
-		toChange = false;
-		if (xSpeed < 0 && !positionCode.equals("left")) {
-			toChange = true;
-			setPositionCode("left");
-		} else if (xSpeed >= 0 && !positionCode.equals("right")) {
-			toChange = true;
-			setPositionCode("right");
-		}
-	}
+//	/**
+//	 * Checks if the entity's image needs to be updated based on movement direction
+//	 * and updates the position code accordingly.
+//	 */
+//	public void updateImage() {
+//		toChange = false;
+//		if (xSpeed < 0 && !positionCode.equals("left")) {
+//			toChange = true;
+//			setPositionCode("left");
+//		} else if (xSpeed >= 0 && !positionCode.equals("right")) {
+//			toChange = true;
+//			setPositionCode("right");
+//		}
+//	}
 
 	/**
 	 * Makes the entity jump if it's not in the air and not inside a wall.
@@ -191,7 +169,6 @@ public abstract class MovingEntity extends Entity {
 		if (!inAir && !HelpMethods.isEntityInsideWall(x, y, width, height)) {
 			inAir = true;
 			airSpeed = jumpSpeed;
-			System.out.println("Is jumping");
 		}
 	}
 
@@ -219,7 +196,7 @@ public abstract class MovingEntity extends Entity {
 	 * 0.
 	 */
 	public void stop() {
-		setDirection(Direction.STILL);
+		setDirection(Direction.STATIC);
 		setxSpeed(0);
 	}
 
@@ -240,7 +217,7 @@ public abstract class MovingEntity extends Entity {
 	 * observers of changes.
 	 */
 	public void updateEntity() {
-		updateImage();
+//		updateImage();
 		updateXPos();
 		updateYPos();
 		gravity();

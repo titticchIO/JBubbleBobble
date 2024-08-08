@@ -13,8 +13,8 @@ public class Banebou extends Enemy {
 	private long lastChangeTime;
 	private long changeInterval;
 
-	public Banebou(float x, float y, float width, float height, String imageCode) {
-		super(x, y, width, height, imageCode);
+	public Banebou(float x, float y, float width, float height) {
+		super(x, y, width, height, "banebou");
 		setxSpeed(0.7f);
 		setJumpSpeed(-1.5f);
 		lastChangeTime = System.currentTimeMillis();

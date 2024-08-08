@@ -15,8 +15,8 @@ public class Pulpul extends Enemy {
 	private long lastChangeTime;
 	private static final long CHANGE_INTERVAL = 2000; // Intervallo di cambio direzione in millisecondi
 
-	public Pulpul(float x, float y, float width, float height, String imageCode) {
-		super(x, y, width, height, imageCode);
+	public Pulpul(float x, float y, float width, float height) {
+		super(x, y, width, height, "pulpul");
 		setxSpeed(0.7f);
 		setAirSpeed(0.7f);
 		lastChangeTime = System.currentTimeMillis();
