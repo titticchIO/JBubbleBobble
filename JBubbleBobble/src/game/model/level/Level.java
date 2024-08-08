@@ -87,10 +87,10 @@ public class Level {
 		eManager.updateEnemies();
 		bManager.updateBubbles();
 		Optional<Enemy> oe = checkEnemiesCollisions();
-		if (oe.isPresent()) System.out.println("Hittato enemy");
+//		if (oe.isPresent()) System.out.println("Hittato enemy");
 		
 		Optional<Bubble> ob = checkBubblesCollisions();
-		if (ob.isPresent()) System.out.println("Hittato bolla");
+//		if (ob.isPresent()) System.out.println("Hittato bolla");
 		
 	}
 

@@ -14,7 +14,7 @@ public class Monsta extends Enemy {
 	
 	
 	private Random random;
-	private static final float MIN_SPEED = 0.1f; // Velocità minima per evitare che il nemico si blocchi
+	private static final float MIN_SPEED = 0.5f; // Velocità minima per evitare che il nemico si blocchi
 	private static final float MAX_SPEED = 0.6f; // Velocità massima per limitare il movimento del nemico
 
 	public Monsta(float x, float y, float width, float height, String positionCode) {
@@ -33,6 +33,9 @@ public class Monsta extends Enemy {
 			airSpeed = Math.max(Math.min(airSpeed, MAX_SPEED), -MAX_SPEED);
 			if (Math.abs(airSpeed) < MIN_SPEED) {
 				airSpeed = Math.signum(airSpeed) * MIN_SPEED;
+			}
+			if (airSpeed==0) {
+				airSpeed=MIN_SPEED;
 			}
 		}
 		if (x <= 0 || x + width >= Settings.GAME_WIDTH ||
