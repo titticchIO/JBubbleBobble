@@ -24,12 +24,12 @@ public class Banebou extends Enemy {
 	private void changeDirection() {
 		changeInterval = new Random().nextLong(8000, 10000);
 		switch (direction) {
-		case Directions.LEFT: 
-			direction = Directions.RIGHT;
+		case Direction.LEFT: 
+			direction = Direction.RIGHT;
 			setxSpeed(0.7f);
 			break;
-		case Directions.RIGHT:
-			direction = Directions.LEFT;
+		case Direction.RIGHT:
+			direction = Direction.LEFT;
 			setxSpeed(-0.7f);
 			break;
 		default:

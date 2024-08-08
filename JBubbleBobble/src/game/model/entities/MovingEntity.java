@@ -110,9 +110,6 @@ public abstract class MovingEntity extends Entity {
 		return airSpeed;
 	}
 
-	public void setJumpSpeed(float jumpSpeed) {
-		this.jumpSpeed = jumpSpeed;
-	}
 
 	/**
 	 * Returns whether the entity's image needs to be changed.
