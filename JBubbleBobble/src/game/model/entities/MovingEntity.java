@@ -25,12 +25,12 @@ public abstract class MovingEntity extends Entity {
 //	private int playerSpeed = 2;
 
 	// jumping and gravity
-	protected float airSpeed = 0f;
-	protected float gravity = 0.02f * SCALE;
-	protected float jumpSpeed = -2.0f * SCALE;
-	protected float fallSpeedAfterCollision = 0.3f * SCALE;
-	protected float maxFallingSpeed = 2;
-	protected boolean inAir = false;
+	protected float airSpeed;
+	protected float gravity;
+	protected float jumpSpeed;
+	protected float fallSpeedAfterCollision;
+	protected float maxFallingSpeed;
+	protected boolean inAir;
 
 	/**
 	 * MovingEntity constructor calls Entity's super constructor
@@ -45,6 +45,12 @@ public abstract class MovingEntity extends Entity {
 	public MovingEntity(float x, float y, float width, float height, String positionCode) {
 		super(x, y, width, height, positionCode);
 		direction = Directions.RIGHT;
+		airSpeed = 0;
+		gravity = 0.02f * SCALE;
+		jumpSpeed = -2.0f * SCALE;
+		fallSpeedAfterCollision = 0.3f * SCALE;
+		maxFallingSpeed = 2;
+		inAir = false;
 	}
 
 	/**
