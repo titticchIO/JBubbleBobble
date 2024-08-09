@@ -3,8 +3,7 @@ package game.model.entities;
 import game.model.bubbles.BubbleManager;
 import game.model.bubbles.PlayerBubble;
 import game.model.entities.MovingEntity.Direction;
-
-import static game.model.Settings.SCALE;
+import game.model.tiles.Tile;
 
 import game.model.HelpMethods;
 import game.model.Settings;
@@ -22,7 +21,7 @@ public class Player extends MovingEntity {
 
 	public static Player getInstance() {
 		if (instance == null)
-			instance = new Player(30, 30, 16 * SCALE, 16 * SCALE, "P1");
+			instance = new Player(30, 30, 16, 16, "P1");
 		return instance;
 	}
 	
@@ -63,12 +62,12 @@ public class Player extends MovingEntity {
 
 	public void shootBubble(BubbleManager bubbleManager) {
 		if (direction == Direction.RIGHT) {
-			if (!HelpMethods.isEntityInsideWall(x + Settings.TILE_SIZE, y, width, height)) {
-				bubbleManager.createBubble(x + Settings.TILE_SIZE, y-1, 2);
+			if (!HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
+				bubbleManager.createBubble(x + Tile.TILE_SIZE, y-1, 2);
 			}
 		} else {
-			if (!HelpMethods.isEntityInsideWall(x - Settings.TILE_SIZE, y, width, height)) {
-				bubbleManager.createBubble(x - Settings.TILE_SIZE, y-1, -2);
+			if (!HelpMethods.isEntityInsideWall(x - Tile.TILE_SIZE, y, width, height)) {
+				bubbleManager.createBubble(x - Tile.TILE_SIZE, y-1, -2);
 			}
 		}
 	}

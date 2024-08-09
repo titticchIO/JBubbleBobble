@@ -7,6 +7,8 @@ import java.util.Random;
 
 import game.model.HelpMethods;
 import game.model.Settings;
+import game.model.level.Level;
+import game.model.tiles.Tile;
 
 public class SkelMonsta extends Enemy{
 	
@@ -29,7 +31,7 @@ public class SkelMonsta extends Enemy{
 	
 	public void bounce() {
 		// Controlla se il nemico ha raggiunto i bordi sinistro o destro del gioco
-		if (x <= Settings.TILE_SIZE || x + width >= Settings.GAME_WIDTH - Settings.TILE_SIZE) {
+		if (x <= Tile.TILE_SIZE || x + width >= Level.GAME_WIDTH - Tile.TILE_SIZE) {
 			//System.out.println("siuuum sopra");
 			// Inverti la direzione orizzontale e applica un elemento casuale alla velocità
 			xSpeed = -xSpeed * (0.8f + random.nextFloat() * 0.4f); // Velocità tra 80% e 120% dell'attuale
@@ -53,7 +55,7 @@ public class SkelMonsta extends Enemy{
 		}
 */		
 		// Controlla se il nemico ha raggiunto i bordi superiore o inferiore del gioco
-				if (y <= Settings.TILE_SIZE || y + height >= Settings.GAME_HEIGHT - Settings.TILE_SIZE) {
+				if (y <= Tile.TILE_SIZE || y + height >= Level.GAME_HEIGHT - Tile.TILE_SIZE) {
 					//System.out.println("siuuum sotto");
 					// Inverti la direzione verticale e applica un elemento casuale alla velocità
 					airSpeed = -airSpeed * (0.8f + random.nextFloat() * 0.4f); // Velocità tra 80% e 120% dell'attuale

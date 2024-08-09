@@ -13,6 +13,10 @@ import game.model.entities.Player;
 import game.model.tiles.Tile;
 
 public class Level {
+	public final static int NUM_HORIZONTAL_TILES = 30;
+	public final static int NUM_VERTICAL_TILES = 24;
+	public final static int GAME_WIDTH = NUM_HORIZONTAL_TILES * Tile.TILE_SIZE;
+	public final static int GAME_HEIGHT = NUM_VERTICAL_TILES * Tile.TILE_SIZE;
 
 	private Player player;
 	private List<Tile> tiles;
@@ -69,6 +73,7 @@ public class Level {
 	public void addTile(Tile tile) {
 		tiles.add(tile);
 	}
+	
 
 	public Optional<Enemy> checkEnemiesCollisions() {
 		return eManager.getEnemies().stream()
@@ -80,6 +85,11 @@ public class Level {
 		return bManager.getBubbles().stream()
 				.filter(x -> x.hit(player))
 				.findFirst();
+	}
+	
+	public boolean checkTopTilesCollisions() {
+		return tiles.stream()
+				.anyMatch(x -> x.topHit(player));
 	}
 
 	public void updateLevel() {

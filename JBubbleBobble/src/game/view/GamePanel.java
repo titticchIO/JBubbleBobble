@@ -2,20 +2,20 @@ package game.view;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import static game.model.Settings.GAME_WIDTH;
-import static game.model.Settings.GAME_HEIGHT;
 
 import game.controller.gamestates.GameState;
 import game.model.bubbles.BubbleManager;
 import game.model.level.Level;
 
 public class GamePanel extends JPanel {
+	private final static float SCALE = 1.5f;
 	private LevelView levelView;
 	private MovingEntityView playerView;
 	private BufferedImage tilesImage;
@@ -42,7 +42,6 @@ public class GamePanel extends JPanel {
 
 	public void startGame(LevelView levelView) {
 		initPlayingClasses(levelView);
-		renderTilesOnce();
 	}
 
 	public MovingEntityView getPlayerView() {
@@ -50,12 +49,12 @@ public class GamePanel extends JPanel {
 	}
 
 	private void setPanelSize() {
-		Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT);
+		Dimension size = new Dimension((int) (Level.GAME_WIDTH*SCALE), (int) (Level.GAME_HEIGHT*SCALE));
 		setPreferredSize(size);
 	}
 
 	private void renderTilesOnce() {
-		tilesImage = new BufferedImage(GAME_WIDTH, GAME_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+		tilesImage = new BufferedImage(Level.GAME_WIDTH, Level.GAME_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		Graphics g = tilesImage.getGraphics();
 		levelView.renderTiles(g);
 		g.dispose();
@@ -63,6 +62,10 @@ public class GamePanel extends JPanel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
+		
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.translate(SCALE, SCALE);
+		g2d.scale(SCALE, SCALE);
 
 		switch (GameState.state) {
 		case MENU:
@@ -74,7 +77,7 @@ public class GamePanel extends JPanel {
 
 			menuPanel.setVisible(false);
 
-			super.paintComponent(g);
+			super.paintComponent(g2d);
 			// Usa double buffering per disegnare su un'immagine temporanea prima di
 			// dipingerla sul JPanel
 			Image doubleBufferedImage = createImage(getWidth(), getHeight());
@@ -103,7 +106,7 @@ public class GamePanel extends JPanel {
 				}
 			}
 
-			g.drawImage(doubleBufferedImage, 0, 0, this);
+			g2d.drawImage(doubleBufferedImage, 0, 0, this);
 			doubleBufferedGraphics.dispose();
 			break;
 		default:

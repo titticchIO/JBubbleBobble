@@ -5,6 +5,7 @@ import java.util.Random;
 
 import game.model.HelpMethods;
 import game.model.Settings;
+import game.model.level.Level;
 
 import static game.model.HelpMethods.isSolid;
 
@@ -107,10 +108,10 @@ public class Pulpul extends Enemy {
 
 	@Override
 	public void updateYPos() {
-		if (y > Settings.GAME_HEIGHT + 1) {
+		if (y > Level.GAME_HEIGHT + 1) {
 			setY(-1);
 		} else if (y < -2) {
-			setY(Settings.GAME_HEIGHT);
+			setY(Level.GAME_HEIGHT);
 		} else {
 			if (HelpMethods.canMoveHere(x, y + airSpeed, width, height)) {
 				setY(y + airSpeed);

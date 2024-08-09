@@ -1,12 +1,11 @@
 package game.model;
 
 import game.model.entities.MovingEntity;
+import game.model.level.Level;
 import game.model.level.LevelLoader;
+import game.model.tiles.Tile;
 
-import static game.model.Settings.GAME_HEIGHT;
-import static game.model.Settings.GAME_WIDTH;
-import static game.model.Settings.TILE_SIZE;
-import static game.model.Settings.SCALE;
+
 
 public class HelpMethods {
 
@@ -19,17 +18,18 @@ public class HelpMethods {
 	public static boolean isSolid(float x, float y) {
 		String[][] lvlData = LevelLoader.getLevelData();
 		
-		if (x < 0 ||  x >= GAME_WIDTH ) {
+		if (x < 0 ||  x >= Level.GAME_WIDTH) {
 //			System.out.println("OUT OF BOUNDS");
 			return true;
 		}
-		if (y < 0 || y >= GAME_HEIGHT) {
+		if (y < 0 || y >= Level.GAME_HEIGHT) {
 //			System.out.println("OUT OF BOUNDS");
 			return false;
 		}
+		
 
-		float xIndex = x / TILE_SIZE;
-		float yIndex = y / TILE_SIZE;
+		float xIndex = x / Tile.TILE_SIZE;
+		float yIndex = y / Tile.TILE_SIZE;
 
 		String value = lvlData[(int) yIndex][(int) xIndex];
 
@@ -49,13 +49,13 @@ public class HelpMethods {
 
 	    if (xSpeed > 0) { // Moving right
 	        // Stop just before the right side of the entity intersects a solid block
-	        int xTilePos = (int) ((x + width) / TILE_SIZE);
-	        float xPosNextToWall = xTilePos * TILE_SIZE - width - 0.1f+TILE_SIZE;
+	        int xTilePos = (int) ((x + width) / Tile.TILE_SIZE);
+	        float xPosNextToWall = xTilePos * Tile.TILE_SIZE - width - 0.1f+Tile.TILE_SIZE;
 	        return xPosNextToWall;
 	    } else if (xSpeed < 0) { // Moving left
 	        // Stop just before the left side of the entity intersects a solid block
-	        int xTilePos = (int) (x / TILE_SIZE);
-	        float xPosNextToWall = (xTilePos + 1) * TILE_SIZE + 0.1f-TILE_SIZE;
+	        int xTilePos = (int) (x / Tile.TILE_SIZE);
+	        float xPosNextToWall = (xTilePos + 1) * Tile.TILE_SIZE + 0.1f-Tile.TILE_SIZE;
 	        return xPosNextToWall;
 	    }
 
@@ -70,12 +70,12 @@ public class HelpMethods {
 	    float height = movingEntity.getHeight();
 
 	    if (airSpeed < 0) { // Moving upwards, hitting the roof
-	        int yTilePos = (int) (y / TILE_SIZE);
-	        float yPosUnderRoof = (yTilePos + 1) * TILE_SIZE + 0.1f;
+	        int yTilePos = (int) (y / Tile.TILE_SIZE);
+	        float yPosUnderRoof = (yTilePos + 1) * Tile.TILE_SIZE + 0.1f;
 	        return yPosUnderRoof;
 	    } else if (airSpeed > 0) { // Moving downwards, landing on the floor
-	        int yTilePos = (int) ((y + height) / TILE_SIZE);
-	        float yPosAboveFloor = yTilePos * TILE_SIZE - height - 0.1f+TILE_SIZE;
+	        int yTilePos = (int) ((y + height) / Tile.TILE_SIZE);
+	        float yPosAboveFloor = yTilePos * Tile.TILE_SIZE - height - 0.1f+Tile.TILE_SIZE;
 	        return yPosAboveFloor;
 	    }
 

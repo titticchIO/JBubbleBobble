@@ -48,17 +48,22 @@ public class Banebou extends Enemy {
 	
 	@Override
 	public void updateXPos() {
-		if (HelpMethods.canMoveHere(x + xSpeed, y, width, height)) {
+		if (HelpMethods.canMoveHere(x + xSpeed, y, width, height) || HelpMethods.isEntityInsideWall(x, y, width, height)) {
 			setX(x + xSpeed);
 		} else {
 			// Cambia direzione se incontra un ostacolo
 			changeDirection();
 		}
 	}
+	
+	public void bounce() {
+		if (HelpMethods.isEntityGrounded(this)) {
+			airSpeed = jumpSpeed;
+		}
+	}
 
 	@Override
 	public void updateEntity() {
-		System.out.println(HelpMethods.canMoveHere(x, y+airSpeed, width, height));
 		super.updateEntity();
 		jump();
 		checkAndChangeDirection(); // Verifica se deve cambiare direzione

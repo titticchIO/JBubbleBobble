@@ -8,10 +8,6 @@ import game.model.enemies.*;
 import game.model.entities.Player;
 import game.model.tiles.Tile;
 
-import static game.model.Settings.TILE_SIZE;
-import static game.model.Settings.VERTICAL_TILES;
-import static game.model.Settings.HORIZONTAL_TILES;
-import static game.model.Settings.SCALE;
 
 public class LevelLoader {
 
@@ -38,7 +34,7 @@ public class LevelLoader {
 
 	public static String[][] readLevelFile(int levelNum) {
 
-		String[][] matrice = new String[VERTICAL_TILES][HORIZONTAL_TILES];
+		String[][] matrice = new String[Level.NUM_VERTICAL_TILES][Level.NUM_HORIZONTAL_TILES];
 
 		String levelPath = "resources/levels/Livello" + levelNum + ".txt";
 
@@ -68,27 +64,27 @@ public class LevelLoader {
 					switch (type) {
 					case PLAYER:
 						level.addPlayer(
-								Player.getInstance(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - SCALE, TILE_SIZE - SCALE, "right"));
+								Player.getInstance(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1, "right"));
 						break;
 						
 					case BLOCK:
-						level.addTile(new Tile(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE, "1"));
+						level.addTile(new Tile(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, "1"));
 						break;
 						
 					case ZEN_CHAN:
-						level.addEnemy(new Zen_chan(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1, "right"));
+						level.addEnemy(new Zen_chan(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1, "right"));
 						break;
 					case MONSTA:
-						level.addEnemy(new Monsta(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1, "right"));
+						level.addEnemy(new Monsta(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1, "right"));
 						break;
 					case BANEBOU:
-						level.addEnemy(new Banebou(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1, "right"));
+						level.addEnemy(new Banebou(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1, "right"));
 						break;
 					case PULPUL:
-						level.addEnemy(new Pulpul(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1, "right"));
+						level.addEnemy(new Pulpul(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1, "right"));
 						break;		
 					case SKELMONSTA:
-						level.addEnemy(new SkelMonsta(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1, "right"));
+						level.addEnemy(new SkelMonsta(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1, "right"));
 					}
 				}
 				

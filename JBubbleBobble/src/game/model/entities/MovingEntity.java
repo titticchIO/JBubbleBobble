@@ -2,8 +2,9 @@ package game.model.entities;
 
 import game.model.HelpMethods;
 import game.model.Settings;
+import game.model.level.Level;
+import game.model.tiles.Tile;
 
-import static game.model.Settings.SCALE;
 
 public abstract class MovingEntity extends Entity {
 
@@ -45,9 +46,9 @@ public abstract class MovingEntity extends Entity {
 		super(x, y, width, height, positionCode);
 		direction = Direction.RIGHT;
 		airSpeed = 0;
-		gravity = 0.02f * SCALE;
-		jumpSpeed = -2.0f * SCALE;
-		fallSpeedAfterCollision = 0.3f * SCALE;
+		gravity = 0.02f;
+		jumpSpeed = -2.0f;
+		fallSpeedAfterCollision = 0.3f;
 		maxFallingSpeed = 2;
 		inAir = false;
 	}
@@ -126,8 +127,8 @@ public abstract class MovingEntity extends Entity {
 	 */
 	public void updateXPos() {
 		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width, (int) height)
-				|| (HelpMethods.isEntityInsideWall(x, y, width, height) && (x + xSpeed >= Settings.TILE_SIZE
-						&& x + xSpeed + width <= Settings.GAME_WIDTH - Settings.TILE_SIZE))) {
+				|| (HelpMethods.isEntityInsideWall(x, y, width, height) && (x + xSpeed >= Tile.TILE_SIZE
+						&& x + xSpeed + width <= Level.GAME_WIDTH - Tile.TILE_SIZE))) {
 			setX(x + xSpeed);
 		} else {
 			float delta = 0;
@@ -151,10 +152,10 @@ public abstract class MovingEntity extends Entity {
 	 * handles gravity and collisions.
 	 */
 	protected void updateYPos() {
-		if (y > Settings.GAME_HEIGHT + 1) {
+		if (y > Level.GAME_HEIGHT + 1) {
 			setY(-1);
 		} else if (y < -2) {
-			setY(Settings.GAME_HEIGHT);
+			setY(Level.GAME_HEIGHT);
 		} else if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(x, y, width, height)) {
 			setY(y + airSpeed);
 		} else {
@@ -191,7 +192,6 @@ public abstract class MovingEntity extends Entity {
 		if (!inAir && !HelpMethods.isEntityInsideWall(x, y, width, height)) {
 			inAir = true;
 			airSpeed = jumpSpeed;
-			System.out.println("Is jumping");
 		}
 	}
 

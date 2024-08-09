@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import game.model.Settings;
+import game.model.tiles.Tile;
 
 public class BubbleManager extends Observable {
     private List<Bubble> bubbles;
@@ -22,7 +23,7 @@ public class BubbleManager extends Observable {
     }
 
     public void createBubble(float x, float y, float xSpeed) {
-        Bubble newBubble = new PlayerBubble.Builder(x, y, Settings.TILE_SIZE - 1, Settings.TILE_SIZE - 1, "B1").xSpeed(xSpeed).build();
+        Bubble newBubble = new PlayerBubble.Builder(x, y, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1, "B1").xSpeed(xSpeed).build();
         bubbles.add(newBubble);
         setChanged();
         notifyObservers(newBubble);
