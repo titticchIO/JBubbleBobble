@@ -1,6 +1,7 @@
 package game.controller;
 
 import game.view.*;
+import game.view.GameFrame.Screen;
 import game.controller.gamestates.Playing;
 import game.controller.gamestates.State;
 
@@ -31,6 +32,7 @@ public class Game implements Runnable {
 			}
 		};
 		gameFrame = new GameFrame(this, new PlayerController(this), actionListener);
+		gameFrame.showState(Screen.MENU);
 		playing = new Playing(this, gameFrame);
 		menu = new Menu(this);
 
@@ -46,7 +48,7 @@ public class Game implements Runnable {
 
 	private void startGameLoop() {
 		LevelView levelView = new LevelView(playing.getCurrentLevel());
-
+		gameFrame.showState(Screen.GAME);
 		gameFrame.getGamePanel().startGame(levelView);
 		gameThread = new Thread(this);
 		gameThread.start();
@@ -100,7 +102,7 @@ public class Game implements Runnable {
 				deltaF--;
 			}
 			if (deltaA >= 1) {
-				//gameFrame.getGamePanel().getPlayerView().updateAnimationImg();
+				// gameFrame.getGamePanel().getPlayerView().updateAnimationImg();
 				gameFrame.getGamePanel().getPlayerView();
 				deltaA--;
 			}

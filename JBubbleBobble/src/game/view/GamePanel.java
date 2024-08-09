@@ -17,7 +17,7 @@ import game.model.bubbles.BubbleManager;
 import game.model.level.Level;
 
 public class GamePanel extends JPanel {
-	private final static float SCALE = 1.5f;
+	public final static float SCALE = 1.5f;
 	private LevelView levelView;
 	private MovingEntityView playerView;
 	private BufferedImage tilesImage;
