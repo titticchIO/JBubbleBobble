@@ -7,14 +7,14 @@ import java.util.Random;
 import game.model.HelpMethods;
 
 public class Banebou extends Enemy {
-	
+
 	private final String type = "N";
-	
+
 	private long lastChangeTime;
 	private long changeInterval;
 
-	public Banebou(float x, float y, float width, float height, String imageCode) {
-		super(x, y, width, height, imageCode);
+	public Banebou(float x, float y, float width, float height) {
+		super(x, y, width, height, "N");
 		setxSpeed(0.7f);
 		setJumpSpeed(-1.5f);
 		lastChangeTime = System.currentTimeMillis();
@@ -24,7 +24,7 @@ public class Banebou extends Enemy {
 	private void changeDirection() {
 		changeInterval = new Random().nextLong(8000, 10000);
 		switch (direction) {
-		case Direction.LEFT: 
+		case Direction.LEFT:
 			direction = Direction.RIGHT;
 			setxSpeed(0.7f);
 			break;
@@ -37,7 +37,6 @@ public class Banebou extends Enemy {
 		}
 	}
 
-	
 	public void checkAndChangeDirection() {
 		long currentTime = System.currentTimeMillis();
 		if (currentTime - lastChangeTime > changeInterval) {
@@ -45,7 +44,7 @@ public class Banebou extends Enemy {
 			lastChangeTime = currentTime;
 		}
 	}
-	
+
 	@Override
 	public void updateXPos() {
 		if (HelpMethods.canMoveHere(x + xSpeed, y, width, height) || HelpMethods.isEntityInsideWall(x, y, width, height)) {
@@ -65,9 +64,5 @@ public class Banebou extends Enemy {
 		setChanged();
 		notifyObservers();
 	}
-	
-	@Override
-	public String getType() {
-		return type;
-	}
+
 }

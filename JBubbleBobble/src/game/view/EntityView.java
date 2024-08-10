@@ -7,7 +7,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import editor.view.ImagesTest;
-import game.model.Images;
 import game.model.enemies.Monsta;
 import game.model.enemies.Zen_chan;
 import game.model.entities.Entity;
@@ -21,34 +20,14 @@ public class EntityView implements Observer {
 	
 	private Observable observedEntity;
 
-	public EntityView(String type, String positionCode) {
-		
-		img = Images.getImage(type, positionCode);
-		/*
-		img = switch (entityName) {
-		// Tiles
-		case "tile1" -> Images.BLOCK1.getImg();
-		case "tile2" -> Images.BLOCK2.getImg();
-		case "tile3" -> Images.BLOCK3.getImg();
-		case "tile4" -> Images.BLOCK4.getImg();
-		case "tile5" -> Images.BLOCK5.getImg();
-		case "tile6" -> Images.BLOCK6.getImg();
-		// Player
-		case "player" -> Images.PLAYER.getImg();
-		// Bubbles
-		case "Bubble" -> Images.BUBBLE.getImg();
-		// Enemies
-		case "Zen-Chan" -> Images.ZEN_CHAN.getImg();
-		case "Monsta" -> Images.MONSTA.getImg();
-		case "Banebou" -> Images.BANEBOU.getImg();
-		case "Mighta" -> Images.MIGHTA.getImg();
-		case "Pulpul" -> Images.PULPUL.getImg();
-		default -> throw new IllegalArgumentException("Unexpected value: " + entityName);
-		};
-		*/
-
+	public EntityView(String code) {
+		img = Images.getImage(code);
+	}
+	public EntityView(String code,String type) {
+		img = Images.getImage(code,type);
 	}
 
+	
 	public float getX() {
 		return x;
 	}

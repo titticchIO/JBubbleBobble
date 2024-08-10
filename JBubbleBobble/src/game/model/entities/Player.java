@@ -9,10 +9,8 @@ import game.model.HelpMethods;
 import game.model.Settings;
 
 public class Player extends MovingEntity {
-	
+
 	private final String type = "P";
-
-
 
 	// bolla attuale
 	private PlayerBubble currentBubble;
@@ -21,32 +19,33 @@ public class Player extends MovingEntity {
 
 	public static Player getInstance() {
 		if (instance == null)
-			instance = new Player(30, 30, 16, 16, "P1");
+			instance = new Player(30, 30, 16, 16);
+
 		return instance;
 	}
-	
-	@Override
-	public void updateImage() {
-		toChange = false;
-		if (xSpeed == 0) {
-			if (!positionCode.equals("static")) {
-				toChange = true;
-				setPositionCode("static");
-			}
-		} else {
-			super.updateImage();
-		}
-	}
 
-	public static Player getInstance(float x, float y, float width, float height, String positionCode) {
+//	@Override
+//	public void updateImage() {
+//		toChange = false;
+//		if (xSpeed == 0) {
+//			if (!positionCode.equals("static")) {
+//				toChange = true;
+//				setPositionCode("static");
+//			}
+//		} else {
+//			super.updateImage();
+//		}
+//	}
+
+	public static Player getInstance(float x, float y, float width, float height) {
 		if (instance == null)
-			instance = new Player(x, y, width, height, positionCode);
+			instance = new Player(x, y, width, height);
 		return instance;
 	}
 
-	private Player(float x, float y, float width, float height, String positionCode) {
-		super(x, y, width, height, positionCode);
-		currentBubble = new PlayerBubble(x, y, width, height, positionCode);
+	private Player(float x, float y, float width, float height) {
+		super(x, y, width, height, "P");
+		currentBubble = new PlayerBubble(x, y, width, height);
 	}
 
 	/**
@@ -62,23 +61,14 @@ public class Player extends MovingEntity {
 
 	public void shootBubble(BubbleManager bubbleManager) {
 		if (direction == Direction.RIGHT) {
+
 			if (!HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
-				bubbleManager.createBubble(x + Tile.TILE_SIZE, y-1, 2);
+				bubbleManager.createBubble(x + Tile.TILE_SIZE, y - 1, 2);
 			}
 		} else {
 			if (!HelpMethods.isEntityInsideWall(x - Tile.TILE_SIZE, y, width, height)) {
-				bubbleManager.createBubble(x - Tile.TILE_SIZE, y-1, -2);
+				bubbleManager.createBubble(x - Tile.TILE_SIZE, y - 1, -2);
 			}
 		}
 	}
-
-	public void setDirection(Direction direction) {
-		this.direction = direction;
-	}
-
-	@Override
-	public String getType() {
-		return type;
-	}
-
 }

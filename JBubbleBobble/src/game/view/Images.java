@@ -1,10 +1,8 @@
-package game.model;
+package game.view;
 
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
-
-import game.view.ImageLoader;
 
 public class Images {
 
@@ -30,7 +28,7 @@ public class Images {
     }
     
     public static BufferedImage getImage(String imageCode) {
-    	return ImageLoader.importImg(imageMap.get(imageCode.substring(0,1)) + imageCode.substring(1,2) + ".png");
+    	return ImageLoader.importImg(imageMap.get(imageCode)+"right.png");
     }
 
 }

@@ -9,10 +9,9 @@ import game.model.level.LevelLoader;
 
 public class Zen_chan extends Enemy {
 
-	private final String type = "Z";
 
-	public Zen_chan(float x, float y, float width, float height, String positionCode) {
-		super(x, y, width, height, positionCode);
+	public Zen_chan(float x, float y, float width, float height) {
+		super(x, y, width, height, "Z");
 		setxSpeed(0.5f);
 		setJumpSpeed(-1.5f);
 	}
@@ -39,11 +38,6 @@ public class Zen_chan extends Enemy {
 		switchDirection();
 		move(0.5f);
 		if (new Random().nextInt(0, 500)==0) jump();
-	}
-
-	@Override
-	public String getType() {
-		return type;
 	}
 
 }
