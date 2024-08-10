@@ -11,6 +11,7 @@ import game.model.Settings;
 public class Player extends MovingEntity {
 
 	private final String type = "P";
+	private Direction bubbleDirection;
 
 	// bolla attuale
 	private PlayerBubble currentBubble;
@@ -33,6 +34,7 @@ public class Player extends MovingEntity {
 	private Player(float x, float y, float width, float height) {
 		super(x, y, width, height, "P");
 		currentBubble = new PlayerBubble(x, y, width, height);
+		bubbleDirection = Direction.RIGHT;
 	}
 
 	/**
@@ -46,16 +48,19 @@ public class Player extends MovingEntity {
 		this.currentBubble = currentBubble;
 	}
 
-	public void shootBubble(BubbleManager bubbleManager) {
-		if (direction == Direction.RIGHT) {
+	@Override
+	public void setDirection(Direction direction) {
+		super.setDirection(direction);
+		if (direction == Direction.RIGHT || direction == direction.LEFT)
+			bubbleDirection = direction;
+	}
 
-			if (!HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
-				bubbleManager.createBubble(x + Tile.TILE_SIZE, y - 1, 2);
-			}
-		} else {
-			if (!HelpMethods.isEntityInsideWall(x - Tile.TILE_SIZE, y, width, height)) {
-				bubbleManager.createBubble(x - Tile.TILE_SIZE, y - 1, -2);
-			}
+	public void shootBubble(BubbleManager bubbleManager) {
+		if (bubbleDirection == Direction.RIGHT
+				&& !HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
+			bubbleManager.createBubble(x + Tile.TILE_SIZE, y - 1, 2);
+		} else if (!HelpMethods.isEntityInsideWall(x - Tile.TILE_SIZE, y, width, height)) {
+			bubbleManager.createBubble(x - Tile.TILE_SIZE, y - 1, -2);
 		}
 	}
 }
