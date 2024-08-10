@@ -28,7 +28,9 @@ public class Images {
     }
     
     public static BufferedImage getImage(String imageCode) {
-    	return ImageLoader.importImg(imageMap.get(imageCode)+"right.png");
+    	System.out.println(imageMap.get(imageCode)+"right.png"+" loaded!");
+    	BufferedImage img= ImageLoader.importImg(imageMap.get(imageCode)+"right.png");
+    	return img;
     }
 
 }
