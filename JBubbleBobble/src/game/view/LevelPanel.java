@@ -16,36 +16,18 @@ import game.controller.gamestates.GameState;
 import game.model.bubbles.BubbleManager;
 import game.model.level.Level;
 
-public class GamePanel extends JPanel {
+public class LevelPanel extends JPanel {
 	public final static float SCALE = 1.5f;
 	private LevelView levelView;
 	private MovingEntityView playerView;
 	private BufferedImage tilesImage;
-	private JLabel scoreLabel;
-	private JLabel topScoreLabel;
 
 //	private MenuPanel menuPanel
 
 //	NON AGGIUNGERE IL PATTERN SINGLETON!!!!!
 
-	public GamePanel() {
-		setPanelSize();
-
-		JPanel game = new JPanel();
-		game.setPreferredSize(new Dimension((int) (Level.GAME_WIDTH * SCALE), (int) (Level.GAME_HEIGHT * SCALE)));
-		// Creare un pannello superiore per mostrare il punteggio
-		JPanel score = new JPanel();
-		scoreLabel = new JLabel("Score: 0");
-		topScoreLabel = new JLabel("Top Score: 100");
-		score.add(scoreLabel);
-		score.add(topScoreLabel);
-
-		// Imposta il layout e aggiungi il pannello superiore
-		setLayout(new BorderLayout());
-		add(score, BorderLayout.NORTH);
-		add(game, BorderLayout.CENTER);
-		
-		
+	public LevelPanel() {
+		setPanelSize();		
 	}
 
 	private void initPlayingClasses(LevelView levelView) {
@@ -64,7 +46,7 @@ public class GamePanel extends JPanel {
 	}
 
 	private void setPanelSize() {
-		Dimension size = new Dimension((int) (Level.GAME_WIDTH * SCALE), (int) (Level.GAME_HEIGHT * SCALE)+50);
+		Dimension size = new Dimension((int) (Level.GAME_WIDTH * SCALE), (int) (Level.GAME_HEIGHT * SCALE));
 		setPreferredSize(size);
 	}
 
@@ -75,6 +57,7 @@ public class GamePanel extends JPanel {
 		g.dispose();
 	}
 
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 

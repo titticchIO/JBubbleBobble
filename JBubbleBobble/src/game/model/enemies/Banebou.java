@@ -55,12 +55,6 @@ public class Banebou extends Enemy {
 			changeDirection();
 		}
 	}
-	
-	public void bounce() {
-		if (HelpMethods.isEntityGrounded(this)) {
-			airSpeed = jumpSpeed;
-		}
-	}
 
 	@Override
 	public void updateEntity() {

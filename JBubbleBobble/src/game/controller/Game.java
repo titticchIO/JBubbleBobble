@@ -18,7 +18,6 @@ public class Game implements Runnable {
 	private final int UPS_SET = (int) (200 * GAME_SPEED);
 	private GameFrame gameFrame;
 
-	private State state;
 	private Playing playing;
 	private Menu menu;
 

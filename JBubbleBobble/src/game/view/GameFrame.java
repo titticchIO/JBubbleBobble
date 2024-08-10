@@ -4,7 +4,9 @@ import java.awt.event.ActionListener;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,17 +24,29 @@ public class GameFrame extends JFrame {
 	}
 
 	private JPanel layoutPanel;
-	private GamePanel gamePanel;
+	private LevelPanel levelPanel;
 	private MenuPanel menuPanel;
 
 	public GameFrame(Game game, PlayerController playerController, ActionListener actionListener) {
 
 		layoutPanel = new JPanel(new CardLayout());
-		layoutPanel.setPreferredSize(
-				new Dimension((int) (Level.GAME_WIDTH * GamePanel.SCALE), (int) (Level.GAME_HEIGHT * GamePanel.SCALE)));
-		gamePanel = new GamePanel();
+		layoutPanel.setSize(new Dimension((int) (Level.GAME_WIDTH * LevelPanel.SCALE),
+				(int) (Level.GAME_HEIGHT * LevelPanel.SCALE)));
+		JPanel gamePanel = new JPanel(new BorderLayout());
+		
+		JPanel panel = new JPanel(new GridBagLayout()) {
+			{
+				add(new JLabel("Score: 0"));
+				add(new JLabel("Highscore: 100"));
+			}
+		};
+
+		gamePanel.add(panel, BorderLayout.NORTH);
+
+		levelPanel = new LevelPanel();
+		gamePanel.add(levelPanel,BorderLayout.CENTER);
 		menuPanel = new MenuPanel(actionListener);
-		System.out.println(menuPanel.getSize());
+
 		// Attach the PlayerController as a KeyListener
 		addKeyListener(playerController);
 		setFocusable(true); // Ensure the frame is focusable
@@ -40,31 +54,28 @@ public class GameFrame extends JFrame {
 
 		layoutPanel.add(menuPanel, Screen.MENU.name());
 		layoutPanel.add(gamePanel, Screen.GAME.name());
-
-		setResizable(false);
-		setSize(
-				new Dimension((int) (Level.GAME_WIDTH * GamePanel.SCALE), (int) (Level.GAME_HEIGHT * GamePanel.SCALE)));
+		add(layoutPanel);
+		pack();
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 		setVisible(true);
-
 	}
 
-	public GamePanel getGamePanel() {
-		return gamePanel;
+	public LevelPanel getGamePanel() {
+		return levelPanel;
 	}
 
 	public void showState(Screen screen) {
-		switch (screen) {
-		case MENU -> ((CardLayout) layoutPanel.getLayout()).show(layoutPanel, Screen.MENU.name());
-		case GAME -> ((CardLayout) layoutPanel.getLayout()).show(layoutPanel, Screen.GAME.name());
-		}
+		((CardLayout) layoutPanel.getLayout()).show(layoutPanel, screen.name());
+		layoutPanel.revalidate();
+		layoutPanel.repaint();
 	}
 
 	@Override
 	public void repaint() {
 		super.repaint();
-		gamePanel.repaint();
+		levelPanel.repaint();
 	}
 
 }
