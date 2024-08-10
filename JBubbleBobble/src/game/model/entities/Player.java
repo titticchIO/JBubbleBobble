@@ -10,10 +10,8 @@ import game.model.HelpMethods;
 import game.model.Settings;
 
 public class Player extends MovingEntity {
-	
+
 	private final String type = "P";
-
-
 
 	// bolla attuale
 	private PlayerBubble currentBubble;
@@ -25,7 +23,7 @@ public class Player extends MovingEntity {
 			instance = new Player(30, 30, 16 * SCALE, 16 * SCALE);
 		return instance;
 	}
-	
+
 //	@Override
 //	public void updateImage() {
 //		toChange = false;
@@ -46,7 +44,7 @@ public class Player extends MovingEntity {
 	}
 
 	private Player(float x, float y, float width, float height) {
-		super(x, y, width, height);
+		super(x, y, width, height, "P");
 		currentBubble = new PlayerBubble(x, y, width, height);
 	}
 
@@ -64,18 +62,13 @@ public class Player extends MovingEntity {
 	public void shootBubble(BubbleManager bubbleManager) {
 		if (direction == Direction.RIGHT) {
 			if (!HelpMethods.isEntityInsideWall(x + Settings.TILE_SIZE, y, width, height)) {
-				bubbleManager.createBubble(x + Settings.TILE_SIZE, y-1, 2);
+				bubbleManager.createBubble(x + Settings.TILE_SIZE, y - 1, 2);
 			}
 		} else {
 			if (!HelpMethods.isEntityInsideWall(x - Settings.TILE_SIZE, y, width, height)) {
-				bubbleManager.createBubble(x - Settings.TILE_SIZE, y-1, -2);
+				bubbleManager.createBubble(x - Settings.TILE_SIZE, y - 1, -2);
 			}
 		}
-	}
-
-	@Override
-	public String getType() {
-		return type;
 	}
 
 }

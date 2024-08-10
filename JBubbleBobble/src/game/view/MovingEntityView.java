@@ -28,9 +28,7 @@ public class MovingEntityView extends EntityView {
 		if (arg instanceof String message) {
 			switch (message) {
 			case "pop" -> toDelete = true;
-			case "LEFT" -> img = Images.getImage(entity.getType(), message);
-			case "RIGHT" -> img = Images.getImage(entity.getType(), message);
-			case "STATIC" -> img = Images.getImage(entity.getType(), message);
+			default -> img = Images.getImage(entity.getCode(), message.toLowerCase());
 			}
 		}
 

@@ -36,8 +36,8 @@ public abstract class MovingEntity extends Entity {
 	 * @param height       Height of the entity
 	 * @param positionCode Code to identify the position
 	 */
-	public MovingEntity(float x, float y, float width, float height) {
-		super(x, y, width, height);
+	public MovingEntity(float x, float y, float width, float height, String code) {
+		super(x, y, width, height, code);
 		direction = Direction.STATIC;
 		airSpeed = 0;
 		gravity = 0.02f * SCALE;
@@ -224,12 +224,4 @@ public abstract class MovingEntity extends Entity {
 		setChanged();
 		notifyObservers();
 	}
-
-	/**
-	 * Abstract method that must be implemented by subclasses to return the type of
-	 * entity.
-	 * 
-	 * @return Entity type
-	 */
-	public abstract String getType();
 }

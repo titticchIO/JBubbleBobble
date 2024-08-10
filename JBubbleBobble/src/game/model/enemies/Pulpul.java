@@ -10,21 +10,19 @@ import static game.model.HelpMethods.isSolid;
 
 public class Pulpul extends Enemy {
 
-	private final String type = "U";
-
 	private long lastChangeTime;
 	private static final long CHANGE_INTERVAL = 2000; // Intervallo di cambio direzione in millisecondi
 
 	public Pulpul(float x, float y, float width, float height) {
-		super(x, y, width, height, "pulpul");
+		super(x, y, width, height, "U");
 		setxSpeed(0.7f);
 		setAirSpeed(0.7f);
 		lastChangeTime = System.currentTimeMillis();
 	}
-	
+
 	private void changeDirection() {
 		switch (direction) {
-		case Direction.LEFT: 
+		case Direction.LEFT:
 			direction = Direction.RIGHT;
 			setxSpeed(0.7f);
 			setAirSpeed(0);
@@ -46,7 +44,6 @@ public class Pulpul extends Enemy {
 			break;
 		}
 	}
-	
 
 	private void randomizeDirection() {
 		Random random = new Random();
@@ -115,15 +112,10 @@ public class Pulpul extends Enemy {
 			if (HelpMethods.canMoveHere(x, y + airSpeed, width, height)) {
 				setY(y + airSpeed);
 			} else {
-				
+
 				// Cambia direzione se incontra un ostacolo
 				changeDirection();
 			}
 		}
-	}
-
-	@Override
-	public String getType() {
-		return type;
 	}
 }

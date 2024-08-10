@@ -21,7 +21,7 @@ public class LevelView implements Observer {
 
 	public LevelView(Level level) {
 		Player p = Player.getInstance();
-		playerView = new MovingEntityView("P");
+		playerView = new MovingEntityView(p.getCode());
 		p.addObserver(playerView);
 
 		enemies = new CopyOnWriteArrayList<>();
@@ -29,7 +29,7 @@ public class LevelView implements Observer {
 
 		tiles = new CopyOnWriteArrayList<>();
 		for (Tile t : level.getTiles()) {
-			EntityView newTile = new EntityView("#", t.getType());
+			EntityView newTile = new EntityView(t.getCode(), t.getType());
 			t.addObserver(newTile);
 			t.notifyPosition();
 			tiles.add(newTile);
@@ -38,7 +38,7 @@ public class LevelView implements Observer {
 		bubbles = new CopyOnWriteArrayList<>();
 
 		for (Bubble b : BubbleManager.getInstance().getBubbles()) {
-			MovingEntityView bubble = new MovingEntityView("B");
+			MovingEntityView bubble = new MovingEntityView(b.getCode());
 			b.addObserver(bubble);
 			bubbles.add(bubble);
 		}
@@ -46,7 +46,7 @@ public class LevelView implements Observer {
 
 	public void spawnEnemies(Level level) {
 		for (Enemy e : level.geteManager().getEnemies()) {
-			MovingEntityView enemyView = new MovingEntityView("E",e.getCode());
+			MovingEntityView enemyView = new MovingEntityView(e.getCode());
 			e.addObserver(enemyView);
 			enemies.add(enemyView);
 		}
@@ -79,7 +79,7 @@ public class LevelView implements Observer {
 		if (arg instanceof Bubble) {
 			Bubble bubble = (Bubble) arg;
 			if (!bubble.isPopped()) {
-				MovingEntityView newBubbleView = new MovingEntityView("B");
+				MovingEntityView newBubbleView = new MovingEntityView(bubble.getCode());
 				newBubbleView.setObservedEntity(bubble);
 				bubble.addObserver(newBubbleView);
 				bubbles.add(newBubbleView);
@@ -91,7 +91,7 @@ public class LevelView implements Observer {
 		if (arg instanceof Enemy) {
 			Enemy enemy = (Enemy) arg;
 			if (!enemy.isPopped()) {
-				MovingEntityView newEnemyView = new MovingEntityView("E",enemy.getCode());
+				MovingEntityView newEnemyView = new MovingEntityView(enemy.getCode());
 				newEnemyView.setObservedEntity(enemy);
 				enemy.addObserver(newEnemyView);
 				enemies.add(newEnemyView);

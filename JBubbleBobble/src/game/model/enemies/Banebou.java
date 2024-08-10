@@ -7,14 +7,14 @@ import java.util.Random;
 import game.model.HelpMethods;
 
 public class Banebou extends Enemy {
-	
+
 	private final String type = "N";
-	
+
 	private long lastChangeTime;
 	private long changeInterval;
 
 	public Banebou(float x, float y, float width, float height) {
-		super(x, y, width, height, "banebou");
+		super(x, y, width, height, "N");
 		setxSpeed(0.7f);
 		setJumpSpeed(-1.5f);
 		lastChangeTime = System.currentTimeMillis();
@@ -24,7 +24,7 @@ public class Banebou extends Enemy {
 	private void changeDirection() {
 		changeInterval = new Random().nextLong(8000, 10000);
 		switch (direction) {
-		case Direction.LEFT: 
+		case Direction.LEFT:
 			direction = Direction.RIGHT;
 			setxSpeed(0.7f);
 			break;
@@ -37,7 +37,6 @@ public class Banebou extends Enemy {
 		}
 	}
 
-	
 	public void checkAndChangeDirection() {
 		long currentTime = System.currentTimeMillis();
 		if (currentTime - lastChangeTime > changeInterval) {
@@ -45,7 +44,7 @@ public class Banebou extends Enemy {
 			lastChangeTime = currentTime;
 		}
 	}
-	
+
 	@Override
 	public void updateXPos() {
 		if (HelpMethods.canMoveHere(x + xSpeed, y, width, height)) {
@@ -58,7 +57,7 @@ public class Banebou extends Enemy {
 
 	@Override
 	public void updateEntity() {
-		System.out.println(HelpMethods.canMoveHere(x, y+airSpeed, width, height));
+		System.out.println(HelpMethods.canMoveHere(x, y + airSpeed, width, height));
 		super.updateEntity();
 		jump();
 		checkAndChangeDirection(); // Verifica se deve cambiare direzione
@@ -66,9 +65,5 @@ public class Banebou extends Enemy {
 		setChanged();
 		notifyObservers();
 	}
-	
-	@Override
-	public String getType() {
-		return type;
-	}
+
 }

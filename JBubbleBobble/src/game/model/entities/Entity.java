@@ -15,6 +15,8 @@ public abstract class Entity extends Observable {
 	 */
 	protected float width, height;
 
+	private String code;
+
 	/**
 	 * Public entity constructor
 	 * 
@@ -23,11 +25,12 @@ public abstract class Entity extends Observable {
 	 * @param width
 	 * @param height
 	 */
-	public Entity(float x, float y, float width, float height) {
+	public Entity(float x, float y, float width, float height, String code) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.code = code;
 	}
 
 	/**
@@ -106,6 +109,10 @@ public abstract class Entity extends Observable {
 		return height;
 	}
 
+	public String getCode() {
+		return code;
+	}
+	
 	/**
 	 * @return array with entity's coordinates
 	 */

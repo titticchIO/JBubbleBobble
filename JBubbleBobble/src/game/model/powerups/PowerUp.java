@@ -20,7 +20,7 @@ public abstract class PowerUp extends Entity{
 	private boolean temporariness;
 	
 	public PowerUp(float x, float y, float width, float height, int point, float duration, boolean temporariness) {
-		super(x, y, width, height);
+		super(x, y, width, height,null);
 		this.point = point;
 		this.duration = duration;
 		this.temporariness = temporariness;	

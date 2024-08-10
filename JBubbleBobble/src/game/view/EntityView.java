@@ -24,7 +24,7 @@ public class EntityView implements Observer {
 		img = Images.getImage(code);
 	}
 	public EntityView(String code,String type) {
-		img = Images.getImage(code);
+		img = Images.getImage(code,type);
 	}
 
 	
