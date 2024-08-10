@@ -5,7 +5,6 @@ import game.model.Settings;
 import game.model.level.Level;
 import game.model.tiles.Tile;
 
-
 public abstract class MovingEntity extends Entity {
 
 	// Possible movement directions
@@ -37,6 +36,17 @@ public abstract class MovingEntity extends Entity {
 	 * @param height       Height of the entity
 	 * @param positionCode Code to identify the position
 	 */
+	public MovingEntity(float x, float y, String code) {
+		super(x, y, code);
+		direction = Direction.STATIC;
+		airSpeed = 0;
+		gravity = 0.02f;
+		jumpSpeed = -2.0f;
+		fallSpeedAfterCollision = 0.3f;
+		maxFallingSpeed = 2;
+		inAir = false;
+	}
+
 	public MovingEntity(float x, float y, float width, float height, String code) {
 		super(x, y, width, height, code);
 		direction = Direction.STATIC;
@@ -105,8 +115,8 @@ public abstract class MovingEntity extends Entity {
 	 */
 	public void updateXPos() {
 		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width, (int) height)
-				|| (HelpMethods.isEntityInsideWall(x, y, width, height) && (x + xSpeed >= Tile.TILE_SIZE
-						&& x + xSpeed + width <= Level.GAME_WIDTH - Tile.TILE_SIZE))) {
+				|| (HelpMethods.isEntityInsideWall(x, y, width, height)
+						&& (x + xSpeed >= Tile.TILE_SIZE && x + xSpeed + width <= Level.GAME_WIDTH - Tile.TILE_SIZE))) {
 			setX(x + xSpeed);
 		} else {
 			float delta = 0;

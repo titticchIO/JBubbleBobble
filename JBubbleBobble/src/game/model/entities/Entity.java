@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Observable;
 
+import static game.model.tiles.Tile.TILE_SIZE;
+
 /**
  * 
  */
@@ -16,6 +18,14 @@ public abstract class Entity extends Observable {
 	protected float width, height;
 
 	private String code;
+
+	public Entity(float x, float y, String code) {
+		this.x = x;
+		this.y = y;
+		this.code = code;
+		width = TILE_SIZE - 1;
+		height = TILE_SIZE - 1;
+	}
 
 	/**
 	 * Public entity constructor
@@ -112,7 +122,7 @@ public abstract class Entity extends Observable {
 	public String getCode() {
 		return code;
 	}
-	
+
 	/**
 	 * @return array with entity's coordinates
 	 */

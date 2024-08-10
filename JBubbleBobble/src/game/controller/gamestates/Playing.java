@@ -22,7 +22,7 @@ public class Playing extends State implements Statemethods {
 	}
 
 	private void initClasses(GameFrame gameFrame) {
-		Level livello1 = new Level(4);
+		Level livello1 = new Level(111);
 		currentLevel = livello1;
 		this.gameFrame = gameFrame;
 	}

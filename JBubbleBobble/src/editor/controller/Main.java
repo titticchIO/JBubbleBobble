@@ -1,7 +1,7 @@
 package editor.controller;
 
+import editor.model.LevelMaker;
 import editor.view.EditorFrame;
-import game.model.level.LevelMaker;
 
 
 public class Main {

@@ -8,10 +8,19 @@ import java.util.Random;
 import game.model.level.LevelLoader;
 
 public class Zen_chan extends Enemy {
-
+	
+	
+	
+	public Zen_chan(float x, float y) {
+		super(x, y, "Z");
+		setxSpeed(0.5f);
+		setDirection(Direction.RIGHT);
+		setJumpSpeed(-1.5f);
+	}
 	public Zen_chan(float x, float y, float width, float height) {
 		super(x, y, width, height, "Z");
 		setxSpeed(0.5f);
+		setDirection(Direction.RIGHT);
 		setJumpSpeed(-1.5f);
 	}
 
@@ -35,7 +44,7 @@ public class Zen_chan extends Enemy {
 		super.updateEntity();
 		switchDirection();
 		move(0.5f);
-		if (new Random().nextInt(0, 500) == 0)
+		if (new Random().nextInt(0, 1000) == 0)
 			jump();
 	}
 

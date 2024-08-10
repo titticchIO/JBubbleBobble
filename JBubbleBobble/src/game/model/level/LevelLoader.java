@@ -14,7 +14,6 @@ public class LevelLoader {
 
 	private final static String BLOCK = "#";
 	private final static String PLAYER = "P";
-	private final static String ENEMY = "E";
 	private final static String BUBBLE = "B";
 
 	private final static String ZEN_CHAN = "Z";
@@ -68,23 +67,23 @@ public class LevelLoader {
 						break;
 
 					case BLOCK:
-						level.addTile(new Tile(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE, c.substring(1, 2)));
+						level.addTile(new Tile(x * TILE_SIZE, y * TILE_SIZE, c.substring(1, 2)));
 						break;
 
 					case ZEN_CHAN:
-						level.addEnemy(new Zen_chan(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
+						level.addEnemy(new Zen_chan(x * TILE_SIZE, y * TILE_SIZE));
 						break;
 					case MONSTA:
-						level.addEnemy(new Monsta(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
+						level.addEnemy(new Monsta(x * TILE_SIZE, y * TILE_SIZE));
 						break;
 					case BANEBOU:
-						level.addEnemy(new Banebou(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
+						level.addEnemy(new Banebou(x * TILE_SIZE, y * TILE_SIZE));
 						break;
 					case PULPUL:
-						level.addEnemy(new Pulpul(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
+						level.addEnemy(new Pulpul(x * TILE_SIZE, y * TILE_SIZE));
 						break;
 					case SKELMONSTA:
-						level.addEnemy(new SkelMonsta(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
+						level.addEnemy(new SkelMonsta(x * TILE_SIZE, y * TILE_SIZE));
 
 					}
 				}

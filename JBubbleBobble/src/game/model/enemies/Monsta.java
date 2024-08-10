@@ -15,6 +15,13 @@ public class Monsta extends Enemy {
 	private static final float MIN_SPEED = 0.5f; // Velocità minima per evitare che il nemico si blocchi
 	private static final float MAX_SPEED = 0.6f; // Velocità massima per limitare il movimento del nemico
 
+	public Monsta(float x, float y) {
+		super(x, y, "M");
+		setxSpeed(0.3f);
+		setAirSpeed(0.3f);
+		random = new Random();
+	}
+
 	public Monsta(float x, float y, float width, float height) {
 		super(x, y, width, height, "M");
 		setxSpeed(0.3f);
@@ -57,8 +64,6 @@ public class Monsta extends Enemy {
 			x = HelpMethods.getEntityXPosNextToWall(this);
 		}
 	}
-
-
 
 	@Override
 	public void updateEntity() {

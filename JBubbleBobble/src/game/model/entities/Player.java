@@ -24,19 +24,6 @@ public class Player extends MovingEntity {
 		return instance;
 	}
 
-//	@Override
-//	public void updateImage() {
-//		toChange = false;
-//		if (xSpeed == 0) {
-//			if (!positionCode.equals("static")) {
-//				toChange = true;
-//				setPositionCode("static");
-//			}
-//		} else {
-//			super.updateImage();
-//		}
-//	}
-
 	public static Player getInstance(float x, float y, float width, float height) {
 		if (instance == null)
 			instance = new Player(x, y, width, height);
@@ -71,11 +58,4 @@ public class Player extends MovingEntity {
 			}
 		}
 	}
-	
-	@Override
-	public void stop() {
-		//setDirection(Direction.STATIC);
-		setxSpeed(0);
-	}
-
 }

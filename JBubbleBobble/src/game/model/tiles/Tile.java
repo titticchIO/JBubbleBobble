@@ -8,8 +8,8 @@ public class Tile extends Entity {
 
 	private String type;
 
-	public Tile(float x, float y, float width, float height, String type) {
-		super(x, y, width, height, "#");
+	public Tile(float x, float y, String type) {
+		super(x, y, TILE_SIZE, TILE_SIZE, "#");
 		this.type = type;
 	}
 
