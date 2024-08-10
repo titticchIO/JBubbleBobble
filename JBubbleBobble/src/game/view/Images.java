@@ -14,7 +14,7 @@ public class Images {
         imageMap.put("#", "/blocks/normal_blocks/block_");
         imageMap.put("P", "/player/");
         imageMap.put("E", "/enemies/image_");
-        imageMap.put("B", "/bubbles/image_");
+        imageMap.put("B", "/bubbles/");
         imageMap.put("Z", "/enemies/zenchan/");
         imageMap.put("I", "/enemies/mighta/");
         imageMap.put("M", "/enemies/monsta/");

@@ -71,4 +71,11 @@ public class Player extends MovingEntity {
 			}
 		}
 	}
+	
+	@Override
+	public void stop() {
+		//setDirection(Direction.STATIC);
+		setxSpeed(0);
+	}
+
 }
