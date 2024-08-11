@@ -9,8 +9,8 @@ public class LevelManager {
 	public static final int COLS = 30;
 	private static String[][] level;
 
+
 	public LevelManager() {
-		// this("#1");
 		level = new String[ROWS][COLS];
 		emptyLevel();
 	}
