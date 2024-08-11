@@ -28,7 +28,6 @@ public class GameFrame extends JFrame {
 	private MenuPanel menuPanel;
 
 	public GameFrame(Game game, PlayerController playerController, ActionListener actionListener) {
-
 		layoutPanel = new JPanel(new CardLayout());
 		layoutPanel.setSize(new Dimension((int) (Level.GAME_WIDTH * LevelPanel.SCALE),
 				(int) (Level.GAME_HEIGHT * LevelPanel.SCALE)));

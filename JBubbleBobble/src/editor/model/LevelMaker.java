@@ -10,7 +10,6 @@ public class LevelMaker {
 	private static String[][] level;
 
 	public LevelMaker() {
-		// this("#1");
 		level = new String[ROWS][COLS];
 		emptyLevel();
 	}
