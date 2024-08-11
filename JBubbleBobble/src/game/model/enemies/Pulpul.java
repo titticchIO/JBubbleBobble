@@ -11,20 +11,16 @@ import static game.model.HelpMethods.isSolid;
 
 public class Pulpul extends Enemy {
 
-	private long lastChangeTime;
-	private static final long CHANGE_INTERVAL = 2000; // Intervallo di cambio direzione in millisecondi
-
 	public Pulpul(float x, float y) {
 		super(x, y, "U");
 		setxSpeed(0.7f);
 		setAirSpeed(0.7f);
-		lastChangeTime = System.currentTimeMillis();
 	}
+
 	public Pulpul(float x, float y, float width, float height) {
 		super(x, y, width, height, "U");
 		setxSpeed(0.7f);
 		setAirSpeed(0.7f);
-		lastChangeTime = System.currentTimeMillis();
 	}
 
 	private void changeDirection() {
@@ -79,26 +75,6 @@ public class Pulpul extends Enemy {
 		}
 	}
 
-	private void checkAndChangeDirection() {
-		long currentTime = System.currentTimeMillis();
-		if (currentTime - lastChangeTime > CHANGE_INTERVAL) {
-			randomizeDirection();
-			lastChangeTime = currentTime;
-		}
-	}
-
-	@Override
-	public void updateEntity() {
-		checkAndChangeDirection(); // Verifica se deve cambiare direzione
-		// Aggiornamento della posizione basato sulla direzione corrente
-		if (direction == Direction.LEFT || direction == Direction.RIGHT)
-			updateXPos();
-		else
-			updateYPos();
-		setChanged();
-		notifyObservers();
-	}
-
 	@Override
 	public void updateXPos() {
 		if (HelpMethods.canMoveHere(x + xSpeed, y, width, height)) {
@@ -119,10 +95,22 @@ public class Pulpul extends Enemy {
 			if (HelpMethods.canMoveHere(x, y + airSpeed, width, height)) {
 				setY(y + airSpeed);
 			} else {
-
 				// Cambia direzione se incontra un ostacolo
 				changeDirection();
 			}
 		}
+	}
+
+	@Override
+	public void updateEntity() {
+		if (randomBoolean(1000))
+			randomizeDirection();
+		// Aggiornamento della posizione basato sulla direzione corrente
+		if (direction == Direction.LEFT || direction == Direction.RIGHT)
+			updateXPos();
+		else
+			updateYPos();
+		setChanged();
+		notifyObservers();
 	}
 }
