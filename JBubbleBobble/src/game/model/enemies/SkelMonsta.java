@@ -7,6 +7,7 @@ import java.util.Random;
 
 import game.model.HelpMethods;
 import game.model.Settings;
+import game.model.entities.MovingEntity.Direction;
 import game.model.level.Level;
 import game.model.tiles.Tile;
 
@@ -20,6 +21,7 @@ public class SkelMonsta extends Enemy {
 		super(x, y, "S");
 		setxSpeed(0.3f);
 		setAirSpeed(0.3f);
+		setDirection(Direction.RIGHT);
 		random = new Random();
 	}
 
@@ -27,22 +29,12 @@ public class SkelMonsta extends Enemy {
 		super(x, y, width, height, "S");
 		setxSpeed(0.3f);
 		setAirSpeed(0.3f);
+		setDirection(Direction.RIGHT);
 		random = new Random();
 	}
 
 	public void bounce() {
-		// Controlla se il nemico ha raggiunto i bordi sinistro o destro del gioco
-		if (x <= Tile.TILE_SIZE || x + width >= Level.GAME_WIDTH - Tile.TILE_SIZE) {
-			// System.out.println("siuuum sopra");
-			// Inverti la direzione orizzontale e applica un elemento casuale alla velocità
-			xSpeed = -xSpeed * (0.8f + random.nextFloat() * 0.4f); // Velocità tra 80% e 120% dell'attuale
-			// Assicurati che la velocità non sia inferiore a MIN_SPEED o superiore a
-			// MAX_SPEED
-			xSpeed = Math.max(Math.min(xSpeed, MAX_SPEED), -MAX_SPEED);
-			if (Math.abs(xSpeed) < MIN_SPEED) {
-				xSpeed = Math.signum(xSpeed) * MIN_SPEED;
-			}
-		}
+		
 
 		// Controlla se il nemico ha raggiunto i bordi superiore o inferiore del gioco
 		if (y <= Tile.TILE_SIZE || y + height >= Level.GAME_HEIGHT - Tile.TILE_SIZE) {
@@ -54,6 +46,27 @@ public class SkelMonsta extends Enemy {
 			airSpeed = Math.max(Math.min(airSpeed, MAX_SPEED), -MAX_SPEED);
 			if (Math.abs(airSpeed) < MIN_SPEED) {
 				airSpeed = Math.signum(airSpeed) * MIN_SPEED;
+			}
+		}
+		
+		// Controlla se il nemico ha raggiunto i bordi sinistro o destro del gioco
+		if (x <= Tile.TILE_SIZE || x + width >= Level.GAME_WIDTH - Tile.TILE_SIZE) {
+			switch (direction) {
+			case LEFT -> {
+					setDirection(Direction.RIGHT);
+				}
+			case RIGHT -> {
+					setDirection(Direction.LEFT);
+				}
+		}
+			// System.out.println("siuuum sopra");
+			// Inverti la direzione orizzontale e applica un elemento casuale alla velocità
+			xSpeed = -xSpeed * (0.8f + random.nextFloat() * 0.4f); // Velocità tra 80% e 120% dell'attuale
+			// Assicurati che la velocità non sia inferiore a MIN_SPEED o superiore a
+			// MAX_SPEED
+			xSpeed = Math.max(Math.min(xSpeed, MAX_SPEED), -MAX_SPEED);
+			if (Math.abs(xSpeed) < MIN_SPEED) {
+				xSpeed = Math.signum(xSpeed) * MIN_SPEED;
 			}
 		}
 	}
