@@ -4,18 +4,18 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LevelMaker {
+public class LevelManager {
 	public static final int ROWS = 24;
 	public static final int COLS = 30;
 	private static String[][] level;
 
-	public LevelMaker() {
+	public LevelManager() {
 		// this("#1");
 		level = new String[ROWS][COLS];
 		emptyLevel();
 	}
 
-	public LevelMaker(String wallTile) {
+	public LevelManager(String wallTile) {
 		level = new String[ROWS][COLS];
 
 		setWalls(wallTile);

@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-import editor.model.LevelMaker;
+import editor.model.LevelManager;
 
 public class EditorPanel extends JPanel {
 	public static final int ROWS = 24;
@@ -127,7 +127,7 @@ public class EditorPanel extends JPanel {
 			sprite.updateSprite(button.getImg());
 		else
 			sprite.updateSprite(null);
-		LevelMaker.setTile(y, x, button.getCode());
+		LevelManager.setTile(y, x, button.getCode());
 		repaint();
 	}
 }

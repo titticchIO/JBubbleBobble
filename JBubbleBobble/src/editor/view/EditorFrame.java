@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import editor.model.LevelMaker;
+import editor.model.LevelManager;
 import game.model.level.LevelLoader;
 
 public class EditorFrame extends JFrame {
@@ -39,7 +39,7 @@ public class EditorFrame extends JFrame {
         // ActionListener per il pulsante "Nuova Griglia"
         newGridButton.addActionListener(e -> {
             // Azione per creare una nuova griglia
-            LevelMaker.emptyLevel(); // Presumendo che questo svuoti il livello corrente
+            LevelManager.emptyLevel(); // Presumendo che questo svuoti il livello corrente
             getContentPane().remove(editorPanel); // Rimuovi il pannello esistente
             editorPanel = new EditorPanel(this, selectionPane); // Crea un nuovo EditorPanel
             add(editorPanel, BorderLayout.CENTER); // Aggiungi il nuovo EditorPanel al frame
@@ -61,7 +61,7 @@ public class EditorFrame extends JFrame {
                     if (levelData != null) {
                         getContentPane().remove(editorPanel); // Rimuovi il pannello esistente
                         editorPanel = new EditorPanel(this, selectionPane); // Crea un nuovo EditorPanel
-                        LevelMaker.setLevel(levelData);
+                        LevelManager.setLevel(levelData);
                         editorPanel.loadLevel(levelData); // Carica i dati del livello
                         actualLevelNumber = String.valueOf(numero);
                         actualLevel.setText("Livello " + actualLevelNumber); // Aggiorna l'etichetta
@@ -87,7 +87,7 @@ public class EditorFrame extends JFrame {
             if (inputValue != null && !inputValue.isEmpty()) {
                 try {
                     int numero = Integer.parseInt(inputValue);
-                    LevelMaker.saveLevelToFile(numero);
+                    LevelManager.saveLevelToFile(numero);
                     actualLevelNumber = String.valueOf(numero);
                     actualLevel.setText("Livello " + actualLevelNumber); // Aggiorna l'etichetta
                 } catch (NumberFormatException ex) {
