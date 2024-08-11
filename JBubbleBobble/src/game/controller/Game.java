@@ -45,7 +45,8 @@ public class Game implements Runnable {
 		return menu;
 	}
 
-	private void startGameLoop() {
+	public void startGameLoop() {
+		GameState.state = GameState.PLAYING;
 		LevelView levelView = new LevelView(playing.getCurrentLevel());
 		gameFrame.showState(Screen.GAME);
 		gameFrame.getGamePanel().startGame(levelView);

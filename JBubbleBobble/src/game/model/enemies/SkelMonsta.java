@@ -1,13 +1,7 @@
 package game.model.enemies;
 
-import static game.model.HelpMethods.isSolidHorizontalLine;
-import static game.model.HelpMethods.isSolidVerticalLine;
-
 import java.util.Random;
 
-import game.model.HelpMethods;
-import game.model.Settings;
-import game.model.entities.MovingEntity.Direction;
 import game.model.level.Level;
 import game.model.tiles.Tile;
 

@@ -14,13 +14,8 @@ import game.model.Settings;
 import game.model.level.Level;
 
 public class MenuPanel extends JPanel {
-	private JButton playButton;
 
 	public MenuPanel(ActionListener actionListener) {
-		playButton = new JButton("PLAY");
-		playButton.addActionListener(actionListener);
-		setLayout(new GridBagLayout());
-		add(playButton);
 		setSize(new Dimension((int) (Level.GAME_WIDTH * LevelPanel.SCALE),
 				(int) (Level.GAME_HEIGHT * LevelPanel.SCALE)));
 
@@ -28,12 +23,11 @@ public class MenuPanel extends JPanel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-	    super.paintComponent(g); // Assicurati di chiamare il metodo della superclasse
-	    BufferedImage menuImage = ImageLoader.importImg("/MenuScreen.png");
-	    if (menuImage != null) {
-	        g.drawImage(menuImage, 0, 0, getWidth(), getHeight(), null);
-	    }
+		super.paintComponent(g); // Assicurati di chiamare il metodo della superclasse
+		BufferedImage menuImage = ImageLoader.importImg("/MenuScreen.png");
+		if (menuImage != null) {
+			g.drawImage(menuImage, 0, 0, getWidth(), getHeight(), null);
+		}
 	}
-
 
 }
