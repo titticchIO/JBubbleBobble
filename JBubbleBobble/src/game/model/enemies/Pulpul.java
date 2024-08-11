@@ -15,12 +15,14 @@ public class Pulpul extends Enemy {
 		super(x, y, "U");
 		setxSpeed(0.7f);
 		setAirSpeed(0.7f);
+		setDirection(Direction.DOWN);
 	}
 
 	public Pulpul(float x, float y, float width, float height) {
 		super(x, y, width, height, "U");
 		setxSpeed(0.7f);
 		setAirSpeed(0.7f);
+		setDirection(Direction.DOWN);
 	}
 
 	private void changeDirection() {
@@ -103,7 +105,7 @@ public class Pulpul extends Enemy {
 
 	@Override
 	public void updateEntity() {
-		if (randomBoolean(1000))
+		if (randomBoolean(200))
 			randomizeDirection();
 		// Aggiornamento della posizione basato sulla direzione corrente
 		if (direction == Direction.LEFT || direction == Direction.RIGHT)
