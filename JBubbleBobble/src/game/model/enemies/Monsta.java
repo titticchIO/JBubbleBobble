@@ -20,9 +20,23 @@ public class Monsta extends Enemy {
 		setAirSpeed(0.3f);
 		setDirection(Direction.RIGHT);
 	}
+	
+	public Monsta(float x, float y, String code) {
+		super(x, y, code);
+		setxSpeed(0.3f);
+		setAirSpeed(0.3f);
+		setDirection(Direction.RIGHT);
+	}
 
 	public Monsta(float x, float y, float width, float height) {
 		super(x, y, width, height, "M");
+		setxSpeed(0.3f);
+		setAirSpeed(0.3f);
+		setDirection(Direction.RIGHT);
+	}
+	
+	public Monsta(float x, float y, float width, float height, String code) {
+		super(x, y, width, height, code);
 		setxSpeed(0.3f);
 		setAirSpeed(0.3f);
 		setDirection(Direction.RIGHT);
