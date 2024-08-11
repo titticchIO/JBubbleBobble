@@ -7,8 +7,6 @@ import game.model.HelpMethods;
 
 public class Banebou extends Enemy {
 
-	private final String type = "N";
-
 	private long lastChangeTime;
 	private long changeInterval;
 
@@ -57,10 +55,10 @@ public class Banebou extends Enemy {
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (!HelpMethods.canMoveHere(x + xSpeed, y, width, height))
+		if (!HelpMethods.canMoveHere(x + xSpeed, y, width, height)||randomBoolean(1000))
 			changeDirection();
 		jump();
-		checkAndChangeDirection(); // Verifica se deve cambiare direzione
+		
 		// Aggiornamento della posizione basato sulla direzione corrente
 		setChanged();
 		notifyObservers();
