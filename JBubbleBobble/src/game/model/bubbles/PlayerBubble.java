@@ -74,7 +74,6 @@ public class PlayerBubble extends Bubble {
 		else if (travelTime == 0) {
 			rise();
 		}
-//		System.out.println(xSpeed);
 		setChanged();
 		notifyObservers();
 

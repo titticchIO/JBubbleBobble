@@ -44,7 +44,7 @@ public class Zen_chan extends Enemy {
 		super.updateEntity();
 		switchDirection();
 		move(0.5f);
-		if (new Random().nextInt(0, 1000) == 0)
+		if (randomBoolean(1000))
 			jump();
 	}
 

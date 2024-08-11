@@ -10,6 +10,7 @@ import editor.view.ImagesTest;
 import game.model.enemies.Monsta;
 import game.model.enemies.Zen_chan;
 import game.model.entities.Entity;
+import game.model.tiles.Tile;
 
 public class EntityView implements Observer {
 
@@ -17,17 +18,21 @@ public class EntityView implements Observer {
 	protected float x, y;
 	protected float width, height;
 	protected boolean toDelete;
-	
+
 	private Observable observedEntity;
 
 	public EntityView(String code) {
 		img = Images.getImage(code);
-	}
-	public EntityView(String code,String type) {
-		img = Images.getImage(code,type);
+		width = Tile.TILE_SIZE;
+		height = Tile.TILE_SIZE;
 	}
 
-	
+	public EntityView(String code, String type) {
+		img = Images.getImage(code, type);
+		width = Tile.TILE_SIZE;
+		height = Tile.TILE_SIZE;
+	}
+
 	public float getX() {
 		return x;
 	}
@@ -64,15 +69,15 @@ public class EntityView implements Observer {
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	public void setObservedEntity(Observable observedEntity) {
-        this.observedEntity = observedEntity;
-    }
+		this.observedEntity = observedEntity;
+	}
 
 	public boolean isObserving(Observable observable) {
-        return this.observedEntity == observable;
-    }
-	
+		return this.observedEntity == observable;
+	}
+
 	public boolean isToDelete() {
 		return toDelete;
 	}
@@ -93,23 +98,21 @@ public class EntityView implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		System.out.println(width+"|"+height);
 		if (arg instanceof String && ((String) arg).equals("pop")) {
 			toDelete = true;
 		} else {
 			Entity entity = (Entity) o;
-			
+
 			/*
-			if (o instanceof Monsta) {
-				// Aggiorna l'immagine in base alla direzione
-		        String direction = entity.getPositionCode(); // Ottieni la direzione (left o right)
-		        img = Images.getImage("M", direction); // Aggiorna l'immagine in base alla direzione
-			}
-			*/
+			 * if (o instanceof Monsta) { // Aggiorna l'immagine in base alla direzione
+			 * String direction = entity.getPositionCode(); // Ottieni la direzione (left o
+			 * right) img = Images.getImage("M", direction); // Aggiorna l'immagine in base
+			 * alla direzione }
+			 */
 
 			setX(entity.getX());
 			setY(entity.getY());
-			setWidth(entity.getWidth());
-			setHeight(entity.getHeight());
 		}
 	}
 

@@ -1,11 +1,9 @@
 package game.model.enemies;
 
-import static game.model.HelpMethods.isSolid;
-
 import java.util.Random;
 
 import game.model.HelpMethods;
-import game.model.entities.MovingEntity.Direction;
+
 
 public class Banebou extends Enemy {
 

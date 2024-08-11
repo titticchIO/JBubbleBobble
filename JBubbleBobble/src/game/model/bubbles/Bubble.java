@@ -84,14 +84,14 @@ public abstract class Bubble extends MovingEntity {
 		return type;
 	}
 
-	@Override
-	public void updateXPos() {
-		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width, (int) height)) {
-			setX(x + xSpeed);
-		} else {
-			setX(HelpMethods.getEntityXPosNextToWall(this));
-		}
-	}
+//	@Override
+//	public void updateXPos() {
+//		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width, (int) height)) {
+//			setX(x + xSpeed);
+//		} else {
+//			setX(HelpMethods.getEntityXPosNextToWall(this));
+//		}
+//	}
 
 	@Override
 	public void updateEntity() {

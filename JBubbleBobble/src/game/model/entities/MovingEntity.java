@@ -158,21 +158,6 @@ public abstract class MovingEntity extends Entity {
 		}
 	}
 
-//	/**
-//	 * Checks if the entity's image needs to be updated based on movement direction
-//	 * and updates the position code accordingly.
-//	 */
-//	public void updateImage() {
-//		toChange = false;
-//		if (xSpeed < 0 && !positionCode.equals("left")) {
-//			toChange = true;
-//			setPositionCode("left");
-//		} else if (xSpeed >= 0 && !positionCode.equals("right")) {
-//			toChange = true;
-//			setPositionCode("right");
-//		}
-//	}
-
 	/**
 	 * Makes the entity jump if it's not in the air and not inside a wall.
 	 */
@@ -228,7 +213,7 @@ public abstract class MovingEntity extends Entity {
 	 * observers of changes.
 	 */
 	public void updateEntity() {
-//		updateImage();
+//		System.out.println(y);
 		updateXPos();
 		updateYPos();
 		gravity();
