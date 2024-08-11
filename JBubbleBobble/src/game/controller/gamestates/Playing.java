@@ -69,6 +69,7 @@ public class Playing extends State implements Statemethods {
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_W:
+			currentLevel.getPlayer().setJumping(true);
 			currentLevel.getPlayer().jump();
 			break;
 		case KeyEvent.VK_A:
@@ -88,6 +89,9 @@ public class Playing extends State implements Statemethods {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		switch (e.getKeyCode()) {
+		case KeyEvent.VK_W:
+			currentLevel.getPlayer().setJumping(false);
+			break;
 		case KeyEvent.VK_A:
 			if (currentLevel.getPlayer().getxSpeed() <= 0)
 				currentLevel.getPlayer().stop();

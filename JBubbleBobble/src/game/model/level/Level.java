@@ -73,34 +73,34 @@ public class Level {
 	public void addTile(Tile tile) {
 		tiles.add(tile);
 	}
-	
 
 	public Optional<Enemy> checkEnemiesCollisions() {
-		return eManager.getEnemies().stream()
-				.filter(x -> x.hit(player))
-				.findFirst();
-	}
-	
-	public Optional<Bubble> checkBubblesCollisions() {
-		return bManager.getBubbles().stream()
-				.filter(x -> x.hit(player))
-				.findFirst();
-	}
-	
-	public boolean checkTopTilesCollisions() {
-		return tiles.stream()
-				.anyMatch(x -> x.topHit(player));
+		return eManager.getEnemies().stream().filter(x -> x.hit(player)).findFirst();
 	}
 
+	public Optional<Bubble> checkBubblesCollisions() {
+		return bManager.getBubbles().stream().filter(x -> x.hit(player)).findFirst();
+	}
+
+
+	public void playerOnBubble() {
+		boolean isOnBubble = bManager.getBubbles().stream()
+				.anyMatch(x -> x.topHit(player));
+		if (isOnBubble)
+			player.jump(isOnBubble);
+	}
+	
 	public void updateLevel() {
+		playerOnBubble();
 		player.updateEntity();
 		eManager.updateEnemies();
 		bManager.updateBubbles();
 		Optional<Enemy> oe = checkEnemiesCollisions();
 //		if (oe.isPresent()) System.out.println("Hittato enemy");
-		
+
 		Optional<Bubble> ob = checkBubblesCollisions();
 //		if (ob.isPresent()) System.out.println("Hittato bolla");
+
 		
 	}
 

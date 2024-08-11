@@ -13,6 +13,8 @@ public class Player extends MovingEntity {
 	private final String type = "P";
 	private Direction bubbleDirection;
 
+	private boolean isJumping;
+	
 	// bolla attuale
 	private PlayerBubble currentBubble;
 	// singleton
@@ -24,6 +26,15 @@ public class Player extends MovingEntity {
 
 		return instance;
 	}
+	
+	
+	public void jump(boolean isOnBubble) {
+		if ( (isJumping && isOnBubble) || (!inAir && !HelpMethods.isEntityInsideWall(x, y, width, height))) {
+			inAir = true;
+			airSpeed = jumpSpeed;
+		}
+	}
+	
 
 	public static Player getInstance(float x, float y, float width, float height) {
 		if (instance == null)
@@ -55,6 +66,16 @@ public class Player extends MovingEntity {
 			bubbleDirection = direction;
 	}
 
+
+	
+	public void checkOnBubble(BubbleManager bManager) {
+		jump(bManager.getBubbles().stream()
+				.anyMatch(x -> x.topHit(this)));
+	}
+	
+	
+	
+
 	public void shootBubble(BubbleManager bubbleManager) {
 		if (bubbleDirection == Direction.RIGHT
 				&& !HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
@@ -63,4 +84,13 @@ public class Player extends MovingEntity {
 			bubbleManager.createBubble(x - Tile.TILE_SIZE, y, -2);
 		}
 	}
+
+	public boolean isJumping() {
+		return isJumping;
+	}
+
+	public void setJumping(boolean isJumping) {
+		this.isJumping = isJumping;
+	}
+
 }
