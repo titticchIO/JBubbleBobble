@@ -98,7 +98,6 @@ public class EntityView implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println(width+"|"+height);
 		if (arg instanceof String && ((String) arg).equals("pop")) {
 			toDelete = true;
 		} else {
