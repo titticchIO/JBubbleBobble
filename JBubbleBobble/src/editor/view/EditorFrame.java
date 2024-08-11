@@ -17,6 +17,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
 import editor.model.LevelManager;
+import editor.model.LevelReader;
 import game.model.level.LevelLoader;
 
 public class EditorFrame extends JFrame {
@@ -54,7 +55,7 @@ public class EditorFrame extends JFrame {
             repaint(); // Ridisegna il frame
         });
 
-		List<String> levels = new ArrayList<>(Arrays.asList("111", "2", "3", "333"));
+		List<String> levels = LevelReader.getLevels();
 
 		JPopupMenu levelSelection = new JPopupMenu();
 
@@ -63,7 +64,7 @@ public class EditorFrame extends JFrame {
 		levelSelection.add(new JScrollPane(new JPanel() {
 			{
 				setLayout(new GridLayout(0, 1)); // Layout verticale
-				levels.forEach(level -> add(new JButton(level) {
+				levels.forEach(level -> add(new JButton("Livello "+level) {
 					{
 						addActionListener(e -> {
 							try {
