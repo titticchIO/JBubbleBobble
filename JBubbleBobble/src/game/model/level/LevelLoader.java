@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import game.model.enemies.*;
 import game.model.entities.Player;
+import game.model.powerups.Powerup;
 import game.model.tiles.Tile;
 
 import static game.model.tiles.Tile.TILE_SIZE;;
@@ -15,6 +16,7 @@ public class LevelLoader {
 	private final static String BLOCK = "#";
 	private final static String PLAYER = "P";
 	private final static String BUBBLE = "B";
+	private final static String POWERUP = "W";
 
 	private final static String ZEN_CHAN = "Z";
 	private final static String MONSTA = "M";
@@ -60,30 +62,18 @@ public class LevelLoader {
 				String type = c.substring(0, 1);
 				if (!type.equals(" ")) {
 					switch (type) {
-					case PLAYER:
-						level.addPlayer(
+					case PLAYER ->
+						level.addPlayer(Player.getInstance(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
+					case BLOCK -> level.addTile(new Tile(x * TILE_SIZE, y * TILE_SIZE, c.substring(1, 2)));
+					case POWERUP -> level.addPowerupSpawns(x, y);
 
-								Player.getInstance(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
-						break;
-
-					case BLOCK:
-						level.addTile(new Tile(x * TILE_SIZE, y * TILE_SIZE, c.substring(1, 2)));
-						break;
-
-					case ZEN_CHAN:
-						level.addEnemy(new Zen_chan(x * TILE_SIZE, y * TILE_SIZE));
-						break;
-					case MONSTA:
-						level.addEnemy(new Monsta(x * TILE_SIZE, y * TILE_SIZE));
-						break;
-					case BANEBOU:
-						level.addEnemy(new Banebou(x * TILE_SIZE, y * TILE_SIZE));
-						break;
-					case PULPUL:
-						level.addEnemy(new Pulpul(x * TILE_SIZE, y * TILE_SIZE));
-						break;
-					case SKELMONSTA:
-						level.addEnemy(new SkelMonsta(x * TILE_SIZE, y * TILE_SIZE));
+					default -> level.addEnemy(switch (type) {
+					case ZEN_CHAN -> new Zen_chan(x * TILE_SIZE, y * TILE_SIZE);
+					case MONSTA -> new Monsta(x * TILE_SIZE, y * TILE_SIZE);
+					case BANEBOU -> new Banebou(x * TILE_SIZE, y * TILE_SIZE);
+					case PULPUL -> new Pulpul(x * TILE_SIZE, y * TILE_SIZE);
+					default -> new SkelMonsta(x * TILE_SIZE, y * TILE_SIZE);
+					});
 
 					}
 				}

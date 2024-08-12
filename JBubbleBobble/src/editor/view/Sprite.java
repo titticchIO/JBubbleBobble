@@ -8,10 +8,11 @@ import javax.swing.JButton;
 import game.view.ImageLoader;
 
 public class Sprite extends JButton {
+	private static BufferedImage EMPTY_SPRITE = ImageLoader.importImg("/Empty_Sprite.png");
+	
 	private int x, y;
 	private float sideLength;
 	private BufferedImage img;
-	private static BufferedImage EMPTY_SPRITE=ImageLoader.importImg("/Empty_Sprite.png");
 	
 	public Sprite(int x, int y, float side_length) {
 		this.x = x;

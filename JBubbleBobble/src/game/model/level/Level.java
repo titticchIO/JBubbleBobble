@@ -22,6 +22,8 @@ public class Level {
 	private List<Tile> tiles;
 	private EnemyManager eManager;
 	private BubbleManager bManager;
+	private List<float[]> powerupSpawns;
+
 
 	public Level(int levelNum) {
 		tiles = new ArrayList<Tile>();
@@ -62,6 +64,10 @@ public class Level {
 		this.tiles = tiles;
 	}
 
+	public List<float[]> getPowerupSpawns() {
+		return powerupSpawns;
+	}
+	
 	public void addPlayer(Player player) {
 		this.player = player;
 	}
@@ -74,6 +80,10 @@ public class Level {
 		tiles.add(tile);
 	}
 
+	public void addPowerupSpawns(float x, float y) {
+		powerupSpawns.add(new float[] {x, y});
+	}
+	
 	public Optional<Enemy> checkEnemiesCollisions() {
 		return eManager.getEnemies().stream().filter(x -> x.hit(player)).findFirst();
 	}
@@ -82,7 +92,8 @@ public class Level {
 		return bManager.getBubbles().stream().filter(x -> x.hit(player)).findFirst();
 	}
 
-
+	
+	
 	public void playerOnBubble() {
 		boolean isOnBubble = bManager.getBubbles().stream()
 				.anyMatch(x -> x.topHit(player));

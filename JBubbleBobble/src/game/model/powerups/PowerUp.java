@@ -2,63 +2,50 @@ package game.model.powerups;
 
 import game.model.entities.Entity;
 
-public abstract class PowerUp extends Entity{	
+public class Powerup extends Entity{
 
-	/*
-	 * punti dati dal powerUp
-	 */
-	private int point;
-	
-	/*
-	 * durata dell'effetto del powerup
-	 */
-	private float duration;
-	
-	/*
-	 * indica se il powerup è temporaneo
-	 */	
-	private boolean temporariness;
-	
-	public PowerUp(float x, float y, float width, float height, int point, float duration, boolean temporariness) {
-		super(x, y, width, height,null);
-		this.point = point;
-		this.duration = duration;
-		this.temporariness = temporariness;	
-	}
-	
-	
-	/*
-	 * getters e setters
-	 */
-	public int getPoint() {
-		return point;
-	}
-	
-	public void setPoint(int point) {
-		this.point = point;
-	}
-	
-	public float getDuration() {
-		return duration;
-	}
-	
-	public void setDuration(float duration) {
-		this.duration = duration;
-	}
-	
-	public boolean getTemporariness() {
-		return temporariness;
-	}
-	
-	public void setTemporariness(boolean temporariness) {
-		this.temporariness = temporariness;
-	}
-	
-	/*
-	 * quando il powerup viene attivato
-	 */
-	public void activate() {
+	public enum Item {
+		PINK_CANDY(100, 5000), BLUE_CANDY(100, 5000), YELLOW_CANDY(100, 5000), SHOES(100, 8000), CLOCK(200, 10000),
+		ORANGE_PARASOL(200, 0), RED_PARASOL(200, 0), PURPLE_PARASOL(200, 0), CHACKN_HEART(300, 1000),
+		CRYSTAL_RING(1000, 5000), AMETHYST_RING(1000, 5000), RUBY_RING(1000, 5000);
+
+		private final int points;
+		private float duration;
+
+		private Item(int points, float duration) {
+			this.points = points;
+			this.duration = duration;
+		}
 		
+		public void setDuration(float duration) {
+			this.duration = duration;
+		}
+		
+		public int getPoints() {
+			return points;
+		}
+		
+		public float getDuration() {
+			return duration;
+		}
 	}
+	
+	private Item item;
+
+	public Powerup(float x, float y, float width, float height, String code, Item item) {
+		super(x, y, width, height, code);
+		this.item = item;
+	}
+
+	
+	public void updatePowerup () {
+		if (item.getDuration() > 0) {
+			item.setDuration(item.getDuration()-1);
+		} else {
+			//powerup.setToDelete
+		}
+	}
+	
+	
 	
 }
