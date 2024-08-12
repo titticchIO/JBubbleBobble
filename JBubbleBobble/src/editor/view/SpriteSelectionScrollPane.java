@@ -36,6 +36,8 @@ public class SpriteSelectionScrollPane extends JScrollPane {
         addPlayers();
         // Aggiunta di un bottone vuoto
         others.add(new SelectionButton(ImageLoader.importImg("/EmptyTile.png"), " "));
+        others.add(new SelectionButton(ImageLoader.importImg("/powerups/PinkCandy.png"), " "));
+        
 
         setSize();
         setLayout(new ScrollPaneLayout());
