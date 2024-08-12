@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LevelManager {
+	public static final String LEVELS_REL_PATH = "resources/levels";
 	public static final int ROWS = 24;
 	public static final int COLS = 30;
+	
 	private static String[][] level;
-
 
 	public LevelManager() {
 		level = new String[ROWS][COLS];
@@ -21,7 +22,7 @@ public class LevelManager {
 		setWalls(wallTile);
 		emptyLevel();
 	}
-	
+
 	public static void setLevel(String[][] levelData) {
 		level = levelData;
 	}
@@ -70,9 +71,9 @@ public class LevelManager {
 		return String.join("\n", out);
 	}
 
-	public static void saveLevelToFile(int levelNum) {
-		
-		String filePath = "resources/levels/Livello" + levelNum + ".txt";
+	public static void saveLevelFile(int levelNum) {
+
+		String filePath = LEVELS_REL_PATH + "/Livello" + levelNum + ".txt";
 
 		try {
 			File file = new File(filePath);
@@ -93,7 +94,34 @@ public class LevelManager {
 				System.err.println("Error writing to file: " + e.getMessage());
 			}
 		} catch (IOException e) {
-			System.err.println("Error accessing file:"+filePath+ "|" + e.getMessage());
+			System.err.println("Error accessing file:" + filePath + "|" + e.getMessage());
 		}
 	}
+
+	public static void deleteLevelFile(int levelNum) {
+		String filePath = LEVELS_REL_PATH + "/Livello" + levelNum + ".txt";
+
+		try {
+			File file = new File(filePath);
+
+			if (file.exists()) {
+				if (file.delete()) {
+					System.out.println("File deleted: " + filePath);
+				} else {
+					System.err.println("Error deleting file: " + filePath);
+					return; // Exit method if file creation fails
+				}
+			}
+			
+		} catch (Exception e) {
+			System.err.println("Error deleting file:" + filePath + "|" + e.getMessage());
+		}
+	}
+	
+	
+	
+	public static void main(String[] args) {
+		LevelManager.deleteLevelFile(1111111111);
+	}
+
 }

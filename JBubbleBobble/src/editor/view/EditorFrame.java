@@ -111,7 +111,7 @@ public class EditorFrame extends JFrame {
 					{
 						addActionListener(e -> {
 							int numero = Integer.parseInt(level);
-							LevelManager.saveLevelToFile(numero);
+							LevelManager.saveLevelFile(numero);
 							actualLevelNumber = String.valueOf(numero);
 							actualLevel.setText("Level " + actualLevelNumber); // Aggiorna l'etichetta
 						});
