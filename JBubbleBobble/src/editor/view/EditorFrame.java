@@ -24,8 +24,8 @@ public class EditorFrame extends JFrame {
 	private EditorPanel editorPanel;
 	private SpriteSelectionScrollPane selectionPane;
 	private JButton saveLevelButton;
-	private String actualLevelNumber = "";
-	private JLabel actualLevel; // Dichiara JLabel come variabile d'istanza
+	private String actualLevelNumber;
+	private JLabel actualLevel;
 
 	@SuppressWarnings("serial")
 	public EditorFrame() {
@@ -39,6 +39,7 @@ public class EditorFrame extends JFrame {
 		// Pulsanti per creare nuova griglia e aprirne una esistente
 		JButton newGridButton = new JButton("New");
 		JButton openGridButton = new JButton("Open");
+		JButton deleteLevelButton = new JButton("Delete");
 		actualLevel = new JLabel(actualLevelNumber); // Inizializza JLabel
 
 		// ActionListener per il pulsante "Nuova Griglia"
@@ -54,10 +55,10 @@ public class EditorFrame extends JFrame {
 			repaint(); // Ridisegna il frame
 		});
 
-		JPopupMenu levelSelection = new JPopupMenu();
+		JPopupMenu levelSelectionPopup = new JPopupMenu();
 
 		// Aggiungere lo JScrollPane al JPopupMenu
-		levelSelection.add(new JScrollPane(new JPanel() {
+		levelSelectionPopup.add(new JScrollPane(new JPanel() {
 			{
 				setLayout(new GridLayout(0, 1)); // Layout verticale
 				LevelReader.getLevels().forEach(level -> add(new JButton("Level " + level) {
@@ -88,7 +89,7 @@ public class EditorFrame extends JFrame {
 										JOptionPane.ERROR_MESSAGE);
 							}
 
-							levelSelection.setVisible(false);
+							levelSelectionPopup.setVisible(false);
 						});
 					}
 				}));
@@ -104,9 +105,8 @@ public class EditorFrame extends JFrame {
 
 		JPopupMenu saveLevelPopup = new JPopupMenu();
 
-		saveLevelPopup.add(new JScrollPane(new JPanel() {
+		saveLevelPopup.add(new JScrollPane(new JPanel(new GridLayout(0, 1)) {
 			{
-				setLayout(new GridLayout(0, 1)); // Layout verticale
 				LevelReader.getLevels().forEach(level -> add(new JButton("Level " + level) {
 					{
 						addActionListener(e -> {
@@ -120,18 +120,37 @@ public class EditorFrame extends JFrame {
 			}
 		}));
 
+		JPopupMenu deleteLevelPopup = new JPopupMenu();
+		deleteLevelPopup.add(new JScrollPane(new JPanel(new GridLayout(0, 1)) {
+			{
+				LevelReader.getLevels().forEach(level -> add(new JButton("Level " + level) {
+					{
+						addActionListener(e -> {
+							LevelManager.deleteLevelFile(Integer.parseInt(level));
+							actualLevelNumber = "";
+							actualLevel.setText("");
+						});
+					}
+				}));
+			}
+		}));
+
 		// Aggiunta dei pulsanti al pannello
 		topPanel.add(newGridButton);
 		topPanel.add(openGridButton);
 		topPanel.add(saveLevelButton);
+		topPanel.add(deleteLevelButton);
 		topPanel.add(actualLevel);
 
 		// ActionListener per il pulsante "Apri Griglia"
 		openGridButton.addActionListener(e -> {
-			levelSelection.show(openGridButton, 0, openGridButton.getHeight());
+			levelSelectionPopup.show(openGridButton, 0, openGridButton.getHeight());
 		});
 		saveLevelButton.addActionListener(e -> {
 			saveLevelPopup.show(saveLevelButton, 0, saveLevelButton.getHeight());
+		});
+		deleteLevelButton.addActionListener(e -> {
+			deleteLevelPopup.show(deleteLevelButton, 0, deleteLevelButton.getHeight());
 		});
 
 		// Aggiunta dei componenti al frame
