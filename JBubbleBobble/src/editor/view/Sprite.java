@@ -5,11 +5,14 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JButton;
 
+import game.view.ImageLoader;
+
 public class Sprite extends JButton {
 	private int x, y;
 	private float sideLength;
 	private BufferedImage img;
-
+	private static BufferedImage EMPTY_SPRITE=ImageLoader.importImg("/Empty_Sprite.png");
+	
 	public Sprite(int x, int y, float side_length) {
 		this.x = x;
 		this.y = y;
@@ -49,11 +52,16 @@ public class Sprite extends JButton {
 	}
 
 	public void render(Graphics g) {
-		Graphics2D g2 = (Graphics2D) g;
-		float thickness = 1;
-		g2.setStroke(new BasicStroke(thickness));
-		g2.setColor(Color.BLACK);
-		g2.drawRect(x * EditorPanel.SQUARE_SIZE, y * EditorPanel.SQUARE_SIZE, (int) sideLength, (int) sideLength);
+		
+		//Versione attuale:
+		((Graphics2D)g).drawImage(EMPTY_SPRITE, x * EditorPanel.SQUARE_SIZE, y * EditorPanel.SQUARE_SIZE, (int) sideLength, (int) sideLength, null);
+		
+		//Versione precedente:
+//		Graphics2D g2 = (Graphics2D) g;
+//		float thickness = 1;
+//		g2.setStroke(new BasicStroke(thickness));
+//		g2.setColor(Color.BLACK);
+//		g2.drawRect(x * EditorPanel.SQUARE_SIZE, y * EditorPanel.SQUARE_SIZE, (int) sideLength, (int) sideLength);
 	}
 
 }
