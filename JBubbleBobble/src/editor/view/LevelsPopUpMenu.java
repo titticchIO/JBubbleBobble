@@ -47,7 +47,7 @@ public class LevelsPopUpMenu extends JPopupMenu {
 
         // Imposta dimensioni e aggiunge il pannello con lo JScrollPane al menu
         JScrollPane scrollPane = new JScrollPane(panel);
-        scrollPane.setPreferredSize(new Dimension(500, 200));
+        scrollPane.setPreferredSize(new Dimension(100, 200));
         add(scrollPane);
     }
 
