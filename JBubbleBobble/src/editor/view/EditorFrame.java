@@ -1,24 +1,21 @@
 package editor.view;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
+
 
 import editor.model.LevelManager;
-import editor.model.LevelReader;
-import game.model.level.LevelLoader;
+
+import editor.view.LevelsPopUpMenu.MenuType;
+
 
 public class EditorFrame extends JFrame {
 	private EditorPanel editorPanel;
@@ -55,85 +52,12 @@ public class EditorFrame extends JFrame {
 			repaint(); // Ridisegna il frame
 		});
 
-		JPopupMenu levelSelectionPopup = new JPopupMenu();
-
-		// Aggiungere lo JScrollPane al JPopupMenu
-		levelSelectionPopup.add(new JScrollPane(new JPanel() {
-			{
-				setLayout(new GridLayout(0, 1)); // Layout verticale
-				LevelReader.getLevels().forEach(level -> add(new JButton("Level " + level) {
-					{
-						addActionListener(e -> {
-							try {
-								int numero = Integer.parseInt(level);
-								String[][] levelData = LevelLoader.readLevelFile(numero);
-
-								if (levelData != null) {
-									getContentPane().remove(editorPanel); // Rimuovi il pannello esistente
-									editorPanel = new EditorPanel(EditorFrame.this, selectionPane); // Crea un nuovo
-																									// EditorPanel
-									LevelManager.setLevel(levelData);
-									editorPanel.loadLevel(levelData); // Carica i dati del livello
-									actualLevelNumber = String.valueOf(numero);
-									actualLevel.setText("Livello " + actualLevelNumber); // Aggiorna l'etichetta
-									EditorFrame.this.add(editorPanel, BorderLayout.CENTER); // Aggiungi il nuovo
-																							// EditorPanel al frame
-									EditorFrame.this.revalidate(); // Aggiorna il layout del frame
-									EditorFrame.this.repaint(); // Ridisegna il frame
-								} else {
-									JOptionPane.showMessageDialog(this, "Error: level not found.", "Error",
-											JOptionPane.ERROR_MESSAGE);
-								}
-							} catch (NumberFormatException ex) {
-								JOptionPane.showMessageDialog(this, "Please, enter a valid number.", "Error",
-										JOptionPane.ERROR_MESSAGE);
-							}
-
-							levelSelectionPopup.setVisible(false);
-						});
-					}
-				}));
-			}
-		}) {
-			{
-				setPreferredSize(new Dimension(500, 200)); // Imposta la dimensione preferita
-			}
-		});
-
 		// Creazione del bottone con la scritta "Save"
 		saveLevelButton = new JButton("Save");
 
-		JPopupMenu saveLevelPopup = new JPopupMenu();
-
-		saveLevelPopup.add(new JScrollPane(new JPanel(new GridLayout(0, 1)) {
-			{
-				LevelReader.getLevels().forEach(level -> add(new JButton("Level " + level) {
-					{
-						addActionListener(e -> {
-							int numero = Integer.parseInt(level);
-							LevelManager.saveLevelFile(numero);
-							actualLevelNumber = String.valueOf(numero);
-							actualLevel.setText("Level " + actualLevelNumber); // Aggiorna l'etichetta
-						});
-					}
-				}));
-			}
-		}));
-
-		JPopupMenu deleteLevelPopup = new JPopupMenu();
-		deleteLevelPopup.add(new JScrollPane(new JPanel(new GridLayout(0, 1)) {
-			{
-				LevelReader.getLevels().forEach(level -> add(new JButton("Level " + level) {
-					{
-						addActionListener(e -> {
-							LevelManager.deleteLevelFile(Integer.parseInt(level));
-							actualLevelNumber = "";
-							actualLevel.setText("");
-						});
-					}
-				}));
-			}
-		}));
+		LevelsPopUpMenu levelSelectionPopup= new LevelsPopUpMenu(MenuType.OPEN, this);
+		LevelsPopUpMenu saveLevelPopup= new LevelsPopUpMenu(MenuType.SAVE, this);
+		LevelsPopUpMenu deleteLevelPopup= new LevelsPopUpMenu(MenuType.DELETE, this);
 
 		// Aggiunta dei pulsanti al pannello
 		topPanel.add(newGridButton);
@@ -167,4 +91,29 @@ public class EditorFrame extends JFrame {
 	public EditorPanel getEditorPanel() {
 		return editorPanel;
 	}
+
+	public void setEditorPanel(EditorPanel editorPanel) {
+		this.editorPanel = editorPanel;
+	}
+
+	public String getActualLevelNumber() {
+		return actualLevelNumber;
+	}
+
+	public void setActualLevelNumber(String actualLevelNumber) {
+		this.actualLevelNumber = actualLevelNumber;
+	}
+
+	public JLabel getActualLevel() {
+		return actualLevel;
+	}
+
+	public void setActualLevel(JLabel actualLevel) {
+		this.actualLevel = actualLevel;
+	}
+
+	public SpriteSelectionScrollPane getSelectionPane() {
+		return selectionPane;
+	}
+
 }
