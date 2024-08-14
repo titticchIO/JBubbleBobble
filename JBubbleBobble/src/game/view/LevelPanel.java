@@ -1,19 +1,17 @@
 package game.view;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.event.ActionListener;
+
 import java.awt.image.BufferedImage;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import game.controller.gamestates.GameState;
 import game.model.bubbles.BubbleManager;
+import game.model.entities.Entity;
+import game.model.entities.Player;
 import game.model.level.Level;
 
 public class LevelPanel extends JPanel {
@@ -21,13 +19,14 @@ public class LevelPanel extends JPanel {
 	private LevelView levelView;
 	private MovingEntityView playerView;
 	private BufferedImage tilesImage;
+	private Graphics graphics; 
 
 //	private MenuPanel menuPanel
 
 //	NON AGGIUNGERE IL PATTERN SINGLETON!!!!!
 
 	public LevelPanel() {
-		setPanelSize();		
+		setPanelSize();
 	}
 
 	private void initPlayingClasses(LevelView levelView) {
@@ -57,7 +56,6 @@ public class LevelPanel extends JPanel {
 		g.dispose();
 	}
 
-	
 	@Override
 	protected void paintComponent(Graphics g) {
 
@@ -70,33 +68,16 @@ public class LevelPanel extends JPanel {
 		// dipingerla sul JPanel
 		Image doubleBufferedImage = createImage(getWidth(), getHeight());
 		Graphics doubleBufferedGraphics = doubleBufferedImage.getGraphics();
-
-		if (tilesImage != null) {
-			doubleBufferedGraphics.drawImage(tilesImage, 0, 0, this);
-		}
-		if (playerView != null) {
-			playerView.render(doubleBufferedGraphics);
-		}
-		if (levelView.getEnemies() != null) {
-			for (MovingEntityView e : levelView.getEnemies()) {
-				if (!e.isToDelete())
-					e.render(doubleBufferedGraphics);
-				else
-					e.delete(doubleBufferedGraphics);
-			}
-		}
-		if (levelView.getBubbles() != null) {
-			for (MovingEntityView b : levelView.getBubbles()) {
-				if (!b.isToDelete())
-					b.render(doubleBufferedGraphics);
-				else
-					b.delete(doubleBufferedGraphics);
-			}
-		}
-
+		graphics=doubleBufferedGraphics;
 		g2d.drawImage(doubleBufferedImage, 0, 0, this);
 		doubleBufferedGraphics.dispose();
 
+	}
+	
+	public void renderEntity(Entity entity) {
+		BufferedImage img = Images.getImage(entity.getCode());
+		graphics.drawImage(img, (int) entity.getX(), (int) entity.getY(), (int) entity.getWidth(), (int) entity.getHeight(),
+				null);
 	}
 
 }

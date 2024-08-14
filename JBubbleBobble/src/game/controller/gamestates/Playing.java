@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 
 import game.controller.Game;
 import game.controller.PlayerController;
+import game.model.Model;
 import game.model.bubbles.BubbleManager;
 import game.model.entities.MovingEntity.Direction;
 import game.model.level.Level;
@@ -22,8 +23,9 @@ public class Playing extends State implements Statemethods {
 	}
 
 	private void initClasses(GameFrame gameFrame) {
-		Level livello1 = new Level(111);
-		currentLevel = livello1;
+		Model model=Model.getInstance();
+
+		currentLevel = model.getCurrentLevel();
 		this.gameFrame = gameFrame;
 	}
 

@@ -1,7 +1,5 @@
 package game.model.bubbles;
 
-import game.model.HelpMethods;
-import game.model.Settings;
 import game.model.entities.MovingEntity;
 
 public abstract class Bubble extends MovingEntity {

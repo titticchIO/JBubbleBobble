@@ -18,7 +18,6 @@ public class MenuPanel extends JPanel {
 	public MenuPanel(ActionListener actionListener) {
 		setSize(new Dimension((int) (Level.GAME_WIDTH * LevelPanel.SCALE),
 				(int) (Level.GAME_HEIGHT * LevelPanel.SCALE)));
-
 	}
 
 	@Override

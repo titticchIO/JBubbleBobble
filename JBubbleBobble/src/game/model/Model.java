@@ -32,26 +32,30 @@ public class Model extends Observable {
 
 	public Level getCurrentLevel() {
 		return currentLevel;
+		
 	}
 
 	public void addLevels() {
 		levels.add(new Level(111));
-		levels.add(new Level(2));
 		levels.add(new Level(3));
 		levels.add(new Level(333));
 		levels.add(new Level(4));
 		levels.add(new Level(5));
 		levels.add(new Level(777));
+		setChanged();
+		notifyObservers(currentLevel);
 	}
 
 	public void nextLevel() {
 		currentLevel = levelIterator.next();
+		setChanged();
+		notifyObservers(currentLevel);
 	}
 
 	public void updateModel() {
 		currentLevel.updateLevel();
 		setChanged();
-		notifyObservers();
+		notifyObservers(currentLevel);
 	}
 
 }

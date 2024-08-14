@@ -4,6 +4,7 @@ import game.view.*;
 import game.view.GameFrame.Screen;
 import game.controller.gamestates.Playing;
 import game.controller.gamestates.State;
+import game.model.Model;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -62,6 +63,7 @@ public class Game implements Runnable {
 			break;
 		case PLAYING:
 			playing.update();
+			Model.getInstance().updateModel();
 			break;
 		}
 

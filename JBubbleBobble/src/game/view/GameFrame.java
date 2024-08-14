@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import game.controller.Game;
 
 import game.controller.PlayerController;
+import game.model.Model;
 import game.model.level.Level;
 
 public class GameFrame extends JFrame {
@@ -42,7 +43,7 @@ public class GameFrame extends JFrame {
 
 		gamePanel.add(panel, BorderLayout.NORTH);
 
-		levelPanel = new LevelPanel();
+		levelPanel = View.getInstance().getLevelPanel();
 		gamePanel.add(levelPanel,BorderLayout.CENTER);
 		menuPanel = new MenuPanel(actionListener);
 
@@ -75,6 +76,8 @@ public class GameFrame extends JFrame {
 	public void repaint() {
 		super.repaint();
 		levelPanel.repaint();
+		if(Model.getInstance().getCurrentLevel()!=null)
+			View.getInstance().renderLevel();
 	}
 
 }
