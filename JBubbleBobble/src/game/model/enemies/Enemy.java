@@ -27,8 +27,6 @@ public abstract class Enemy extends MovingEntity {
 	public void pop() {
 		System.out.println("popped");
 		popped = true;
-		setChanged();
-		notifyObservers("pop");
 	}
 
 	public boolean isPopped() {

@@ -9,6 +9,7 @@ import game.model.bubbles.BubbleManager;
 import game.model.bubbles.Bubble;
 import game.model.enemies.Enemy;
 import game.model.enemies.EnemyManager;
+import game.model.entities.Entity;
 import game.model.entities.Player;
 import game.model.tiles.Tile;
 
@@ -31,7 +32,15 @@ public class Level {
 		bManager = BubbleManager.getInstance();
 		LevelLoader.loadLevel(this, levelNum);
 	}
-
+	
+	public List<Entity> getEntities(){
+		List<Entity> entities=new ArrayList<Entity>();
+		entities.add(player);
+		entities.addAll(bManager.getBubbles());
+		entities.addAll(eManager.getEnemies());
+		return entities;
+	}
+	
 	public Player getPlayer() {
 		return player;
 	}
@@ -73,6 +82,7 @@ public class Level {
 	}
 
 	public void addEnemy(Enemy enemy) {
+		System.out.println("added "+enemy.getClass().toString());
 		eManager.addEnemy(enemy);
 	}
 

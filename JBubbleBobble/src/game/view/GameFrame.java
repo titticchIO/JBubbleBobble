@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import game.controller.Game;
 
 import game.controller.PlayerController;
+import game.controller.gamestates.GameState;
 import game.model.Model;
 import game.model.level.Level;
 
@@ -62,7 +63,7 @@ public class GameFrame extends JFrame {
 		setVisible(true);
 	}
 
-	public LevelPanel getGamePanel() {
+	public LevelPanel getLevelPanel() {
 		return levelPanel;
 	}
 
@@ -75,9 +76,9 @@ public class GameFrame extends JFrame {
 	@Override
 	public void repaint() {
 		super.repaint();
-		levelPanel.repaint();
-		if(Model.getInstance().getCurrentLevel()!=null)
-			View.getInstance().renderLevel();
+//		levelPanel.repaint();
+		if(GameState.state==GameState.PLAYING)
+			levelPanel.repaint();
 	}
 
 }

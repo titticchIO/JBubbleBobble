@@ -13,13 +13,11 @@ import game.model.bubbles.BubbleManager;
 import game.model.entities.Entity;
 import game.model.entities.Player;
 import game.model.level.Level;
+import game.model.tiles.Tile;
 
 public class LevelPanel extends JPanel {
 	public final static float SCALE = 2.0f;
-	private LevelView levelView;
-	private MovingEntityView playerView;
 	private BufferedImage tilesImage;
-	private Graphics graphics; 
 
 //	private MenuPanel menuPanel
 
@@ -29,55 +27,36 @@ public class LevelPanel extends JPanel {
 		setPanelSize();
 	}
 
-	private void initPlayingClasses(LevelView levelView) {
-		this.levelView = levelView;
-		BubbleManager.getInstance().addObserver(levelView);
-		playerView = levelView.getPlayerView();
-		renderTilesOnce();
-	}
-
-	public void startGame(LevelView levelView) {
-		initPlayingClasses(levelView);
-	}
-
-	public MovingEntityView getPlayerView() {
-		return playerView;
-	}
-
 	private void setPanelSize() {
 		Dimension size = new Dimension((int) (Level.GAME_WIDTH * SCALE), (int) (Level.GAME_HEIGHT * SCALE));
 		setPreferredSize(size);
 	}
 
-	private void renderTilesOnce() {
+	public void renderTilesOnce() {
 		tilesImage = new BufferedImage(Level.GAME_WIDTH, Level.GAME_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		Graphics g = tilesImage.getGraphics();
-		levelView.renderTiles(g);
-		g.dispose();
+		View.getInstance().getLevel().getTiles().forEach(t->renderEntity(t, g));
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
-
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.translate(SCALE, SCALE);
 		g2d.scale(SCALE, SCALE);
-
 		super.paintComponent(g2d);
-		// Usa double buffering per disegnare su un'immagine temporanea prima di
-		// dipingerla sul JPanel
-		Image doubleBufferedImage = createImage(getWidth(), getHeight());
-		Graphics doubleBufferedGraphics = doubleBufferedImage.getGraphics();
-		graphics=doubleBufferedGraphics;
-		g2d.drawImage(doubleBufferedImage, 0, 0, this);
-		doubleBufferedGraphics.dispose();
 
+		g2d.drawImage(tilesImage, 0, 0, this);
+		View.getInstance().getLevel().getEntities().forEach(e->renderEntity(e, g2d));
 	}
-	
-	public void renderEntity(Entity entity) {
-		BufferedImage img = Images.getImage(entity.getCode());
-		graphics.drawImage(img, (int) entity.getX(), (int) entity.getY(), (int) entity.getWidth(), (int) entity.getHeight(),
-				null);
+
+	public void renderEntity(Entity entity, Graphics g) {
+		BufferedImage img;
+		if (entity instanceof Tile tile)
+			img = Images.getImage(tile.getCode(), tile.getType());
+		else
+			img = Images.getImage(entity.getCode());
+		g.drawImage(img, (int) entity.getX(), (int) entity.getY(), (int) entity.getWidth(),
+				(int) entity.getHeight(), null);
 	}
 
 }

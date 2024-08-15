@@ -7,7 +7,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import game.model.Settings;
 import game.model.tiles.Tile;
 
-public class BubbleManager extends Observable {
+public class BubbleManager{
     private List<Bubble> bubbles;
     private static BubbleManager instance;
 
@@ -25,14 +25,10 @@ public class BubbleManager extends Observable {
     public void createBubble(float x, float y, float xSpeed) {
         Bubble newBubble = new PlayerBubble.Builder(x, y, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1, "B1").xSpeed(xSpeed).build();
         bubbles.add(newBubble);
-        setChanged();
-        notifyObservers(newBubble);
     }
 
     public void removeBubble(Bubble bubble) {
         bubbles.remove(bubble);
-        setChanged();
-        notifyObservers(bubble);
     }
 
     public List<Bubble> getBubbles() {
@@ -43,8 +39,6 @@ public class BubbleManager extends Observable {
         for (Bubble bubble : bubbles) {
             if (bubble.isPopped()) {
                 bubbles.remove(bubble); // Sicuro, poiché CopyOnWriteArrayList gestisce la concorrenza
-                setChanged();
-                notifyObservers(bubble);
             } else {
                 bubble.updateEntity();
             }

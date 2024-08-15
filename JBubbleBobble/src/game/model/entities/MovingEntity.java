@@ -83,8 +83,6 @@ public abstract class MovingEntity extends Entity {
 	 */
 	public void setDirection(Direction direction) {
 		this.direction = direction;
-		setChanged();
-		notifyObservers(direction.name());
 	}
 
 	public void setJumpSpeed(float jumpSpeed) {
@@ -213,11 +211,8 @@ public abstract class MovingEntity extends Entity {
 	 * observers of changes.
 	 */
 	public void updateEntity() {
-//		System.out.println(y);
 		updateXPos();
 		updateYPos();
 		gravity();
-		setChanged();
-		notifyObservers();
 	}
 }

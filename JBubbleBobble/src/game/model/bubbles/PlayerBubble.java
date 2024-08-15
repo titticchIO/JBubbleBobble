@@ -74,9 +74,6 @@ public class PlayerBubble extends Bubble {
 		else if (travelTime == 0) {
 			rise();
 		}
-		setChanged();
-		notifyObservers();
-
 	}
 
 	public static class Builder {

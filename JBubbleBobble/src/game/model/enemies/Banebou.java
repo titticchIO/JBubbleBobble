@@ -58,10 +58,6 @@ public class Banebou extends Enemy {
 		if (!HelpMethods.canMoveHere(x + xSpeed, y, width, height)||randomBoolean(1000))
 			changeDirection();
 		jump();
-		
-		// Aggiornamento della posizione basato sulla direzione corrente
-		setChanged();
-		notifyObservers();
 	}
 
 }

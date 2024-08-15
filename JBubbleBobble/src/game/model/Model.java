@@ -25,8 +25,8 @@ public class Model extends Observable {
 
 	private Model() {
 		levels = new ArrayList<Level>();
-		addLevels();
-		currentLevel = levels.getFirst();
+		setChanged();
+		notifyObservers(currentLevel);
 		levelIterator = levels.iterator();
 	}
 
@@ -35,13 +35,14 @@ public class Model extends Observable {
 		
 	}
 
-	public void addLevels() {
+	public void loadLevels() {
 		levels.add(new Level(111));
 		levels.add(new Level(3));
 		levels.add(new Level(333));
 		levels.add(new Level(4));
 		levels.add(new Level(5));
 		levels.add(new Level(777));
+		currentLevel = levels.getFirst();
 		setChanged();
 		notifyObservers(currentLevel);
 	}

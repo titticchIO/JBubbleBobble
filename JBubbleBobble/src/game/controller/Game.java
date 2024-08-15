@@ -22,7 +22,16 @@ public class Game implements Runnable {
 	private Playing playing;
 	private Menu menu;
 
+	private Model model;
+	private View view;
+
 	public Game() {
+		model = Model.getInstance();
+		view = View.getInstance();
+		model.addObserver(view);
+		model.loadLevels();
+		playing = new Playing(this);
+		menu = new Menu(this);
 		ActionListener actionListener = new ActionListener() {
 
 			@Override
@@ -33,8 +42,6 @@ public class Game implements Runnable {
 		};
 		gameFrame = new GameFrame(this, new PlayerController(this), actionListener);
 		gameFrame.showState(Screen.MENU);
-		playing = new Playing(this, gameFrame);
-		menu = new Menu(this);
 
 	}
 
@@ -48,9 +55,8 @@ public class Game implements Runnable {
 
 	public void startGameLoop() {
 		GameState.state = GameState.PLAYING;
-		LevelView levelView = new LevelView(playing.getCurrentLevel());
+		gameFrame.getLevelPanel().renderTilesOnce();
 		gameFrame.showState(Screen.GAME);
-		gameFrame.getGamePanel().startGame(levelView);
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
@@ -58,12 +64,10 @@ public class Game implements Runnable {
 	public void update() {
 		switch (GameState.state) {
 		case MENU:
-			// forse superfluo
 			menu.update();
 			break;
 		case PLAYING:
 			playing.update();
-			Model.getInstance().updateModel();
 			break;
 		}
 
@@ -73,7 +77,6 @@ public class Game implements Runnable {
 	public void run() {
 		double timePerFrame = 1000000000.0 / FPS_SET;
 		double timePerUpdate = 1000000000.0 / UPS_SET;
-		double timePerAnimationUpdate = 1000000000.0 / 4; // 4 aggiornamenti al secondo
 		long previousTime = System.nanoTime();
 
 		int frames = 0;
@@ -82,14 +85,12 @@ public class Game implements Runnable {
 
 		double deltaU = 0;
 		double deltaF = 0;
-		double deltaA = 0; // Delta per l'animazion
 
 		while (true) {
 			long currentTime = System.nanoTime();
 
 			deltaU += (currentTime - previousTime) / timePerUpdate;
 			deltaF += (currentTime - previousTime) / timePerFrame;
-			deltaA += (currentTime - previousTime) / timePerAnimationUpdate;
 			previousTime = currentTime;
 
 			if (deltaU >= 1) {
@@ -103,11 +104,7 @@ public class Game implements Runnable {
 				frames++;
 				deltaF--;
 			}
-			if (deltaA >= 1) {
-				// gameFrame.getGamePanel().getPlayerView().updateAnimationImg();
-				gameFrame.getGamePanel().getPlayerView();
-				deltaA--;
-			}
+			
 
 			if (System.currentTimeMillis() - lastCheck >= 1000) {
 				lastCheck = System.currentTimeMillis();

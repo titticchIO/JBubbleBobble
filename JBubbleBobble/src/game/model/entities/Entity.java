@@ -1,15 +1,12 @@
 package game.model.entities;
 
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Observable;
 
 import static game.model.tiles.Tile.TILE_SIZE;
 
 /**
  * 
  */
-public abstract class Entity extends Observable {
+public abstract class Entity{
 
 	protected float x, y;
 	/**
@@ -44,14 +41,6 @@ public abstract class Entity extends Observable {
 	}
 
 	/**
-	 * Notifies to the observers the entity's initial position
-	 */
-	public void notifyPosition() {
-		setChanged();
-		notifyObservers();
-	}
-
-	/**
 	 * Setters
 	 */
 
@@ -60,7 +49,6 @@ public abstract class Entity extends Observable {
 	 */
 	public void setX(float x) {
 		this.x = x;
-		notifyPosition();
 	}
 
 	/**
@@ -68,7 +56,6 @@ public abstract class Entity extends Observable {
 	 */
 	public void setY(float y) {
 		this.y = y;
-		notifyPosition();
 	}
 
 	/**
@@ -76,7 +63,6 @@ public abstract class Entity extends Observable {
 	 */
 	public void setWidth(float width) {
 		this.width = width;
-		notifyPosition();
 	}
 
 	/**
@@ -84,7 +70,6 @@ public abstract class Entity extends Observable {
 	 */
 	public void setHeight(float height) {
 		this.height = height;
-		notifyPosition();
 	}
 
 	/**

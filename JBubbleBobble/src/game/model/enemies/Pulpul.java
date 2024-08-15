@@ -112,7 +112,5 @@ public class Pulpul extends Enemy {
 			updateXPos();
 		else
 			updateYPos();
-		setChanged();
-		notifyObservers();
 	}
 }

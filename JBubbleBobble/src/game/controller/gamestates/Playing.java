@@ -4,29 +4,24 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import game.controller.Game;
-import game.controller.PlayerController;
+
 import game.model.Model;
 import game.model.bubbles.BubbleManager;
 import game.model.entities.MovingEntity.Direction;
 import game.model.level.Level;
-import game.view.GameFrame;
-import game.view.LevelView;
 
 public class Playing extends State implements Statemethods {
 
-	private GameFrame gameFrame;
 	private Level currentLevel;
 
-	public Playing(Game game, GameFrame gameFrame) {
+	public Playing(Game game) {
 		super(game);
-		initClasses(gameFrame);
+		initClasses();
 	}
 
-	private void initClasses(GameFrame gameFrame) {
-		Model model=Model.getInstance();
+	private void initClasses() {
+		currentLevel = Model.getInstance().getCurrentLevel();
 
-		currentLevel = model.getCurrentLevel();
-		this.gameFrame = gameFrame;
 	}
 
 	public Level getCurrentLevel() {
@@ -35,12 +30,12 @@ public class Playing extends State implements Statemethods {
 
 	@Override
 	public void update() {
-		currentLevel.updateLevel();
+		Model.getInstance().updateModel();
 	}
 
 	@Override
 	public void repaint() {
-		gameFrame.repaint();
+
 	}
 
 	@Override

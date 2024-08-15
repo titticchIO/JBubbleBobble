@@ -3,8 +3,7 @@ package game.model.enemies;
 import java.util.*;
 import java.util.Observable;
 
-
-public class EnemyManager extends Observable {
+public class EnemyManager {
 	private List<Enemy> enemies;
 	private static EnemyManager instance;
 
@@ -20,20 +19,17 @@ public class EnemyManager extends Observable {
 
 	public void addEnemy(Enemy enemy) {
 		enemies.add(enemy);
-		setChanged();
-		notifyObservers(enemy);
 	}
-	
+
 	public void removeEnemy(Enemy enemy) {
 		enemies.remove(enemy);
-		setChanged();
-		notifyObservers(enemy);
+
 	}
 
 	public List<Enemy> getEnemies() {
 		return enemies;
 	}
-	
+
 	public void updateEnemies() {
 		for (Enemy e : enemies) {
 			e.updateEntity();
