@@ -9,16 +9,8 @@ import game.model.tiles.Tile;
 
 public class BubbleManager{
     private List<Bubble> bubbles;
-    private static BubbleManager instance;
 
-    public static BubbleManager getInstance() {
-        if (instance == null)
-            instance = new BubbleManager();
-        return instance;
-    }
-
-    private BubbleManager() {
-        // Sostituisci ArrayList con CopyOnWriteArrayList
+    public BubbleManager() {
         bubbles = new CopyOnWriteArrayList<>();
     }
 

@@ -5,15 +5,8 @@ import java.util.Observable;
 
 public class EnemyManager {
 	private List<Enemy> enemies;
-	private static EnemyManager instance;
 
-	public static EnemyManager getInstance() {
-		if (instance == null)
-			instance = new EnemyManager();
-		return instance;
-	}
-
-	private EnemyManager() {
+	public EnemyManager() {
 		enemies = new ArrayList<Enemy>();
 	}
 

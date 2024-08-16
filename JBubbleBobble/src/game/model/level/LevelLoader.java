@@ -25,13 +25,6 @@ public class LevelLoader {
 	private final static String PULPUL = "U";
 	private final static String SKELMONSTA = "S";
 
-	/*
-	 * private final static String ENEMY_4 = "4"; private final static String
-	 * ENEMY_5 = "5"; private final static String ENEMY_6 = "6";
-	 */
-
-	private static String[][] levelData;
-
 	public static String[][] readLevelFile(int levelNum) {
 
 		String[][] matrice = new String[Level.NUM_VERTICAL_TILES][Level.NUM_HORIZONTAL_TILES];
@@ -53,7 +46,7 @@ public class LevelLoader {
 
 	// crea gli oggetti nel level in base alla matrice
 
-	public static void loadLevel(Level level, int levelNum) {
+	public static String[][] loadLevel(Level level, int levelNum) {
 		String[][] matrice = readLevelFile(levelNum);
 		int x = 0;
 		int y = 0;
@@ -83,10 +76,8 @@ public class LevelLoader {
 			x = 0;
 			y++;
 		}
-		levelData = matrice;
+		return matrice;
 	}
 
-	public static String[][] getLevelData() {
-		return levelData;
-	}
+
 }

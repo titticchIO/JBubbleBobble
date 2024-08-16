@@ -21,26 +21,30 @@ public class Level {
 
 	private Player player;
 	private List<Tile> tiles;
-	private EnemyManager eManager;
-	private BubbleManager bManager;
+	private EnemyManager enemyManager;
+	private BubbleManager bubbleManager;
 	private List<float[]> powerupSpawns;
-
+	private String[][] lvlData;
 
 	public Level(int levelNum) {
 		tiles = new ArrayList<Tile>();
-		eManager = EnemyManager.getInstance();
-		bManager = BubbleManager.getInstance();
-		LevelLoader.loadLevel(this, levelNum);
+		enemyManager = new EnemyManager();
+		bubbleManager = new BubbleManager();
+		lvlData = LevelLoader.loadLevel(this, levelNum);
 	}
-	
-	public List<Entity> getEntities(){
-		List<Entity> entities=new ArrayList<Entity>();
+
+	public String[][] getLvlData() {
+		return lvlData;
+	}
+
+	public List<Entity> getEntities() {
+		List<Entity> entities = new ArrayList<Entity>();
 		entities.add(player);
-		entities.addAll(bManager.getBubbles());
-		entities.addAll(eManager.getEnemies());
+		entities.addAll(bubbleManager.getBubbles());
+		entities.addAll(enemyManager.getEnemies());
 		return entities;
 	}
-	
+
 	public Player getPlayer() {
 		return player;
 	}
@@ -49,20 +53,20 @@ public class Level {
 		this.player = player;
 	}
 
-	public EnemyManager geteManager() {
-		return eManager;
+	public EnemyManager getEnemyManager() {
+		return enemyManager;
 	}
 
-	public void seteManager(EnemyManager eManager) {
-		this.eManager = eManager;
+	public void setEnemyManager(EnemyManager eManager) {
+		this.enemyManager = eManager;
 	}
 
-	public BubbleManager getbManager() {
-		return bManager;
+	public BubbleManager getBubbleManager() {
+		return bubbleManager;
 	}
 
-	public void setbManager(BubbleManager bManager) {
-		this.bManager = bManager;
+	public void setBubbleManager(BubbleManager bManager) {
+		this.bubbleManager = bManager;
 	}
 
 	public List<Tile> getTiles() {
@@ -76,14 +80,14 @@ public class Level {
 	public List<float[]> getPowerupSpawns() {
 		return powerupSpawns;
 	}
-	
+
 	public void addPlayer(Player player) {
 		this.player = player;
 	}
 
 	public void addEnemy(Enemy enemy) {
-		System.out.println("added "+enemy.getClass().toString());
-		eManager.addEnemy(enemy);
+		System.out.println("added " + enemy.getClass().toString());
+		enemyManager.addEnemy(enemy);
 	}
 
 	public void addTile(Tile tile) {
@@ -91,38 +95,34 @@ public class Level {
 	}
 
 	public void addPowerupSpawns(float x, float y) {
-		powerupSpawns.add(new float[] {x, y});
+		powerupSpawns.add(new float[] { x, y });
 	}
-	
+
 	public Optional<Enemy> checkEnemiesCollisions() {
-		return eManager.getEnemies().stream().filter(x -> x.hit(player)).findFirst();
+		return enemyManager.getEnemies().stream().filter(x -> x.hit(player)).findFirst();
 	}
 
 	public Optional<Bubble> checkBubblesCollisions() {
-		return bManager.getBubbles().stream().filter(x -> x.hit(player)).findFirst();
+		return bubbleManager.getBubbles().stream().filter(x -> x.hit(player)).findFirst();
 	}
 
-	
-	
 	public void playerOnBubble() {
-		boolean isOnBubble = bManager.getBubbles().stream()
-				.anyMatch(x -> x.topHit(player));
+		boolean isOnBubble = bubbleManager.getBubbles().stream().anyMatch(x -> x.topHit(player));
 		if (isOnBubble)
 			player.jump(isOnBubble);
 	}
-	
+
 	public void updateLevel() {
 		playerOnBubble();
 		player.updateEntity();
-		eManager.updateEnemies();
-		bManager.updateBubbles();
+		enemyManager.updateEnemies();
+		bubbleManager.updateBubbles();
 		Optional<Enemy> oe = checkEnemiesCollisions();
 //		if (oe.isPresent()) System.out.println("Hittato enemy");
 
 		Optional<Bubble> ob = checkBubblesCollisions();
 //		if (ob.isPresent()) System.out.println("Hittato bolla");
 
-		
 	}
 
 }

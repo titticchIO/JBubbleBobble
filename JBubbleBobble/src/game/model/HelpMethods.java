@@ -16,7 +16,7 @@ public class HelpMethods {
 	}
 
 	public static boolean isSolid(float x, float y) {
-		String[][] lvlData = LevelLoader.getLevelData();
+		String[][] lvlData=Model.getInstance().getCurrentLevel().getLvlData();
 		
 		if (x < 0 ||  x >= Level.GAME_WIDTH) {
 //			System.out.println("OUT OF BOUNDS");

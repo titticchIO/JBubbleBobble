@@ -6,6 +6,7 @@ import game.model.entities.MovingEntity.Direction;
 import game.model.tiles.Tile;
 
 import game.model.HelpMethods;
+import game.model.Model;
 import game.model.Settings;
 
 public class Player extends MovingEntity {
@@ -76,12 +77,12 @@ public class Player extends MovingEntity {
 	
 	
 
-	public void shootBubble(BubbleManager bubbleManager) {
+	public void shootBubble() {
 		if (bubbleDirection == Direction.RIGHT
 				&& !HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
-			bubbleManager.createBubble(x + Tile.TILE_SIZE, y, 2);
+			Model.getInstance().getCurrentLevel().getBubbleManager().createBubble(x + Tile.TILE_SIZE, y, 2);
 		} else if (!HelpMethods.isEntityInsideWall(x - Tile.TILE_SIZE, y, width, height)) {
-			bubbleManager.createBubble(x - Tile.TILE_SIZE, y, -2);
+			Model.getInstance().getCurrentLevel().getBubbleManager().createBubble(x - Tile.TILE_SIZE, y, -2);
 		}
 	}
 

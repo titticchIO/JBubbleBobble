@@ -78,7 +78,7 @@ public class Playing extends State implements Statemethods {
 			currentLevel.getPlayer().move(1);
 			break;
 		case KeyEvent.VK_SPACE:
-			currentLevel.getPlayer().shootBubble(BubbleManager.getInstance());
+			currentLevel.getPlayer().shootBubble();
 		}
 
 	}
