@@ -21,9 +21,10 @@ public class LevelLoader {
 	private final static String ZEN_CHAN = "Z";
 	private final static String MONSTA = "M";
 	private final static String BANEBOU = "N";
-	private final static String MIGHTA = "I";
 	private final static String PULPUL = "U";
 	private final static String SKELMONSTA = "S";
+	private final static String INVADER = "I";
+	
 
 	public static String[][] readLevelFile(int levelNum) {
 
