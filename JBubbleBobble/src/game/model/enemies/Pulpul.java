@@ -26,6 +26,7 @@ public class Pulpul extends Enemy {
 	}
 
 	private void changeDirection() {
+		if (randomBoolean(10)) randomizeDirection();
 		switch (direction) {
 		case Direction.LEFT:
 			direction = Direction.RIGHT;
