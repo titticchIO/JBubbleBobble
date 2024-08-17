@@ -84,6 +84,10 @@ public abstract class MovingEntity extends Entity {
 	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
+	
+	public Direction getDirection() {
+		return direction;
+	}
 
 	public void setJumpSpeed(float jumpSpeed) {
 		this.jumpSpeed = jumpSpeed;

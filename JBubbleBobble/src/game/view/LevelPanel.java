@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import game.model.bubbles.BubbleManager;
 import game.model.entities.Entity;
+import game.model.entities.MovingEntity.Direction;
 import game.model.entities.Player;
 import game.model.level.Level;
 import game.model.tiles.Tile;
@@ -50,10 +51,23 @@ public class LevelPanel extends JPanel {
 	}
 
 	public void renderEntity(Entity entity, Graphics g) {
-		BufferedImage img;
+		Image img;
 		if (entity instanceof Tile tile)
 			img = Images.getImage(tile.getCode(), tile.getType());
-		else
+		else if(entity instanceof Player player) {
+			img=switch(player.getDirection()) {
+			case RIGHT->AnimationLoader.getPlayerImage("walk_right");
+			case LEFT-> AnimationLoader.getPlayerImage("walk_left");
+
+			//deve ritornare l'immagine del player che guarda avanti, non mi ricordo come si fa :)
+			case STATIC -> Images.getImage("P");
+			
+			
+			case DOWN -> throw new UnsupportedOperationException("Unimplemented case: " + player.getDirection());
+			case UP -> throw new UnsupportedOperationException("Unimplemented case: " + player.getDirection());
+			default -> throw new IllegalArgumentException("Unexpected value: " + player.getDirection());
+			};
+		}else
 			img = Images.getImage(entity.getCode());
 		g.drawImage(img, (int) entity.getX(), (int) entity.getY(), (int) entity.getWidth(),
 				(int) entity.getHeight(), null);
