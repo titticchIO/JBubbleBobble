@@ -36,12 +36,12 @@ public class Model extends Observable {
 	}
 
 	public void loadLevels() {
-		levels.add(new Level(111));
+		levels.add(new Level(1));
+		levels.add(new Level(2));
 		levels.add(new Level(3));
-		levels.add(new Level(333));
 		levels.add(new Level(4));
 		levels.add(new Level(5));
-		levels.add(new Level(777));
+		levels.add(new Level(6));
 		currentLevel = levels.getFirst();
 		setChanged();
 		notifyObservers(currentLevel);

@@ -86,7 +86,6 @@ public class Level {
 	}
 
 	public void addEnemy(Enemy enemy) {
-		System.out.println("added " + enemy.getClass().toString());
 		enemyManager.addEnemy(enemy);
 	}
 
