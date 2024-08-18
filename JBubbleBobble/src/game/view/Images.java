@@ -30,14 +30,12 @@ public class Images {
 		return ImageLoader.importImg(imageMap.get(type) + position + ".png");
 	}
 	
-	
-	
-	public static BufferedImage getImage(int imageCode) {
-		BufferedImage img = ImageLoader.importImg(imageMap.get(imageCode+"") + ".png");
-		return img;
-	}
 	public static BufferedImage getImage(String imageCode) {
-		BufferedImage img = ImageLoader.importImg(imageMap.get(imageCode) + "right.png");
+		BufferedImage img;
+		if (imageCode.matches("^[0-9]"))
+			img = ImageLoader.importImg(imageMap.get(imageCode+"") + ".png");
+		else
+			img = ImageLoader.importImg(imageMap.get(imageCode) + "right.png");
 		return img;
 	}
 

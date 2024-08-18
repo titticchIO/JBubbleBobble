@@ -51,26 +51,31 @@ public class LevelLoader {
 		int y = 0;
 		for (String[] linea : matrice) {
 			for (String c : linea) {
+				if (!c.equals(" "))
+					switch (c) {
+					case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" ->
+						level.addTile(new Tile(x * TILE_SIZE, y * TILE_SIZE, c));
+					case PLAYER ->
+						level.addPlayer(Player.getInstance(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
+					case POWERUP -> level.addPowerupSpawns(x, y);
+					default -> {
+						level.addEnemy(switch (c) {
+						case ZEN_CHAN -> new Zen_chan(x * TILE_SIZE, y * TILE_SIZE);
+						case MONSTA -> new Monsta(x * TILE_SIZE, y * TILE_SIZE);
+						case BANEBOU -> new Banebou(x * TILE_SIZE, y * TILE_SIZE);
+						case PULPUL -> new Pulpul(x * TILE_SIZE, y * TILE_SIZE);
+						case INVADER -> new Invader(x * TILE_SIZE, y * TILE_SIZE);
+						default -> new SkelMonsta(x * TILE_SIZE, y * TILE_SIZE);
+						});
+					}
 
-				switch (c) {
-				case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" ->
-					level.addTile(new Tile(x * TILE_SIZE, y * TILE_SIZE, c));
-				case PLAYER ->
-					level.addPlayer(Player.getInstance(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
-				case POWERUP -> level.addPowerupSpawns(x, y);
-				case ZEN_CHAN -> new Zen_chan(x * TILE_SIZE, y * TILE_SIZE);
-				case MONSTA -> new Monsta(x * TILE_SIZE, y * TILE_SIZE);
-				case BANEBOU -> new Banebou(x * TILE_SIZE, y * TILE_SIZE);
-				case PULPUL -> new Pulpul(x * TILE_SIZE, y * TILE_SIZE);
-				case INVADER -> new Invader(x * TILE_SIZE, y * TILE_SIZE);
-				case SKELMONSTA -> new SkelMonsta(x * TILE_SIZE, y * TILE_SIZE);
-				}
+					}
+				x++;
 			}
 
-			x++;
+			x = 0;
+			y++;
 		}
-		x = 0;
-		y++;
 
 		return matrice;
 	}

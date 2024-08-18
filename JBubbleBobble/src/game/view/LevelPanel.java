@@ -52,7 +52,8 @@ public class LevelPanel extends JPanel {
 	public void renderEntity(Entity entity, Graphics g) {
 		Image img;
 		img = switch (entity) {
-		case Tile tile -> Images.getImage(tile.getCode(), tile.getType());
+		case Tile tile ->
+		Images.getImage(tile.getCode());
 		case Invader invader-> AnimationLoader.loadEntityImage("enemies/Invader/default.gif");
 		case Player player -> switch (player.getDirection()) {
 		case RIGHT -> AnimationLoader.getPlayerImage("walk_right");

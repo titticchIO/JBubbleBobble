@@ -90,13 +90,7 @@ public class EditorPanel extends JPanel {
 		for (int y = 0; y < levelData.length; y++) {
 			for (int x = 0; x < levelData[y].length; x++) {
 				if (!levelData[y][x].equals(" ")) {
-					System.out.println(levelData[y][x]);
-					String type = levelData[y][x].substring(0, 1);
-					String number = levelData[y][x].substring(1, 2);
-					// Aggiorna il singolo sprite con l'immagine corrispondente
-
-					sprites[y][x].updateSprite(Images.getImage(type, number));
-
+					sprites[y][x].updateSprite(Images.getImage(levelData[y][x]));
 				}
 			}
 		}

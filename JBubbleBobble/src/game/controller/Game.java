@@ -44,7 +44,7 @@ public class Game implements Runnable {
 		gameFrame.showState(Screen.MENU);
 
 	}
-
+	
 	public Playing getPlaying() {
 		return playing;
 	}

@@ -80,7 +80,7 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 	private void addBlocks() {
 		for (int i = 1; i <= 4; i++) {
 			String number = String.valueOf(i);
-			blocks.add(new SelectionButton(Images.getImage(i), number));
+			blocks.add(new SelectionButton(Images.getImage(number), number));
 		}
 	}
 
