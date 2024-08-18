@@ -89,7 +89,7 @@ public class Player extends MovingEntity {
 		if (bubbleDirection == Direction.RIGHT
 				&& !HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
 			Model.getInstance().getCurrentLevel().getBubbleManager().createBubble(x + Tile.TILE_SIZE, y, 2);
-		} else if (!HelpMethods.isEntityInsideWall(x - Tile.TILE_SIZE, y, width, height)) {
+		} else if (bubbleDirection == Direction.LEFT && !HelpMethods.isEntityInsideWall(x - Tile.TILE_SIZE, y, width, height)) {
 			Model.getInstance().getCurrentLevel().getBubbleManager().createBubble(x - Tile.TILE_SIZE, y, -2);
 		}
 	}
