@@ -2,12 +2,13 @@ package game.model.enemies;
 
 import java.util.*;
 import java.util.Observable;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class EnemyManager {
 	private List<Enemy> enemies;
 
 	public EnemyManager() {
-		enemies = new ArrayList<Enemy>();
+		enemies = new CopyOnWriteArrayList<>();
 	}
 
 	public void addEnemy(Enemy enemy) {
@@ -16,7 +17,6 @@ public class EnemyManager {
 
 	public void removeEnemy(Enemy enemy) {
 		enemies.remove(enemy);
-
 	}
 
 	public List<Enemy> getEnemies() {

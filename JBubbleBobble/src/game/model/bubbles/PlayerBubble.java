@@ -1,11 +1,16 @@
 package game.model.bubbles;
 
+import game.model.Model;
+import game.model.enemies.Enemy;
+
 public class PlayerBubble extends Bubble {
 
 	/**
 	 * tempo prima che la bolla inizi a salire
 	 */
 	private float travelTime;
+	
+	private Enemy enemy;
 
 	/**
 	 * @param x
@@ -22,7 +27,7 @@ public class PlayerBubble extends Bubble {
 		super(x, y, width, height);
 		this.xSpeed = xSpeed;
 		this.airSpeed = airSpeed;
-		this.lifeSpan = lifeSpan;
+		this.lifeSpan = 2000;
 		this.travelTime = travelTime;
 	}
 
@@ -64,6 +69,25 @@ public class PlayerBubble extends Bubble {
 		setxSpeed(0);
 		decreaseTravelTime(1);
 
+	}
+	
+	public Enemy getEnemy() {
+		return enemy;
+	}
+	
+	public void setEnemy(Enemy enemy) {
+		if (this.enemy == null)
+			this.enemy = enemy;
+	}
+	
+	
+	@Override
+	public void pop() {
+		if (enemy != null) {
+			enemy.setPosition(getX(), getY());
+			Model.getInstance().getCurrentLevel().getEnemyManager().addEnemy(enemy);
+		}
+		Model.getInstance().getCurrentLevel().getBubbleManager().removeBubble(this);
 	}
 
 	@Override

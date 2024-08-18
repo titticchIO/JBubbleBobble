@@ -6,6 +6,7 @@ import java.util.Observable;
 import java.util.Optional;
 
 import game.model.bubbles.BubbleManager;
+import game.model.bubbles.PlayerBubble;
 import game.model.bubbles.Bubble;
 import game.model.enemies.Enemy;
 import game.model.enemies.EnemyManager;
@@ -97,29 +98,48 @@ public class Level {
 		powerupSpawns.add(new float[] { x, y });
 	}
 
-	public Optional<Enemy> checkEnemiesCollisions() {
+	public Optional<Enemy> checkPlayerEnemyCollision() {
 		return enemyManager.getEnemies().stream().filter(x -> x.hit(player)).findFirst();
 	}
 
-	public Optional<Bubble> checkBubblesCollisions() {
+	public Optional<Bubble> checkPlayerBubbleCollision() {
 		return bubbleManager.getBubbles().stream().filter(x -> x.hit(player)).findFirst();
 	}
 
-	public void playerOnBubble() {
-		boolean isOnBubble = bubbleManager.getBubbles().stream().anyMatch(x -> x.topHit(player));
-		if (isOnBubble)
-			player.jump(isOnBubble);
+//	public boolean checkcheckBubbleEnemyCollision() {
+//		return 
+//	}
+
+	public void captureEnemies() {
+		bubbleManager.getBubbles().stream()
+				.forEach(b -> enemyManager.getEnemies().stream().filter(b::isEnemyHit).forEach(e -> {
+					if (b instanceof PlayerBubble pb)
+						pb.setEnemy(e);
+					removeEnemy(e);
+				}));
 	}
 
+	public void removeEnemy(Enemy enemy) {
+		enemyManager.removeEnemy(enemy);
+	}
+
+	public static <T extends Entity, U extends Entity> boolean checkCollisions(List<T> list1,
+			List<U> list2) {
+		return list1.stream().anyMatch(x -> list2.stream().anyMatch(x::hit));
+	}
+	
 	public void updateLevel() {
-		playerOnBubble();
 		player.updateEntity();
 		enemyManager.updateEnemies();
 		bubbleManager.updateBubbles();
-		Optional<Enemy> oe = checkEnemiesCollisions();
+
+		if (checkCollisions(bubbleManager.getBubbles(), enemyManager.getEnemies()))
+			captureEnemies();
+
+		Optional<Enemy> oe = checkPlayerEnemyCollision();
 //		if (oe.isPresent()) System.out.println("Hittato enemy");
 
-		Optional<Bubble> ob = checkBubblesCollisions();
+		Optional<Bubble> ob = checkPlayerBubbleCollision();
 //		if (ob.isPresent()) System.out.println("Hittato bolla");
 
 	}

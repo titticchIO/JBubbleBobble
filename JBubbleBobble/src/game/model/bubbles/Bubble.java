@@ -1,5 +1,7 @@
 package game.model.bubbles;
 
+import game.model.Model;
+import game.model.enemies.Enemy;
 import game.model.entities.MovingEntity;
 
 public abstract class Bubble extends MovingEntity {
@@ -14,7 +16,9 @@ public abstract class Bubble extends MovingEntity {
 
 	protected float lifeSpan;
 
-	private boolean popped;
+	protected boolean popped;
+	
+	
 
 	public Bubble(float x, float y, float width, float height) {
 		super(x, y, width, height, "B");
@@ -52,10 +56,16 @@ public abstract class Bubble extends MovingEntity {
 	private void decreaseLifeSpan(float k) {
 		setLifeSpan(getLifeSpan() - k);
 	}
-
+	
 	private void decreaseTimeHorizontalMoving(float k) {
 		setTimeHorizontalMoving(getTimeHorizontalMoving() - k);
 	}
+
+	public boolean isEnemyHit(Enemy enemy) {
+		return enemy.hit(this);
+	}
+	
+	
 
 	/**
 	 * metodo per far scoppiare la bolla

@@ -1,20 +1,21 @@
 package game.model.entities;
 
+import game.model.bubbles.Bubble;
 import game.model.bubbles.BubbleManager;
 import game.model.bubbles.PlayerBubble;
 import game.model.entities.MovingEntity.Direction;
 import game.model.tiles.Tile;
+
+import java.util.List;
 
 import game.model.HelpMethods;
 import game.model.Model;
 import game.model.Settings;
 
 public class Player extends MovingEntity {
-	
+
 	public enum State {
-		WALK,
-		JUMP,
-		SHOOT
+		WALK, JUMP, SHOOT
 	}
 
 	private final String type = "P";
@@ -22,7 +23,7 @@ public class Player extends MovingEntity {
 	private State state;
 
 	private boolean isJumping;
-	
+
 	// bolla attuale
 	private PlayerBubble currentBubble;
 	// singleton
@@ -34,15 +35,7 @@ public class Player extends MovingEntity {
 
 		return instance;
 	}
-	
-	
-	public void jump(boolean isOnBubble) {
-		if ( (isJumping && isOnBubble) || (!inAir && !HelpMethods.isEntityInsideWall(x, y, width, height))) {
-			inAir = true;
-			airSpeed = jumpSpeed;
-		}
-	}
-	
+
 
 	public static Player getInstance(float x, float y, float width, float height) {
 		if (instance == null)
@@ -76,21 +69,21 @@ public class Player extends MovingEntity {
 	}
 
 
-	
-	public void checkOnBubble(BubbleManager bManager) {
-		jump(bManager.getBubbles().stream()
-				.anyMatch(x -> x.topHit(this)));
-	}
-	
-	
-	
-
 	public void shootBubble() {
 		if (bubbleDirection == Direction.RIGHT
 				&& !HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
 			Model.getInstance().getCurrentLevel().getBubbleManager().createBubble(x + Tile.TILE_SIZE, y, 2);
 		} else if (!HelpMethods.isEntityInsideWall(x - Tile.TILE_SIZE, y, width, height)) {
 			Model.getInstance().getCurrentLevel().getBubbleManager().createBubble(x - Tile.TILE_SIZE, y, -2);
+		}
+	}
+
+	@Override
+	public void jump() {
+		if ((isJumping && Entity.checkTopCollision(this, Model.getInstance().getCurrentLevel().getBubbleManager().getBubbles()))
+				|| (!inAir && !HelpMethods.isEntityInsideWall(x, y, width, height))) {
+			inAir = true;
+			airSpeed = jumpSpeed;
 		}
 	}
 

@@ -1,12 +1,13 @@
 package game.model.entities;
 
-
 import static game.model.tiles.Tile.TILE_SIZE;
+
+import java.util.List;
 
 /**
  * 
  */
-public abstract class Entity{
+public abstract class Entity {
 
 	protected float x, y;
 	/**
@@ -70,6 +71,14 @@ public abstract class Entity{
 	 */
 	public void setHeight(float height) {
 		this.height = height;
+	}
+	
+	
+	public Entity setPosition(float x, float y) {
+		setX(x);
+		setY(y);
+		
+		return this;
 	}
 
 	/**
@@ -170,6 +179,21 @@ public abstract class Entity{
 	 */
 	public boolean hit(Entity entity) {
 		return topHit(entity) || bottomHit(entity);
+	}
+	
+	public static <T extends Entity, U extends Entity> boolean checkCollision(T entity,
+			List<U> list) {
+		return list.stream().anyMatch(x -> x.hit(entity));
+	}
+	
+	public static <T extends Entity, U extends Entity> boolean checkTopCollision(T entity,
+			List<U> list) {
+		return list.stream().anyMatch(x -> x.topHit(entity));
+	}
+	
+	public static <T extends Entity, U extends Entity> boolean checkBottomCollision(T entity,
+			List<U> list) {
+		return list.stream().anyMatch(x -> x.bottomHit(entity));
 	}
 
 	@Override
