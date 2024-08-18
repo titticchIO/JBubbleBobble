@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 
 import editor.model.LevelManager;
+import game.view.Images;
 
 public class EditorPanel extends JPanel {
 	public static final int ROWS = 24;
@@ -54,13 +55,11 @@ public class EditorPanel extends JPanel {
 							int x = (e.getXOnScreen() - getLocationOnScreen().x) / SQUARE_SIZE;
 							int y = (e.getYOnScreen() - getLocationOnScreen().y) / SQUARE_SIZE;
 							try {
-								updateSprite(sprites[y][x], x, y);								
+								updateSprite(sprites[y][x], x, y);
 							} catch (Exception e2) {
 								System.err.println("Coordinate outside level bounds");
 							}
-							
-								
-							
+
 						}
 					}
 				});
@@ -88,38 +87,38 @@ public class EditorPanel extends JPanel {
 	}
 
 	public void loadLevel(String[][] levelData) {
-	    for (int y = 0; y < levelData.length; y++) {
-	        for (int x = 0; x < levelData[y].length; x++) {
-	            if (!levelData[y][x].equals(" ")) {
-	            	System.out.println(levelData[y][x]);
-	            	String type = levelData[y][x].substring(0,1);
-		            String number = levelData[y][x].substring(1,2);
-	                // Aggiorna il singolo sprite con l'immagine corrispondente
-	                sprites[y][x].updateSprite(ImagesTest.getImage(type, number));
-	            }	            
-	        }
-	    }
-	    repaint(); // Ridisegna il pannello per riflettere le modifiche
+		for (int y = 0; y < levelData.length; y++) {
+			for (int x = 0; x < levelData[y].length; x++) {
+				if (!levelData[y][x].equals(" ")) {
+					System.out.println(levelData[y][x]);
+					String type = levelData[y][x].substring(0, 1);
+					String number = levelData[y][x].substring(1, 2);
+					// Aggiorna il singolo sprite con l'immagine corrispondente
+
+					sprites[y][x].updateSprite(Images.getImage(type, number));
+
+				}
+			}
+		}
+		repaint(); // Ridisegna il pannello per riflettere le modifiche
+
 	}
 
-	
-	
 	public Sprite[][] getSprites() {
 		return sprites;
 	}
-	
+
 	public static void setEmptySprites(Sprite[][] sprites) {
-	    for (int y = 0; y < ROWS; y++) {
-	        for (int x = 0; x < COLS; x++) {
-	            sprites[y][x].updateSprite(null); // Imposta il sprite come vuoto
-	        }
-	    }
+		for (int y = 0; y < ROWS; y++) {
+			for (int x = 0; x < COLS; x++) {
+				sprites[y][x].updateSprite(null); // Imposta il sprite come vuoto
+			}
+		}
 	}
-	
+
 	public void setSprites(Sprite[][] sprites) {
 		this.sprites = sprites;
 	}
-
 
 	private void updateSprite(Sprite sprite, int x, int y) {
 		SelectionButton button = selPane.getCurrentButton();

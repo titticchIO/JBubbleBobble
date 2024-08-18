@@ -9,10 +9,9 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import game.model.bubbles.BubbleManager;
 import game.model.entities.Entity;
-import game.model.entities.MovingEntity.Direction;
 import game.model.entities.Player;
+import game.model.enemies.Invader;
 import game.model.level.Level;
 import game.model.tiles.Tile;
 
@@ -54,6 +53,7 @@ public class LevelPanel extends JPanel {
 		Image img;
 		img = switch (entity) {
 		case Tile tile -> Images.getImage(tile.getCode(), tile.getType());
+		case Invader invader-> AnimationLoader.loadEntityImage("enemies/Invader/default.gif");
 		case Player player -> switch (player.getDirection()) {
 		case RIGHT -> AnimationLoader.getPlayerImage("walk_right");
 		case LEFT -> AnimationLoader.getPlayerImage("walk_left");
