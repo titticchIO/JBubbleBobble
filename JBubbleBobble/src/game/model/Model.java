@@ -42,7 +42,8 @@ public class Model extends Observable {
 		levels.add(new Level(4));
 		levels.add(new Level(5));
 		levels.add(new Level(6));
-		currentLevel = levels.getFirst();
+//		currentLevel = levels.getFirst();
+		currentLevel = levels.get(4);
 		setChanged();
 		notifyObservers(currentLevel);
 	}

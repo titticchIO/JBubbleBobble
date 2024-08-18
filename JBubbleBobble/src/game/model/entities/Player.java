@@ -80,7 +80,7 @@ public class Player extends MovingEntity {
 
 	@Override
 	public void jump() {
-		if ((isJumping && Entity.checkTopCollision(this, Model.getInstance().getCurrentLevel().getBubbleManager().getBubbles()))
+		if ((isJumping && Entity.checkCollision(this, Model.getInstance().getCurrentLevel().getBubbleManager().getBubbles()))
 				|| (!inAir && !HelpMethods.isEntityInsideWall(x, y, width, height))) {
 			inAir = true;
 			airSpeed = jumpSpeed;

@@ -132,9 +132,10 @@ public class Level {
 	public void captureEnemies() {
 		bubbleManager.getBubbles().stream()
 				.forEach(b -> enemyManager.getEnemies().stream().filter(b::isEnemyHit).forEach(e -> {
-					if (b instanceof PlayerBubble pb)
+					if (b instanceof PlayerBubble pb && pb.getEnemy() == null) {
 						pb.setEnemy(e);
-					removeEnemy(e);
+						removeEnemy(e);
+					}
 				}));
 	}
 
@@ -142,11 +143,10 @@ public class Level {
 		enemyManager.removeEnemy(enemy);
 	}
 
-	public static <T extends Entity, U extends Entity> boolean checkCollisions(List<T> list1,
-			List<U> list2) {
+	public static <T extends Entity, U extends Entity> boolean checkCollisions(List<T> list1, List<U> list2) {
 		return list1.stream().anyMatch(x -> list2.stream().anyMatch(x::hit));
 	}
-	
+
 	public void updateLevel() {
 		player.updateEntity();
 		enemyManager.updateEnemies();
