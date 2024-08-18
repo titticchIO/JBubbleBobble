@@ -80,7 +80,7 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 	private void addBlocks() {
 		for (int i = 1; i <= 4; i++) {
 			String number = String.valueOf(i);
-			blocks.add(new SelectionButton(Images.getImage(number), number));
+			blocks.add(new SelectionButton(Images.getImage(i), number));
 		}
 	}
 
@@ -94,7 +94,7 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 	}
 
 	private void addPlayers() {
-		players.add(new SelectionButton(Images.getImage("p","static"), "P"));
+		players.add(new SelectionButton(Images.getImage("P","static"), "P"));
 	}
 
 	private void setSize() {
