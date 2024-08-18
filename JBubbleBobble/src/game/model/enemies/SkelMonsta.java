@@ -72,9 +72,6 @@ public class SkelMonsta extends Monsta {
 
 	@Override
 	public void updateEntity() {
-		// if((x < 0 && x > Settings.GAME_WIDTH) || (y < 0 && y > Settings.GAME_HEIGHT))
-		// pop();
-//		updateImage();
 		bounce();
 		updateYPos();
 		updateXPos();

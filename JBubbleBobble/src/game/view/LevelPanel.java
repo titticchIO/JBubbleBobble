@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import game.model.entities.Entity;
 import game.model.entities.Player;
 import game.model.enemies.Invader;
+import game.model.enemies.Monsta;
 import game.model.level.Level;
 import game.model.tiles.Tile;
 
@@ -52,14 +53,15 @@ public class LevelPanel extends JPanel {
 	public void renderEntity(Entity entity, Graphics g) {
 		Image img;
 		img = switch (entity) {
-		case Tile tile ->
-		Images.getImage(tile.getCode());
-		case Invader invader-> AnimationLoader.loadEntityImage("enemies/Invader/default.gif");
+		case Tile tile -> Images.getImage(tile.getCode());
+		case Invader invader -> AnimationLoader.loadEntityImage("enemies/invader/default.gif");
+		case Monsta monsta-> AnimationLoader.loadEntityImage("enemies/monsta/"+monsta.getDirection().name().toLowerCase()+".gif");
+		
 		case Player player -> switch (player.getDirection()) {
-		case RIGHT -> AnimationLoader.getPlayerImage("walk_right");
-		case LEFT -> AnimationLoader.getPlayerImage("walk_left");
-		case STATIC -> Images.getImage("P", "static");
-		default -> throw new IllegalArgumentException("Unexpected value: " + player.getDirection());
+			case RIGHT -> AnimationLoader.getPlayerImage("walk_right");
+			case LEFT -> AnimationLoader.getPlayerImage("walk_left");
+			case STATIC -> Images.getImage("P", "static");
+			default -> throw new IllegalArgumentException("Unexpected value: " + player.getDirection());
 		};
 		default -> Images.getImage(entity.getCode());
 		};

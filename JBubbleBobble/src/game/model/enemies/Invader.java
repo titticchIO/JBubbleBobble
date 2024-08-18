@@ -1,6 +1,10 @@
 package game.model.enemies;
 
+import static game.model.HelpMethods.isEntityInsideWall;
+import static game.model.HelpMethods.isSolidVerticalLine;
+
 import game.model.HelpMethods;
+import game.model.entities.MovingEntity.Direction;
 
 public class Invader extends Enemy {
 
@@ -18,30 +22,44 @@ public class Invader extends Enemy {
 		setDirection(Direction.LEFT);
 	}
 
-	public void changeDirection() {
-		if (randomBoolean(1))
+	public void switchDirection() {
+		if (isEntityInsideWall(x, y, width, height))
+			return;
+		switch (direction) {
+		case LEFT -> {
+			if (isSolidVerticalLine(x - 1, y, y + height))
+				setDirection(Direction.RIGHT);
+		}
+		case RIGHT -> {
+			if (isSolidVerticalLine(x + width + 1, y, y + height))
+				setDirection(Direction.LEFT);
+		}
+		}
+	}
+
+	public void randomizeDirection() {
+		if (randomBoolean(2)) {
 			setDirection(Direction.RIGHT);
-		else
+		} else {
 			setDirection(Direction.LEFT);
+		}
 	}
 
 	@Override
 	public void updateEntity() {
-		if (landed)
+		if (!HelpMethods.isEntityGrounded(this) && landed)
 			landed = false;
 		if (HelpMethods.isEntityGrounded(this) && !landed) {
 			landed = true;
+			randomizeDirection();
 		}
-		
-		changeDirection();
+		switchDirection();
 
-		if (HelpMethods.isEntityGrounded(this)) {
+		if (!inAir) {
 			updateXPos();
-		}else
-			setX(x+1);
-		
-		
-		move(1);
+		} else
+			setAirSpeed(0.5f);
+		move(0.5f);
 		updateYPos();
 	}
 
