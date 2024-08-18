@@ -36,7 +36,7 @@ public class LevelPanel extends JPanel {
 	public void renderTilesOnce() {
 		tilesImage = new BufferedImage(Level.GAME_WIDTH, Level.GAME_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		Graphics g = tilesImage.getGraphics();
-		View.getInstance().getLevel().getTiles().forEach(t->renderEntity(t, g));
+		View.getInstance().getLevel().getTiles().forEach(t -> renderEntity(t, g));
 	}
 
 	@Override
@@ -47,29 +47,27 @@ public class LevelPanel extends JPanel {
 		super.paintComponent(g2d);
 
 		g2d.drawImage(tilesImage, 0, 0, this);
-		View.getInstance().getLevel().getEntities().forEach(e->renderEntity(e, g2d));
+		View.getInstance().getLevel().getEntities().forEach(e -> renderEntity(e, g2d));
 	}
 
 	public void renderEntity(Entity entity, Graphics g) {
 		Image img;
-		if (entity instanceof Tile tile)
-			img = Images.getImage(tile.getCode(), tile.getType());
-		else if(entity instanceof Player player) {
-			img=switch(player.getDirection()) {
-			case RIGHT->AnimationLoader.getPlayerImage("walk_right");
-			case LEFT-> AnimationLoader.getPlayerImage("walk_left");
-
-			//deve ritornare l'immagine del player che guarda avanti, non mi ricordo come si fa :)
-			case STATIC -> Images.getImage("P");
-			
-			
-			
-			default -> throw new IllegalArgumentException("Unexpected value: " + player.getDirection());
-			};
-		}else
-			img = Images.getImage(entity.getCode());
-		g.drawImage(img, (int) entity.getX(), (int) entity.getY(), (int) entity.getWidth(),
-				(int) entity.getHeight(), null);
+		img = switch (entity) {
+		case Tile tile -> Images.getImage(tile.getCode(), tile.getType());
+		case Player player -> switch (player.getDirection()) {
+		case RIGHT -> AnimationLoader.getPlayerImage("walk_right");
+		case LEFT -> AnimationLoader.getPlayerImage("walk_left");
+		case STATIC -> Images.getImage("P", "static");
+		default -> throw new IllegalArgumentException("Unexpected value: " + player.getDirection());
+		};
+		default -> Images.getImage(entity.getCode());
+		};
+		if (entity instanceof Tile) {
+			g.drawImage(img, (int) entity.getX(), (int) entity.getY(), (int) entity.getWidth(),
+					(int) entity.getHeight(), null);
+		} else
+			g.drawImage(img, (int) entity.getX(), (int) entity.getY(), (int) entity.getWidth() + 1,
+					(int) entity.getHeight() + 1, null);
 	}
 
 }
