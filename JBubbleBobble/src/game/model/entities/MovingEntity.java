@@ -9,7 +9,7 @@ public abstract class MovingEntity extends Entity {
 
 	// Possible movement directions
 	public enum Direction {
-		UP, DOWN, LEFT, RIGHT, STATIC
+		LEFT, RIGHT, STATIC
 	}
 
 	// Movement speed on the x-axis: positive for right, negative for left

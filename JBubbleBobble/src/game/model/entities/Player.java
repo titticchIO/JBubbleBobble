@@ -10,9 +10,16 @@ import game.model.Model;
 import game.model.Settings;
 
 public class Player extends MovingEntity {
+	
+	public enum State {
+		WALK,
+		JUMP,
+		SHOOT
+	}
 
 	private final String type = "P";
 	private Direction bubbleDirection;
+	private State state;
 
 	private boolean isJumping;
 	
@@ -45,6 +52,7 @@ public class Player extends MovingEntity {
 
 	private Player(float x, float y, float width, float height) {
 		super(x, y, width, height, "P");
+		state = State.WALK;
 		currentBubble = new PlayerBubble(x, y, width, height);
 		bubbleDirection = Direction.RIGHT;
 	}

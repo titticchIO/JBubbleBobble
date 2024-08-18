@@ -63,8 +63,7 @@ public class LevelPanel extends JPanel {
 			case STATIC -> Images.getImage("P");
 			
 			
-			case DOWN -> throw new UnsupportedOperationException("Unimplemented case: " + player.getDirection());
-			case UP -> throw new UnsupportedOperationException("Unimplemented case: " + player.getDirection());
+			
 			default -> throw new IllegalArgumentException("Unexpected value: " + player.getDirection());
 			};
 		}else
