@@ -33,7 +33,7 @@ public class HelpMethods {
 
 		String value = lvlData[(int) yIndex][(int) xIndex];
 
-		return "#".equals(value.substring(0, 1)); // casi in cui c'è un blocco
+		return value.matches("^[0-9]");
 	}
 
 	public static boolean isEntityInsideWall(float x, float y, float width, float height) {

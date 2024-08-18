@@ -142,6 +142,7 @@ public abstract class MovingEntity extends Entity {
 	 * handles gravity and collisions.
 	 */
 	protected void updateYPos() {
+		inAir=!HelpMethods.isEntityGrounded(this);
 		if (y > Level.GAME_HEIGHT + 1) {
 			setY(-1);
 		} else if (y < -2) {

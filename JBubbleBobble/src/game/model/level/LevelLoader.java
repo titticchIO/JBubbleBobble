@@ -13,7 +13,6 @@ import static game.model.tiles.Tile.TILE_SIZE;;
 
 public class LevelLoader {
 
-	private final static String BLOCK = "#";
 	private final static String PLAYER = "P";
 	private final static String BUBBLE = "B";
 	private final static String POWERUP = "W";
@@ -24,7 +23,6 @@ public class LevelLoader {
 	private final static String PULPUL = "U";
 	private final static String SKELMONSTA = "S";
 	private final static String INVADER = "I";
-	
 
 	public static String[][] readLevelFile(int levelNum) {
 
@@ -53,32 +51,33 @@ public class LevelLoader {
 		int y = 0;
 		for (String[] linea : matrice) {
 			for (String c : linea) {
-				String type = c.substring(0, 1);
-				if (!type.equals(" ")) {
-					switch (type) {
+				if (!c.equals(" "))
+					switch (c) {
+					case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" ->
+						level.addTile(new Tile(x * TILE_SIZE, y * TILE_SIZE, c));
 					case PLAYER ->
 						level.addPlayer(Player.getInstance(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
-					case BLOCK -> level.addTile(new Tile(x * TILE_SIZE, y * TILE_SIZE, c.substring(1, 2)));
 					case POWERUP -> level.addPowerupSpawns(x, y);
-
-					default -> level.addEnemy(switch (type) {
-					case ZEN_CHAN -> new Zen_chan(x * TILE_SIZE, y * TILE_SIZE);
-					case MONSTA -> new Monsta(x * TILE_SIZE, y * TILE_SIZE);
-					case BANEBOU -> new Banebou(x * TILE_SIZE, y * TILE_SIZE);
-					case PULPUL -> new Pulpul(x * TILE_SIZE, y * TILE_SIZE);
-					default -> new SkelMonsta(x * TILE_SIZE, y * TILE_SIZE);
-					});
+					default -> {
+						level.addEnemy(switch (c) {
+						case ZEN_CHAN -> new Zen_chan(x * TILE_SIZE, y * TILE_SIZE);
+						case MONSTA -> new Monsta(x * TILE_SIZE, y * TILE_SIZE);
+						case BANEBOU -> new Banebou(x * TILE_SIZE, y * TILE_SIZE);
+						case PULPUL -> new Pulpul(x * TILE_SIZE, y * TILE_SIZE);
+						case INVADER -> new Invader(x * TILE_SIZE, y * TILE_SIZE);
+						default -> new SkelMonsta(x * TILE_SIZE, y * TILE_SIZE);
+						});
+					}
 
 					}
-				}
-
 				x++;
 			}
+
 			x = 0;
 			y++;
 		}
+
 		return matrice;
 	}
-
 
 }

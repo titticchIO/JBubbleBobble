@@ -5,20 +5,16 @@ import java.util.Random;
 import game.model.level.Level;
 import game.model.tiles.Tile;
 
-public class SkelMonsta extends Monsta {
+public class SkelMonsta extends Enemy {
 
 	private static final float FLIGHT_SPEED = 0.4f;
 	
-	private Random random;
-	private static final float MIN_SPEED = 0.1f; // Velocità minima per evitare che il nemico si blocchi
-	private static final float MAX_SPEED = 0.6f; // Velocità massima per limitare il movimento del nemico
 
 	public SkelMonsta(float x, float y) {
 		super(x, y, "S");
 		setxSpeed(0.3f);
 		setAirSpeed(0.3f);
 		setDirection(Direction.RIGHT);
-		random = new Random();
 	}
 
 	public SkelMonsta(float x, float y, float width, float height) {
@@ -26,10 +22,8 @@ public class SkelMonsta extends Monsta {
 		setxSpeed(0.3f);
 		setAirSpeed(0.3f);
 		setDirection(Direction.RIGHT);
-		random = new Random();
 	}
 
-	@Override
 	public void bounce() {
 		// GO DOWN
 		if (y - 1 <= Tile.TILE_SIZE) {
@@ -72,9 +66,6 @@ public class SkelMonsta extends Monsta {
 
 	@Override
 	public void updateEntity() {
-		// if((x < 0 && x > Settings.GAME_WIDTH) || (y < 0 && y > Settings.GAME_HEIGHT))
-		// pop();
-//		updateImage();
 		bounce();
 		updateYPos();
 		updateXPos();
