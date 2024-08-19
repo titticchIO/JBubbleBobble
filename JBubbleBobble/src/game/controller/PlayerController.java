@@ -29,6 +29,8 @@ public class PlayerController implements KeyListener {
 		case PLAYING:
 			game.getPlaying().keyPressed(e);
 			break;
+		case WIN:
+			game.getWin().keyPressed(e);
 		}
 	}
 

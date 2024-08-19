@@ -115,6 +115,8 @@ public class Player extends MovingEntity {
 
 	}
 
+	
+	
 	@Override
 	public void updateEntity() {
 		Optional<PlayerBubble> bounceBobble = Entity.checkBottomCollision(this,

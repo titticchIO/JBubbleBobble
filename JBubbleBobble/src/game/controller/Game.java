@@ -4,6 +4,8 @@ import game.view.*;
 import game.view.GameFrame.Screen;
 import game.controller.gamestates.Playing;
 import game.model.Model;
+import game.controller.gamestates.State;
+import game.controller.gamestates.Win;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,9 +22,12 @@ public class Game implements Runnable {
 
 	private Playing playing;
 	private Menu menu;
+	private Win win;
 
 	private Model model;
 	private View view;
+	
+	private State state;
 
 	public Game() {
 		model = Model.getInstance();
@@ -31,6 +36,8 @@ public class Game implements Runnable {
 		model.updateModel();
 		playing = new Playing(this);
 		menu = new Menu(this);
+		win = new Win(this);
+		
 		ActionListener actionListener = new ActionListener() {
 
 			@Override
@@ -52,6 +59,10 @@ public class Game implements Runnable {
 		return menu;
 	}
 
+	public Win getWin() {
+		return win;
+	}
+
 	public void startGameLoop() {
 		GameState.state = GameState.PLAYING;
 		gameFrame.getLevelPanel().renderTilesOnce();
@@ -64,10 +75,17 @@ public class Game implements Runnable {
 		switch (GameState.state) {
 		case MENU:
 			menu.update();
+			state = menu;
 			break;
 		case PLAYING:
 			playing.update();
+			state = playing;
 			break;
+		case WIN:
+			playing.update();
+			state = win;
+			break;
+		
 		}
 
 	}

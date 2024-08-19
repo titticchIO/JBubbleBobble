@@ -31,6 +31,9 @@ public class Playing extends State implements Statemethods {
 	@Override
 	public void update() {
 		Model.getInstance().updateModel();
+		
+		if (Model.getInstance().getState() == Model.State.WIN)
+			GameState.state = GameState.WIN;
 	}
 
 	@Override
