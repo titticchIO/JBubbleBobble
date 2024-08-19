@@ -148,7 +148,6 @@ public class Level {
 				if (b.hit(player))
 					b.popAndKill();
 			});
-
 	}
 
 	public void removeEnemy(Enemy enemy) {

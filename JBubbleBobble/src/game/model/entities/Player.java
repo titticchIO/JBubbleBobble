@@ -19,11 +19,19 @@ public class Player extends MovingEntity {
 		WALK, JUMP, SHOOT
 	}
 
+	public static final int NUMBER_OF_LIVES = 3;
+	public static final long INVULNERABILITY_INTERVAL = 5000;
+
 	private final String type = "P";
 	private Direction bubbleDirection;
 	private State state;
+	private int lives;
 
 	private boolean isJumping;
+
+	private boolean isColliding;
+
+	private long lastCollision;
 
 	// bolla attuale
 	private PlayerBubble currentBubble;
@@ -48,6 +56,8 @@ public class Player extends MovingEntity {
 		state = State.WALK;
 		currentBubble = new PlayerBubble(x, y, width, height);
 		bubbleDirection = Direction.RIGHT;
+		lives = NUMBER_OF_LIVES;
+		lastCollision = System.currentTimeMillis();
 	}
 
 	/**
@@ -93,6 +103,18 @@ public class Player extends MovingEntity {
 		this.isJumping = isJumping;
 	}
 
+	public void looseLife() {
+		long now = System.currentTimeMillis();
+		
+		if (now - lastCollision > INVULNERABILITY_INTERVAL
+				&& Entity.checkCollision(this, Model.getInstance().getCurrentLevel().getEnemyManager().getEnemies())
+						.isPresent()) {
+			lives--;
+			lastCollision = now;
+		}
+
+	}
+
 	@Override
 	public void updateEntity() {
 		Optional<PlayerBubble> pb = Entity.checkBottomCollision(this,
@@ -103,5 +125,8 @@ public class Player extends MovingEntity {
 		updateXPos();
 		updateYPos();
 		gravity();
+		looseLife();
+
+		System.out.println(lives);
 	}
 }
