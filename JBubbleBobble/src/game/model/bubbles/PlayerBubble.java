@@ -27,7 +27,7 @@ public class PlayerBubble extends Bubble {
 		super(x, y, width, height);
 		this.xSpeed = xSpeed;
 		this.airSpeed = airSpeed;
-		this.lifeSpan = 2000;
+		this.lifeSpan = 5000;
 		this.travelTime = travelTime;
 	}
 
@@ -65,7 +65,7 @@ public class PlayerBubble extends Bubble {
 	 */
 	private void rise() {
 //		fa salire la bolla
-		setAirSpeed(-1); // da calibrare con la view
+		setAirSpeed(-0.5f); // da calibrare con la view
 		setxSpeed(0);
 		decreaseTravelTime(1);
 
@@ -95,7 +95,11 @@ public class PlayerBubble extends Bubble {
 	
 	
 	public void popAndKill() {
-		Model.getInstance().getCurrentLevel().getBubbleManager().removePlayerBubble(this);		
+		Model.getInstance().getCurrentLevel().getBubbleManager().removePlayerBubble(this);
+		Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles().forEach(pb->{
+			if (getDistanceFrom(pb)<10)
+				pb.popAndKill();
+		});
 	}
 
 	@Override

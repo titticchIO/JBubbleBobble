@@ -99,20 +99,21 @@ public class LevelsPopUpMenu extends JPopupMenu {
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Please, enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        rebuildMenu(); // Ricostruisci il menu dopo ogni azione
+        editorFrame.getPopUps().forEach(p->p.rebuildMenu());
+        
     }
 
     private void handleSaveLevel(int levelNumber, EditorFrame editorFrame) {
         LevelManager.saveLevelFile(levelNumber);
         editorFrame.setActualLevelNumber(String.valueOf(levelNumber));
         editorFrame.getActualLevel().setText("Level " + levelNumber);
-        rebuildMenu(); // Ricostruisci il menu dopo ogni azione
+        editorFrame.getPopUps().forEach(p->p.rebuildMenu());
     }
 
     private void handleDeleteLevel(int levelNumber, EditorFrame editorFrame) {
         LevelManager.deleteLevelFile(levelNumber);
         editorFrame.setActualLevelNumber("");
         editorFrame.getActualLevel().setText("");
-        rebuildMenu(); // Ricostruisci il menu dopo ogni azione
+        editorFrame.getPopUps().forEach(p->p.rebuildMenu());
     }
 }

@@ -116,7 +116,30 @@ public abstract class Entity {
 	public String getCode() {
 		return code;
 	}
+	
+	/**
+	 * 
+	 * @param entity
+	 * @return	distance from another Entity
+	 */
+	public float getDistanceFrom(Entity entity) {
+	    // Calcola la distanza minima sull'asse X
+	    float xDist = Math.max(0, Math.max(entity.x - (this.x + this.width), this.x - (entity.x + entity.width)));
+	    
+	    // Calcola la distanza minima sull'asse Y
+	    float yDist = Math.max(0, Math.max(entity.y - (this.y + this.height), this.y - (entity.y + entity.height)));
 
+	    // Se c'è una sovrapposizione su uno dei due assi, la distanza sarà zero
+	    if (xDist == 0 || yDist == 0) {
+	        return Math.max(xDist, yDist);
+	    }
+	    
+	    // Se non c'è sovrapposizione, calcola la distanza euclidea tra i punti più vicini dei bordi delle entità
+	    return (float) Math.sqrt(xDist * xDist + yDist * yDist);
+	}
+
+	
+	
 	/**
 	 * @return array with entity's coordinates
 	 */

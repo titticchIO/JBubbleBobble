@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
+import editor.model.LevelReader;
 import game.model.level.Level;
 
 public class Model extends Observable {
@@ -27,6 +28,7 @@ public class Model extends Observable {
 		levels = new ArrayList<Level>();
 		setChanged();
 		notifyObservers(currentLevel);
+		loadLevels();
 		levelIterator = levels.iterator();
 	}
 
@@ -36,14 +38,12 @@ public class Model extends Observable {
 	}
 
 	public void loadLevels() {
-		levels.add(new Level(1));
-		levels.add(new Level(2));
-		levels.add(new Level(3));
-		levels.add(new Level(4));
-		levels.add(new Level(5));
-		levels.add(new Level(6));
-//		currentLevel = levels.getFirst();
-		currentLevel = levels.get(4);
+		
+		LevelReader.getLevels().forEach(s->{
+			levels.add(new Level(Integer.parseInt(s)));
+		});
+		currentLevel = levels.getFirst();
+//		currentLevel = levels.get(4);
 		setChanged();
 		notifyObservers(currentLevel);
 	}
@@ -51,11 +51,15 @@ public class Model extends Observable {
 	public void nextLevel() {
 		currentLevel = levelIterator.next();
 		setChanged();
-		notifyObservers(currentLevel);
+		notifyObservers("next");
 	}
 
 	public void updateModel() {
 		currentLevel.updateLevel();
+		if (currentLevel.getEnemyManager().getEnemies().size()==0&&
+				currentLevel.getBubbleManager().getPlayerBubbles().stream().allMatch(b->!b.hasEnemy()))
+			nextLevel();
+			
 		setChanged();
 		notifyObservers(currentLevel);
 	}

@@ -60,7 +60,7 @@ public class LevelLoader {
 					case POWERUP -> level.addPowerupSpawns(x, y);
 					default -> {
 						level.addEnemy(switch (c) {
-						case ZEN_CHAN -> new Zen_chan(x * TILE_SIZE, y * TILE_SIZE);
+						case ZEN_CHAN -> new ZenChan(x * TILE_SIZE, y * TILE_SIZE);
 						case MONSTA -> new Monsta(x * TILE_SIZE, y * TILE_SIZE);
 						case BANEBOU -> new Banebou(x * TILE_SIZE, y * TILE_SIZE);
 						case PULPUL -> new Pulpul(x * TILE_SIZE, y * TILE_SIZE);
