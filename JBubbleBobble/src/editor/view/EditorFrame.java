@@ -3,7 +3,9 @@ package editor.view;
 import java.awt.BorderLayout;
 
 import java.awt.FlowLayout;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,11 +13,9 @@ import javax.swing.JLabel;
 
 import javax.swing.JPanel;
 
-
 import editor.model.LevelManager;
 
 import editor.view.LevelsPopUpMenu.MenuType;
-
 
 public class EditorFrame extends JFrame {
 	private EditorPanel editorPanel;
@@ -23,12 +23,14 @@ public class EditorFrame extends JFrame {
 	private JButton saveLevelButton;
 	private String actualLevelNumber;
 	private JLabel actualLevel;
+	private List<LevelsPopUpMenu> popUps;
 
 	@SuppressWarnings("serial")
 	public EditorFrame() {
 		setLayout(new BorderLayout());
 		selectionPane = new SpriteSelectionScrollPane();
 		editorPanel = new EditorPanel(this, selectionPane);
+		popUps = new ArrayList<LevelsPopUpMenu>();
 
 		// Creazione del pannello superiore
 		JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -55,9 +57,13 @@ public class EditorFrame extends JFrame {
 		// Creazione del bottone con la scritta "Save"
 		saveLevelButton = new JButton("Save");
 
-		LevelsPopUpMenu levelSelectionPopup= new LevelsPopUpMenu(MenuType.OPEN, this);
-		LevelsPopUpMenu saveLevelPopup= new LevelsPopUpMenu(MenuType.SAVE, this);
-		LevelsPopUpMenu deleteLevelPopup= new LevelsPopUpMenu(MenuType.DELETE, this);
+		LevelsPopUpMenu levelSelectionPopup = new LevelsPopUpMenu(MenuType.OPEN, this);
+		LevelsPopUpMenu saveLevelPopup = new LevelsPopUpMenu(MenuType.SAVE, this);
+		LevelsPopUpMenu deleteLevelPopup = new LevelsPopUpMenu(MenuType.DELETE, this);
+
+		popUps.add(levelSelectionPopup);
+		popUps.add(saveLevelPopup);
+		popUps.add(deleteLevelPopup);
 
 		// Aggiunta dei pulsanti al pannello
 		topPanel.add(newGridButton);
@@ -114,6 +120,10 @@ public class EditorFrame extends JFrame {
 
 	public SpriteSelectionScrollPane getSelectionPane() {
 		return selectionPane;
+	}
+
+	public List<LevelsPopUpMenu> getPopUps() {
+		return popUps;
 	}
 
 }
