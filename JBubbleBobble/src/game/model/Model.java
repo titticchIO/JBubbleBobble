@@ -42,7 +42,7 @@ public class Model extends Observable {
 			levels.add(new Level(Integer.parseInt(s)));
 		});
 //		currentLevel = levels.getFirst();
-		currentLevel = levels.get(2);
+		currentLevel = levels.get(4);
 		setChanged();
 		notifyObservers(currentLevel);
 	}

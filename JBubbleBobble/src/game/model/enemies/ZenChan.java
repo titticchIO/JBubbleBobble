@@ -47,7 +47,6 @@ public class ZenChan extends Enemy {
 		move(0.5f);
 		if (randomBoolean(1000))
 			jump();
-		System.out.println(getDistanceFrom(Model.getInstance().getCurrentLevel().getPlayer()));
 	}
 
 }

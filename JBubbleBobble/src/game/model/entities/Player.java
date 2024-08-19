@@ -95,11 +95,15 @@ public class Player extends MovingEntity {
 
 	@Override
 	public void updateEntity() {
-		Optional<PlayerBubble> pb = Entity.checkBottomCollision(this,
+		Optional<PlayerBubble> bounceBobble = Entity.checkBottomCollision(this,
 				Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles());
-		if (isJumping() && ((pb.isPresent() && pb.get().getEnemy() == null) || HelpMethods.isEntityGrounded(this))) {
+		if (isJumping() && ((bounceBobble.isPresent() && bounceBobble.get().getEnemy() == null) || HelpMethods.isEntityGrounded(this))) {
 			jump();
 		}
+		Optional<PlayerBubble> popBobble = Entity.checkTopCollision(this,
+				Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles());
+		if(popBobble.isPresent())
+			popBobble.get().popAndKill();
 		updateXPos();
 		updateYPos();
 		gravity();
