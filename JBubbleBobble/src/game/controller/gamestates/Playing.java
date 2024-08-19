@@ -67,11 +67,11 @@ public class Playing extends State implements Statemethods {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_W:
 			currentLevel.getPlayer().setJumping(true);
-			currentLevel.getPlayer().jump();
 			break;
 		case KeyEvent.VK_A:
 			currentLevel.getPlayer().setDirection(Direction.LEFT);
 			currentLevel.getPlayer().move(1);
+			
 			break;
 		case KeyEvent.VK_D:
 			currentLevel.getPlayer().setDirection(Direction.RIGHT);
