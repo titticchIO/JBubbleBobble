@@ -92,6 +92,11 @@ public class PlayerBubble extends Bubble {
 		}
 		Model.getInstance().getCurrentLevel().getBubbleManager().removePlayerBubble(this);
 	}
+	
+	
+	public void popAndKill() {
+		Model.getInstance().getCurrentLevel().getBubbleManager().removePlayerBubble(this);		
+	}
 
 	@Override
 	public void updateEntity() {

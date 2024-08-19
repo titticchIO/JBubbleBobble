@@ -19,7 +19,7 @@ import game.model.level.Level;
 import game.model.tiles.Tile;
 
 public class LevelPanel extends JPanel {
-	public final static float SCALE = 2.0f;
+	public final static float SCALE = 1.5f;
 	private BufferedImage tilesImage;
 
 //	private MenuPanel menuPanel

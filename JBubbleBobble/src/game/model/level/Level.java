@@ -131,13 +131,24 @@ public class Level {
 //	}
 
 	public void captureEnemies() {
-		bubbleManager.getPlayerBubbles().stream()
-				.forEach(b -> enemyManager.getEnemies().stream().filter(b::isEnemyHit).forEach(e -> {
-					if (!b.hasEnemy()) {
-						b.setEnemy(e);
-						removeEnemy(e);
-					}
-				}));
+		if (checkCollisions(bubbleManager.getPlayerBubbles(), enemyManager.getEnemies()))
+			bubbleManager.getPlayerBubbles().stream()
+					.forEach(b -> enemyManager.getEnemies().stream().filter(b::isEnemyHit).forEach(e -> {
+						if (!b.hasEnemy()) {
+							b.setEnemy(e);
+							removeEnemy(e);
+						}
+					}));
+	}
+
+	public void killEnemies() {
+		Optional<PlayerBubble> bubbleWithEnemy = Entity.checkCollision(player, bubbleManager.getPlayerBubbles());
+		if (bubbleWithEnemy.isPresent() && bubbleWithEnemy.get().hasEnemy())
+			bubbleManager.getPlayerBubbles().stream().filter(PlayerBubble::hasEnemy).forEach(b -> {
+				if (b.hit(player))
+					b.popAndKill();
+			});
+
 	}
 
 	public void removeEnemy(Enemy enemy) {
@@ -152,9 +163,8 @@ public class Level {
 		player.updateEntity();
 		enemyManager.updateEnemies();
 		bubbleManager.updateBubbles();
-
-		if (checkCollisions(bubbleManager.getPlayerBubbles(), enemyManager.getEnemies()))
-			captureEnemies();
+		captureEnemies();
+		killEnemies();
 
 		Optional<Enemy> oe = checkPlayerEnemyCollision();
 //		if (oe.isPresent()) System.out.println("Hittato enemy");
