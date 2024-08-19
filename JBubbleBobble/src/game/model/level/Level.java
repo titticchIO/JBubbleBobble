@@ -61,6 +61,7 @@ public class Level {
 		List<Entity> entities = new ArrayList<Entity>();
 		entities.add(player);
 		entities.addAll(bubbleManager.getBubbles());
+		entities.addAll(bubbleManager.getPlayerBubbles());
 		entities.addAll(enemyManager.getEnemies());
 		return entities;
 	}
@@ -130,10 +131,10 @@ public class Level {
 //	}
 
 	public void captureEnemies() {
-		bubbleManager.getBubbles().stream()
+		bubbleManager.getPlayerBubbles().stream()
 				.forEach(b -> enemyManager.getEnemies().stream().filter(b::isEnemyHit).forEach(e -> {
-					if (b instanceof PlayerBubble pb && pb.getEnemy() == null) {
-						pb.setEnemy(e);
+					if (!b.hasEnemy()) {
+						b.setEnemy(e);
 						removeEnemy(e);
 					}
 				}));
@@ -152,7 +153,7 @@ public class Level {
 		enemyManager.updateEnemies();
 		bubbleManager.updateBubbles();
 
-		if (checkCollisions(bubbleManager.getBubbles(), enemyManager.getEnemies()))
+		if (checkCollisions(bubbleManager.getPlayerBubbles(), enemyManager.getEnemies()))
 			captureEnemies();
 
 		Optional<Enemy> oe = checkPlayerEnemyCollision();

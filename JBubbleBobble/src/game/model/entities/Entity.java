@@ -73,12 +73,11 @@ public abstract class Entity {
 	public void setHeight(float height) {
 		this.height = height;
 	}
-	
-	
+
 	public Entity setPosition(float x, float y) {
 		setX(x);
 		setY(y);
-		
+
 		return this;
 	}
 
@@ -181,34 +180,19 @@ public abstract class Entity {
 	public boolean hit(Entity entity) {
 		return topHit(entity) || bottomHit(entity);
 	}
-	
-	public static <T extends Entity, U extends Entity> boolean checkCollision(T entity,
-			List<U> list) {
-		return list.stream().anyMatch(x -> x.hit(entity));
+
+	public static <T extends Entity, U extends Entity> Optional<U> checkCollision(T entity, List<U> list) {
+		return list.stream().filter(x -> x.hit(entity)).findFirst();
 	}
-	
-	public static <T extends Entity, U extends Entity> boolean checkTopCollision(T entity,
-			List<U> list) {
-		return list.stream().anyMatch(x -> x.topHit(entity));
+
+	public static <T extends Entity, U extends Entity> Optional<U> checkTopCollision(T entity, List<U> list) {
+		return list.stream().filter(x -> x.bottomHit(entity)).findFirst();
 	}
-	
-	public static <T extends Entity, U extends Entity> boolean checkBottomCollision(T entity,
-			List<U> list) {
-		return list.stream().anyMatch(x -> x.bottomHit(entity));
-	}
-	
-	
-	public static <T extends Entity, U extends Entity> Optional<U> whoImBottomCollidingWith(T entity,
-			List<U> list) {
+
+	public static <T extends Entity, U extends Entity> Optional<U> checkBottomCollision(T entity, List<U> list) {
 		return list.stream().filter(x -> x.topHit(entity)).findFirst();
 	}
 
-	
-	
-	
-	
-	
-	
 	@Override
 	public int hashCode() {
 		int k = 13;

@@ -7,6 +7,7 @@ import game.model.entities.MovingEntity.Direction;
 import game.model.tiles.Tile;
 
 import java.util.List;
+import java.util.Optional;
 
 import game.model.HelpMethods;
 import game.model.Model;
@@ -35,7 +36,6 @@ public class Player extends MovingEntity {
 
 		return instance;
 	}
-
 
 	public static Player getInstance(float x, float y, float width, float height) {
 		if (instance == null)
@@ -68,20 +68,20 @@ public class Player extends MovingEntity {
 			bubbleDirection = direction;
 	}
 
-
 	public void shootBubble() {
 		if (bubbleDirection == Direction.RIGHT
 				&& !HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
-			Model.getInstance().getCurrentLevel().getBubbleManager().createBubble(x + Tile.TILE_SIZE, y, 2);
-		} else if (bubbleDirection == Direction.LEFT && !HelpMethods.isEntityInsideWall(x - Tile.TILE_SIZE, y, width, height)) {
-			Model.getInstance().getCurrentLevel().getBubbleManager().createBubble(x - Tile.TILE_SIZE, y, -2);
+			Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x + Tile.TILE_SIZE, y, 2);
+		} else if (bubbleDirection == Direction.LEFT
+				&& !HelpMethods.isEntityInsideWall(x - Tile.TILE_SIZE, y, width, height)) {
+			Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x - Tile.TILE_SIZE, y, -2);
 		}
 	}
 
 	@Override
 	public void jump() {
-			inAir = true;
-			airSpeed = jumpSpeed;
+		inAir = true;
+		airSpeed = jumpSpeed;
 //		}
 	}
 
@@ -92,12 +92,14 @@ public class Player extends MovingEntity {
 	public void setJumping(boolean isJumping) {
 		this.isJumping = isJumping;
 	}
-	
+
 	@Override
 	public void updateEntity() {
-		if (isJumping() && (Entity.checkCollision(this, Model.getInstance().getCurrentLevel().getBubbleManager().getBubbles())
+		Optional<PlayerBubble> pb=Entity.checkBottomCollision(this, Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles());
+			System.out.println(Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles().size());
+		if (isJumping() && ((pb.isPresent()&&pb.get().getEnemy()==null)
 				|| HelpMethods.isEntityGrounded(this))) {
-	        jump();
+			jump();
 		}
 		updateXPos();
 		updateYPos();

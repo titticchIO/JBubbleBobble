@@ -9,7 +9,7 @@ public class PlayerBubble extends Bubble {
 	 * tempo prima che la bolla inizi a salire
 	 */
 	private float travelTime;
-	
+
 	private Enemy enemy;
 
 	/**
@@ -70,24 +70,27 @@ public class PlayerBubble extends Bubble {
 		decreaseTravelTime(1);
 
 	}
-	
+
 	public Enemy getEnemy() {
 		return enemy;
 	}
-	
+
 	public void setEnemy(Enemy enemy) {
 		if (this.enemy == null)
 			this.enemy = enemy;
 	}
-	
-	
+
+	public boolean hasEnemy() {
+		return getEnemy() != null;
+	}
+
 	@Override
 	public void pop() {
 		if (enemy != null) {
 			enemy.setPosition(getX(), getY());
 			Model.getInstance().getCurrentLevel().getEnemyManager().addEnemy(enemy);
 		}
-		Model.getInstance().getCurrentLevel().getBubbleManager().removeBubble(this);
+		Model.getInstance().getCurrentLevel().getBubbleManager().removePlayerBubble(this);
 	}
 
 	@Override
