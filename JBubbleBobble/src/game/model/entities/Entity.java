@@ -3,6 +3,7 @@ package game.model.entities;
 import static game.model.tiles.Tile.TILE_SIZE;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 
@@ -195,7 +196,19 @@ public abstract class Entity {
 			List<U> list) {
 		return list.stream().anyMatch(x -> x.bottomHit(entity));
 	}
+	
+	
+	public static <T extends Entity, U extends Entity> Optional<U> whoImBottomCollidingWith(T entity,
+			List<U> list) {
+		return list.stream().filter(x -> x.topHit(entity)).findFirst();
+	}
 
+	
+	
+	
+	
+	
+	
 	@Override
 	public int hashCode() {
 		int k = 13;
