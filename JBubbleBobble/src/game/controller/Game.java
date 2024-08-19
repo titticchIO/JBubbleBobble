@@ -3,7 +3,6 @@ package game.controller;
 import game.view.*;
 import game.view.GameFrame.Screen;
 import game.controller.gamestates.Playing;
-import game.controller.gamestates.State;
 import game.model.Model;
 
 import java.awt.event.ActionEvent;
@@ -14,7 +13,7 @@ import game.controller.gamestates.Menu;
 
 public class Game implements Runnable {
 	private Thread gameThread;
-	private final float GAME_SPEED = 0.2f;
+	private final float GAME_SPEED = 1.0f;
 	private final int FPS_SET = 120;
 	private final int UPS_SET = (int) (200 * GAME_SPEED);
 	private GameFrame gameFrame;
