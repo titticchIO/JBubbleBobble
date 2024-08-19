@@ -1,6 +1,7 @@
 package game.model.entities;
 
 import game.model.HelpMethods;
+import game.model.Model;
 import game.model.Settings;
 import game.model.level.Level;
 import game.model.tiles.Tile;
@@ -216,6 +217,11 @@ public abstract class MovingEntity extends Entity {
 	 * observers of changes.
 	 */
 	public void updateEntity() {
+		if (this instanceof Player player)
+			System.out.println((player. isJumping() && Entity.checkCollision(this, Model.getInstance().getCurrentLevel().getBubbleManager().getBubbles()))
+					|| (!inAir && !HelpMethods.isEntityInsideWall(x, y, width, height)));
+//			System.out.println(player.isJumping());
+		
 		updateXPos();
 		updateYPos();
 		gravity();
