@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
+import editor.model.LevelReader;
 import game.model.level.Level;
 
 public class Model extends Observable {
@@ -36,14 +37,12 @@ public class Model extends Observable {
 	}
 
 	public void loadLevels() {
-		levels.add(new Level(1));
-		levels.add(new Level(2));
-		levels.add(new Level(3));
-		levels.add(new Level(4));
-		levels.add(new Level(5));
-		levels.add(new Level(6));
+		
+		LevelReader.getLevels().forEach(s->{
+			levels.add(new Level(Integer.parseInt(s)));
+		});
 //		currentLevel = levels.getFirst();
-		currentLevel = levels.get(4);
+		currentLevel = levels.get(2);
 		setChanged();
 		notifyObservers(currentLevel);
 	}

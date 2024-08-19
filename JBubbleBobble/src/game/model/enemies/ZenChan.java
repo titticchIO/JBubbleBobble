@@ -5,19 +5,20 @@ import static game.model.HelpMethods.isEntityInsideWall;
 
 import java.util.Random;
 
+import game.model.Model;
 import game.model.level.LevelLoader;
 
-public class Zen_chan extends Enemy {
+public class ZenChan extends Enemy {
 	
 	
 	
-	public Zen_chan(float x, float y) {
+	public ZenChan(float x, float y) {
 		super(x, y, "Z");
 		setxSpeed(0.5f);
 		setDirection(Direction.RIGHT);
 		setJumpSpeed(-1.5f);
 	}
-	public Zen_chan(float x, float y, float width, float height) {
+	public ZenChan(float x, float y, float width, float height) {
 		super(x, y, width, height, "Z");
 		setxSpeed(0.5f);
 		setDirection(Direction.RIGHT);
@@ -46,6 +47,7 @@ public class Zen_chan extends Enemy {
 		move(0.5f);
 		if (randomBoolean(1000))
 			jump();
+		System.out.println(getDistanceFrom(Model.getInstance().getCurrentLevel().getPlayer()));
 	}
 
 }
