@@ -50,13 +50,17 @@ public class Menu extends State implements Statemethods{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		game.startGameLoop();
+		//game.startGameLoop();
 		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
+	}
+	
+	public void startGame() {
+		game.startGameLoop();
 	}
 
 }

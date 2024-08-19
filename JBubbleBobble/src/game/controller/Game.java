@@ -46,8 +46,8 @@ public class Game implements Runnable {
 				startGameLoop();
 			}
 		};
-		gameFrame = new GameFrame(this, new PlayerController(this), actionListener);
-		gameFrame.showState(Screen.MENU);
+		gameFrame = new GameFrame(this, new PlayerController(this), actionListener, menu);
+		gameFrame.showState(Screen.USER_SELECTION);
 
 	}
 	

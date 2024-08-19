@@ -1,5 +1,7 @@
 package game.model;
 
+import java.util.HashMap;
+
 import game.model.entities.MovingEntity;
 import game.model.level.Level;
 import game.model.level.LevelLoader;
@@ -108,5 +110,7 @@ public class HelpMethods {
 		}
 		return false;
 	}
+	
+
 
 }

@@ -1,39 +1,49 @@
 package game.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 
 import editor.model.LevelReader;
 import game.model.level.Level;
 
 public class Model extends Observable {
+	
+	
 	public enum State {
 		PLAY,
 		GAME_OVER,
 		WIN
 	}
 	
-	private List<Level> levels;
-	private Iterator<Level> levelIterator;
-	private Level currentLevel;
 
-	private long score;
-	private long highScore;
+    private List<Level> levels;
+    private Iterator<Level> levelIterator;
+    private Level currentLevel;
+    private List<User> users;
+    private User currentUser;
+
+
+    private long score;
+    private long highScore;
 
 	private static Model instance;
 	
 	private State state;
 
-	public static Model getInstance() {
-		if (instance == null)
-			instance = new Model();
-		return instance;
-	}
+    public static Model getInstance() {
+        if (instance == null)
+            instance = new Model();
+        return instance;
+    }
 
 	private Model() {
 		levels = new ArrayList<Level>();
+		users = new ArrayList<>();
+		loadUsers();
 		setChanged();
 		notifyObservers(currentLevel);
 		loadLevels();
@@ -84,6 +94,60 @@ public class Model extends Observable {
 		setChanged();
 		notifyObservers(currentLevel);
 	}
+   
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void addUser(User user) {
+        users.add(user);
+        setChanged();
+        notifyObservers();
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+        //setChanged();
+        //notifyObservers(currentUser);
+    }
+
+    private void loadUsers() {
+        HashMap<String, Integer> mappaUtentiPunti = UserMethods.getUsersPoints();
+        
+        // Itera attraverso la mappa per creare e aggiungere utenti
+        for (Map.Entry<String, Integer> entry : mappaUtentiPunti.entrySet()) {
+            String nickname = entry.getKey();
+            Integer points = entry.getValue();
+            String avatarPath = "resources/users/" + nickname + ".png";
+            
+            // Crea un nuovo utente
+            User user = new User(nickname, points, avatarPath);
+            
+            // Aggiungi l'utente alla lista degli utenti
+            users.add(user);
+        }
+
+        // Notifica eventuali osservatori che la lista degli utenti è stata aggiornata
+        setChanged();
+        notifyObservers(users);
+    }
+
+
+    
+    
+    public void setCurrentUserByNickname(String selectedNickname) {
+        for (User user : users) { // 'users' è la lista di utenti
+            if (user.getNickname().equals(selectedNickname)) {
+                currentUser = user;
+                break; // Uscire dal ciclo una volta trovato l'utente
+            }
+        }
+    }
 
 	public State getState() {
 		return state;
