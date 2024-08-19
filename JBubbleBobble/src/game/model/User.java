@@ -5,6 +5,7 @@ public class User {
 	private String nickname;
 	private Integer highScore;
 	private String avatarPath;
+	private int points;
 	
 	public User(String nickname, Integer highScore, String avatarPath) {
 		this.nickname = nickname;
@@ -36,6 +37,19 @@ public class User {
 
 	public void setHighScore(Integer highScore) {
 		this.highScore = highScore;
+	}
+	
+	public int getPoints() {
+		return points;
+	}
+	
+	public void addPoints(int pointsAmount) {
+		points += pointsAmount;
+		if (points > highScore) {
+			setHighScore(points);
+			UserMethods.saveUsersPoints(nickname, highScore);
+			
+		}
 	}
 
 }

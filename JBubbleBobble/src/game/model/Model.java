@@ -82,6 +82,8 @@ public class Model extends Observable {
 
 	public void updateModel() {
 		currentLevel.updateLevel();
+		updatePoints();
+		
 		if (currentLevel.getEnemyManager().getEnemies().size() == 0
 				&& currentLevel.getBubbleManager().getPlayerBubbles().stream().allMatch(b -> !b.hasEnemy()))
 			
@@ -93,6 +95,14 @@ public class Model extends Observable {
 
 		setChanged();
 		notifyObservers(currentLevel);
+		
+	}
+	
+	private void updatePoints() {
+		if (currentUser != null) {
+			setChanged();
+			notifyObservers("points");
+		}
 	}
    
 
@@ -132,9 +142,12 @@ public class Model extends Observable {
             users.add(user);
         }
 
+        
+        /*
         // Notifica eventuali osservatori che la lista degli utenti è stata aggiornata
         setChanged();
         notifyObservers(users);
+        */
     }
 
 

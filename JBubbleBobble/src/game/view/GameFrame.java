@@ -1,5 +1,6 @@
 package game.view;
 
+
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
@@ -14,6 +15,7 @@ import game.controller.Game;
 import game.controller.PlayerController;
 import game.controller.gamestates.GameState;
 import game.controller.gamestates.Menu;
+import game.model.Model;
 import game.model.level.Level;
 
 public class GameFrame extends JFrame {
@@ -26,26 +28,34 @@ public class GameFrame extends JFrame {
     private LevelPanel levelPanel;
     private MenuPanel menuPanel;
     private UserSelectionPanel userSelectionPanel;
+    
+    // Aggiunti per mostrare e aggiornare punti e highscore
+    private JLabel scoreLabel;
+    private JLabel highScoreLabel;
 
-    public GameFrame(Game game, PlayerController playerController, ActionListener actionListener, Menu menu) {
+    public GameFrame(Game game, PlayerController playerController, Menu menu) {
         layoutPanel = new JPanel(new CardLayout());
         layoutPanel.setSize(new Dimension((int) (Level.GAME_WIDTH * LevelPanel.SCALE),
                 (int) (Level.GAME_HEIGHT * LevelPanel.SCALE)));
 
         JPanel gamePanel = new JPanel(new BorderLayout());
-        JPanel panel = new JPanel(new GridBagLayout()) {
-            {
-                add(new JLabel("Score: 0"));
-                add(new JLabel("Highscore: 100"));
-            }
-        };
-        gamePanel.add(panel, BorderLayout.NORTH);
+        JPanel scorePanel = new JPanel(new GridBagLayout());
+        
+        // Inizializzazione delle label con valori 0
+        scoreLabel = new JLabel("Score: 0");
+        highScoreLabel = new JLabel("Highscore: 0");
+        
+        scorePanel.add(scoreLabel);
+        scorePanel.add(highScoreLabel);
 
-        levelPanel = View.getInstance().getLevelPanel();
+        gamePanel.add(scorePanel, BorderLayout.NORTH);
+
+        levelPanel = View.getInstance(this).getLevelPanel();
         gamePanel.add(levelPanel, BorderLayout.CENTER);
 
         menuPanel = new MenuPanel(menu);
         userSelectionPanel = new UserSelectionPanel(e -> {
+        	
             // Logica per selezionare l'utente e passare al menu
             ((CardLayout) layoutPanel.getLayout()).show(layoutPanel, Screen.MENU.name());
         });
@@ -83,5 +93,14 @@ public class GameFrame extends JFrame {
         if (GameState.state == GameState.PLAYING) {
             levelPanel.repaint();
         }
+    }
+
+    // Metodo per aggiornare i punti e l'highscore
+    public void updateScoreAndHighscore() {
+        int currentPoints = Model.getInstance().getCurrentUser().getPoints();
+        int highScore = Model.getInstance().getCurrentUser().getHighScore();
+
+        scoreLabel.setText("Score: " + currentPoints);
+        highScoreLabel.setText("Highscore: " + highScore);
     }
 }

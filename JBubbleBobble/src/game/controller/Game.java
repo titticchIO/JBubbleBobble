@@ -31,12 +31,14 @@ public class Game implements Runnable {
 
 	public Game() {
 		model = Model.getInstance();
-		view = View.getInstance();
+		menu = new Menu(this);
+		win = new Win(this);
+		gameFrame = new GameFrame(this, new PlayerController(this), menu);
+		view = View.getInstance(gameFrame);
 		model.addObserver(view);
 		model.updateModel();
 		playing = new Playing(this);
-		menu = new Menu(this);
-		win = new Win(this);
+		
 		
 		ActionListener actionListener = new ActionListener() {
 
@@ -46,7 +48,7 @@ public class Game implements Runnable {
 				startGameLoop();
 			}
 		};
-		gameFrame = new GameFrame(this, new PlayerController(this), actionListener, menu);
+		
 		gameFrame.showState(Screen.USER_SELECTION);
 
 	}

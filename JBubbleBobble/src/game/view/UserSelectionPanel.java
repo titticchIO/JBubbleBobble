@@ -50,6 +50,10 @@ public class UserSelectionPanel extends JPanel {
             }
 
             JButton userButton = new JButton(user.getNickname());
+            userButton.addActionListener(e -> {
+                // Imposta l'utente corrente nel Model
+                Model.getInstance().setCurrentUser(user);
+            });
             userButton.addActionListener(actionListener);
             userButton.setHorizontalTextPosition(JButton.CENTER);
             userButton.setVerticalTextPosition(JButton.BOTTOM);

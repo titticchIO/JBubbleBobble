@@ -21,13 +21,15 @@ import game.model.tiles.Tile;
 public class LevelPanel extends JPanel {
 	public final static float SCALE = 1.5f;
 	private BufferedImage tilesImage;
+	private GameFrame gameFrame;
 
 //	private MenuPanel menuPanel
 
 //	NON AGGIUNGERE IL PATTERN SINGLETON!!!!!
 
-	public LevelPanel() {
+	public LevelPanel(GameFrame gameFrame) {
 		setPanelSize();
+		this.gameFrame = gameFrame;
 	}
 
 	private void setPanelSize() {
@@ -38,7 +40,7 @@ public class LevelPanel extends JPanel {
 	public void renderTilesOnce() {
 		tilesImage = new BufferedImage(Level.GAME_WIDTH, Level.GAME_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		Graphics g = tilesImage.getGraphics();
-		View.getInstance().getLevel().getTiles().forEach(t -> renderEntity(t, g));
+		View.getInstance(gameFrame).getLevel().getTiles().forEach(t -> renderEntity(t, g));
 	}
 
 	@Override
@@ -49,7 +51,7 @@ public class LevelPanel extends JPanel {
 		super.paintComponent(g2d);
 
 		g2d.drawImage(tilesImage, 0, 0, this);
-		View.getInstance().getLevel().getEntities().forEach(e -> renderEntity(e, g2d));
+		View.getInstance(gameFrame).getLevel().getEntities().forEach(e -> renderEntity(e, g2d));
 	}
 
 	public void renderEntity(Entity entity, Graphics g) {
