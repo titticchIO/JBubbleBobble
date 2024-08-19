@@ -3,6 +3,7 @@ package game.view;
 import java.util.Observable;
 import java.util.Observer;
 
+import game.model.Model;
 import game.model.level.Level;
 
 public class View implements Observer {
@@ -23,7 +24,6 @@ public class View implements Observer {
 	public LevelPanel getLevelPanel() {
 		return levelPanel;
 	}
-	
 
 	public Level getLevel() {
 		return level;
@@ -31,7 +31,11 @@ public class View implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		this.level = (Level) arg;
+		level = Model.getInstance().getCurrentLevel();
+
+		if (arg instanceof String s && s.equals("next"))
+			levelPanel.renderTilesOnce();
+
 	}
 
 }

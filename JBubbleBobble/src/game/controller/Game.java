@@ -28,7 +28,7 @@ public class Game implements Runnable {
 		model = Model.getInstance();
 		view = View.getInstance();
 		model.addObserver(view);
-		model.loadLevels();
+		model.updateModel();
 		playing = new Playing(this);
 		menu = new Menu(this);
 		ActionListener actionListener = new ActionListener() {
