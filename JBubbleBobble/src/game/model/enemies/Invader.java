@@ -4,6 +4,7 @@ import static game.model.HelpMethods.isEntityInsideWall;
 import static game.model.HelpMethods.isSolidVerticalLine;
 
 import game.model.HelpMethods;
+import game.model.Model;
 import game.model.entities.MovingEntity.Direction;
 
 public class Invader extends Enemy {
@@ -50,6 +51,10 @@ public class Invader extends Enemy {
 			setDirection(Direction.LEFT);
 		}
 	}
+	
+	private void shootLaser() {
+		Model.getInstance().getCurrentLevel().getEnemyManager().addLaser(new Laser(x+4, y+height, 8, 20));
+	}
 
 	@Override
 	public void updateEntity() {
@@ -67,6 +72,11 @@ public class Invader extends Enemy {
 			setAirSpeed(0.5f);
 		move(0.5f);
 		updateYPos();
+		if (randomBoolean(300))
+			shootLaser();
 	}
+
+
+
 
 }
