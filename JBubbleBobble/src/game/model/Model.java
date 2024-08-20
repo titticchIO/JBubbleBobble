@@ -81,6 +81,7 @@ public class Model extends Observable {
 	public void resetLevels() {
 		levels = new ArrayList<Level>();
 		loadLevels();
+		levelIterator = levels.iterator();
 	}
 
 	public void updateModel() {

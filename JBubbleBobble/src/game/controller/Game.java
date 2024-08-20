@@ -61,6 +61,12 @@ public class Game implements Runnable {
 	public Win getWin() {
 		return win;
 	}
+	
+	
+
+	public GameFrame getGameFrame() {
+		return gameFrame;
+	}
 
 	public void startGameLoop() {
 		GameState.state = GameState.PLAYING;

@@ -19,6 +19,10 @@ public class View implements Observer {
         }
         return instance;
     }
+    public static View getInstance() {
+    	return instance;
+    }
+    
 
     // Costruttore privato, ora sempre richiede GameFrame
     private View(LevelPanel levelPanel, GameFrame gameFrame) {
