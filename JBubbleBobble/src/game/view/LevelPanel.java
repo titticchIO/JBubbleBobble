@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import game.model.entities.Entity;
 import game.model.entities.Player;
+import game.model.bubbles.PlayerBubble;
 import game.model.enemies.Banebou;
 import game.model.enemies.Invader;
 import game.model.enemies.Monsta;
@@ -73,6 +74,14 @@ public class LevelPanel extends JPanel {
 			case STATIC -> Images.getImage("P", "static");
 			default -> throw new IllegalArgumentException("Unexpected value: " + player.getDirection());
 		};
+		case PlayerBubble playerBubble -> {
+			if (playerBubble.hasEnemy()) {
+				yield AnimationLoader.loadBubbleEnemyImage(playerBubble.getEnemy().getCode());
+			} else {
+				yield Images.getImage(playerBubble.getCode());
+			}
+		}
+		
 		default -> Images.getImage(entity.getCode());
 		};
 		if (entity instanceof Tile) {
