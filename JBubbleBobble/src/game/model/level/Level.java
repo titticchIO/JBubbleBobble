@@ -68,6 +68,7 @@ public class Level {
 		entities.addAll(bubbleManager.getBubbles());
 		entities.addAll(bubbleManager.getPlayerBubbles());
 		entities.addAll(enemyManager.getEnemies());
+		entities.addAll(powerupManager.getPowerups());
 		return entities;
 	}
 
@@ -155,6 +156,11 @@ public class Level {
 			});
 	}
 
+	public void spawnPowerUp() {
+		
+	}
+	
+	
 	public void removeEnemy(Enemy enemy) {
 		enemyManager.removeEnemy(enemy);
 	}
