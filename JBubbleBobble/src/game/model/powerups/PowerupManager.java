@@ -21,4 +21,8 @@ public class PowerupManager {
 	public void updatePowerups() {
 		
 	}
+
+	public List<Powerup> getPowerups() {
+		return powerups;
+	}
 }
