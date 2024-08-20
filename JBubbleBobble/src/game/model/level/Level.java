@@ -1,9 +1,11 @@
 package game.model.level;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Optional;
+import java.util.Random;
 
 import game.model.bubbles.BubbleManager;
 import game.model.bubbles.PlayerBubble;
@@ -31,11 +33,12 @@ public class Level {
 	private List<float[]> powerupSpawns;
 	private String[][] lvlData;
 
+
 	public Level(int levelNum) {
 		tiles = new ArrayList<Tile>();
 		enemyManager = new EnemyManager();
 		bubbleManager = new BubbleManager();
-		powerupManager=new PowerupManager();
+		powerupManager = new PowerupManager();
 		lvlData = LevelLoader.loadLevel(this, levelNum);
 	}
 
@@ -119,7 +122,7 @@ public class Level {
 	public void addTile(Tile tile) {
 		tiles.add(tile);
 	}
-	
+
 	public void addPowerup(Powerup powerup) {
 		powerupManager.addPowerup(powerup);
 	}
@@ -156,11 +159,35 @@ public class Level {
 			});
 	}
 
-	public void spawnPowerUp() {
-		
+	public void spawnPowerup(Powerup powerup) {
+		Random random = new Random();
+		int x = random.nextInt(1, NUM_HORIZONTAL_TILES - 1);
+		int y = random.nextInt(1, NUM_VERTICAL_TILES - 1);
+		final int MAX_ATTEMPTS = (NUM_HORIZONTAL_TILES - 2) * (NUM_VERTICAL_TILES - 2);
+
+		for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+			// Verifica se la posizione è valida per generare il powerup
+			if (lvlData[y][x].equals(" ") && lvlData[y + 1][x].matches("[0-9]")) {
+				powerup.setPosition(x*Tile.TILE_SIZE, y*Tile.TILE_SIZE);
+				powerupManager.getPowerups().add(powerup);
+				return;
+			}
+
+			// Passa al prossimo tile orizzontalmente
+			x++;
+			if (x >= NUM_HORIZONTAL_TILES - 1) {
+				x = 1;
+				y++;
+
+				// Se y ha superato il limite, ricomincia dall'alto
+				if (y >= NUM_VERTICAL_TILES - 1) {
+					y = 1;
+				}
+			}
+		}
+
 	}
-	
-	
+
 	public void removeEnemy(Enemy enemy) {
 		enemyManager.removeEnemy(enemy);
 	}

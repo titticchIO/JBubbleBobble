@@ -2,7 +2,7 @@ package game.model.powerups;
 
 import game.model.entities.Entity;
 
-public class Powerup extends Entity{
+public abstract class Powerup extends Entity{
 
 	public enum Item {
 		PINK_CANDY(100, 5000), BLUE_CANDY(100, 5000), YELLOW_CANDY(100, 5000), SHOES(100, 8000), CLOCK(200, 10000),
@@ -31,10 +31,12 @@ public class Powerup extends Entity{
 	}
 	
 	private Item item;
+	private long startTime;
 
 	public Powerup(float x, float y, float width, float height, String code, Item item) {
 		super(x, y, width, height, code);
 		this.item = item;
+		startTime = System.currentTimeMillis();
 	}
 
 	
@@ -47,5 +49,8 @@ public class Powerup extends Entity{
 	}
 	
 	
+	public abstract void startEffect();
+	
+	public abstract void stopEffect();
 	
 }
