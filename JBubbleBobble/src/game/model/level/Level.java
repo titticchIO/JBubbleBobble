@@ -12,6 +12,7 @@ import game.model.enemies.Enemy;
 import game.model.enemies.EnemyManager;
 import game.model.entities.Entity;
 import game.model.entities.Player;
+import game.model.powerups.PowerupManager;
 import game.model.tiles.Tile;
 
 public class Level {
@@ -24,6 +25,7 @@ public class Level {
 	private List<Tile> tiles;
 	private EnemyManager enemyManager;
 	private BubbleManager bubbleManager;
+	private PowerupManager powerupManager;
 	private List<float[]> powerupSpawns;
 	private String[][] lvlData;
 
@@ -31,6 +33,7 @@ public class Level {
 		tiles = new ArrayList<Tile>();
 		enemyManager = new EnemyManager();
 		bubbleManager = new BubbleManager();
+		powerupManager = new PowerupManager();
 		lvlData = LevelLoader.loadLevel(this, levelNum);
 	}
 

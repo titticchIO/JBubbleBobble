@@ -11,8 +11,10 @@ import javax.swing.JPanel;
 
 import game.model.entities.Entity;
 import game.model.entities.Player;
+import game.model.enemies.Banebou;
 import game.model.enemies.Invader;
 import game.model.enemies.Monsta;
+import game.model.enemies.Pulpul;
 import game.model.enemies.SkelMonsta;
 import game.model.enemies.ZenChan;
 import game.model.level.Level;
@@ -61,7 +63,9 @@ public class LevelPanel extends JPanel {
 		case Invader invader -> AnimationLoader.loadEntityImage("enemies/invader/default.gif");
 		case Monsta monsta-> AnimationLoader.loadEntityImage("enemies/monsta/"+monsta.getDirection().name().toLowerCase()+".gif");
 		case SkelMonsta skelmonsta -> AnimationLoader.loadEntityImage("enemies/skelmonsta/"+skelmonsta.getDirection().name().toLowerCase()+".gif");
-		case ZenChan zen_Chan -> AnimationLoader.loadEntityImage("enemies/zenchan/"+zen_Chan.getDirection().name().toLowerCase()+".gif");
+		case ZenChan zenChan -> AnimationLoader.loadEntityImage("enemies/zenchan/"+zenChan.getDirection().name().toLowerCase()+".gif");
+		case Pulpul pulpul -> AnimationLoader.loadEntityImage("enemies/pulpul/default.gif");
+		case Banebou banebou -> AnimationLoader.loadEntityImage("enemies/banebou/"+banebou.getDirection().name().toLowerCase()+".gif");
 		
 		case Player player -> switch (player.getDirection()) {
 			case RIGHT -> AnimationLoader.getPlayerImage("walk_right");
