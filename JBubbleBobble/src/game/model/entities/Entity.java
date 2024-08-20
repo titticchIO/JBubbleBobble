@@ -169,14 +169,11 @@ public abstract class Entity {
 	 * @return boolean
 	 */
 	public boolean topHit(Entity entity) {
-		float[][] p1 = getPoints();
-		float[][] p2 = entity.getPoints();
-		if (p2[3][0] >= p1[0][0] && p2[3][0] <= p1[1][0] && p2[3][1] >= p1[0][1] && p2[3][1] <= p1[3][1]) // checks p1
-			return true;
-		if (p2[2][0] >= p1[0][0] && p2[2][0] <= p1[1][0] && p2[2][1] >= p1[0][1] && p2[2][1] <= p1[3][1]) // checks p1
-			return true;
-		return false;
-	}
+        return this.y >= entity.y + entity.height &&
+               this.y < entity.y + entity.height + this.height &&
+               this.x < entity.x + entity.width &&
+               this.x + this.width > entity.x;
+    }
 
 	/**
 	 * Method that checks any bottom collision with another entity
@@ -185,14 +182,11 @@ public abstract class Entity {
 	 * @return boolean
 	 */
 	public boolean bottomHit(Entity entity) {
-		float[][] p1 = getPoints();
-		float[][] p2 = entity.getPoints();
-		if (p2[1][0] >= p1[0][0] && p2[1][0] <= p1[1][0] && p2[1][1] >= p1[0][1] && p2[1][1] <= p1[3][1]) // check p1
-			return true;
-		if (p2[0][0] >= p1[0][0] && p2[0][0] <= p1[1][0] && p2[0][1] >= p1[0][1] && p2[0][1] <= p1[3][1]) // check p1
-			return true;
-		return false;
-	}
+        return this.y + this.height <= entity.y &&
+               this.y + this.height > entity.y - this.height &&
+               this.x < entity.x + entity.width &&
+               this.x + this.width > entity.x;
+    }
 
 	/**
 	 * Method that checks any collision with another entity
@@ -201,9 +195,12 @@ public abstract class Entity {
 	 * @return boolean
 	 */
 	public boolean hit(Entity entity) {
-		return topHit(entity) || bottomHit(entity);
-	}
-
+        return this.x < entity.x + entity.width &&
+               this.x + this.width > entity.x &&
+               this.y < entity.y + entity.height &&
+               this.y + this.height > entity.y;
+    }
+	
 	public static <T extends Entity, U extends Entity> Optional<U> checkCollision(T entity, List<U> list) {
 		return list.stream().filter(x -> x.hit(entity)).findFirst();
 	}

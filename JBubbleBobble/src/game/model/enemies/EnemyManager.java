@@ -1,8 +1,9 @@
 package game.model.enemies;
 
 import java.util.*;
-import java.util.Observable;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import game.model.entities.MovingEntity;
 
 public class EnemyManager {
 	private List<Enemy> enemies;
@@ -35,6 +36,14 @@ public class EnemyManager {
 
 	public List<Laser> getLasers() {
 		return lasers;
+	}
+
+	public List<MovingEntity> getHazards() {
+		List<MovingEntity> hazards=new ArrayList<MovingEntity>();
+		hazards.addAll(enemies);
+		hazards.addAll(lasers);
+		return hazards;
+		
 	}
 
 	public void updateEnemies() {

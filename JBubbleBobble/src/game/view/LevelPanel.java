@@ -14,6 +14,7 @@ import game.model.entities.Player;
 import game.model.bubbles.PlayerBubble;
 import game.model.enemies.Banebou;
 import game.model.enemies.Invader;
+import game.model.enemies.Laser;
 import game.model.enemies.Monsta;
 import game.model.enemies.Pulpul;
 import game.model.enemies.SkelMonsta;
@@ -62,6 +63,7 @@ public class LevelPanel extends JPanel {
 		img = switch (entity) {
 		case Tile tile -> Images.getImage(tile.getCode());
 		case Invader invader -> AnimationLoader.loadEntityImage("enemies/invader/default.gif");
+		case Laser laser-> Images.getImage("I","red");
 		case Monsta monsta-> AnimationLoader.loadEntityImage("enemies/monsta/"+monsta.getDirection().name().toLowerCase()+".gif");
 		case SkelMonsta skelmonsta -> AnimationLoader.loadEntityImage("enemies/skelmonsta/"+skelmonsta.getDirection().name().toLowerCase()+".gif");
 		case ZenChan zenChan -> AnimationLoader.loadEntityImage("enemies/zenchan/"+zenChan.getDirection().name().toLowerCase()+".gif");
