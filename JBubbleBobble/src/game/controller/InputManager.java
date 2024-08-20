@@ -5,13 +5,13 @@ import java.awt.event.KeyListener;
 
 import game.controller.gamestates.GameState;
 
-public class PlayerController implements KeyListener {
+public class InputManager implements KeyListener {
 	private Game game;
 
 	/**
 	 * @param game
 	 */
-	public PlayerController(Game game) {
+	public InputManager(Game game) {
 		this.game = game;
 	}
 
@@ -23,14 +23,10 @@ public class PlayerController implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		switch (GameState.state) {
-		case MENU:
-			game.getMenu().keyPressed(e);
-			break;
-		case PLAYING:
-			game.getPlaying().keyPressed(e);
-			break;
-		case WIN:
-			game.getWin().keyPressed(e);
+		case MENU -> game.getMenu().keyPressed(e);
+		case PLAYING -> game.getPlaying().keyPressed(e);
+		case WIN -> game.getWin().keyPressed(e);
+		case LOSS-> game.getLoss().keyPressed(e);
 		}
 	}
 

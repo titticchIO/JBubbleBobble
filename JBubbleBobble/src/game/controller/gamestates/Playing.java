@@ -32,7 +32,11 @@ public class Playing extends State implements Statemethods {
 	@Override
 	public void update() {
 		Model.getInstance().updateModel();
-		
+		if (Model.getInstance().getCurrentLevel().getPlayer().getLives() == 0) {
+			GameState.state = GameState.LOSS;
+			game.getGameFrame().showState(Screen.LOSS);
+		}
+
 		if (Model.getInstance().getState() == Model.State.WIN) {
 			GameState.state = GameState.WIN;
 			game.getGameFrame().showState(Screen.WIN);
@@ -67,7 +71,7 @@ public class Playing extends State implements Statemethods {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
@@ -77,7 +81,7 @@ public class Playing extends State implements Statemethods {
 		case KeyEvent.VK_A:
 			currentLevel.getPlayer().setDirection(Direction.LEFT);
 			currentLevel.getPlayer().move(1);
-			
+
 			break;
 		case KeyEvent.VK_D:
 			currentLevel.getPlayer().setDirection(Direction.RIGHT);

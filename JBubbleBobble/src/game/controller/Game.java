@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import game.controller.gamestates.GameState;
+import game.controller.gamestates.Loss;
 import game.controller.gamestates.Menu;
 
 public class Game implements Runnable {
@@ -23,6 +24,7 @@ public class Game implements Runnable {
 	private Playing playing;
 	private Menu menu;
 	private Win win;
+	private Loss loss;
 
 	private Model model;
 	private View view;
@@ -31,7 +33,8 @@ public class Game implements Runnable {
 		model = Model.getInstance();
 		menu = new Menu(this);
 		win = new Win(this);
-		gameFrame = new GameFrame(this, new PlayerController(this), menu);
+		loss = new Loss(this);
+		gameFrame = new GameFrame(this, new InputManager(this), menu);
 		view = View.getInstance(gameFrame);
 		model.addObserver(view);
 		model.updateModel();
@@ -61,8 +64,10 @@ public class Game implements Runnable {
 	public Win getWin() {
 		return win;
 	}
-	
-	
+
+	public Loss getLoss() {
+		return loss;
+	}
 
 	public GameFrame getGameFrame() {
 		return gameFrame;

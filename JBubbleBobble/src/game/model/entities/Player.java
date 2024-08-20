@@ -19,7 +19,7 @@ public class Player extends MovingEntity {
 		WALK, JUMP, SHOOT
 	}
 
-	public static final int NUMBER_OF_LIVES = 3;
+	public static final int NUMBER_OF_LIVES = 1;
 	public static final long INVULNERABILITY_INTERVAL = 5000;
 
 	private final String type = "P";
@@ -69,6 +69,10 @@ public class Player extends MovingEntity {
 
 	public void setCurrentBubble(PlayerBubble currentBubble) {
 		this.currentBubble = currentBubble;
+	}
+
+	public int getLives() {
+		return lives;
 	}
 
 	@Override
@@ -130,7 +134,6 @@ public class Player extends MovingEntity {
 		updateYPos();
 		gravity();
 		looseLife();
-
 		System.out.println(lives);
 	}
 }
