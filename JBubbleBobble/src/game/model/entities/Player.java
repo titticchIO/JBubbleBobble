@@ -105,9 +105,11 @@ public class Player extends MovingEntity {
 
 	public void looseLife() {
 		long now = System.currentTimeMillis();
-		
+
 		if (now - lastCollision > INVULNERABILITY_INTERVAL
-				&& Entity.checkCollision(this, Model.getInstance().getCurrentLevel().getEnemyManager().getEnemies())
+				&& (Entity.checkCollision(this, Model.getInstance().getCurrentLevel().getEnemyManager().getEnemies())
+						.isPresent())
+				|| Entity.checkCollision(this, Model.getInstance().getCurrentLevel().getEnemyManager().getLasers())
 						.isPresent()) {
 			lives--;
 			lastCollision = now;
@@ -115,18 +117,17 @@ public class Player extends MovingEntity {
 
 	}
 
-	
-	
 	@Override
 	public void updateEntity() {
 		Optional<PlayerBubble> bounceBobble = Entity.checkBottomCollision(this,
 				Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles());
-		if (isJumping() && ((bounceBobble.isPresent() && bounceBobble.get().getEnemy() == null) || HelpMethods.isEntityGrounded(this))) {
+		if (isJumping() && ((bounceBobble.isPresent() && bounceBobble.get().getEnemy() == null)
+				|| HelpMethods.isEntityGrounded(this))) {
 			jump();
 		}
 		Optional<PlayerBubble> popBobble = Entity.checkTopCollision(this,
 				Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles());
-		if(popBobble.isPresent())
+		if (popBobble.isPresent())
 			popBobble.get().popAndKill();
 		updateXPos();
 		updateYPos();
