@@ -105,12 +105,9 @@ public class Player extends MovingEntity {
 
 	public void looseLife() {
 		long now = System.currentTimeMillis();
-
 		if (now - lastCollision > INVULNERABILITY_INTERVAL
-				&& (Entity.checkCollision(this, Model.getInstance().getCurrentLevel().getEnemyManager().getEnemies())
-						.isPresent())
-				|| Entity.checkCollision(this, Model.getInstance().getCurrentLevel().getEnemyManager().getLasers())
-						.isPresent()) {
+				&& (Entity.checkCollision(this, Model.getInstance().getCurrentLevel().getEnemyManager().getHazards())
+						.isPresent())) {
 			lives--;
 			lastCollision = now;
 		}

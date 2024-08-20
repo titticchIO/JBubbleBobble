@@ -9,7 +9,6 @@ import game.model.entities.MovingEntity.Direction;
 
 public class Invader extends Enemy {
 
-
 	private State state;
 	private boolean landed;
 
@@ -20,8 +19,7 @@ public class Invader extends Enemy {
 	public Invader(float x, float y, float width, float height) {
 		super(x, y, width, height, "I");
 	}
-	
-	
+
 	public Invader(float x, float y) {
 		super(x, y, "I");
 		state = State.WALK;
@@ -51,9 +49,9 @@ public class Invader extends Enemy {
 			setDirection(Direction.LEFT);
 		}
 	}
-	
+
 	private void shootLaser() {
-		Model.getInstance().getCurrentLevel().getEnemyManager().addLaser(new Laser(x+4, y+height, 8, 20));
+		Model.getInstance().getCurrentLevel().getEnemyManager().addLaser(new Laser(x + 5, y + height, 6, 20));
 	}
 
 	@Override
@@ -75,8 +73,5 @@ public class Invader extends Enemy {
 		if (randomBoolean(300))
 			shootLaser();
 	}
-
-
-
 
 }
