@@ -2,6 +2,8 @@ package game.view;
 
 import javax.swing.ImageIcon;
 
+import game.model.EnemiesPath;
+
 import java.awt.Image;
 import java.io.File;
 import java.util.HashMap;
@@ -61,5 +63,9 @@ public class AnimationLoader {
 		} else {
 			throw new IllegalArgumentException("File non trovato: " + relativePath);
 		}
+	}
+	
+	public static Image loadBubbleEnemyImage(String code) {
+		return loadEntityImage(EnemiesPath.getPath(code) + "/bubbled.gif");
 	}
 }
