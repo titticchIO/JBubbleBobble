@@ -26,8 +26,6 @@ public class Game implements Runnable {
 
 	private Model model;
 	private View view;
-	
-	private State state;
 
 	public Game() {
 		model = Model.getInstance();
@@ -38,8 +36,7 @@ public class Game implements Runnable {
 		model.addObserver(view);
 		model.updateModel();
 		playing = new Playing(this);
-		
-		
+
 		ActionListener actionListener = new ActionListener() {
 
 			@Override
@@ -48,11 +45,11 @@ public class Game implements Runnable {
 				startGameLoop();
 			}
 		};
-		
+
 		gameFrame.showState(Screen.USER_SELECTION);
 
 	}
-	
+
 	public Playing getPlaying() {
 		return playing;
 	}
@@ -63,6 +60,12 @@ public class Game implements Runnable {
 
 	public Win getWin() {
 		return win;
+	}
+	
+	
+
+	public GameFrame getGameFrame() {
+		return gameFrame;
 	}
 
 	public void startGameLoop() {
@@ -75,19 +78,10 @@ public class Game implements Runnable {
 
 	public void update() {
 		switch (GameState.state) {
-		case MENU:
-			menu.update();
-			state = menu;
-			break;
-		case PLAYING:
-			playing.update();
-			state = playing;
-			break;
-		case WIN:
-			playing.update();
-			state = win;
-			break;
-		
+		case MENU -> menu.update();
+		case PLAYING -> playing.update();
+		case WIN -> playing.update();
+
 		}
 
 	}
@@ -123,7 +117,6 @@ public class Game implements Runnable {
 				frames++;
 				deltaF--;
 			}
-			
 
 			if (System.currentTimeMillis() - lastCheck >= 1000) {
 				lastCheck = System.currentTimeMillis();

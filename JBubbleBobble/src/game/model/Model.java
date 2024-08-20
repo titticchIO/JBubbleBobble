@@ -61,7 +61,10 @@ public class Model extends Observable {
 			levels.add(new Level(Integer.parseInt(s)));
 		});
 		currentLevel = levels.getFirst();
-//		currentLevel = levels.get(4);
+
+		//AGGIUNGI QUA IL POWERUP
+//		currentLevel.addPowerup(null);
+
 		
 		state = State.PLAY;
 		
@@ -78,6 +81,7 @@ public class Model extends Observable {
 	public void resetLevels() {
 		levels = new ArrayList<Level>();
 		loadLevels();
+		levelIterator = levels.iterator();
 	}
 
 	public void updateModel() {

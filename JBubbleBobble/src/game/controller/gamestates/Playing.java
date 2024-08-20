@@ -9,6 +9,7 @@ import game.model.Model;
 import game.model.bubbles.BubbleManager;
 import game.model.entities.MovingEntity.Direction;
 import game.model.level.Level;
+import game.view.GameFrame.Screen;
 
 public class Playing extends State implements Statemethods {
 
@@ -32,8 +33,10 @@ public class Playing extends State implements Statemethods {
 	public void update() {
 		Model.getInstance().updateModel();
 		
-		if (Model.getInstance().getState() == Model.State.WIN)
+		if (Model.getInstance().getState() == Model.State.WIN) {
 			GameState.state = GameState.WIN;
+			game.getGameFrame().showState(Screen.WIN);
+		}
 	}
 
 	@Override

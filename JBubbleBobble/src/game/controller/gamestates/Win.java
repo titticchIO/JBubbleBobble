@@ -5,6 +5,8 @@ import java.awt.event.MouseEvent;
 
 import game.controller.Game;
 import game.model.Model;
+import game.view.GameFrame.Screen;
+import game.view.View;
 
 public class Win extends State implements Statemethods {
 
@@ -53,6 +55,8 @@ public class Win extends State implements Statemethods {
 		if (e.getKeyCode() == KeyEvent.VK_R) {
 			Model.getInstance().resetLevels();
 			GameState.state = GameState.PLAYING;
+			View.getInstance().getLevelPanel().renderTilesOnce();
+			game.getGameFrame().showState(Screen.GAME);
 		}	
 	}
 

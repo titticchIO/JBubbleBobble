@@ -21,12 +21,13 @@ import game.model.level.Level;
 public class GameFrame extends JFrame {
 
     public enum Screen {
-        USER_SELECTION, MENU, GAME
+        USER_SELECTION, MENU, GAME, WIN
     }
 
     private JPanel layoutPanel;
     private LevelPanel levelPanel;
     private MenuPanel menuPanel;
+    private WinPanel winPanel;
     private UserSelectionPanel userSelectionPanel;
     
     // Aggiunti per mostrare e aggiornare punti e highscore
@@ -54,6 +55,7 @@ public class GameFrame extends JFrame {
         gamePanel.add(levelPanel, BorderLayout.CENTER);
 
         menuPanel = new MenuPanel(menu);
+        winPanel=new WinPanel();
         userSelectionPanel = new UserSelectionPanel(e -> {
         	
             // Logica per selezionare l'utente e passare al menu
@@ -68,6 +70,8 @@ public class GameFrame extends JFrame {
         layoutPanel.add(userSelectionPanel, Screen.USER_SELECTION.name());
         layoutPanel.add(menuPanel, Screen.MENU.name());
         layoutPanel.add(gamePanel, Screen.GAME.name());
+        layoutPanel.add(winPanel, Screen.WIN.name());
+        
 
         add(layoutPanel);
         pack();

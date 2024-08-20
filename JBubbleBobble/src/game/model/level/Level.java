@@ -12,6 +12,8 @@ import game.model.enemies.Enemy;
 import game.model.enemies.EnemyManager;
 import game.model.entities.Entity;
 import game.model.entities.Player;
+
+import game.model.powerups.Powerup;
 import game.model.powerups.PowerupManager;
 import game.model.tiles.Tile;
 
@@ -33,7 +35,7 @@ public class Level {
 		tiles = new ArrayList<Tile>();
 		enemyManager = new EnemyManager();
 		bubbleManager = new BubbleManager();
-		powerupManager = new PowerupManager();
+		powerupManager=new PowerupManager();
 		lvlData = LevelLoader.loadLevel(this, levelNum);
 	}
 
@@ -116,6 +118,10 @@ public class Level {
 	public void addTile(Tile tile) {
 		tiles.add(tile);
 	}
+	
+	public void addPowerup(Powerup powerup) {
+		powerupManager.addPowerup(powerup);
+	}
 
 	public void addPowerupSpawns(float x, float y) {
 		powerupSpawns.add(new float[] { x, y });
@@ -128,10 +134,6 @@ public class Level {
 	public Optional<Bubble> checkPlayerBubbleCollision() {
 		return bubbleManager.getBubbles().stream().filter(x -> x.hit(player)).findFirst();
 	}
-
-//	public boolean checkcheckBubbleEnemyCollision() {
-//		return 
-//	}
 
 	public void captureEnemies() {
 		if (checkCollisions(bubbleManager.getPlayerBubbles(), enemyManager.getEnemies()))
