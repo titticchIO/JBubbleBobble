@@ -3,21 +3,21 @@ package game.model.powerups;
 import game.model.Model;
 
 public class PinkCandy extends Powerup{
-	public PinkCandy(float x, float y, float width, float height) {
-		super(x, y, width, height, "!", Item.PINK_CANDY);
-	}
-
+	private static final int POINTS = 100;
+	private static final long DURATION = 10;
 	
+	
+	public PinkCandy(float x, float y) {
+		super(x, y, "!", POINTS, DURATION);
+	}
+
 	@Override
-	public void startEffect() {
-		Model.getInstance().getCurrentUser().addPoints(Item.PINK_CANDY.getPoints());
+	public void effect() {
 		
 	}
 
 	@Override
-	public void stopEffect() {
-		// TODO Auto-generated method stub
+	public void resetToNormal() {
 		
 	}
-
 }

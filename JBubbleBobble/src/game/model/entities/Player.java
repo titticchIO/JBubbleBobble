@@ -63,7 +63,7 @@ public class Player extends MovingEntity {
 		bubbleDirection = Direction.RIGHT;
 		lives = NUMBER_OF_LIVES;
 		canShoot = true;
-		attackSpeed = 1;
+		attackSpeed = 2;
 	}
 
 	/**
@@ -129,6 +129,14 @@ public class Player extends MovingEntity {
 
 	public boolean isJumping() {
 		return isJumping;
+	}
+	
+	public void increaseFiringRate(long delta) {
+		attackSpeed -= delta;
+	}
+	
+	public void decreaseFiringRate(long delta) {
+		attackSpeed += delta;
 	}
 
 	public void setJumping(boolean isJumping) {

@@ -1,4 +1,4 @@
-package game.model.bubbles;
+	package game.model.bubbles;
 
 import game.model.Model;
 import game.model.enemies.Enemy;
