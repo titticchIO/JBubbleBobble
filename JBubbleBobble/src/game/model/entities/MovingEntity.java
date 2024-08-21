@@ -12,7 +12,7 @@ public abstract class MovingEntity extends Entity {
 	public enum Direction {
 		LEFT, RIGHT, STATIC
 	}
-	
+
 	public enum Color {
 		NORMAL, RED, BLUE
 	}
@@ -90,7 +90,7 @@ public abstract class MovingEntity extends Entity {
 	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
-	
+
 	public Direction getDirection() {
 		return direction;
 	}
@@ -98,15 +98,14 @@ public abstract class MovingEntity extends Entity {
 	public void setJumpSpeed(float jumpSpeed) {
 		this.jumpSpeed = jumpSpeed;
 	}
-	
+
 	public Color getColor() {
 		return color;
 	}
-	
+
 	public void setColor(Color color) {
 		this.color = color;
 	}
-
 
 	/**
 	 * Sets the air speed (airSpeed).
@@ -157,23 +156,46 @@ public abstract class MovingEntity extends Entity {
 	 * handles gravity and collisions.
 	 */
 	protected void updateYPos() {
-		inAir=!HelpMethods.isEntityGrounded(this);
+		// Verifica se l'entità è a terra
+		inAir = !HelpMethods.isEntityGrounded(this);
+
+		// Controllo dei limiti verticali dello schermo
 		if (y > Level.GAME_HEIGHT + 1) {
-			setY(-1);
-		} else if (y < -2) {
-			setY(Level.GAME_HEIGHT);
-		} else if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(x, y, width, height)) {
-			setY(y + airSpeed);
-		} else {
-			float delta = 0;
-			while (delta < airSpeed && HelpMethods.canMoveHere(x, y + delta, width, height))
-				delta += 0.01;
-			if (delta < airSpeed) {
-				setY(y - 1);
-				resetInAir();
-			}
-			setY(y + delta);
+			setY(-1); // Riporta l'entità nella parte superiore dello schermo se esce dal basso
+			return;
 		}
+
+		if (y < -2) {
+			setY(Level.GAME_HEIGHT); // Riporta l'entità nella parte inferiore dello schermo se esce dall'alto
+			return;
+		}
+
+		// Gestione quando l'entità è in aria o dentro un muro
+		if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(x, y, width, height)) {
+			// Collisione con i tile sul limite superiore del livello
+			if (y <= Tile.TILE_SIZE && !HelpMethods.canMoveHere(x, y + airSpeed, width, height))
+				setAirSpeed(fallSpeedAfterCollision);
+			setY(y + airSpeed);
+			return;
+		}
+
+		// Gestione del movimento verticale quando l'entità è in aria e può muoversi
+		// liberamente
+		float delta = 0;
+
+		// Incrementa delta finché può muoversi in aria, fino a raggiungere airSpeed
+		while (delta < airSpeed && HelpMethods.canMoveHere(x, y + delta, width, height)) {
+			delta += 0.01f;
+		}
+
+		// Se delta non ha raggiunto airSpeed, significa che c'è stato un ostacolo
+		if (delta < airSpeed) {
+			setY(y - 1); // Regola leggermente la posizione verso l'alto per correggere
+			resetInAir(); // Reset dello stato in aria
+		}
+
+		// Aggiorna la posizione Y con il delta calcolato
+		setY(y + delta);
 	}
 
 	/**

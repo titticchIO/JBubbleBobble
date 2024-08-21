@@ -108,8 +108,8 @@ public class Player extends MovingEntity {
 				attackTimer.cancel();
 			}
 
-			// Crea un nuovo Timer per l'attacco
-//			attackTimer = new Timer();
+//			 Crea un nuovo Timer per l'attacco
+			attackTimer = new Timer();
 			attackTimer.schedule(new TimerTask() {
 				@Override
 				public void run() {

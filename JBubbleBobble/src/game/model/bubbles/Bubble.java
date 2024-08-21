@@ -1,8 +1,11 @@
 package game.model.bubbles;
 
+import game.model.HelpMethods;
 import game.model.Model;
 import game.model.enemies.Enemy;
 import game.model.entities.MovingEntity;
+import game.model.level.Level;
+import game.model.tiles.Tile;
 
 public abstract class Bubble extends MovingEntity {
 
@@ -17,8 +20,6 @@ public abstract class Bubble extends MovingEntity {
 	protected float lifeSpan;
 
 	protected boolean popped;
-	
-	
 
 	public Bubble(float x, float y, float width, float height) {
 		super(x, y, width, height, "B");
@@ -56,7 +57,7 @@ public abstract class Bubble extends MovingEntity {
 	private void decreaseLifeSpan(float k) {
 		setLifeSpan(getLifeSpan() - k);
 	}
-	
+
 	private void decreaseTimeHorizontalMoving(float k) {
 		setTimeHorizontalMoving(getTimeHorizontalMoving() - k);
 	}
@@ -64,8 +65,6 @@ public abstract class Bubble extends MovingEntity {
 	public boolean isEnemyHit(Enemy enemy) {
 		return enemy.hit(this);
 	}
-	
-	
 
 	/**
 	 * metodo per far scoppiare la bolla
@@ -81,9 +80,14 @@ public abstract class Bubble extends MovingEntity {
 	@Override
 	protected void updateYPos() {
 		if (y < 0) {
-			pop();
-		} else
+			setY(Level.GAME_HEIGHT);
+
+		} else if (y > Tile.TILE_SIZE || HelpMethods.canMoveHere(x, y + airSpeed, width, height))
 			setY(y + airSpeed);
+		else {
+			setY(y + 15);
+			setAirSpeed(-0.2f);
+		}
 	}
 
 	public String getType() {
