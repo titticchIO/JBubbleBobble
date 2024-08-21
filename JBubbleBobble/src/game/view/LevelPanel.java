@@ -13,6 +13,7 @@ import game.model.entities.Entity;
 import game.model.entities.Player;
 import game.model.bubbles.PlayerBubble;
 import game.model.enemies.Banebou;
+import game.model.enemies.Enemy;
 import game.model.enemies.Invader;
 import game.model.enemies.Laser;
 import game.model.enemies.Monsta;
@@ -61,14 +62,17 @@ public class LevelPanel extends JPanel {
 	public void renderEntity(Entity entity, Graphics g) {
 		Image img;
 		img = switch (entity) {
-		case Tile tile -> Images.getImage(tile.getCode());
-		case Invader invader -> AnimationLoader.loadEntityImage("enemies/invader/default.gif");
+		case Tile tile -> Images.getImage(tile.getCode());		
 		case Laser laser-> Images.getImage("I","red");
+		/*
+		case Invader invader -> AnimationLoader.loadEntityImage("enemies/invader/default.gif");
 		case Monsta monsta-> AnimationLoader.loadEntityImage("enemies/monsta/"+monsta.getDirection().name().toLowerCase()+".gif");
 		case SkelMonsta skelmonsta -> AnimationLoader.loadEntityImage("enemies/skelmonsta/"+skelmonsta.getDirection().name().toLowerCase()+".gif");
 		case ZenChan zenChan -> AnimationLoader.loadEntityImage("enemies/zenchan/"+zenChan.getDirection().name().toLowerCase()+".gif");
 		case Pulpul pulpul -> AnimationLoader.loadEntityImage("enemies/pulpul/default.gif");
 		case Banebou banebou -> AnimationLoader.loadEntityImage("enemies/banebou/"+banebou.getDirection().name().toLowerCase()+".gif");
+		*/
+		case Enemy enemy -> AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColor());
 		
 		case Player player -> switch (player.getDirection()) {
 			case RIGHT -> AnimationLoader.getPlayerImage("walk_right");
@@ -78,7 +82,7 @@ public class LevelPanel extends JPanel {
 		};
 		case PlayerBubble playerBubble -> {
 			if (playerBubble.hasEnemy()) {
-				yield AnimationLoader.loadBubbleEnemyImage(playerBubble.getEnemy().getCode());
+				yield AnimationLoader.loadBubbleEnemyImage(playerBubble.getEnemy().getCode(), playerBubble.getEnemy().getColor());
 			} else {
 				yield Images.getImage(playerBubble.getCode());
 			}

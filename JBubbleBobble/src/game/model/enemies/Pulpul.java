@@ -5,6 +5,7 @@ import java.util.Random;
 
 import game.model.HelpMethods;
 import game.model.Settings;
+import game.model.entities.MovingEntity.Color;
 import game.model.level.Level;
 
 import static game.model.HelpMethods.isSolid;
@@ -15,12 +16,14 @@ public class Pulpul extends Enemy {
 		super(x, y, "U");
 		setxSpeed(0.7f);
 		setAirSpeed(0);
+		setColor(Color.NORMAL);
 	}
 
 	public Pulpul(float x, float y, float width, float height) {
 		super(x, y, width, height, "U");
 		setxSpeed(0.7f);
 		setAirSpeed(0.7f);
+		setColor(Color.NORMAL);
 	}
 
 	private void changeDirection() {
