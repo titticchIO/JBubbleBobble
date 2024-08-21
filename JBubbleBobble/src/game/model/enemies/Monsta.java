@@ -2,6 +2,7 @@ package game.model.enemies;
 
 import game.model.HelpMethods;
 import game.model.Settings;
+import game.model.entities.MovingEntity.Color;
 import game.model.entities.MovingEntity.Direction;
 import game.model.level.Level;
 
@@ -19,6 +20,7 @@ public class Monsta extends Enemy {
 		setxSpeed(0.3f);
 		setAirSpeed(0.3f);
 		setDirection(Direction.RIGHT);
+		setColor(Color.NORMAL);
 	}
 	
 	public Monsta(float x, float y, String code) {
@@ -26,6 +28,7 @@ public class Monsta extends Enemy {
 		setxSpeed(0.3f);
 		setAirSpeed(0.3f);
 		setDirection(Direction.RIGHT);
+		setColor(Color.NORMAL);
 	}
 
 	public Monsta(float x, float y, float width, float height) {

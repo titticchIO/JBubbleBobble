@@ -10,12 +10,12 @@ public class EnemiesPath {
 
     static {
         // Inizializzazione della mappa con percorsi di esempio
-        pathsMap.put("Z", "enemies/zenchan");
-        pathsMap.put("M", "enemies/monsta");
-        pathsMap.put("N", "enemies/banebou");
-        pathsMap.put("U", "enemies/pulpul");
-        pathsMap.put("I", "enemies/invader");
-        pathsMap.put("S", "enemies/skelmonsta");
+        pathsMap.put("Z", "enemies/zenchan/");
+        pathsMap.put("M", "enemies/monsta/");
+        pathsMap.put("N", "enemies/banebou/");
+        pathsMap.put("U", "enemies/pulpul/");
+        pathsMap.put("I", "enemies/invader/");
+        pathsMap.put("S", "enemies/skelmonsta/");
         // Aggiungi altri percorsi per le altre lettere...
     }
 

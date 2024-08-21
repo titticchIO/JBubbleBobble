@@ -15,6 +15,7 @@ public class Banebou extends Enemy {
 		setxSpeed(0.7f);
 		setJumpSpeed(-1.5f);
 		setDirection(Direction.RIGHT);
+		setColor(Color.NORMAL);
 		lastChangeTime = System.currentTimeMillis();
 		changeInterval = 8000;
 	}
@@ -24,6 +25,7 @@ public class Banebou extends Enemy {
 		setxSpeed(0.7f);
 		setJumpSpeed(-1.5f);
 		setDirection(Direction.RIGHT);
+		setColor(Color.NORMAL);
 		lastChangeTime = System.currentTimeMillis();
 		changeInterval = 8000;
 	}

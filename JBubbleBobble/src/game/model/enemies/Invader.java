@@ -5,6 +5,7 @@ import static game.model.HelpMethods.isSolidVerticalLine;
 
 import game.model.HelpMethods;
 import game.model.Model;
+import game.model.entities.MovingEntity.Color;
 import game.model.entities.MovingEntity.Direction;
 
 public class Invader extends Enemy {
@@ -25,6 +26,7 @@ public class Invader extends Enemy {
 		state = State.WALK;
 		setAirSpeed(1);
 		setDirection(Direction.LEFT);
+		setColor(Color.NORMAL);
 	}
 
 	public void switchDirection() {

@@ -12,11 +12,16 @@ public abstract class MovingEntity extends Entity {
 	public enum Direction {
 		LEFT, RIGHT, STATIC
 	}
+	
+	public enum Color {
+		NORMAL, RED, BLUE
+	}
 
 	// Movement speed on the x-axis: positive for right, negative for left
 	protected float xSpeed;
 
 	protected Direction direction;
+	protected Color color;
 
 	// Jumping and gravity variables
 	protected float airSpeed;
@@ -93,6 +98,15 @@ public abstract class MovingEntity extends Entity {
 	public void setJumpSpeed(float jumpSpeed) {
 		this.jumpSpeed = jumpSpeed;
 	}
+	
+	public Color getColor() {
+		return color;
+	}
+	
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
 
 	/**
 	 * Sets the air speed (airSpeed).
