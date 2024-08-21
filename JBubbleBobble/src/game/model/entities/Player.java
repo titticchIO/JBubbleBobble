@@ -21,7 +21,7 @@ public class Player extends MovingEntity {
 		WALK, JUMP, SHOOT
 	}
 
-	public static final int NUMBER_OF_LIVES = 1;
+	public static final int NUMBER_OF_LIVES = 100;
 	public static final long INVULNERABILITY_INTERVAL = 5000;
 	public static final long ATTACK_INTERVAL = 100;
 

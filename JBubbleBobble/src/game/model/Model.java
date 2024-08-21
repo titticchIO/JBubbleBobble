@@ -103,12 +103,14 @@ public class Model extends Observable {
 		updatePoints(); // Update points based on the current state
 		if (currentLevel.getPlayer().getLives() == 0) {
 			modelState = ModelState.LOSS; // Set game state to LOSS if player is out of lives
+			currentUser.addLostGame();
 		} else if (currentLevel.getEnemyManager().getEnemies().isEmpty()
 				&& currentLevel.getBubbleManager().getPlayerBubbles().stream().allMatch(b -> !b.hasEnemy())) {
 			if (levelIterator.hasNext()) {
 				nextLevel(); // Proceed to the next level if all enemies are cleared
 			} else {
-				modelState = ModelState.WIN; // Set game state to WIN if no more levels
+				modelState = ModelState.WIN;
+				currentUser.addWonGame();// Set game state to WIN if no more levels
 			}
 		}
 
