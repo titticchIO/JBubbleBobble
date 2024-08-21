@@ -43,9 +43,7 @@ public class Loss extends State implements Statemethods {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_R) {
-            game.resetGame();  // Use the resetGame method from the Game class
-        }
+    	game.resetGame();  // Use the resetGame method from the Game class
     }
 
     @Override
