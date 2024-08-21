@@ -3,15 +3,20 @@ package game.model.enemies;
 import static game.model.HelpMethods.isEntityInsideWall;
 import static game.model.HelpMethods.isSolidVerticalLine;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import game.model.HelpMethods;
 import game.model.Model;
-import game.model.entities.MovingEntity.Color;
-import game.model.entities.MovingEntity.Direction;
 
 public class Invader extends Enemy {
 
+	public static final long ATTACK_INTERVAL = 2000;
+
 	private State state;
 	private boolean landed;
+	private Timer attackTimer;
+	private boolean canShoot;
 
 	public enum State {
 		WALK, SHOOT
@@ -27,6 +32,7 @@ public class Invader extends Enemy {
 		setAirSpeed(1);
 		setDirection(Direction.LEFT);
 		setColor(Color.NORMAL);
+		canShoot=true;
 	}
 
 	public void switchDirection() {
@@ -53,7 +59,25 @@ public class Invader extends Enemy {
 	}
 
 	private void shootLaser() {
-		Model.getInstance().getCurrentLevel().getEnemyManager().addLaser(new Laser(x + 5, y + height, 6, 20));
+		if (canShoot && randomBoolean(3) ) {
+			Model.getInstance().getCurrentLevel().getEnemyManager().addLaser(new Laser(x + 5, y + height, 6, 20));
+			canShoot = false;
+			if (attackTimer != null) {
+				attackTimer.cancel();
+			}
+			// Crea un nuovo Timer per l'attacco
+			attackTimer = new Timer();
+			attackTimer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					// Dopo attackSpeed millisecondi, il player può sparare di nuovo
+					canShoot = true;
+					attackTimer.cancel(); // Ferma il timer una volta completato
+				}
+			}, ATTACK_INTERVAL); // Imposta il timer in base alla velocità di attacco
+
+		}
+
 	}
 
 	@Override
@@ -72,8 +96,7 @@ public class Invader extends Enemy {
 			setAirSpeed(0.5f);
 		move(0.5f);
 		updateYPos();
-		if (randomBoolean(300))
-			shootLaser();
+		shootLaser();
 	}
 
 }

@@ -64,6 +64,7 @@ public class Player extends MovingEntity {
 		lives = NUMBER_OF_LIVES;
 		canShoot = true;
 		attackSpeed = 1;
+		attackTimer=new Timer();
 	}
 
 	/**
@@ -108,7 +109,7 @@ public class Player extends MovingEntity {
 			}
 
 			// Crea un nuovo Timer per l'attacco
-			attackTimer = new Timer();
+//			attackTimer = new Timer();
 			attackTimer.schedule(new TimerTask() {
 				@Override
 				public void run() {
