@@ -8,6 +8,8 @@ import game.model.tiles.Tile;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import game.model.HelpMethods;
 import game.model.Model;
@@ -19,19 +21,17 @@ public class Player extends MovingEntity {
 		WALK, JUMP, SHOOT
 	}
 
-	public static final int NUMBER_OF_LIVES = 1;
+	public static final int NUMBER_OF_LIVES = 3;
 	public static final long INVULNERABILITY_INTERVAL = 5000;
 
-	private final String type = "P";
 	private Direction bubbleDirection;
 	private State state;
 	private int lives;
 
 	private boolean isJumping;
 
-	private boolean isColliding;
-
-	private long lastCollision;
+	private boolean isInvulnerable;
+	private Timer invulnerabilityTimer;
 
 	// bolla attuale
 	private PlayerBubble currentBubble;
@@ -57,7 +57,7 @@ public class Player extends MovingEntity {
 		currentBubble = new PlayerBubble(x, y, width, height);
 		bubbleDirection = Direction.RIGHT;
 		lives = NUMBER_OF_LIVES;
-		lastCollision = System.currentTimeMillis();
+
 	}
 
 	/**
@@ -108,14 +108,30 @@ public class Player extends MovingEntity {
 	}
 
 	public void looseLife() {
-		long now = System.currentTimeMillis();
-		if (now - lastCollision > INVULNERABILITY_INTERVAL
-				&& (Entity.checkCollision(this, Model.getInstance().getCurrentLevel().getEnemyManager().getHazards())
-						.isPresent())) {
+		// Controlla se il player è invulnerabile; se lo è, non può perdere una vita
+		if (!isInvulnerable
+				&& Entity.checkCollision(this, Model.getInstance().getCurrentLevel().getEnemyManager().getHazards())
+						.isPresent()) {
 			lives--;
-			lastCollision = now;
-		}
+			// Attiva lo stato di invulnerabilità
+			isInvulnerable = true;
 
+			// Se esiste già un timer, lo cancella prima di crearne uno nuovo
+			if (invulnerabilityTimer != null) {
+				invulnerabilityTimer.cancel();
+			}
+
+			// Imposta un nuovo Timer per l'invulnerabilità
+			invulnerabilityTimer = new Timer();
+			invulnerabilityTimer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					// Quando il Timer scade, il player torna vulnerabile
+					isInvulnerable = false;
+					invulnerabilityTimer.cancel(); // Ferma il timer una volta completato
+				}
+			}, INVULNERABILITY_INTERVAL); // Imposta il timer per l'intervallo di invulnerabilità
+		}
 	}
 
 	@Override
