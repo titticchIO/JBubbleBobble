@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Observable;
 
 import editor.model.LevelReader;
 import game.model.level.Level;
+import game.model.user.User;
+import game.model.user.UserMethods;
 
 public class Model extends Observable {
 	
@@ -131,27 +134,27 @@ public class Model extends Observable {
     }
 
     private void loadUsers() {
-        HashMap<String, Integer> mappaUtentiPunti = UserMethods.getUsersPoints();
-        
+        HashMap<String, List<Integer>> mappaUtenti = UserMethods.getUsersData();
+
         // Itera attraverso la mappa per creare e aggiungere utenti
-        for (Map.Entry<String, Integer> entry : mappaUtentiPunti.entrySet()) {
+        for (Entry<String, List<Integer>> entry : mappaUtenti.entrySet()) {
             String nickname = entry.getKey();
-            Integer points = entry.getValue();
+            List<Integer> dataList = entry.getValue();
+
+            // Assegna i valori della lista ai corrispondenti attributi dell'utente
+            int highScore = dataList.get(0);
+            int playedGames = dataList.get(1);
+            int wonGames = dataList.get(2);
+            int lostGames = dataList.get(3);
+
             String avatarPath = "resources/users/" + nickname + ".png";
-            
-            // Crea un nuovo utente
-            User user = new User(nickname, points, avatarPath);
-            
+
+            // Crea un nuovo utente con le informazioni raccolte
+            User user = new User(nickname, highScore, avatarPath, playedGames, wonGames, lostGames);
+
             // Aggiungi l'utente alla lista degli utenti
             users.add(user);
         }
-
-        
-        /*
-        // Notifica eventuali osservatori che la lista degli utenti è stata aggiornata
-        setChanged();
-        notifyObservers(users);
-        */
     }
 
 
