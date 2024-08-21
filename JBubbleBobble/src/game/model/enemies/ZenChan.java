@@ -15,14 +15,12 @@ public class ZenChan extends Enemy {
 	
 	public ZenChan(float x, float y) {
 		super(x, y, "Z");
-		setxSpeed(0.5f);
 		setDirection(Direction.RIGHT);
 		setJumpSpeed(-1.5f);
 		setColor(Color.NORMAL);
 	}
 	public ZenChan(float x, float y, float width, float height) {
 		super(x, y, width, height, "Z");
-		setxSpeed(0.5f);
 		setDirection(Direction.RIGHT);
 		setJumpSpeed(-1.5f);
 		setColor(Color.NORMAL);
@@ -47,7 +45,7 @@ public class ZenChan extends Enemy {
 	public void updateEntity() {
 		super.updateEntity();
 		switchDirection();
-		move(0.5f);
+		move(0.4f);
 		if (randomBoolean(1000))
 			jump();
 	}

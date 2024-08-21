@@ -80,12 +80,12 @@ public class Playing extends State implements Statemethods {
 			break;
 		case KeyEvent.VK_A:
 			currentLevel.getPlayer().setDirection(Direction.LEFT);
-			currentLevel.getPlayer().move(1);
+			currentLevel.getPlayer().move(0.7f);
 
 			break;
 		case KeyEvent.VK_D:
 			currentLevel.getPlayer().setDirection(Direction.RIGHT);
-			currentLevel.getPlayer().move(1);
+			currentLevel.getPlayer().move(0.7f);
 			break;
 		case KeyEvent.VK_SPACE:
 			currentLevel.getPlayer().shootBubble();
