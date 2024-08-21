@@ -23,6 +23,7 @@ public class Player extends MovingEntity {
 
 	public static final int NUMBER_OF_LIVES = 3;
 	public static final long INVULNERABILITY_INTERVAL = 5000;
+	public static final long ATTACK_INTERVAL = 100;
 
 	private Direction bubbleDirection;
 	private State state;
@@ -32,6 +33,10 @@ public class Player extends MovingEntity {
 
 	private boolean isInvulnerable;
 	private Timer invulnerabilityTimer;
+
+	private boolean canShoot;
+	private long attackSpeed; // Esempio: velocità di attacco in millisecondi (1 secondo)
+	private Timer attackTimer;
 
 	// bolla attuale
 	private PlayerBubble currentBubble;
@@ -57,7 +62,8 @@ public class Player extends MovingEntity {
 		currentBubble = new PlayerBubble(x, y, width, height);
 		bubbleDirection = Direction.RIGHT;
 		lives = NUMBER_OF_LIVES;
-
+		canShoot = true;
+		attackSpeed = 1;
 	}
 
 	/**
@@ -83,12 +89,34 @@ public class Player extends MovingEntity {
 	}
 
 	public void shootBubble() {
-		if (bubbleDirection == Direction.RIGHT
-				&& !HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
-			Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x + Tile.TILE_SIZE, y, 2);
-		} else if (bubbleDirection == Direction.LEFT
-				&& !HelpMethods.isEntityInsideWall(x - Tile.TILE_SIZE, y, width, height)) {
-			Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x - Tile.TILE_SIZE, y, -2);
+		// Controlla se il player può sparare
+		if (canShoot) {
+			if (bubbleDirection == Direction.RIGHT
+					&& !HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
+				Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x + Tile.TILE_SIZE, y, 2);
+			} else if (bubbleDirection == Direction.LEFT
+					&& !HelpMethods.isEntityInsideWall(x - Tile.TILE_SIZE, y, width, height)) {
+				Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x - Tile.TILE_SIZE, y, -2);
+			}
+
+			// Disabilita il fuoco fino alla fine del tempo di attesa
+			canShoot = false;
+
+			// Se esiste già un timer, lo cancella
+			if (attackTimer != null) {
+				attackTimer.cancel();
+			}
+
+			// Crea un nuovo Timer per l'attacco
+			attackTimer = new Timer();
+			attackTimer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					// Dopo attackSpeed millisecondi, il player può sparare di nuovo
+					canShoot = true;
+					attackTimer.cancel(); // Ferma il timer una volta completato
+				}
+			}, ATTACK_INTERVAL*attackSpeed); // Imposta il timer in base alla velocità di attacco
 		}
 	}
 
