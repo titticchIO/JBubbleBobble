@@ -16,6 +16,7 @@ import game.controller.gamestates.Menu;
 
 public class Game implements Runnable {
 	private Thread gameThread;
+	private boolean running;
 	private final float GAME_SPEED = 1.0f;
 	private final int FPS_SET = 120;
 	private final int UPS_SET = (int) (200 * GAME_SPEED);
@@ -37,20 +38,8 @@ public class Game implements Runnable {
 		gameFrame = new GameFrame(this, new InputManager(this), menu);
 		view = View.getInstance(gameFrame);
 		model.addObserver(view);
-		model.updateModel();
 		playing = new Playing(this);
-
-		ActionListener actionListener = new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				GameState.state = GameState.PLAYING;
-				startGameLoop();
-			}
-		};
-
 		gameFrame.showState(Screen.USER_SELECTION);
-
 	}
 
 	public Playing getPlaying() {
@@ -74,21 +63,54 @@ public class Game implements Runnable {
 	}
 
 	public void startGameLoop() {
-		GameState.state = GameState.PLAYING;
+		if (gameThread != null && running) {
+			stopGameLoop(); // Ensure the previous thread is stopped
+		}
+		Model.getInstance().loadLevels();
 		gameFrame.getLevelPanel().renderTilesOnce();
 		gameFrame.showState(Screen.GAME);
+		running = true;
 		gameThread = new Thread(this);
 		gameThread.start();
+		GameState.state = GameState.PLAYING;
 	}
+
+	public void stopGameLoop() {
+		running = false;
+		try {
+			gameThread.join(); // Wait for the current thread to finish
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void restartGame() {
+		stopGameLoop(); // Stop the current game thread
+		resetGame(); // Reset the game state, objects, and components
+		startGameLoop(); // Start a new game thread
+	}
+
+	public void resetGame() {
+        // Reset the model to its initial state
+        Model.getInstance().resetModel();
+        
+        // Reset the view (if needed, additional UI elements like score can be reset here)
+        View.getInstance().getLevelPanel().renderTilesOnce();
+
+        // Set the game state back to the menu
+        GameState.state = GameState.MENU;
+
+        // Display the menu screen
+        gameFrame.showState(Screen.MENU);
+    }
 
 	public void update() {
 		switch (GameState.state) {
 		case MENU -> menu.update();
 		case PLAYING -> playing.update();
-		case WIN -> playing.update();
-
+		case WIN -> win.update();
+		case LOSS -> loss.update();
 		}
-
 	}
 
 	@Override
@@ -104,7 +126,7 @@ public class Game implements Runnable {
 		double deltaU = 0;
 		double deltaF = 0;
 
-		while (true) {
+		while (running) {
 			long currentTime = System.nanoTime();
 
 			deltaU += (currentTime - previousTime) / timePerUpdate;
@@ -125,11 +147,10 @@ public class Game implements Runnable {
 
 			if (System.currentTimeMillis() - lastCheck >= 1000) {
 				lastCheck = System.currentTimeMillis();
-//				System.out.println("FPS: " + frames + " | UPS: " + updates);
+				System.out.println("FPS: " + frames + " | UPS: " + updates);
 				frames = 0;
 				updates = 0;
 			}
 		}
 	}
-
 }
