@@ -147,18 +147,18 @@ public abstract class Entity {
 		return new float[] { x, y };
 	}
 
-	public float[][] getTopPoints() {
+	public float[][] getTopVertexes() {
 		return new float[][] { { x, y }, { x + width, y } };
 	}
 
-	public float[][] getBottomPoints() {
+	public float[][] getBottomVertexes() {
 		return new float[][] { { x, y + height }, { x + width, y + height } };
 	}
 
 	/**
 	 * @return four entity's edges
 	 */
-	public float[][] getPoints() {
+	public float[][] getVertexes() {
 		return new float[][] { { x, y }, { x + width, y }, { x, y + height }, { x + width, y + height } };
 	}
 
@@ -204,6 +204,11 @@ public abstract class Entity {
 	public static <T extends Entity, U extends Entity> Optional<U> checkCollision(T entity, List<U> list) {
 		return list.stream().filter(x -> x.hit(entity)).findFirst();
 	}
+	
+	public static <T extends Entity, U extends Entity> boolean checkCollision(T entity, U otherEntity) {
+		return entity.hit(otherEntity);
+	}
+	
 
 	public static <T extends Entity, U extends Entity> Optional<U> checkTopCollision(T entity, List<U> list) {
 		return list.stream().filter(x -> x.bottomHit(entity)).findFirst();

@@ -5,12 +5,18 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Observable;
 
 import editor.model.LevelReader;
 import game.model.entities.Player;
 import game.model.level.Level;
+
 import game.model.tiles.Tile;
+
+import game.model.user.User;
+import game.model.user.UserMethods;
+
 
 public class Model extends Observable {
 
@@ -29,7 +35,7 @@ public class Model extends Observable {
 
 	private static Model instance;
 
-	private ModelState state;
+	private ModelState modelState;
 
 	// Singleton pattern for getting Model instance
 	public static Model getInstance() {
@@ -44,7 +50,7 @@ public class Model extends Observable {
 		loadUsers();
 		
 
-		state = ModelState.PLAY;
+		modelState = ModelState.PLAY;
 		setChanged();
 		notifyObservers();
 	}
@@ -59,7 +65,7 @@ public class Model extends Observable {
 			currentLevel = levelIterator.next();
 		}
 		score = 0; // Reset score
-		state = ModelState.PLAY; // Reset game state to play
+		modelState = ModelState.PLAY; // Reset game state to play
 		Player.getInstance().setLives(Player.NUMBER_OF_LIVES);
 		setChanged();
 		notifyObservers(currentLevel); // Notify observers of the reset
@@ -79,7 +85,7 @@ public class Model extends Observable {
 				currentLevel.getPlayerSpawnPoint()[1], Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1));
 
 		levelIterator = levels.iterator();
-		state = ModelState.PLAY;
+		modelState = ModelState.PLAY;
 		setChanged();
 		notifyObservers();
 	}
@@ -96,13 +102,13 @@ public class Model extends Observable {
 		currentLevel.updateLevel(); // Update the current level logic
 		updatePoints(); // Update points based on the current state
 		if (currentLevel.getPlayer().getLives() == 0) {
-			state = ModelState.LOSS; // Set game state to LOSS if player is out of lives
+			modelState = ModelState.LOSS; // Set game state to LOSS if player is out of lives
 		} else if (currentLevel.getEnemyManager().getEnemies().isEmpty()
 				&& currentLevel.getBubbleManager().getPlayerBubbles().stream().allMatch(b -> !b.hasEnemy())) {
 			if (levelIterator.hasNext()) {
 				nextLevel(); // Proceed to the next level if all enemies are cleared
 			} else {
-				state = ModelState.WIN; // Set game state to WIN if no more levels
+				modelState = ModelState.WIN; // Set game state to WIN if no more levels
 			}
 		}
 
@@ -129,12 +135,50 @@ public class Model extends Observable {
 		this.currentUser = currentUser;
 	}
 
+
+
+    private void loadUsers() {
+        HashMap<String, List<Integer>> mappaUtenti = UserMethods.getUsersData();
+
+        // Itera attraverso la mappa per creare e aggiungere utenti
+        for (Entry<String, List<Integer>> entry : mappaUtenti.entrySet()) {
+            String nickname = entry.getKey();
+            List<Integer> dataList = entry.getValue();
+
+            // Assegna i valori della lista ai corrispondenti attributi dell'utente
+            int highScore = dataList.get(0);
+            int playedGames = dataList.get(1);
+            int wonGames = dataList.get(2);
+            int lostGames = dataList.get(3);
+
+            String avatarPath = "resources/users/" + nickname + ".png";
+
+            // Crea un nuovo utente con le informazioni raccolte
+            User user = new User(nickname, highScore, avatarPath, playedGames, wonGames, lostGames);
+
+            // Aggiungi l'utente alla lista degli utenti
+            users.add(user);
+        }
+    }
+
+
+    
+    
+    public void setCurrentUserByNickname(String selectedNickname) {
+        for (User user : users) { // 'users' è la lista di utenti
+            if (user.getNickname().equals(selectedNickname)) {
+                currentUser = user;
+                break; // Uscire dal ciclo una volta trovato l'utente
+            }
+        }
+    }
+
 	public ModelState getModelState() {
-		return state;
+		return modelState;
 	}
 
-	public void setState(ModelState state) {
-		this.state = state;
+	public void setModelState(ModelState state) {
+		this.modelState = state;
 	}
 
 	public void addUser(User user) {
@@ -143,14 +187,5 @@ public class Model extends Observable {
 		notifyObservers();
 	}
 
-	private void loadUsers() {
-		HashMap<String, Integer> userPointsMap = UserMethods.getUsersPoints();
-		for (Map.Entry<String, Integer> entry : userPointsMap.entrySet()) {
-			String nickname = entry.getKey();
-			Integer points = entry.getValue();
-			String avatarPath = "resources/users/" + nickname + ".png";
-			User user = new User(nickname, points, avatarPath);
-			users.add(user); // Add the user to the list
-		}
-	}
+	
 }

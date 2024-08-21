@@ -11,8 +11,8 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 import game.model.Model;
-import game.model.User;
-import game.model.UserMethods;
+import game.model.user.User;
+import game.model.user.UserMethods;
 
 public class UserSelectionPanel extends JPanel {
 
@@ -123,12 +123,12 @@ public class UserSelectionPanel extends JPanel {
                 } catch (IOException e) {
                     System.err.println("Errore durante la copia del file: " + e.getMessage());
                 }
-                User newUser = new User(nickname, 0, avatarPath);
+                User newUser = new User(nickname, 0, avatarPath, 0, 0, 0);
                 Model.getInstance().addUser(newUser);
-                UserMethods.saveUsersPoints(nickname, 0);
+                UserMethods.saveUsersData(nickname, 0, 0, 0, 0);
                 refreshUserButtons();
             } else {
-                JOptionPane.showMessageDialog(this, "Nickname e Avatar sono obbligatori!", "Errore", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Il nickname è obbligatorio!", "Errore", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

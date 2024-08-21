@@ -1,23 +1,20 @@
 package game.model.powerups;
 
 public class BlueCandy extends Powerup {
+	private static final int POINTS = 100;
+	private static final long DURATION = 10;
 
-	public BlueCandy(float x, float y, float width, float height, Item item) {
-		super(x, y, width, height, "$", item);
+	public BlueCandy(float x, float y) {
+		super(x, y, "£", POINTS, DURATION);
 	}
 
 	@Override
-	public void startEffect() {
-		// TODO Auto-generated method stub
-		
+	public void effect() {
+
 	}
 
 	@Override
-	public void stopEffect() {
-		// TODO Auto-generated method stub
-		
+	public void resetToNormal() {
+
 	}
-
-	
-
 }

@@ -1,56 +1,50 @@
 package game.model.powerups;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import game.model.Model;
 import game.model.entities.Entity;
 
-public abstract class Powerup extends Entity{
+public abstract class Powerup extends Entity {
+	private final int points;
+	private long duration;
 
-	public enum Item {
-		PINK_CANDY(100, 5000), BLUE_CANDY(100, 5000), YELLOW_CANDY(100, 5000), SHOES(100, 8000), CLOCK(200, 10000),
-		ORANGE_PARASOL(200, 0), RED_PARASOL(200, 0), PURPLE_PARASOL(200, 0), CHACKN_HEART(300, 1000),
-		CRYSTAL_RING(1000, 5000), AMETHYST_RING(1000, 5000), RUBY_RING(1000, 5000);
-
-		private final int points;
-		private float duration;
-
-		private Item(int points, float duration) {
-			this.points = points;
-			this.duration = duration;
-		}
-		
-		public void setDuration(float duration) {
-			this.duration = duration;
-		}
-		
-		public int getPoints() {
-			return points;
-		}
-		
-		public float getDuration() {
-			return duration;
-		}
-	}
-	
-	private Item item;
-	private long startTime;
-
-	public Powerup(float x, float y, float width, float height, String code, Item item) {
-		super(x, y, width, height, code);
-		this.item = item;
-		startTime = System.currentTimeMillis();
+	public Powerup(float x, float y, String code, int points, long duration) {
+		super(x, y, code);
+		this.points = points;
+		this.duration = duration;
 	}
 
-	
-	public void updatePowerup () {
-		if (item.getDuration() > 0) {
-			item.setDuration(item.getDuration()-1);
-		} else {
-			//powerup.setToDelete
+	public long getPoints() {
+		return points;
+	}
+
+	public float getDuration() {
+		return duration;
+	}
+
+	private boolean checkPlayerCollision() {
+		return Entity.checkCollision(Model.getInstance().getCurrentLevel().getPlayer(), this);
+	}
+
+	public abstract void effect();
+
+	public abstract void resetToNormal();
+
+	public void updatePowerup() {
+		if (checkPlayerCollision()) {
+			// timer creation
+			Timer effectTimer = new Timer();
+			// effect starts
+			effect();
+			// scheduling end of the effect
+			effectTimer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					resetToNormal();
+				}
+			}, duration);
 		}
 	}
-	
-	
-	public abstract void startEffect();
-	
-	public abstract void stopEffect();
-	
 }
