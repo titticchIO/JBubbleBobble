@@ -30,7 +30,6 @@ public class Level {
 	private EnemyManager enemyManager;
 	private BubbleManager bubbleManager;
 	private PowerupManager powerupManager;
-	private List<float[]> powerupSpawns;
 	private String[][] lvlData;
 	private float[] playerSpawnPoint;
 
@@ -75,8 +74,6 @@ public class Level {
 		entities.addAll(powerupManager.getPowerups());
 		return entities;
 	}
-	
-	
 
 	public PowerupManager getPowerupManager() {
 		return powerupManager;
@@ -114,10 +111,6 @@ public class Level {
 		this.tiles = tiles;
 	}
 
-	public List<float[]> getPowerupSpawns() {
-		return powerupSpawns;
-	}
-
 	public void addPlayer(Player player) {
 		this.player = player;
 	}
@@ -136,10 +129,6 @@ public class Level {
 
 	public void addTile(Tile tile) {
 		tiles.add(tile);
-	}
-
-	public void addPowerupSpawns(float x, float y) {
-		powerupSpawns.add(new float[] { x, y });
 	}
 
 	public Optional<Enemy> checkPlayerEnemyCollision() {

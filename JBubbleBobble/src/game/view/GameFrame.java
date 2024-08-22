@@ -21,7 +21,7 @@ import game.view.EndPanel.Ending;
 public class GameFrame extends JFrame {
 
 	public enum Screen {
-		USER_SELECTION, MENU, GAME, WIN, LOSS
+		MENU, GAME, WIN, LOSS
 	}
 
 	private JPanel layoutPanel;
@@ -29,7 +29,6 @@ public class GameFrame extends JFrame {
 	private MenuPanel menuPanel;
 	private EndPanel winPanel;
 	private EndPanel lossPanel;
-	private UserSelectionPanel userSelectionPanel;
 
 	// Aggiunti per mostrare e aggiornare punti e highscore
 	private JLabel scoreLabel;
@@ -58,18 +57,12 @@ public class GameFrame extends JFrame {
 		menuPanel = new MenuPanel(menu);
 		winPanel = new EndPanel(Ending.WIN);
 		lossPanel = new EndPanel(Ending.LOSS);
-		userSelectionPanel = new UserSelectionPanel(e -> {
-
-			// Logica per selezionare l'utente e passare al menu
-			((CardLayout) layoutPanel.getLayout()).show(layoutPanel, Screen.MENU.name());
-		});
 
 		// Attach the PlayerController as a KeyListener
 		addKeyListener(playerController);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 
-		layoutPanel.add(userSelectionPanel, Screen.USER_SELECTION.name());
 		layoutPanel.add(menuPanel, Screen.MENU.name());
 		layoutPanel.add(gamePanel, Screen.GAME.name());
 		layoutPanel.add(winPanel, Screen.WIN.name());

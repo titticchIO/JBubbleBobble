@@ -99,6 +99,7 @@ public class Model extends Observable {
 	}
 
 	public void updateModel() {
+		
 		currentLevel.updateLevel(); // Update the current level logic
 		updatePoints(); // Update points based on the current state
 		if (currentLevel.getPlayer().getLives() == 0) {
@@ -113,7 +114,6 @@ public class Model extends Observable {
 				currentUser.addWonGame();// Set game state to WIN if no more levels
 			}
 		}
-
 		setChanged();
 		notifyObservers(); // Notify observers about the current state
 	}

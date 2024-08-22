@@ -14,9 +14,6 @@ import static game.model.tiles.Tile.TILE_SIZE;;
 public class LevelLoader {
 
 	private final static String PLAYER = "P";
-	private final static String BUBBLE = "B";
-	private final static String POWERUP = "W";
-
 	private final static String ZEN_CHAN = "Z";
 	private final static String MONSTA = "M";
 	private final static String BANEBOU = "N";
@@ -56,9 +53,9 @@ public class LevelLoader {
 					case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" ->
 						level.addTile(new Tile(x * TILE_SIZE, y * TILE_SIZE, c));
 					case PLAYER -> {
-						level.setPlayerSpawnPoint(x * TILE_SIZE, y*TILE_SIZE);
+						level.setPlayerSpawnPoint(x * TILE_SIZE, y * TILE_SIZE);
 					}
-					case POWERUP -> level.addPowerupSpawns(x, y);
+
 					default -> {
 						level.addEnemy(switch (c) {
 						case ZEN_CHAN -> new ZenChan(x * TILE_SIZE, y * TILE_SIZE);
@@ -66,7 +63,8 @@ public class LevelLoader {
 						case BANEBOU -> new Banebou(x * TILE_SIZE, y * TILE_SIZE);
 						case PULPUL -> new Pulpul(x * TILE_SIZE, y * TILE_SIZE);
 						case INVADER -> new Invader(x * TILE_SIZE, y * TILE_SIZE);
-						default -> new SkelMonsta(x * TILE_SIZE, y * TILE_SIZE);
+						case SKELMONSTA -> new SkelMonsta(x * TILE_SIZE, y * TILE_SIZE);
+						default -> throw new IllegalArgumentException("Unexpected value: " + c);
 						});
 					}
 
