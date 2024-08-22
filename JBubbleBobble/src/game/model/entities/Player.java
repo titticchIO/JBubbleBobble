@@ -65,13 +65,14 @@ public class Player extends MovingEntity {
 		super(x, y, width, height, "P");
 		state = State.WALK;
 		bubbleDirection = Direction.RIGHT;
-		lives = 100000;
+		lives = NUMBER_OF_LIVES;
 		canShoot = true;
 		attackSpeed = 2;
 		attackTimer = new Timer();
 		totBubbles = 0;
 		totJumpsOnBubbles = 0;
 		totBubblesPopped = 0;
+
 		// Inizializza previousX con il valore iniziale di x
 		previousX = x;
 
@@ -165,7 +166,6 @@ public class Player extends MovingEntity {
 		this.x = x;
 	}
 
-
 	public int getTotBubblesPopped() {
 		return totBubblesPopped;
 	}
@@ -236,8 +236,6 @@ public class Player extends MovingEntity {
 			if (bounceBobble.isPresent() && bounceBobble.get().getEnemy() == null && isJumping)
 				totJumpsOnBubbles++;
 		}
-
-//		System.out.println("Attack speed: "+attackSpeed);
 
 		Optional<PlayerBubble> popBobble = Entity.checkTopCollision(this,
 				Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles());
