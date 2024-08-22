@@ -107,16 +107,32 @@ public class PlayerBubble extends Bubble {
 				pb.popAndKill();
 		});
 	}
+	
 
 	@Override
 	public void updateEntity() {
-		super.updateEntity();
+		if (lifeSpan <= 0) {
+			pop();
+		} else {
+			decreaseLifeSpan(10.0f);// decrementa la lifespan della bolla (valore da calibrare con la view)
+			decreaseTimeHorizontalMoving(10.0f * extraXSpeed / extraTravelTime);// decrementa il tempo prima che vada a salire la bolla
+		}
+		
+		
+		if (timeHorizontalMoving <= 0)
+			updateYPos();
+		else
+			updateXPos();
+		
+		
+		
 		if (travelTime > 0)
-			decreaseTravelTime(1);
-		else if (travelTime == 0) {
+			decreaseTravelTime(1 * extraXSpeed);
+		else if (travelTime <= 0) {
 			rise();
 		}
 	}
+
 
 	public static class Builder {
 		private float x, y, width, height;

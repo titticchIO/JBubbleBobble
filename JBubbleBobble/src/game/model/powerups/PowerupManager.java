@@ -84,8 +84,6 @@ public class PowerupManager {
 				powerups.remove(powerup);
 			}
 		}
-		
-		System.out.println("Numbero of powerups: "+powerups.size());
 	}
 
 }

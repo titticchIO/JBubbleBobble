@@ -54,11 +54,11 @@ public abstract class Bubble extends MovingEntity {
 	/**
 	 * metodo per far decrementare la lifeSpan
 	 */
-	private void decreaseLifeSpan(float k) {
+	protected void decreaseLifeSpan(float k) {
 		setLifeSpan(getLifeSpan() - k);
 	}
 
-	private void decreaseTimeHorizontalMoving(float k) {
+	protected void decreaseTimeHorizontalMoving(float k) {
 		setTimeHorizontalMoving(getTimeHorizontalMoving() - k);
 	}
 
