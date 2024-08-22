@@ -178,9 +178,10 @@ public class Level {
 
 		for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
 			// Verifica se la posizione è valida per generare il powerup
-			if (lvlData[y][x].equals(" ") && lvlData[y + 1][x].matches("[0-9]")) {
+			if (lvlData[y][x].equals(" ") && lvlData[y + 1][x].matches("[0-9]") && !powerupManager.isTherePowerup(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE)) {
 				powerup.setPosition(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE);
 				powerupManager.addPowerup(powerup);
+				powerupManager.printPowerups();
 				return;
 			}
 

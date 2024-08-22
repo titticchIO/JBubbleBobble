@@ -1,22 +1,104 @@
 package game.model.entities;
 
 import static game.model.tiles.Tile.TILE_SIZE;
-
 import java.util.List;
 import java.util.Optional;
 
 /**
+ * This class describes all game entities
+ */
+/**
  * 
  */
 public abstract class Entity {
-
-	protected float x, y;
+	
 	/**
-	 * Width and height of the entity relative to coordinates
+	 * Checks collision with other entity
+	 * 
+	 * @param <T>
+	 * @param <U>
+	 * @param entity
+	 * @param otherEntity
+	 * @return
+	 */
+	public static <T extends Entity, U extends Entity> boolean checkCollision(T entity, U otherEntity) {
+		return entity.hit(otherEntity);
+	}
+	
+	/**
+	 * Checks bottom collision with list of entities
+	 * 
+	 * @param <T>
+	 * @param <U>
+	 * @param entity
+	 * @param list
+	 * @return
+	 */
+	public static <T extends Entity, U extends Entity> Optional<U> checkBottomCollision(T entity, List<U> list) {
+		return list.stream().filter(x -> x.topHit(entity)).findFirst();
+	}
+
+	/**
+	 * Checks collision with list of entities
+	 * 
+	 * @param <T>
+	 * @param <U>
+	 * @param entity
+	 * @param list
+	 * @return
+	 */
+	public static <T extends Entity, U extends Entity> Optional<U> checkCollision(T entity, List<U> list) {
+		return list.stream().filter(x -> x.hit(entity)).findFirst();
+	}
+
+	
+	
+
+	/**
+	 * 
+	 * 
+	 * @param <T>
+	 * @param <U>
+	 * @param entity
+	 * @param list
+	 * @return
+	 */
+	public static <T extends Entity, U extends Entity> Optional<U> checkTopCollision(T entity, List<U> list) {
+		return list.stream().filter(x -> x.bottomHit(entity)).findFirst();
+	}
+
+	/**
+	 * Entity's coordinates
+	 */
+	protected float x, y;
+
+	/**
+	 * Entity's sizes
 	 */
 	protected float width, height;
 
+	/**
+	 * Entity's id
+	 */
 	private String code;
+
+	/**
+	 * Constructor
+	 * 
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param code
+	 */
+	public Entity(float x, float y, float width, float height, String code) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.code = code;
+	}
+
 
 	public Entity(float x, float y, String code) {
 		this.x = x;
@@ -27,44 +109,125 @@ public abstract class Entity {
 	}
 
 	/**
-	 * Public entity constructor
+	 * Method that checks any bottom collision with another entity
 	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
+	 * @param entity
+	 * @return boolean
 	 */
-	public Entity(float x, float y, float width, float height, String code) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.code = code;
+	public boolean bottomHit(Entity entity) {
+		return this.y + this.height <= entity.y && this.y + this.height > entity.y - this.height
+				&& this.x < entity.x + entity.width && this.x + this.width > entity.x;
 	}
 
 	/**
-	 * Setters
+	 * Getters
 	 */
 
-	/**
-	 * @param x
-	 */
-	public void setX(float x) {
-		this.x = x;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null || getClass() != obj.getClass())
+			return false;
+		Entity other = (Entity) obj;
+		return height == other.height && width == other.width && x == other.x && y == other.y;
+	}
+
+	public float[][] getBottomVertexes() {
+		return new float[][] { { x, y + height }, { x + width, y + height } };
+	}
+
+	public String getCode() {
+		return code;
 	}
 
 	/**
-	 * @param y
+	 * 
+	 * @param entity
+	 * @return distance from another Entity
 	 */
-	public void setY(float y) {
-		this.y = y;
+	public float getDistanceFrom(Entity entity) {
+		// Calcola la distanza minima sull'asse X
+		float xDist = Math.max(0, Math.max(entity.x - (this.x + this.width), this.x - (entity.x + entity.width)));
+
+		// Calcola la distanza minima sull'asse Y
+		float yDist = Math.max(0, Math.max(entity.y - (this.y + this.height), this.y - (entity.y + entity.height)));
+
+		// Se c'è una sovrapposizione su uno dei due assi, la distanza sarà zero
+		if (xDist == 0 || yDist == 0) {
+			return Math.max(xDist, yDist);
+		}
+
+		// Se non c'è sovrapposizione, calcola la distanza euclidea tra i punti più
+		// vicini dei bordi delle entità
+		return (float) Math.sqrt(xDist * xDist + yDist * yDist);
 	}
 
 	/**
-	 * @param width
+	 * @return entity's height
 	 */
-	public void setWidth(float width) {
-		this.width = width;
+	public float getHeight() {
+		return height;
+	}
+
+	/**
+	 * @return array with entity's coordinates
+	 */
+	public float[] getPosition() {
+		return new float[] { x, y };
+	}
+
+	public float[][] getTopVertexes() {
+		return new float[][] { { x, y }, { x + width, y } };
+	}
+
+	/**
+	 * @return four entity's edges
+	 */
+	public float[][] getVertexes() {
+		return new float[][] { { x, y }, { x + width, y }, { x, y + height }, { x + width, y + height } };
+	}
+
+	/**
+	 * @return entity's width
+	 */
+	public float getWidth() {
+		return width;
+	}
+
+	/**
+	 * @return x coordinate
+	 */
+	public float getX() {
+		return x;
+	}
+
+	/**
+	 * @return y coordinate
+	 */
+	public float getY() {
+		return y;
+	}
+
+	@Override
+	public int hashCode() {
+		int k = 13;
+		k = k * 17 + (int) x;
+		k = k * 17 + (int) y;
+		k = k * 17 + (int) width;
+		k = k * 17 + (int) width;
+		return k;
+	}
+
+	/**
+	 * Method that checks any collision with another entity
+	 * 
+	 * @param entity
+	 * @return boolean
+	 */
+	public boolean hit(Entity entity) {
+		return this.x < entity.x + entity.width && this.x + this.width > entity.x && this.y < entity.y + entity.height
+				&& this.y + this.height > entity.y;
 	}
 
 	/**
@@ -82,84 +245,24 @@ public abstract class Entity {
 	}
 
 	/**
-	 * Getters
+	 * @param width
 	 */
-
-	/**
-	 * @return x coordinate
-	 */
-	public float getX() {
-		return x;
+	public void setWidth(float width) {
+		this.width = width;
 	}
 
 	/**
-	 * @return y coordinate
+	 * @param x
 	 */
-	public float getY() {
-		return y;
+	public void setX(float x) {
+		this.x = x;
 	}
 
 	/**
-	 * @return entity's width
+	 * @param y
 	 */
-	public float getWidth() {
-		return width;
-	}
-
-	/**
-	 * @return entity's height
-	 */
-	public float getHeight() {
-		return height;
-	}
-
-	public String getCode() {
-		return code;
-	}
-	
-	/**
-	 * 
-	 * @param entity
-	 * @return	distance from another Entity
-	 */
-	public float getDistanceFrom(Entity entity) {
-	    // Calcola la distanza minima sull'asse X
-	    float xDist = Math.max(0, Math.max(entity.x - (this.x + this.width), this.x - (entity.x + entity.width)));
-	    
-	    // Calcola la distanza minima sull'asse Y
-	    float yDist = Math.max(0, Math.max(entity.y - (this.y + this.height), this.y - (entity.y + entity.height)));
-
-	    // Se c'è una sovrapposizione su uno dei due assi, la distanza sarà zero
-	    if (xDist == 0 || yDist == 0) {
-	        return Math.max(xDist, yDist);
-	    }
-	    
-	    // Se non c'è sovrapposizione, calcola la distanza euclidea tra i punti più vicini dei bordi delle entità
-	    return (float) Math.sqrt(xDist * xDist + yDist * yDist);
-	}
-
-	
-	
-	/**
-	 * @return array with entity's coordinates
-	 */
-	public float[] getPosition() {
-		return new float[] { x, y };
-	}
-
-	public float[][] getTopVertexes() {
-		return new float[][] { { x, y }, { x + width, y } };
-	}
-
-	public float[][] getBottomVertexes() {
-		return new float[][] { { x, y + height }, { x + width, y + height } };
-	}
-
-	/**
-	 * @return four entity's edges
-	 */
-	public float[][] getVertexes() {
-		return new float[][] { { x, y }, { x + width, y }, { x, y + height }, { x + width, y + height } };
+	public void setY(float y) {
+		this.y = y;
 	}
 
 	/**
@@ -169,73 +272,8 @@ public abstract class Entity {
 	 * @return boolean
 	 */
 	public boolean topHit(Entity entity) {
-        return this.y >= entity.y + entity.height &&
-               this.y < entity.y + entity.height + this.height &&
-               this.x < entity.x + entity.width &&
-               this.x + this.width > entity.x;
-    }
-
-	/**
-	 * Method that checks any bottom collision with another entity
-	 * 
-	 * @param entity
-	 * @return boolean
-	 */
-	public boolean bottomHit(Entity entity) {
-        return this.y + this.height <= entity.y &&
-               this.y + this.height > entity.y - this.height &&
-               this.x < entity.x + entity.width &&
-               this.x + this.width > entity.x;
-    }
-
-	/**
-	 * Method that checks any collision with another entity
-	 * 
-	 * @param entity
-	 * @return boolean
-	 */
-	public boolean hit(Entity entity) {
-        return this.x < entity.x + entity.width &&
-               this.x + this.width > entity.x &&
-               this.y < entity.y + entity.height &&
-               this.y + this.height > entity.y;
-    }
-	
-	public static <T extends Entity, U extends Entity> Optional<U> checkCollision(T entity, List<U> list) {
-		return list.stream().filter(x -> x.hit(entity)).findFirst();
-	}
-	
-	public static <T extends Entity, U extends Entity> boolean checkCollision(T entity, U otherEntity) {
-		return entity.hit(otherEntity);
-	}
-	
-
-	public static <T extends Entity, U extends Entity> Optional<U> checkTopCollision(T entity, List<U> list) {
-		return list.stream().filter(x -> x.bottomHit(entity)).findFirst();
-	}
-
-	public static <T extends Entity, U extends Entity> Optional<U> checkBottomCollision(T entity, List<U> list) {
-		return list.stream().filter(x -> x.topHit(entity)).findFirst();
-	}
-
-	@Override
-	public int hashCode() {
-		int k = 13;
-		k = k * 17 + (int) x;
-		k = k * 17 + (int) y;
-		k = k * 17 + (int) width;
-		k = k * 17 + (int) width;
-		return k;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null || getClass() != obj.getClass())
-			return false;
-		Entity other = (Entity) obj;
-		return height == other.height && width == other.width && x == other.x && y == other.y;
+		return this.y >= entity.y + entity.height && this.y < entity.y + entity.height + this.height
+				&& this.x < entity.x + entity.width && this.x + this.width > entity.x;
 	}
 
 }

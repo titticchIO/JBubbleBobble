@@ -13,14 +13,14 @@ public class YellowCandy extends Powerup{
 
 	@Override
 	public void effect() {
-		setX(-200);
+		super.effect();
 		Player.getInstance().increaseFiringRate(INCREASED_FIRING_RATE_AMOUNT);
 	}
    
 	@Override
 	public void resetToNormal() {
-		System.out.println("Reset");
 		Player.getInstance().decreaseFiringRate(INCREASED_FIRING_RATE_AMOUNT);
+		super.resetToNormal();
 	}
 
 

@@ -23,7 +23,7 @@ public class Images {
 		imageMap.put("N", "/enemies/banebou/");
 		imageMap.put("U", "/enemies/pulpul/");
 		imageMap.put("S", "/enemies/skelmonsta/");
-		imageMap.put("!", "powerups/pink_candy");
+		imageMap.put("!", "/powerups/pink_candy");
 		imageMap.put("£", "/powerups/blue_candy");
 		imageMap.put("$", "/powerups/yellow_candy");
 	

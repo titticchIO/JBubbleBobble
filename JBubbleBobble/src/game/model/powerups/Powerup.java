@@ -7,8 +7,9 @@ import game.model.Model;
 import game.model.entities.Entity;
 
 public abstract class Powerup extends Entity {
-	private final int points;
-	private long duration;
+	protected final int points;
+	protected long duration;
+	protected boolean toRemove;
 
 	public Powerup(float x, float y, String code, int points, long duration) {
 		super(x, y, code);
@@ -23,14 +24,25 @@ public abstract class Powerup extends Entity {
 	public float getDuration() {
 		return duration;
 	}
+	
+
+	public boolean isToRemove() {
+		return toRemove;
+	}
 
 	private boolean checkPlayerCollision() {
 		return Entity.checkCollision(Model.getInstance().getCurrentLevel().getPlayer(), this);
 	}
 
-	public abstract void effect();
+	public void effect() {
+		setX(-2000);
+		Model.getInstance().getCurrentUser().addPoints(points);
+	}
 
-	public abstract void resetToNormal();
+	public void resetToNormal() {
+		toRemove = true;
+	}
+	
 
 	public void updatePowerup() {
 		if (checkPlayerCollision()) {

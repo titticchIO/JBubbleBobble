@@ -39,6 +39,7 @@ public class Player extends MovingEntity {
 	private Timer attackTimer;
 	private int totBubbles;
 	private int totJumpsOnBubbles;
+	private int totBubblesPopped;
 
 	// singleton
 	private static Player instance;
@@ -63,6 +64,7 @@ public class Player extends MovingEntity {
 		attackTimer = new Timer();
 		totBubbles = 0;
 		totJumpsOnBubbles = 0;
+		totBubblesPopped = 0;
 	}
 
 	public int getTotJumpsOnBubbles() {
@@ -145,6 +147,10 @@ public class Player extends MovingEntity {
 	
 	
 
+	public int getTotBubblesPopped() {
+		return totBubblesPopped;
+	}
+
 	public int getTotBubbles() {
 		return totBubbles;
 	}
@@ -192,12 +198,16 @@ public class Player extends MovingEntity {
 				totJumpsOnBubbles++;
 		}
 		
-		System.out.println("Attack speed: "+attackSpeed);
+		
+		
+//		System.out.println("Attack speed: "+attackSpeed);
 		
 		Optional<PlayerBubble> popBobble = Entity.checkTopCollision(this,
 				Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles());
-		if (popBobble.isPresent())
+		if (popBobble.isPresent()) {
 			popBobble.get().popAndKill();
+			totBubblesPopped++;
+		}
 		updateXPos();
 		updateYPos();
 		gravity();
