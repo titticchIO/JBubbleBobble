@@ -94,4 +94,8 @@ public class User {
 		UserMethods.saveUsersData(nickname, highScore, playedGames, gamesWon, gamesLost);
 	}
 
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
 }
