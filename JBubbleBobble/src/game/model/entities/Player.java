@@ -39,6 +39,8 @@ public class Player extends MovingEntity {
 	private boolean isJumping;
 
 	private boolean isInvulnerable;
+	
+	private boolean isShooting;
 	private Timer invulnerabilityTimer;
 
 	private boolean canShoot;
@@ -248,6 +250,14 @@ public class Player extends MovingEntity {
 		gravity();
 		looseLife();
 //		System.out.println(lives);
+	}
+
+	public boolean isShooting() {
+		return isShooting;
+	}
+
+	public void setShooting(boolean isShooting) {
+		this.isShooting = isShooting;
 	}
 
 }

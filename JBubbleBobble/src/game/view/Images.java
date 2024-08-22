@@ -27,6 +27,7 @@ public class Images {
 		imageMap.put("£", "/powerups/blue_candy");
 		imageMap.put("$", "/powerups/yellow_candy");
 		imageMap.put("§", "/powerups/shoes");
+		imageMap.put("%", "/powerups/pistol");
 	
 	}
 

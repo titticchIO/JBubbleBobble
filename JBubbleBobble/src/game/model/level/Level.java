@@ -144,7 +144,10 @@ public class Level {
 			bubbleManager.getPlayerBubbles().stream()
 					.forEach(b -> enemyManager.getEnemies().stream().filter(b::isEnemyHit).forEach(e -> {
 						if (!b.hasEnemy()) {
-							b.setEnemy(e);
+							if (player.isShooting())
+								b.pop();
+							else
+								b.setEnemy(e);
 							removeEnemy(e);
 						}
 					}));
@@ -167,7 +170,8 @@ public class Level {
 
 		for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
 			// Verifica se la posizione è valida per generare il powerup
-			if (lvlData[y][x].equals(" ") && lvlData[y + 1][x].matches("[0-9]") && !powerupManager.isTherePowerup(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE)) {
+			if (lvlData[y][x].equals(" ") && lvlData[y + 1][x].matches("[0-9]")
+					&& !powerupManager.isTherePowerup(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE)) {
 				powerup.setPosition(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE);
 				powerupManager.addPowerup(powerup);
 				powerupManager.printPowerups();

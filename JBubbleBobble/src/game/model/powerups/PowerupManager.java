@@ -40,9 +40,10 @@ public class PowerupManager {
 		return Model.getInstance().getCurrentLevel().getPlayer().getTotBubblesPopped() > 2;
 	}
 	
+	
 	public void createPowerup() {
 		if (checkPinkCandy() && !pinkCandy) {
-			Model.getInstance().getCurrentLevel().spawnPowerup(new PinkCandy(0, 0));
+			Model.getInstance().getCurrentLevel().spawnPowerup(new Pistol(0, 0));
 			pinkCandy = true;
 		}
 		
