@@ -190,9 +190,9 @@ public class Player extends MovingEntity {
 			jump();
 			if (bounceBobble.isPresent() && bounceBobble.get().getEnemy() == null && isJumping) 
 				totJumpsOnBubbles++;
-			System.out.println(totJumpsOnBubbles);
 		}
 		
+		System.out.println("Attack speed: "+attackSpeed);
 		
 		Optional<PlayerBubble> popBobble = Entity.checkTopCollision(this,
 				Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles());

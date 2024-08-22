@@ -180,7 +180,7 @@ public class Level {
 			// Verifica se la posizione è valida per generare il powerup
 			if (lvlData[y][x].equals(" ") && lvlData[y + 1][x].matches("[0-9]")) {
 				powerup.setPosition(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE);
-				powerupManager.getPowerups().add(powerup);
+				powerupManager.addPowerup(powerup);
 				return;
 			}
 

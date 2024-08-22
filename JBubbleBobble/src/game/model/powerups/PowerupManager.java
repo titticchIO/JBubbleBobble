@@ -30,11 +30,7 @@ public class PowerupManager {
 		return Model.getInstance().getCurrentLevel().getPlayer().getTotJumpsOnBubbles() > 2;
 	}
 	
-	public void remove(Powerup powerup) {
-		powerups.remove(powerup);
-	}
-	
-	public void addPowerup() {
+	public void createPowerup() {
 		if (checkPinkCandy() && !pinkCandy) {
 			Model.getInstance().getCurrentLevel().spawnPowerup(new BlueCandy(0, 0));
 			pinkCandy = true;
@@ -47,12 +43,16 @@ public class PowerupManager {
 //		if ()
 	}
 
+	public void addPowerup(Powerup powerup) {
+		powerups.add(powerup);
+	}
+	
 	public void removePowerup(Powerup powerup) {
 		powerups.remove(powerup);
 	}
 
 	public void updatePowerups() {
-		addPowerup();
+		createPowerup();
 		for (Powerup powerup : powerups) {
 			powerup.updatePowerup();
 		}

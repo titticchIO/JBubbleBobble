@@ -5,8 +5,8 @@ import game.model.enemies.Enemy;
 
 public class PlayerBubble extends Bubble {
 
-	private static float extraTravelTime;
-	private static float extraXSpeed;
+	private static float extraTravelTime = 1;
+	private static float extraXSpeed = 1;
 
 
 	/**
