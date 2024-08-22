@@ -1,10 +1,10 @@
 package game.model.powerups;
 
-import game.model.Model;
+import game.model.entities.Player;
 
 public class YellowCandy extends Powerup{
 	private static final int POINTS = 100;
-	private static final long DURATION = 10;
+	private static final long DURATION = 10000;
 	private static final int INCREASED_FIRING_RATE_AMOUNT = 1;
 
 	public YellowCandy(float x, float y) {
@@ -13,12 +13,14 @@ public class YellowCandy extends Powerup{
 
 	@Override
 	public void effect() {
-		Model.getInstance().getCurrentLevel().getPlayer().increaseFiringRate(INCREASED_FIRING_RATE_AMOUNT);
+		setX(-200);
+		Player.getInstance().increaseFiringRate(INCREASED_FIRING_RATE_AMOUNT);
 	}
-
+   
 	@Override
 	public void resetToNormal() {
-		Model.getInstance().getCurrentLevel().getPlayer().decreaseFiringRate(INCREASED_FIRING_RATE_AMOUNT);
+		System.out.println("Reset");
+		Player.getInstance().decreaseFiringRate(INCREASED_FIRING_RATE_AMOUNT);
 	}
 
 

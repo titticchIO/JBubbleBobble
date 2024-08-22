@@ -72,9 +72,14 @@ public class Level {
 		entities.addAll(bubbleManager.getPlayerBubbles());
 		entities.addAll(enemyManager.getEnemies());
 		entities.addAll(enemyManager.getLasers());
-
 		entities.addAll(powerupManager.getPowerups());
 		return entities;
+	}
+	
+	
+
+	public PowerupManager getPowerupManager() {
+		return powerupManager;
 	}
 
 	public Player getPlayer() {
@@ -133,10 +138,6 @@ public class Level {
 		tiles.add(tile);
 	}
 
-	public void addPowerup(Powerup powerup) {
-		powerupManager.addPowerup(powerup);
-	}
-
 	public void addPowerupSpawns(float x, float y) {
 		powerupSpawns.add(new float[] { x, y });
 	}
@@ -179,7 +180,7 @@ public class Level {
 			// Verifica se la posizione è valida per generare il powerup
 			if (lvlData[y][x].equals(" ") && lvlData[y + 1][x].matches("[0-9]")) {
 				powerup.setPosition(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE);
-				powerupManager.getPowerups().add(powerup);
+				powerupManager.addPowerup(powerup);
 				return;
 			}
 
@@ -210,6 +211,7 @@ public class Level {
 		player.updateEntity();
 		enemyManager.updateEnemies();
 		bubbleManager.updateBubbles();
+		powerupManager.updatePowerups();
 		captureEnemies();
 		killEnemies();
 
