@@ -17,7 +17,6 @@ import game.model.tiles.Tile;
 import game.model.user.User;
 import game.model.user.UserMethods;
 
-
 public class Model extends Observable {
 
 	public enum ModelState {
@@ -31,9 +30,8 @@ public class Model extends Observable {
 	private User currentUser;
 
 	/*
-	private long score;
-	private long highScore;
-	*/
+	 * private long score; private long highScore;
+	 */
 
 	private static Model instance;
 
@@ -50,8 +48,6 @@ public class Model extends Observable {
 		levels = new ArrayList<>();
 		users = new ArrayList<>();
 		loadUsers();
-		
-
 		modelState = ModelState.PLAY;
 		setChanged();
 		notifyObservers();
@@ -83,8 +79,12 @@ public class Model extends Observable {
 			levels.add(new Level(Integer.parseInt(s)));
 		});
 		currentLevel = levels.getFirst();
-		currentLevel.addPlayer(Player.getInstance(currentLevel.getPlayerSpawnPoint()[0],
-				currentLevel.getPlayerSpawnPoint()[1], Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1));
+		if (Player.getInstance() == null) {			
+			currentLevel.addPlayer(Player.getInstance(currentLevel.getPlayerSpawnPoint()[0],
+					currentLevel.getPlayerSpawnPoint()[1], Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1));
+		} else
+			currentLevel.addPlayer(Player.getInstance());
+			Player.getInstance().setPosition(currentLevel.getPlayerSpawnPoint()[0], currentLevel.getPlayerSpawnPoint()[1]);
 
 		levelIterator = levels.iterator();
 		modelState = ModelState.PLAY;
@@ -101,7 +101,7 @@ public class Model extends Observable {
 	}
 
 	public void updateModel() {
-		
+
 		currentLevel.updateLevel(); // Update the current level logic
 		updatePoints(); // Update points based on the current state
 		if (currentLevel.getPlayer().getLives() == 0) {
@@ -139,43 +139,38 @@ public class Model extends Observable {
 		this.currentUser = currentUser;
 	}
 
+	private void loadUsers() {
+		HashMap<String, List<Integer>> mappaUtenti = UserMethods.getUsersData();
 
+		// Itera attraverso la mappa per creare e aggiungere utenti
+		for (Entry<String, List<Integer>> entry : mappaUtenti.entrySet()) {
+			String nickname = entry.getKey();
+			List<Integer> dataList = entry.getValue();
 
-    private void loadUsers() {
-        HashMap<String, List<Integer>> mappaUtenti = UserMethods.getUsersData();
+			// Assegna i valori della lista ai corrispondenti attributi dell'utente
+			int highScore = dataList.get(0);
+			int playedGames = dataList.get(1);
+			int wonGames = dataList.get(2);
+			int lostGames = dataList.get(3);
 
-        // Itera attraverso la mappa per creare e aggiungere utenti
-        for (Entry<String, List<Integer>> entry : mappaUtenti.entrySet()) {
-            String nickname = entry.getKey();
-            List<Integer> dataList = entry.getValue();
+			String avatarPath = "resources/users/" + nickname + ".png";
 
-            // Assegna i valori della lista ai corrispondenti attributi dell'utente
-            int highScore = dataList.get(0);
-            int playedGames = dataList.get(1);
-            int wonGames = dataList.get(2);
-            int lostGames = dataList.get(3);
+			// Crea un nuovo utente con le informazioni raccolte
+			User user = new User(nickname, highScore, avatarPath, playedGames, wonGames, lostGames);
 
-            String avatarPath = "resources/users/" + nickname + ".png";
+			// Aggiungi l'utente alla lista degli utenti
+			users.add(user);
+		}
+	}
 
-            // Crea un nuovo utente con le informazioni raccolte
-            User user = new User(nickname, highScore, avatarPath, playedGames, wonGames, lostGames);
-
-            // Aggiungi l'utente alla lista degli utenti
-            users.add(user);
-        }
-    }
-
-
-    
-    
-    public void setCurrentUserByNickname(String selectedNickname) {
-        for (User user : users) { // 'users' è la lista di utenti
-            if (user.getNickname().equals(selectedNickname)) {
-                currentUser = user;
-                break; // Uscire dal ciclo una volta trovato l'utente
-            }
-        }
-    }
+	public void setCurrentUserByNickname(String selectedNickname) {
+		for (User user : users) { // 'users' è la lista di utenti
+			if (user.getNickname().equals(selectedNickname)) {
+				currentUser = user;
+				break; // Uscire dal ciclo una volta trovato l'utente
+			}
+		}
+	}
 
 	public ModelState getModelState() {
 		return modelState;
@@ -191,5 +186,4 @@ public class Model extends Observable {
 		notifyObservers();
 	}
 
-	
 }

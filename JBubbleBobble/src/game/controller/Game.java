@@ -84,25 +84,22 @@ public class Game implements Runnable {
 		}
 	}
 
-	public void restartGame() {
-		stopGameLoop(); // Stop the current game thread
-		resetGame(); // Reset the game state, objects, and components
-		startGameLoop(); // Start a new game thread
-	}
-
 	public void resetGame() {
-        // Reset the model to its initial state
-        Model.getInstance().resetModel();
-        
-        // Reset the view (if needed, additional UI elements like score can be reset here)
-        View.getInstance().getLevelPanel().renderTilesOnce();
+		// Reset the model to its initial state
+		Model.getInstance().resetModel();
 
-        // Set the game state back to the menu
-        GameState.state = GameState.MENU;
+		// Reset the view (if needed, additional UI elements like score can be reset
+		// here)
+		View.getInstance().getLevelPanel().renderTilesOnce();
 
-        // Display the menu screen
-        gameFrame.showState(Screen.MENU);
-    }
+		
+		
+		// Set the game state back to the menu
+		GameState.state = GameState.MENU;
+
+		// Display the menu screen
+		gameFrame.showState(Screen.MENU);
+	}
 
 	public void update() {
 		switch (GameState.state) {

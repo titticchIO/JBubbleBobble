@@ -23,13 +23,13 @@ public class Player extends MovingEntity {
 	}
 
 	private float extraXSpeed = 1;
-	
+
 	private float previousX;
-	
-	public static final int NUMBER_OF_LIVES = 100;
+
+	public static final int NUMBER_OF_LIVES = 1;
 	public static final long INVULNERABILITY_INTERVAL = 5000;
 	public static final long ATTACK_INTERVAL = 100;
-	
+
 	private float distanceTravelled;
 
 	private Direction bubbleDirection;
@@ -64,16 +64,16 @@ public class Player extends MovingEntity {
 		super(x, y, width, height, "P");
 		state = State.WALK;
 		bubbleDirection = Direction.RIGHT;
-		lives = 100000;
+		lives = NUMBER_OF_LIVES;
 		canShoot = true;
 		attackSpeed = 2;
 		attackTimer = new Timer();
 		totBubbles = 0;
 		totJumpsOnBubbles = 0;
-		
+
 		// Inizializza previousX con il valore iniziale di x
-        previousX = x;
-        
+		previousX = x;
+
 	}
 
 	public int getTotJumpsOnBubbles() {
@@ -101,7 +101,7 @@ public class Player extends MovingEntity {
 	public void shootBubble() {
 		// Controlla se il player può sparare
 		if (canShoot) {
-			totBubbles+=1;
+			totBubbles += 1;
 			if (bubbleDirection == Direction.RIGHT
 					&& !HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
 				Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x + Tile.TILE_SIZE, y, 2);
@@ -153,19 +153,16 @@ public class Player extends MovingEntity {
 	public void setJumping(boolean isJumping) {
 		this.isJumping = isJumping;
 	}
-	
+
 	@Override
 	public void setX(float x) {
 		// Aggiorna distanceTravelled basandosi sulla differenza tra x e previousX
-        distanceTravelled += Math.abs(x - previousX);
-        
-        // Aggiorna previousX con il nuovo valore di x
-        previousX = x;
+		distanceTravelled += Math.abs(x - previousX);
+
+		// Aggiorna previousX con il nuovo valore di x
+		previousX = x;
 		this.x = x;
 	}
-	
-
-	
 
 	public float getDistanceTravelled() {
 		return distanceTravelled;
@@ -182,11 +179,11 @@ public class Player extends MovingEntity {
 	public void setTotBubbles(int totBubbles) {
 		this.totBubbles = totBubbles;
 	}
-	
+
 	public void setExtraXSpeed(float extraXSpeed) {
-		this.extraXSpeed = extraXSpeed;		
+		this.extraXSpeed = extraXSpeed;
 	}
-	
+
 	public void move(float speed) {
 		speed *= extraXSpeed;
 		System.out.println("velocità:" + speed);
@@ -222,7 +219,6 @@ public class Player extends MovingEntity {
 			}, INVULNERABILITY_INTERVAL); // Imposta il timer per l'intervallo di invulnerabilità
 		}
 	}
-	
 
 	@Override
 	public void updateEntity() {
@@ -231,12 +227,10 @@ public class Player extends MovingEntity {
 		if (isJumping() && ((bounceBobble.isPresent() && bounceBobble.get().getEnemy() == null)
 				|| HelpMethods.isEntityGrounded(this))) {
 			jump();
-			if (bounceBobble.isPresent() && bounceBobble.get().getEnemy() == null && isJumping) 
+			if (bounceBobble.isPresent() && bounceBobble.get().getEnemy() == null && isJumping)
 				totJumpsOnBubbles++;
 		}
-		
-		System.out.println("Attack speed: "+attackSpeed);
-		
+
 		Optional<PlayerBubble> popBobble = Entity.checkTopCollision(this,
 				Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles());
 		if (popBobble.isPresent())
@@ -247,5 +241,5 @@ public class Player extends MovingEntity {
 		looseLife();
 //		System.out.println(lives);
 	}
-	
+
 }
