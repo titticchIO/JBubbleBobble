@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import game.controller.Game;
 
 import game.model.Model;
+import game.model.Model.ModelState;
 import game.model.bubbles.BubbleManager;
 import game.model.entities.MovingEntity.Direction;
 import game.model.level.Level;
@@ -13,31 +14,20 @@ import game.view.GameFrame.Screen;
 
 public class Playing extends State implements Statemethods {
 
-	private Level currentLevel;
-
 	public Playing(Game game) {
 		super(game);
-		initClasses();
-	}
 
-	private void initClasses() {
-		currentLevel = Model.getInstance().getCurrentLevel();
-
-	}
-
-	public Level getCurrentLevel() {
-		return currentLevel;
 	}
 
 	@Override
 	public void update() {
 		Model.getInstance().updateModel();
-		if (Model.getInstance().getCurrentLevel().getPlayer().getLives() == 0) {
+		if (Model.getInstance().getModelState() == ModelState.LOSS) {
 			GameState.state = GameState.LOSS;
 			game.getGameFrame().showState(Screen.LOSS);
 		}
 
-		if (Model.getInstance().getState() == Model.State.WIN) {
+		if (Model.getInstance().getModelState() == ModelState.WIN) {
 			GameState.state = GameState.WIN;
 			game.getGameFrame().showState(Screen.WIN);
 		}
@@ -74,21 +64,22 @@ public class Playing extends State implements Statemethods {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_W:
-			currentLevel.getPlayer().setJumping(true);
+			Model.getInstance().getCurrentLevel().getPlayer().setJumping(true);
 			break;
 		case KeyEvent.VK_A:
-			currentLevel.getPlayer().setDirection(Direction.LEFT);
-			currentLevel.getPlayer().move(0.7f);
+			Model.getInstance().getCurrentLevel().getPlayer().setDirection(Direction.LEFT);
+			Model.getInstance().getCurrentLevel().getPlayer().move(0.7f);
 
 			break;
 		case KeyEvent.VK_D:
-			currentLevel.getPlayer().setDirection(Direction.RIGHT);
-			currentLevel.getPlayer().move(0.7f);
+			Model.getInstance().getCurrentLevel().getPlayer().setDirection(Direction.RIGHT);
+			Model.getInstance().getCurrentLevel().getPlayer().move(0.7f);
 			break;
 		case KeyEvent.VK_SPACE:
-			currentLevel.getPlayer().shootBubble();
+			Model.getInstance().getCurrentLevel().getPlayer().shootBubble();
 		}
 
 	}
@@ -97,15 +88,15 @@ public class Playing extends State implements Statemethods {
 	public void keyReleased(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_W:
-			currentLevel.getPlayer().setJumping(false);
+			Model.getInstance().getCurrentLevel().getPlayer().setJumping(false);
 			break;
 		case KeyEvent.VK_A:
-			if (currentLevel.getPlayer().getxSpeed() <= 0)
-				currentLevel.getPlayer().stop();
+			if (Model.getInstance().getCurrentLevel().getPlayer().getxSpeed() <= 0)
+				Model.getInstance().getCurrentLevel().getPlayer().stop();
 			break;
 		case KeyEvent.VK_D:
-			if (currentLevel.getPlayer().getxSpeed() >= 0)
-				currentLevel.getPlayer().stop();
+			if (Model.getInstance().getCurrentLevel().getPlayer().getxSpeed() >= 0)
+				Model.getInstance().getCurrentLevel().getPlayer().stop();
 			break;
 		}
 	}

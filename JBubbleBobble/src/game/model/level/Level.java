@@ -32,7 +32,7 @@ public class Level {
 	private PowerupManager powerupManager;
 	private List<float[]> powerupSpawns;
 	private String[][] lvlData;
-
+	private float[] playerSpawnPoint;
 
 	public Level(int levelNum) {
 		tiles = new ArrayList<Tile>();
@@ -122,6 +122,14 @@ public class Level {
 		this.player = player;
 	}
 
+	public void setPlayerSpawnPoint(float x, float y) {
+		playerSpawnPoint = new float[] { x, y };
+	}
+
+	public float[] getPlayerSpawnPoint() {
+		return playerSpawnPoint;
+	}
+
 	public void addEnemy(Enemy enemy) {
 		enemyManager.addEnemy(enemy);
 	}
@@ -171,7 +179,7 @@ public class Level {
 		for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
 			// Verifica se la posizione è valida per generare il powerup
 			if (lvlData[y][x].equals(" ") && lvlData[y + 1][x].matches("[0-9]")) {
-				powerup.setPosition(x*Tile.TILE_SIZE, y*Tile.TILE_SIZE);
+				powerup.setPosition(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE);
 				powerupManager.getPowerups().add(powerup);
 				return;
 			}

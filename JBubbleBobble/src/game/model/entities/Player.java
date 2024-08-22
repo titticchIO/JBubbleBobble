@@ -21,7 +21,7 @@ public class Player extends MovingEntity {
 		WALK, JUMP, SHOOT
 	}
 
-	public static final int NUMBER_OF_LIVES = 3;
+	public static final int NUMBER_OF_LIVES = 100;
 	public static final long INVULNERABILITY_INTERVAL = 5000;
 	public static final long ATTACK_INTERVAL = 100;
 
@@ -44,9 +44,6 @@ public class Player extends MovingEntity {
 	private static Player instance;
 
 	public static Player getInstance() {
-		if (instance == null)
-			instance = new Player(30, 30, 16, 16);
-
 		return instance;
 	}
 
@@ -77,6 +74,10 @@ public class Player extends MovingEntity {
 	 */
 	public int getLives() {
 		return lives;
+	}
+
+	public void setLives(int lives) {
+		this.lives = lives;
 	}
 
 	@Override
@@ -203,4 +204,5 @@ public class Player extends MovingEntity {
 		looseLife();
 //		System.out.println(lives);
 	}
+	
 }

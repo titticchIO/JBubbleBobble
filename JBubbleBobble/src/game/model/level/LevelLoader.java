@@ -55,8 +55,9 @@ public class LevelLoader {
 					switch (c) {
 					case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" ->
 						level.addTile(new Tile(x * TILE_SIZE, y * TILE_SIZE, c));
-					case PLAYER ->
-						level.addPlayer(Player.getInstance(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1));
+					case PLAYER -> {
+						level.setPlayerSpawnPoint(x * TILE_SIZE, y*TILE_SIZE);
+					}
 					case POWERUP -> level.addPowerupSpawns(x, y);
 					default -> {
 						level.addEnemy(switch (c) {
@@ -79,6 +80,5 @@ public class LevelLoader {
 
 		return matrice;
 	}
-	
 
 }

@@ -4,67 +4,50 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import game.controller.Game;
-import game.model.Model;
-import game.view.View;
-import game.view.GameFrame.Screen;
 
-public class Loss  extends State implements Statemethods{
+public class Loss extends State implements Statemethods {
 
-	public Loss(Game game) {
-		super(game);
-	}
+    public Loss(Game game) {
+        super(game);
+    }
 
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void update() {
+        // Loss-specific update logic (if any)
+    }
 
-	@Override
-	public void repaint() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void repaint() {
+        // Loss-specific repaint logic (if any)
+    }
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // Handle mouse click if necessary
+    }
 
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // Handle mouse press if necessary
+    }
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // Handle mouse release if necessary
+    }
 
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // Handle mouse move if necessary
+    }
 
-	@Override
-	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_R) {
-			Model.getInstance().resetLevels();
-			GameState.state = GameState.PLAYING;
-			View.getInstance().getLevelPanel().renderTilesOnce();
-			game.getGameFrame().showState(Screen.GAME);
-		}
-		
-	}
+    @Override
+    public void keyPressed(KeyEvent e) {
+    	game.resetGame();  // Use the resetGame method from the Game class
+    }
 
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // Handle key release if necessary
+    }
 }
