@@ -49,6 +49,7 @@ public class Player extends MovingEntity {
 	private int totBubbles;
 	private int totJumpsOnBubbles;
 	private int totBubblesPopped;
+	private int totJumps;
 
 	// singleton
 	private static Player instance;
@@ -139,6 +140,7 @@ public class Player extends MovingEntity {
 	public void jump() {
 		inAir = true;
 		airSpeed = jumpSpeed;
+		setTotJumps(getTotJumps() + 1);
 //		}
 	}
 
@@ -258,6 +260,14 @@ public class Player extends MovingEntity {
 
 	public void setShooting(boolean isShooting) {
 		this.isShooting = isShooting;
+	}
+
+	public int getTotJumps() {
+		return totJumps;
+	}
+
+	public void setTotJumps(int totJumps) {
+		this.totJumps = totJumps;
 	}
 
 }

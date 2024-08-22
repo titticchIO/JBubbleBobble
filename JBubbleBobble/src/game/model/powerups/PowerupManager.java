@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import game.model.Model;
+import game.model.entities.Player;
 import game.model.level.Level;
 
 public class PowerupManager {
@@ -14,6 +15,7 @@ public class PowerupManager {
 	private boolean yellowCandy;
 	private boolean blueCandy;
 	private boolean shoes;
+	private boolean pistol;
 
 	public PowerupManager() {
 		powerups = new CopyOnWriteArrayList<>();
@@ -25,25 +27,29 @@ public class PowerupManager {
 	
 	
 	private boolean checkShoes() {
-		return Model.getInstance().getCurrentLevel().getPlayer().getDistanceTravelled() > 2 * Level.GAME_WIDTH;
+		return Player.getInstance().getDistanceTravelled() > 2 * Level.GAME_WIDTH;
 	}
 	
 	private boolean checkPinkCandy() {
-		return Model.getInstance().getCurrentLevel().getPlayer().getTotBubbles() > 2;
+		return Player.getInstance().getTotBubbles() > 2;
 	}
 	
 	private boolean checkYellowCandy() {
-		return Model.getInstance().getCurrentLevel().getPlayer().getTotJumpsOnBubbles() > 2;
+		return Player.getInstance().getTotJumpsOnBubbles() > 2;
 	}
 	
 	private boolean checkBlueCandy() {
-		return Model.getInstance().getCurrentLevel().getPlayer().getTotBubblesPopped() > 2;
+		return Player.getInstance().getTotBubblesPopped() > 2;
+	}
+	
+	private boolean checkPistol() {
+		return Player.getInstance().getTotJumps() > 2;
 	}
 	
 	
 	public void createPowerup() {
 		if (checkPinkCandy() && !pinkCandy) {
-			Model.getInstance().getCurrentLevel().spawnPowerup(new Pistol(0, 0));
+			Model.getInstance().getCurrentLevel().spawnPowerup(new PinkCandy(0, 0));
 			pinkCandy = true;
 		}
 		
@@ -60,6 +66,11 @@ public class PowerupManager {
 			Model.getInstance().getCurrentLevel().getPlayer().setDistanceTravelled(0);
 			Model.getInstance().getCurrentLevel().spawnPowerup(new Shoes(0,0));
 			shoes = true;
+		}
+		
+		if (checkPistol() && !pistol) {
+			Model.getInstance().getCurrentLevel().spawnPowerup(new Pistol(0, 0));
+			pistol = true;
 		}
 		
 	}
