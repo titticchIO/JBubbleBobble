@@ -59,7 +59,7 @@ public class MenuPanel extends JPanel {
 			}
 		};
 		// Create and configure Leaderboard button
-		JButton leaderboardButton = new JButton("Leaderboard") {
+		JButton leaderboardButton = new JButton() {
 			{
 				setBounds(20, 70, 100, 50);
 				addActionListener(e -> showLeaderboard());
