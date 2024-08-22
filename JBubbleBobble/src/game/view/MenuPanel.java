@@ -4,14 +4,18 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.JFrame;
 import game.controller.gamestates.Menu;
+import game.model.Model;
 import game.model.level.Level;
 
 public class MenuPanel extends JPanel {
@@ -23,6 +27,7 @@ public class MenuPanel extends JPanel {
 		this.menu = menu;
 		setSize(new Dimension((int) (Level.GAME_WIDTH * LevelPanel.SCALE),
 				(int) (Level.GAME_HEIGHT * LevelPanel.SCALE)));
+
 		loadImage(); // Load the image once
 		initMenu();
 
@@ -47,7 +52,7 @@ public class MenuPanel extends JPanel {
 		// Create and configure Editor button
 		JButton editorButton = new JButton() {
 			{
-				setBounds(20, 20, 100, 50);
+				setBounds(19, 20, 100, 50);
 				addActionListener(e -> editor.controller.Main.main(null));
 				ImageIcon editorButtonImageIcon = new ImageIcon(
 						ImageLoader.importImg("/editor.png").getScaledInstance(100, 50, Image.SCALE_SMOOTH));
@@ -61,10 +66,35 @@ public class MenuPanel extends JPanel {
 		// Create and configure Leaderboard button
 		JButton leaderboardButton = new JButton() {
 			{
-				setBounds(20, 70, 100, 50);
+				setBounds(19, 70, 100, 50);
 				addActionListener(e -> showLeaderboard());
 				ImageIcon editorButtonImageIcon = new ImageIcon(
 						ImageLoader.importImg("/leaderboard.png").getScaledInstance(100, 50, Image.SCALE_SMOOTH));
+				setIcon(editorButtonImageIcon);
+				setContentAreaFilled(false); // Make the background transparent
+				setBorderPainted(false); // Remove the button border
+				setFocusPainted(false); // Remove the focus border
+			}
+		};
+
+		JPopupMenu userSelectionPopUp = new JPopupMenu() {
+			{
+				add(new JScrollPane(new JPanel() {
+					{
+						setLayout(new GridLayout(0, 1));
+						Model.getInstance().getUsers().forEach(user -> add(new UserPanel(user)));
+					}
+				}));
+
+				setPreferredSize(new Dimension(120, 300));
+			}
+		};
+		JButton userSelectionButton = new JButton() {
+			{
+				setBounds(19, 120, 100, 50);
+				addActionListener(e -> userSelectionPopUp.show(this, 0, this.getHeight()));
+				ImageIcon editorButtonImageIcon = new ImageIcon(
+						ImageLoader.importImg("/userSelection.png").getScaledInstance(100, 50, Image.SCALE_SMOOTH));
 				setIcon(editorButtonImageIcon);
 				setContentAreaFilled(false); // Make the background transparent
 				setBorderPainted(false); // Remove the button border
@@ -76,6 +106,7 @@ public class MenuPanel extends JPanel {
 		add(playButton);
 		add(editorButton);
 		add(leaderboardButton);
+		add(userSelectionButton);
 	}
 
 	// Display leaderboard

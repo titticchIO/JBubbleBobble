@@ -39,7 +39,7 @@ public class Game implements Runnable {
 		view = View.getInstance(gameFrame);
 		model.addObserver(view);
 		playing = new Playing(this);
-		gameFrame.showState(Screen.USER_SELECTION);
+		gameFrame.showState(Screen.MENU);
 	}
 
 	public Playing getPlaying() {

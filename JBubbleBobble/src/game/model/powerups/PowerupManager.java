@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import game.model.Model;
+import game.model.level.Level;
 
 public class PowerupManager {
 	private List<Powerup> powerups;
@@ -12,6 +13,7 @@ public class PowerupManager {
 	private boolean pinkCandy;
 	private boolean yellowCandy;
 	private boolean blueCandy;
+	private boolean shoes;
 
 	public PowerupManager() {
 		powerups = new CopyOnWriteArrayList<>();
@@ -21,6 +23,10 @@ public class PowerupManager {
 		return powerups;
 	}
 	
+	
+	private boolean checkShoes() {
+		return Model.getInstance().getCurrentLevel().getPlayer().getDistanceTravelled() > 2 * Level.GAME_WIDTH;
+	}
 	
 	private boolean checkPinkCandy() {
 		return Model.getInstance().getCurrentLevel().getPlayer().getTotBubbles() > 2;
@@ -49,6 +55,12 @@ public class PowerupManager {
 			Model.getInstance().getCurrentLevel().spawnPowerup(new BlueCandy(0, 0));
 			blueCandy = true;
 		}
+		if (checkShoes() && !shoes) {
+			Model.getInstance().getCurrentLevel().getPlayer().setDistanceTravelled(0);
+			Model.getInstance().getCurrentLevel().spawnPowerup(new Shoes(0,0));
+			shoes = true;
+		}
+		
 	}
 
 	public boolean isTherePowerup(int x, int y) {
