@@ -30,8 +30,10 @@ public class Model extends Observable {
 	private List<User> users;
 	private User currentUser;
 
+	/*
 	private long score;
 	private long highScore;
+	*/
 
 	private static Model instance;
 
@@ -64,7 +66,7 @@ public class Model extends Observable {
 		if (levelIterator.hasNext()) {
 			currentLevel = levelIterator.next();
 		}
-		score = 0; // Reset score
+		currentUser.setPoints(0); // Reset score
 		modelState = ModelState.PLAY; // Reset game state to play
 		Player.getInstance().setLives(Player.NUMBER_OF_LIVES);
 		setChanged();

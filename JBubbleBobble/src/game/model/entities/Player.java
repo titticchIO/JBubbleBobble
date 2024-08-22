@@ -4,6 +4,7 @@ import game.model.bubbles.Bubble;
 import game.model.bubbles.BubbleManager;
 import game.model.bubbles.PlayerBubble;
 import game.model.entities.MovingEntity.Direction;
+import game.model.level.Level;
 import game.model.tiles.Tile;
 
 import java.util.List;
@@ -21,9 +22,15 @@ public class Player extends MovingEntity {
 		WALK, JUMP, SHOOT
 	}
 
+	private float extraXSpeed = 1;
+	
+	private float previousX;
+	
 	public static final int NUMBER_OF_LIVES = 100;
 	public static final long INVULNERABILITY_INTERVAL = 5000;
 	public static final long ATTACK_INTERVAL = 100;
+	
+	private float distanceTravelled;
 
 	private Direction bubbleDirection;
 	private State state;
@@ -63,6 +70,10 @@ public class Player extends MovingEntity {
 		attackTimer = new Timer();
 		totBubbles = 0;
 		totJumpsOnBubbles = 0;
+		
+		// Inizializza previousX con il valore iniziale di x
+        previousX = x;
+        
 	}
 
 	public int getTotJumpsOnBubbles() {
@@ -143,7 +154,26 @@ public class Player extends MovingEntity {
 		this.isJumping = isJumping;
 	}
 	
+	@Override
+	public void setX(float x) {
+		// Aggiorna distanceTravelled basandosi sulla differenza tra x e previousX
+        distanceTravelled += Math.abs(x - previousX);
+        
+        // Aggiorna previousX con il nuovo valore di x
+        previousX = x;
+		this.x = x;
+	}
 	
+
+	
+
+	public float getDistanceTravelled() {
+		return distanceTravelled;
+	}
+
+	public void setDistanceTravelled(float distanceTravelled) {
+		this.distanceTravelled = distanceTravelled;
+	}
 
 	public int getTotBubbles() {
 		return totBubbles;
@@ -151,6 +181,19 @@ public class Player extends MovingEntity {
 
 	public void setTotBubbles(int totBubbles) {
 		this.totBubbles = totBubbles;
+	}
+	
+	public void setExtraXSpeed(float extraXSpeed) {
+		this.extraXSpeed = extraXSpeed;		
+	}
+	
+	public void move(float speed) {
+		speed *= extraXSpeed;
+		System.out.println("velocità:" + speed);
+		switch (direction) {
+		case LEFT -> setxSpeed(-1 * speed);
+		case RIGHT -> setxSpeed(speed);
+		}
 	}
 
 	public void looseLife() {
