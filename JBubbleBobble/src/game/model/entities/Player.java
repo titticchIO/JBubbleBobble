@@ -37,9 +37,9 @@ public class Player extends MovingEntity {
 	private boolean canShoot;
 	private long attackSpeed; // Esempio: velocità di attacco in millisecondi (1 secondo)
 	private Timer attackTimer;
+	private int totBubbles;
+	private int totJumpsOnBubbles;
 
-	// bolla attuale
-	private PlayerBubble currentBubble;
 	// singleton
 	private static Player instance;
 
@@ -59,25 +59,22 @@ public class Player extends MovingEntity {
 	private Player(float x, float y, float width, float height) {
 		super(x, y, width, height, "P");
 		state = State.WALK;
-		currentBubble = new PlayerBubble(x, y, width, height);
 		bubbleDirection = Direction.RIGHT;
-		lives = NUMBER_OF_LIVES;
+		lives = 100000;
 		canShoot = true;
 		attackSpeed = 2;
-		attackTimer=new Timer();
+		attackTimer = new Timer();
+		totBubbles = 0;
+		totJumpsOnBubbles = 0;
+	}
+
+	public int getTotJumpsOnBubbles() {
+		return totJumpsOnBubbles;
 	}
 
 	/**
 	 * Getters and Setters
 	 */
-	public PlayerBubble getCurrentBubble() {
-		return currentBubble;
-	}
-
-	public void setCurrentBubble(PlayerBubble currentBubble) {
-		this.currentBubble = currentBubble;
-	}
-
 	public int getLives() {
 		return lives;
 	}
@@ -92,6 +89,7 @@ public class Player extends MovingEntity {
 	public void shootBubble() {
 		// Controlla se il player può sparare
 		if (canShoot) {
+			totBubbles+=1;
 			if (bubbleDirection == Direction.RIGHT
 					&& !HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
 				Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x + Tile.TILE_SIZE, y, 2);
@@ -117,7 +115,7 @@ public class Player extends MovingEntity {
 					canShoot = true;
 					attackTimer.cancel(); // Ferma il timer una volta completato
 				}
-			}, ATTACK_INTERVAL*attackSpeed); // Imposta il timer in base alla velocità di attacco
+			}, ATTACK_INTERVAL * attackSpeed); // Imposta il timer in base alla velocità di attacco
 		}
 	}
 
@@ -131,17 +129,27 @@ public class Player extends MovingEntity {
 	public boolean isJumping() {
 		return isJumping;
 	}
-	
+
 	public void increaseFiringRate(long delta) {
 		attackSpeed -= delta;
 	}
-	
+
 	public void decreaseFiringRate(long delta) {
 		attackSpeed += delta;
 	}
 
 	public void setJumping(boolean isJumping) {
 		this.isJumping = isJumping;
+	}
+	
+	
+
+	public int getTotBubbles() {
+		return totBubbles;
+	}
+
+	public void setTotBubbles(int totBubbles) {
+		this.totBubbles = totBubbles;
 	}
 
 	public void looseLife() {
@@ -170,6 +178,7 @@ public class Player extends MovingEntity {
 			}, INVULNERABILITY_INTERVAL); // Imposta il timer per l'intervallo di invulnerabilità
 		}
 	}
+	
 
 	@Override
 	public void updateEntity() {
@@ -178,7 +187,12 @@ public class Player extends MovingEntity {
 		if (isJumping() && ((bounceBobble.isPresent() && bounceBobble.get().getEnemy() == null)
 				|| HelpMethods.isEntityGrounded(this))) {
 			jump();
+			if (bounceBobble.isPresent() && bounceBobble.get().getEnemy() == null && isJumping) 
+				totJumpsOnBubbles++;
+			System.out.println(totJumpsOnBubbles);
 		}
+		
+		
 		Optional<PlayerBubble> popBobble = Entity.checkTopCollision(this,
 				Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles());
 		if (popBobble.isPresent())
@@ -187,6 +201,6 @@ public class Player extends MovingEntity {
 		updateYPos();
 		gravity();
 		looseLife();
-		System.out.println(lives);
+//		System.out.println(lives);
 	}
 }

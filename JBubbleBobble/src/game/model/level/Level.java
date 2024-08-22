@@ -72,9 +72,14 @@ public class Level {
 		entities.addAll(bubbleManager.getPlayerBubbles());
 		entities.addAll(enemyManager.getEnemies());
 		entities.addAll(enemyManager.getLasers());
-		
 		entities.addAll(powerupManager.getPowerups());
 		return entities;
+	}
+	
+	
+
+	public PowerupManager getPowerupManager() {
+		return powerupManager;
 	}
 
 	public Player getPlayer() {
@@ -123,10 +128,6 @@ public class Level {
 
 	public void addTile(Tile tile) {
 		tiles.add(tile);
-	}
-
-	public void addPowerup(Powerup powerup) {
-		powerupManager.addPowerup(powerup);
 	}
 
 	public void addPowerupSpawns(float x, float y) {
@@ -202,6 +203,7 @@ public class Level {
 		player.updateEntity();
 		enemyManager.updateEnemies();
 		bubbleManager.updateBubbles();
+		powerupManager.updatePowerups();
 		captureEnemies();
 		killEnemies();
 

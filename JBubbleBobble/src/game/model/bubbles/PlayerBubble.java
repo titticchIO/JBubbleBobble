@@ -5,6 +5,10 @@ import game.model.enemies.Enemy;
 
 public class PlayerBubble extends Bubble {
 
+	private static float extraTravelTime;
+	private static float extraXSpeed;
+
+
 	/**
 	 * tempo prima che la bolla inizi a salire
 	 */
@@ -25,24 +29,10 @@ public class PlayerBubble extends Bubble {
 	private PlayerBubble(float x, float y, float width, float height, float xSpeed, float airSpeed, float lifeSpan,
 			float travelTime) {
 		super(x, y, width, height);
-		this.xSpeed = xSpeed;
+		this.xSpeed = xSpeed * extraXSpeed;
 		this.airSpeed = airSpeed;
 		this.lifeSpan = 5000;
-		this.travelTime = travelTime;
-	}
-
-	/**
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 */
-	public PlayerBubble(float x, float y, float width, float height) {
-		super(x, y, width, height);
-		// valori di default
-		travelTime = 100;
-		xSpeed = 1;
-
+		this.travelTime = travelTime * extraTravelTime;
 	}
 
 	/**
@@ -84,6 +74,22 @@ public class PlayerBubble extends Bubble {
 		return getEnemy() != null;
 	}
 
+	public static float getExtraTravelTime() {
+		return extraTravelTime;
+	}
+	
+	public static void setExtraTravelTime(float extraTravelTime) {
+		PlayerBubble.extraTravelTime = extraTravelTime;
+	}
+
+	public static float getExtraXSpeed() {
+		return extraXSpeed;
+	}
+
+	public static void setExtraXSpeed(float extraXSpeed) {
+		PlayerBubble.extraXSpeed = extraXSpeed;
+	}
+
 	@Override
 	public void pop() {
 		if (enemy != null) {
@@ -92,13 +98,12 @@ public class PlayerBubble extends Bubble {
 		}
 		Model.getInstance().getCurrentLevel().getBubbleManager().removePlayerBubble(this);
 	}
-	
-	
+
 	public void popAndKill() {
 		Model.getInstance().getCurrentLevel().getBubbleManager().removePlayerBubble(this);
 		Model.getInstance().getCurrentUser().addPoints(100);
-		Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles().forEach(pb->{
-			if (getDistanceFrom(pb)<10)
+		Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles().forEach(pb -> {
+			if (getDistanceFrom(pb) < 10)
 				pb.popAndKill();
 		});
 	}

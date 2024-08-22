@@ -13,11 +13,13 @@ public class ImageLoader {
 		try {
 			img = ImageIO.read(is);
 		} catch (IOException e) {
+			System.err.println(path);
 			e.printStackTrace();
 		} finally {
 			try {
 				is.close();
 			} catch (IOException e) {
+				System.err.println(path);
 				e.printStackTrace();
 			}
 		}
