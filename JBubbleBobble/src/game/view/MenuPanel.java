@@ -86,7 +86,7 @@ public class MenuPanel extends JPanel {
 					}
 				}));
 
-				setPreferredSize(new Dimension(100, 300));
+				setPreferredSize(new Dimension(120, 300));
 			}
 		};
 		JButton userSelectionButton = new JButton() {

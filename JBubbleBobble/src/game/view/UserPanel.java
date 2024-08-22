@@ -3,6 +3,7 @@ package game.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -33,9 +34,12 @@ public class UserPanel extends JPanel {
 			e.printStackTrace();
 			avatarLabel.setText("No Avatar");
 		}
-
+		
 		JButton userButton = new JButton(user.getNickname());
 		userButton.setBackground(Color.YELLOW);
+		userButton.setForeground(Color.MAGENTA);
+		Font font=new Font("BroadWay", Font.BOLD, 12);
+		userButton.setFont(font);
 		userButton.addActionListener(e -> {
 			// Imposta l'utente corrente nel Model
 			Model.getInstance().setCurrentUser(user);
@@ -46,8 +50,7 @@ public class UserPanel extends JPanel {
 
 		add(avatarLabel, BorderLayout.CENTER);
 		add(userButton, BorderLayout.SOUTH);
-		setSize(50, 50);
-		setPreferredSize(new Dimension(80, 90));
+		setPreferredSize(new Dimension(100, 90));
 	}
 
 }
