@@ -48,6 +48,7 @@ public class Model extends Observable {
 		levels = new ArrayList<>();
 		users = new ArrayList<>();
 		loadUsers();
+		setCurrentUser(users.getFirst());
 		modelState = ModelState.PLAY;
 		setChanged();
 		notifyObservers();
@@ -65,6 +66,7 @@ public class Model extends Observable {
 		currentUser.setPoints(0); // Reset score
 		modelState = ModelState.PLAY; // Reset game state to play
 		Player.getInstance().setLives(Player.NUMBER_OF_LIVES);
+		Player.getInstance().stop();
 		setChanged();
 		notifyObservers(currentLevel); // Notify observers of the reset
 	}

@@ -83,6 +83,27 @@ public class MenuPanel extends JPanel {
 					{
 						setLayout(new GridLayout(0, 1));
 						Model.getInstance().getUsers().forEach(user -> add(new UserPanel(user)));
+						// Crea e configura il pulsante "New User"
+						JButton newUserButton = new JButton() {
+							{
+								setPreferredSize(new Dimension(100, 20));
+								setIcon(new ImageIcon(ImageLoader.importImg("/newUser.png")
+										.getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+								setBackground(Color.YELLOW); // Colore di sfondo giallo
+								setForeground(Color.MAGENTA); // Colore del testo magenta
+								setFocusPainted(false); // Rimuovi il bordo di focus
+								setContentAreaFilled(true); // Assicurati che il background sia visibile
+							}
+						};
+
+						newUserButton.addActionListener(e -> {
+							// Logica per aggiungere un nuovo utente o aprire una finestra per farlo
+							// Puoi aggiungere qui la logica per gestire la creazione di un nuovo utente.
+							System.out.println("New User Button Clicked!");
+						});
+
+						// Aggiungi il pulsante al pannello
+						add(newUserButton);
 					}
 				}));
 

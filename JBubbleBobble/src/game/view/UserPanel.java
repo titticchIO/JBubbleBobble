@@ -38,7 +38,7 @@ public class UserPanel extends JPanel {
 		JButton userButton = new JButton(user.getNickname());
 		userButton.setBackground(Color.YELLOW);
 		userButton.setForeground(Color.MAGENTA);
-		Font font=new Font("BroadWay", Font.BOLD, 12);
+		Font font=new Font("Arial", Font.BOLD, 12);
 		userButton.setFont(font);
 		userButton.addActionListener(e -> {
 			// Imposta l'utente corrente nel Model
