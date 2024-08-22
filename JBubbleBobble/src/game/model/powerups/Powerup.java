@@ -36,7 +36,9 @@ public abstract class Powerup extends Entity {
 		if (checkPlayerCollision()) {
 			// timer creation
 			Timer effectTimer = new Timer();
+			Model.getInstance().getCurrentUser().addPoints(points);
 			// effect starts
+			
 			effect();
 			// scheduling end of the effect
 			effectTimer.schedule(new TimerTask() {
