@@ -9,6 +9,7 @@ public class YellowCandy extends Powerup{
 
 	public YellowCandy(float x, float y) {
 		super(x, y, "$", POINTS, DURATION);
+		spawnCondition=2;
 	}
 
 	@Override

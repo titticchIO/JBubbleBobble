@@ -174,7 +174,6 @@ public class Level {
 					&& !powerupManager.isTherePowerup(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE)) {
 				powerup.setPosition(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE);
 				powerupManager.addPowerup(powerup);
-				powerupManager.printPowerups();
 				return;
 			}
 

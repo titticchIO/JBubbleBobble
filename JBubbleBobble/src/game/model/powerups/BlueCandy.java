@@ -10,6 +10,7 @@ public class BlueCandy extends Powerup {
 
 	public BlueCandy(float x, float y) {
 		super(x, y, "£", POINTS, DURATION);
+		spawnCondition=2;
 	}
 
 	@Override

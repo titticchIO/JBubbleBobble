@@ -6,16 +6,17 @@ import game.model.Model;
 import game.model.entities.Player;
 import game.model.level.Level;
 import game.model.powerups.Parasol.Color;
+import game.model.powerups.BlueCandy;
 
 public class PowerupManager {
 	private List<Powerup> powerups;
-	
+
 	private int numberOfJumps;
 	private int numberOfJumpsOnBubbles;
 	private int numberOfBubbles;
 	private int numberOfBubblesPopped;
 	private float distanceTravelled;
-	
+
 	private boolean pinkCandy;
 	private boolean yellowCandy;
 	private boolean blueCandy;
@@ -47,6 +48,10 @@ public class PowerupManager {
 		distanceTravelled += newDistance;
 	}
 
+	public void increaseNumberOfJumps() {
+		numberOfJumps++;
+	}
+
 	private boolean checkShoes() {
 		return distanceTravelled > 2 * Level.GAME_WIDTH;
 	}
@@ -67,12 +72,10 @@ public class PowerupManager {
 		return numberOfJumps > 2;
 	}
 
-
 	private Color checkParasol() {
 //		Per ora conta il numero di bolle scoppiate, in futuro dovrà contare il numero di waterBubble scoppiate
 		if (parasol)
 			return null;
-		
 		if (numberOfBubblesPopped > 0 && numberOfBubblesPopped < 5)
 			return Color.ORANGE;
 		if (numberOfBubblesPopped >= 5 && numberOfBubblesPopped < 10)
@@ -81,9 +84,15 @@ public class PowerupManager {
 			return Color.RED;
 		return null;
 	}
-	public void increaseNumberOfJumps() {
-		numberOfJumps++;
 
+	public int getPowerupConditionCompletion(Powerup powerup) {
+		int result = switch (powerup) {
+		case BlueCandy blueCandy -> numberOfBubblesPopped - blueCandy.getSpawnCondition();
+		case PinkCandy pinkCandy -> numberOfBubblesPopped - pinkCandy.getSpawnCondition();
+		default -> throw new IllegalArgumentException("Unexpected value: " + powerup);
+		};
+
+		return 0;
 	}
 
 	public void createPowerup() {
@@ -114,7 +123,7 @@ public class PowerupManager {
 
 		if (checkParasol() != null) {
 			Model.getInstance().getCurrentLevel().spawnPowerup(new Parasol(0, 0, checkParasol()));
-			parasol=true;
+			parasol = true;
 		}
 
 	}
@@ -125,13 +134,6 @@ public class PowerupManager {
 				return true;
 		}
 		return false;
-	}
-
-	public void printPowerups() {
-		for (Powerup powerup : powerups) {
-			System.out.println("X: " + powerup.getX());
-			System.out.println("Y: " + powerup.getY());
-		}
 	}
 
 	public void addPowerup(Powerup powerup) {

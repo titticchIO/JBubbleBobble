@@ -10,6 +10,7 @@ public class PinkCandy extends Powerup{
 
 	public PinkCandy(float x, float y) {
 		super(x, y, "!", POINTS, DURATION);
+		spawnCondition=2;
 	}
 
 	@Override

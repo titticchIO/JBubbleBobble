@@ -9,6 +9,7 @@ public class Pistol extends Powerup{
 	
 	public Pistol(float x, float y) {
 		super(x, y, "%", POINTS, DURATION);
+		spawnCondition=2;
 	}
 
 	

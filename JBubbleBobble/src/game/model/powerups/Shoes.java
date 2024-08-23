@@ -2,6 +2,7 @@ package game.model.powerups;
 
 import game.model.Model;
 import game.model.entities.Player;
+import game.model.level.Level;
 
 public class Shoes extends Powerup{
 	
@@ -11,6 +12,7 @@ public class Shoes extends Powerup{
 	
 	public Shoes(float x, float y) {
 		super(x, y, "§", POINTS, DURATION);
+		spawnCondition=2* Level.GAME_WIDTH;
 	}
 
 	@Override

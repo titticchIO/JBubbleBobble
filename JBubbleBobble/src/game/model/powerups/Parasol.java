@@ -8,7 +8,7 @@ public class Parasol extends Powerup {
 	private static final long DURATION = 0;
 
 	public enum Color {
-		ORANGE, RED, PURPLE
+		ORANGE, PURPLE, RED
 	}
 
 	private Color color;
@@ -16,6 +16,11 @@ public class Parasol extends Powerup {
 	public Parasol(float x, float y, Color color) {
 		super(x, y, "@", POINTS, DURATION);
 		this.color = color;
+		spawnCondition = switch (color) {
+		case ORANGE -> 2;
+		case PURPLE -> 5;
+		case RED -> 10;
+		};
 	}
 
 	@Override
@@ -36,7 +41,8 @@ public class Parasol extends Powerup {
 	}
 
 	@Override
-	public void resetToNormal() {}
+	public void resetToNormal() {
+	}
 
 	public Color getColor() {
 		return color;
