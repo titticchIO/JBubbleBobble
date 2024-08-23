@@ -266,6 +266,12 @@ public abstract class Entity {
 		return (float) Math.sqrt(xDist * xDist + yDist * yDist);
 	}
 
+	
+	/**
+	 * Returns a hash code value for the object. This method is supported for the benefit of hash tables.
+	 *
+	 * @return a hash code value for this object.
+	 */
 	@Override
 	public int hashCode() {
 		int k = 13;
@@ -276,6 +282,14 @@ public abstract class Entity {
 		return k;
 	}
 
+	/**
+	 * Indicates whether some other object is "equal to" this one.
+	 * 
+	 * The {@code equals} method implements an equivalence relation on non-null object references.
+	 * 
+	 * @param obj the reference object with which to compare.
+	 * @return {@code true} if this object is the same as the {@code obj} argument; {@code false} otherwise.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
