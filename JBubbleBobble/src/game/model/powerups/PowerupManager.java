@@ -50,14 +50,6 @@ public class PowerupManager {
 	public void increaseNumberOfJumps() {
 		numberOfJumps++;
 	}
-	
-	private boolean checkDynamite() {
-		return numberOfBubblesPopped > 2;
-	}
-	
-	private boolean checkCrystalRing() {
-		return numberOfBubblesPopped > 1;
-	}
 
 	public float getPercentDiff(float a, float b) {
 		return ((a - b) / b) * 100;
@@ -74,7 +66,11 @@ public class PowerupManager {
 		results.put(Shoes.class, getPercentDiff(distanceTravelled, Shoes.getSpawnCondition()));
 		results.put(Skeleton.class, getPercentDiff(numberOfJumps, Skeleton.getSpawnCondition()));
 		results.put(Clock.class, getPercentDiff(numberOfBubblesPopped, Clock.getSpawnCondition()));
-
+		results.put(Dynamite.class, getPercentDiff(numberOfBubblesPopped, Dynamite.getSpawnCondition()));
+		results.put(CrystalRing.class, getPercentDiff(numberOfBubblesPopped, CrystalRing.getSpawnCondition()));
+		
+		
+		
 		HashMap<Class<? extends Powerup>, Float> parasolRes = new HashMap<Class<? extends Powerup>, Float>();
 		parasolRes.put(OrangeParasol.class, getPercentDiff(numberOfBubblesPopped, OrangeParasol.getSpawnCondition()));
 		parasolRes.put(RedParasol.class, getPercentDiff(numberOfBubblesPopped, RedParasol.getSpawnCondition()));
