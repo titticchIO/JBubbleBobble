@@ -1,4 +1,4 @@
-	package game.model.bubbles;
+package game.model.bubbles;
 
 import game.model.HelpMethods;
 import game.model.Model;
@@ -13,12 +13,9 @@ public abstract class Bubble extends MovingEntity {
 	 * tempo prima che la bolla scoppi
 	 */
 
-
 	protected float timeHorizontalMoving = 1000.0f;
 
 	protected float lifeSpan;
-
-	protected boolean popped;
 
 	public Bubble(float x, float y, float width, float height, String code) {
 		super(x, y, width, height, code);
@@ -68,13 +65,7 @@ public abstract class Bubble extends MovingEntity {
 	/**
 	 * metodo per far scoppiare la bolla
 	 */
-	public void pop() {
-		popped = true;
-	}
-
-	public boolean isPopped() {
-		return popped;
-	}
+	abstract public void pop();
 
 	@Override
 	protected void updateYPos() {

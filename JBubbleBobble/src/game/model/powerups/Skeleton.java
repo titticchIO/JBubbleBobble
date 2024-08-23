@@ -5,16 +5,15 @@ import game.model.entities.Player;
 public class Skeleton extends Powerup {
 	private static final int POINTS = 500;
 	private static final long DURATION = 8000;
-	private static int spawnCondition;
+	private static int spawnCondition=2;
 
 	public Skeleton() {
 		super(0, 0, "%", POINTS, DURATION);
-		spawnCondition = 2;
+
 	}
 
 	public Skeleton(float x, float y) {
 		super(x, y, "%", POINTS, DURATION);
-		spawnCondition = 2;
 	}
 
 	@Override

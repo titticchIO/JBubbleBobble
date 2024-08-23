@@ -23,13 +23,6 @@ public class PowerupManager {
 	private int numberOfBubblesPopped;
 	private float distanceTravelled;
 
-	private boolean pinkCandy;
-	private boolean yellowCandy;
-	private boolean blueCandy;
-	private boolean shoes;
-	private boolean pistol;
-	private boolean parasol;
-
 	public PowerupManager() {
 		powerups = new CopyOnWriteArrayList<>();
 	}
@@ -58,41 +51,39 @@ public class PowerupManager {
 		numberOfJumps++;
 	}
 
-	private boolean checkShoes() {
-		return distanceTravelled > 2 * Level.GAME_WIDTH;
-	}
-
-	private boolean checkPinkCandy() {
-		return numberOfBubbles > 2;
-	}
-
-	private boolean checkYellowCandy() {
-		return numberOfJumpsOnBubbles > 2;
-	}
-
-	private boolean checkBlueCandy() {
-		return numberOfBubblesPopped > 2;
-	}
-
-	private boolean checkPistol() {
-		return numberOfJumps > 2;
+	public float getPercentDiff(float a, float b) {
+		return ((a - b) / b) * 100;
 	}
 
 	public HashMap<Class<? extends Powerup>, Float> getPowerupsConditionCompletions() {
 		HashMap<Class<? extends Powerup>, Float> results = new HashMap<Class<? extends Powerup>, Float>();
 
-		// Inserisco i valori per ciascun power-up, convertendo int a float dove
-		// necessario
-		results.put(BlueCandy.class, (float) (numberOfBubblesPopped - BlueCandy.getSpawnCondition()));
-		results.put(PinkCandy.class, (float) (numberOfBubbles - PinkCandy.getSpawnCondition()));
-		results.put(YellowCandy.class, (float) (numberOfJumpsOnBubbles - YellowCandy.getSpawnCondition()));
-		results.put(Shoes.class, (float) (distanceTravelled - Shoes.getSpawnCondition()));
-		results.put(Skeleton.class, (float) (numberOfJumps - Skeleton.getSpawnCondition()));
-		results.put(Clock.class, (float) (numberOfBubblesPopped - Clock.getSpawnCondition()));
-		results.put(OrangeParasol.class, (float) (numberOfBubblesPopped - OrangeParasol.getSpawnCondition()));
-		results.put(RedParasol.class, (float) (numberOfBubblesPopped - RedParasol.getSpawnCondition()));
-		results.put(PurpleParasol.class, (float) (numberOfBubblesPopped - PurpleParasol.getSpawnCondition()));
+		// Adds for each powerup the percentage difference between the current value and
+		// the minimum;
+		results.put(BlueCandy.class, getPercentDiff(numberOfBubblesPopped, BlueCandy.getSpawnCondition()));
+		results.put(PinkCandy.class, getPercentDiff(numberOfBubbles, PinkCandy.getSpawnCondition()));
+		results.put(YellowCandy.class, getPercentDiff(numberOfJumpsOnBubbles, YellowCandy.getSpawnCondition()));
+		results.put(Shoes.class, getPercentDiff(distanceTravelled, Shoes.getSpawnCondition()));
+		results.put(Skeleton.class, getPercentDiff(numberOfJumps, Skeleton.getSpawnCondition()));
+		results.put(Clock.class, getPercentDiff(numberOfBubblesPopped, Clock.getSpawnCondition()));
 
+		HashMap<Class<? extends Powerup>, Float> parasolRes = new HashMap<Class<? extends Powerup>, Float>();
+		parasolRes.put(OrangeParasol.class, getPercentDiff(numberOfBubblesPopped, OrangeParasol.getSpawnCondition()));
+		parasolRes.put(RedParasol.class, getPercentDiff(numberOfBubblesPopped, RedParasol.getSpawnCondition()));
+		parasolRes.put(PurpleParasol.class, getPercentDiff(numberOfBubblesPopped, PurpleParasol.getSpawnCondition()));
+
+		Map.Entry<Class<? extends Powerup>, Float> maxEntry = null;
+		for (Map.Entry<Class<? extends Powerup>, Float> entry : parasolRes.entrySet()) {
+			if (maxEntry == null || entry.getValue() > maxEntry.getValue()) {
+				maxEntry = entry;
+			}
+		}
+
+		// Aggiungi l'entry con il valore massimo a results
+		if (maxEntry != null) {
+			results.put(maxEntry.getKey(), maxEntry.getValue());
+		}
+		
 		return results;
 	}
 
@@ -142,19 +133,19 @@ public class PowerupManager {
 	}
 
 	public void updatePowerups() {
-		if (spawnTimer==null) {
-			spawnTimer=new Timer();
-			
+		if (spawnTimer == null) {
+			spawnTimer = new Timer();
+
 			spawnTimer.schedule(new TimerTask() {
-				
+
 				@Override
 				public void run() {
 					createPowerup();
-					spawnTimer=null;
+					spawnTimer = null;
 				}
 			}, 10000);
 		}
-			
+
 		for (Powerup powerup : powerups) {
 			powerup.updatePowerup();
 			if (powerup.isToRemove()) {

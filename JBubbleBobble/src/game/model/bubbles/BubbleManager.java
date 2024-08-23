@@ -30,19 +30,19 @@ public class BubbleManager {
 
 	public void createBubble() {
 		Random random = new Random();
-		
+
 		if (random.nextInt(0, 200) == 0) {
 			switch (random.nextInt()) {
 			case 0 -> Model.getInstance().getCurrentLevel().spawnBubble(new ThunderBubble());
 			}
-			
+
 		}
 	}
-	
+
 	public void addBubble(Bubble bubble) {
 		bubbles.add(bubble);
 	}
-	
+
 	public void removeBubble(Bubble bubble) {
 		bubbles.remove(bubble);
 	}
@@ -60,19 +60,7 @@ public class BubbleManager {
 	}
 
 	public void updateBubbles() {
-		for (Bubble bubble : bubbles) {
-			if (bubble.isPopped()) {
-				bubbles.remove(bubble); // Sicuro, poiché CopyOnWriteArrayList gestisce la concorrenza
-			} else {
-				bubble.updateEntity();
-			}
-		}
-		for (PlayerBubble playerBubble : playerBubbles) {
-			if (playerBubble.isPopped()) {
-				playerBubbles.remove(playerBubble); // Sicuro, poiché CopyOnWriteArrayList gestisce la concorrenza
-			} else {
-				playerBubble.updateEntity();
-			}
-		}
+		bubbles.forEach(b->b.updateEntity());
+		playerBubbles.forEach(pb->pb.updateEntity());
 	}
 }
