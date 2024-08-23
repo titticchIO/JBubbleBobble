@@ -21,6 +21,7 @@ import game.model.enemies.Pulpul;
 import game.model.enemies.SkelMonsta;
 import game.model.enemies.ZenChan;
 import game.model.level.Level;
+import game.model.powerups.Parasol;
 import game.model.tiles.Tile;
 
 public class LevelPanel extends JPanel {
@@ -62,32 +63,40 @@ public class LevelPanel extends JPanel {
 	public void renderEntity(Entity entity, Graphics g) {
 		Image img;
 		img = switch (entity) {
-		case Tile tile -> Images.getImage(tile.getCode());		
-		case Laser laser-> Images.getImage("I","red");
+		case Tile tile -> Images.getImage(tile.getCode());
+		case Laser laser -> Images.getImage("I", "red");
 		/*
-		case Invader invader -> AnimationLoader.loadEntityImage("enemies/invader/default.gif");
-		case Monsta monsta-> AnimationLoader.loadEntityImage("enemies/monsta/"+monsta.getDirection().name().toLowerCase()+".gif");
-		case SkelMonsta skelmonsta -> AnimationLoader.loadEntityImage("enemies/skelmonsta/"+skelmonsta.getDirection().name().toLowerCase()+".gif");
-		case ZenChan zenChan -> AnimationLoader.loadEntityImage("enemies/zenchan/"+zenChan.getDirection().name().toLowerCase()+".gif");
-		case Pulpul pulpul -> AnimationLoader.loadEntityImage("enemies/pulpul/default.gif");
-		case Banebou banebou -> AnimationLoader.loadEntityImage("enemies/banebou/"+banebou.getDirection().name().toLowerCase()+".gif");
-		*/
+		 * case Invader invader ->
+		 * AnimationLoader.loadEntityImage("enemies/invader/default.gif"); case Monsta
+		 * monsta->
+		 * AnimationLoader.loadEntityImage("enemies/monsta/"+monsta.getDirection().name(
+		 * ).toLowerCase()+".gif"); case SkelMonsta skelmonsta ->
+		 * AnimationLoader.loadEntityImage("enemies/skelmonsta/"+skelmonsta.getDirection
+		 * ().name().toLowerCase()+".gif"); case ZenChan zenChan ->
+		 * AnimationLoader.loadEntityImage("enemies/zenchan/"+zenChan.getDirection().
+		 * name().toLowerCase()+".gif"); case Pulpul pulpul ->
+		 * AnimationLoader.loadEntityImage("enemies/pulpul/default.gif"); case Banebou
+		 * banebou ->
+		 * AnimationLoader.loadEntityImage("enemies/banebou/"+banebou.getDirection().
+		 * name().toLowerCase()+".gif");
+		 */
 		case Enemy enemy -> AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColor());
-		
+		case Parasol parasol -> Images.getImage(parasol.getCode(), parasol.getColor().name().toLowerCase());
 		case Player player -> switch (player.getDirection()) {
-			case RIGHT -> AnimationLoader.getPlayerImage("walk_right");
-			case LEFT -> AnimationLoader.getPlayerImage("walk_left");
-			case STATIC -> Images.getImage("P", "static");
-			default -> throw new IllegalArgumentException("Unexpected value: " + player.getDirection());
+		case RIGHT -> AnimationLoader.getPlayerImage("walk_right");
+		case LEFT -> AnimationLoader.getPlayerImage("walk_left");
+		case STATIC -> Images.getImage("P", "static");
+		default -> throw new IllegalArgumentException("Unexpected value: " + player.getDirection());
 		};
 		case PlayerBubble playerBubble -> {
 			if (playerBubble.hasEnemy()) {
-				yield AnimationLoader.loadBubbleEnemyImage(playerBubble.getEnemy().getCode(), playerBubble.getEnemy().getColor());
+				yield AnimationLoader.loadBubbleEnemyImage(playerBubble.getEnemy().getCode(),
+						playerBubble.getEnemy().getColor());
 			} else {
 				yield Images.getImage(playerBubble.getCode());
 			}
 		}
-		
+
 		default -> Images.getImage(entity.getCode());
 		};
 		if (entity instanceof Tile) {

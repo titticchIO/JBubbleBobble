@@ -196,7 +196,7 @@ public class Player extends MovingEntity {
 
 	public void move(float speed) {
 		speed *= extraXSpeed;
-		System.out.println("velocità:" + speed);
+//		System.out.println("velocità:" + speed);
 		switch (direction) {
 		case LEFT -> setxSpeed(-1 * speed);
 		case RIGHT -> setxSpeed(speed);

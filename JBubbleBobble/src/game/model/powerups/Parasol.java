@@ -15,6 +15,7 @@ public class Parasol extends Powerup {
 
 	public Parasol(float x, float y, Color color) {
 		super(x, y, "@", POINTS, DURATION);
+		this.color = color;
 	}
 
 	@Override
@@ -38,6 +39,11 @@ public class Parasol extends Powerup {
 	}
 
 	@Override
-	public void resetToNormal() {}
+	public void resetToNormal() {
+	}
+
+	public Color getColor() {
+		return color;
+	}
 
 }
