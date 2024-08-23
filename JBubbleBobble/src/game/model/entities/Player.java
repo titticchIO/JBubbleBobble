@@ -1,20 +1,12 @@
 package game.model.entities;
 
-import game.model.bubbles.Bubble;
-import game.model.bubbles.BubbleManager;
 import game.model.bubbles.PlayerBubble;
-import game.model.entities.MovingEntity.Direction;
-import game.model.level.Level;
 import game.model.tiles.Tile;
-
-import java.util.List;
+import game.model.HelpMethods;
+import game.model.Model;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import game.model.HelpMethods;
-import game.model.Model;
-import game.model.Settings;
 
 public class Player extends MovingEntity {
 
@@ -22,91 +14,201 @@ public class Player extends MovingEntity {
 		WALK, JUMP, SHOOT
 	}
 
-	private float extraXSpeed = 1;
-
-	private float previousX;
-
 	public static final int NUMBER_OF_LIVES = 100;
+
 	public static final long INVULNERABILITY_INTERVAL = 5000;
+
 	public static final long ATTACK_INTERVAL = 100;
 
-	private float distanceTravelled;
-
-	private Direction bubbleDirection;
-	private State state;
-	private int lives;
-
-	private boolean isJumping;
-
-	private boolean isInvulnerable;
-	
-	private boolean isShooting;
-	private Timer invulnerabilityTimer;
-
-	private boolean canShoot;
-	private long attackSpeed; // Esempio: velocità di attacco in millisecondi (1 secondo)
-	private Timer attackTimer;
-	private int totBubbles;
-	private int totJumpsOnBubbles;
-	private int totBubblesPopped;
-	private int totJumps;
-
-	// singleton
 	private static Player instance;
 
+	/**
+	 * @return player object
+	 */
 	public static Player getInstance() {
 		return instance;
 	}
 
+	/**
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @return player object
+	 */
 	public static Player getInstance(float x, float y, float width, float height) {
 		if (instance == null)
 			instance = new Player(x, y, width, height);
 		return instance;
 	}
 
+	private Direction bubbleDirection;
+	private State state;
+	private int lives;
+	private long attackSpeed;
+	private float extraXSpeed;
+	private float previousX;
+	private boolean isJumping;
+	private boolean isInvulnerable;
+	private boolean isShooting;
+	private boolean canShoot;
+
 	private Player(float x, float y, float width, float height) {
 		super(x, y, width, height, "P");
 		state = State.WALK;
 		bubbleDirection = Direction.RIGHT;
 		lives = NUMBER_OF_LIVES;
+		extraXSpeed = 1;
 		canShoot = true;
 		attackSpeed = 2;
-		attackTimer = new Timer();
-		totBubbles = 0;
-		totJumpsOnBubbles = 0;
-		totBubblesPopped = 0;
-
-		// Inizializza previousX con il valore iniziale di x
 		previousX = x;
-
-	}
-
-	public int getTotJumpsOnBubbles() {
-		return totJumpsOnBubbles;
 	}
 
 	/**
-	 * Getters and Setters
+	 * @return number of lives
 	 */
 	public int getLives() {
 		return lives;
 	}
 
+	/**
+	 * @return if the player is jumping
+	 */
+	public boolean isJumping() {
+		return isJumping;
+	}
+
+	/**
+	 * @return if the player is shooting
+	 */
+	public boolean isShooting() {
+		return isShooting;
+	}
+
+	/**
+	 * Sets bubble direction according to player direction
+	 */
+	@Override
+	public void setDirection(Direction direction) {
+		super.setDirection(direction);
+		if (direction == Direction.RIGHT || direction == Direction.LEFT)
+			bubbleDirection = direction;
+	}
+
+	@Override
+	public void setX(float x) {
+		// Updates distanceTravelled according to the difference between x a previousX
+		Model.getInstance().getCurrentLevel().getPowerupManager().increaseDistanceTraveled(Math.abs(x - previousX));
+
+		// Updates previousX with new x value
+		previousX = x;
+		this.x = x;
+	}
+
+	/**
+	 * @param extraXSpeed
+	 */
+	public void setExtraXSpeed(float extraXSpeed) {
+		this.extraXSpeed = extraXSpeed;
+	}
+
+	/**
+	 * @param isJumping
+	 */
+	public void setJumping(boolean isJumping) {
+		this.isJumping = isJumping;
+	}
+
+	/**
+	 * @param lives
+	 */
 	public void setLives(int lives) {
 		this.lives = lives;
 	}
 
-	@Override
-	public void setDirection(Direction direction) {
-		super.setDirection(direction);
-		if (direction == Direction.RIGHT || direction == direction.LEFT)
-			bubbleDirection = direction;
+	/**
+	 * @param isShooting
+	 */
+	public void setShooting(boolean isShooting) {
+		this.isShooting = isShooting;
 	}
 
+
+	/**
+	 * Increases firing rate
+	 * 
+	 * @param delta
+	 */
+	public void increaseFiringRate(long delta) {
+		attackSpeed -= delta;
+	}
+
+	/**
+	 * Decreases firing rate
+	 * 
+	 * @param delta
+	 */
+	public void decreaseFiringRate(long delta) {
+		attackSpeed += delta;
+	}
+
+	/**
+	 * Handles player jump
+	 */
+	@Override
+	public void jump() {
+		inAir = true;
+		airSpeed = jumpSpeed;
+		Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfJumps();
+	}
+
+	/**
+	 * Handles player life loss
+	 */
+	
+	public void looseLife() {
+		// Checks if player is invulnerable if it is not it can loose a life
+		if (!isInvulnerable
+				&& Entity.checkCollision(this, Model.getInstance().getCurrentLevel().getEnemyManager().getHazards())
+						.isPresent()) {
+			lives--;
+			// Activates invulnerability
+			isInvulnerable = true;
+
+			// Sets new invulnerability timer
+			Timer invulnerabilityTimer = new Timer();
+			invulnerabilityTimer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					// When the timer ends player is vulnerable again
+					isInvulnerable = false;
+					invulnerabilityTimer.cancel(); // Stops the timer once completed
+				}
+			}, INVULNERABILITY_INTERVAL); // Sets the timer for the invulnerability interval
+		}
+	}
+
+	/**
+	 * Handles player movement
+	 */
+	@Override
+	public void move(float speed) {
+		speed *= extraXSpeed;
+		System.out.println("velocità:" + speed);
+		switch (direction) {
+		case LEFT -> setxSpeed(-1 * speed);
+		case RIGHT -> setxSpeed(speed);
+		default -> throw new IllegalArgumentException("Unexpected value: " + direction);
+		}
+	}
+
+	/**
+	 * Handles bubble shooting
+	 */
 	public void shootBubble() {
-		// Controlla se il player può sparare
+		// Checks if the player can shoot
 		if (canShoot) {
-			totBubbles += 1;
+			Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfBubbles();
 			if (bubbleDirection == Direction.RIGHT
 					&& !HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
 				Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x + Tile.TILE_SIZE, y, 2);
@@ -115,121 +217,25 @@ public class Player extends MovingEntity {
 				Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x - Tile.TILE_SIZE, y, -2);
 			}
 
-			// Disabilita il fuoco fino alla fine del tempo di attesa
+			// Disables shooting till the end of waiting time
 			canShoot = false;
 
-			// Se esiste già un timer, lo cancella
-			if (attackTimer != null) {
-				attackTimer.cancel();
-			}
-
-//			 Crea un nuovo Timer per l'attacco
-			attackTimer = new Timer();
+//			Creates new attack timer
+			Timer attackTimer = new Timer();
 			attackTimer.schedule(new TimerTask() {
 				@Override
 				public void run() {
-					// Dopo attackSpeed millisecondi, il player può sparare di nuovo
+					// After milliseconds specified in attack time player can shoot again
 					canShoot = true;
-					attackTimer.cancel(); // Ferma il timer una volta completato
+					attackTimer.cancel(); // Stops timer once completed
 				}
-			}, ATTACK_INTERVAL * attackSpeed); // Imposta il timer in base alla velocità di attacco
+			}, ATTACK_INTERVAL * attackSpeed); // Sets timer according to attack speed
 		}
 	}
 
-	@Override
-	public void jump() {
-		inAir = true;
-		airSpeed = jumpSpeed;
-		setTotJumps(getTotJumps() + 1);
-//		}
-	}
-
-	public boolean isJumping() {
-		return isJumping;
-	}
-
-	public void increaseFiringRate(long delta) {
-		attackSpeed -= delta;
-	}
-
-	public void decreaseFiringRate(long delta) {
-		attackSpeed += delta;
-	}
-
-	public void setJumping(boolean isJumping) {
-		this.isJumping = isJumping;
-	}
-
-	@Override
-	public void setX(float x) {
-		// Aggiorna distanceTravelled basandosi sulla differenza tra x e previousX
-		distanceTravelled += Math.abs(x - previousX);
-
-		// Aggiorna previousX con il nuovo valore di x
-		previousX = x;
-		this.x = x;
-	}
-
-	public int getTotBubblesPopped() {
-		return totBubblesPopped;
-	}
-	
-	public float getDistanceTravelled() {
-		return distanceTravelled;
-	}
-
-	public void setDistanceTravelled(float distanceTravelled) {
-		this.distanceTravelled = distanceTravelled;
-	}
-
-	public int getTotBubbles() {
-		return totBubbles;
-	}
-
-	public void setTotBubbles(int totBubbles) {
-		this.totBubbles = totBubbles;
-	}
-
-	public void setExtraXSpeed(float extraXSpeed) {
-		this.extraXSpeed = extraXSpeed;
-	}
-
-	public void move(float speed) {
-		speed *= extraXSpeed;
-		System.out.println("velocità:" + speed);
-		switch (direction) {
-		case LEFT -> setxSpeed(-1 * speed);
-		case RIGHT -> setxSpeed(speed);
-		}
-	}
-
-	public void looseLife() {
-		// Controlla se il player è invulnerabile; se lo è, non può perdere una vita
-		if (!isInvulnerable
-				&& Entity.checkCollision(this, Model.getInstance().getCurrentLevel().getEnemyManager().getHazards())
-						.isPresent()) {
-			lives--;
-			// Attiva lo stato di invulnerabilità
-			isInvulnerable = true;
-
-			// Se esiste già un timer, lo cancella prima di crearne uno nuovo
-			if (invulnerabilityTimer != null) {
-				invulnerabilityTimer.cancel();
-			}
-
-			// Imposta un nuovo Timer per l'invulnerabilità
-			invulnerabilityTimer = new Timer();
-			invulnerabilityTimer.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					// Quando il Timer scade, il player torna vulnerabile
-					isInvulnerable = false;
-					invulnerabilityTimer.cancel(); // Ferma il timer una volta completato
-				}
-			}, INVULNERABILITY_INTERVAL); // Imposta il timer per l'intervallo di invulnerabilità
-		}
-	}
-
+	/**
+	 * Updates the player
+	 */
 	@Override
 	public void updateEntity() {
 		Optional<PlayerBubble> bounceBobble = Entity.checkBottomCollision(this,
@@ -238,36 +244,19 @@ public class Player extends MovingEntity {
 				|| HelpMethods.isEntityGrounded(this))) {
 			jump();
 			if (bounceBobble.isPresent() && bounceBobble.get().getEnemy() == null && isJumping)
-				totJumpsOnBubbles++;
+				Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfJumpsOnBubbles();
 		}
 
 		Optional<PlayerBubble> popBobble = Entity.checkTopCollision(this,
 				Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles());
 		if (popBobble.isPresent()) {
 			popBobble.get().popAndKill();
-			totBubblesPopped++;
+			Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfBubblesPopped();
 		}
 		updateXPos();
 		updateYPos();
 		gravity();
 		looseLife();
-//		System.out.println(lives);
-	}
-
-	public boolean isShooting() {
-		return isShooting;
-	}
-
-	public void setShooting(boolean isShooting) {
-		this.isShooting = isShooting;
-	}
-
-	public int getTotJumps() {
-		return totJumps;
-	}
-
-	public void setTotJumps(int totJumps) {
-		this.totJumps = totJumps;
 	}
 
 }
