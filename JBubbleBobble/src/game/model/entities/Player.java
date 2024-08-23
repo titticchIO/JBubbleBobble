@@ -40,6 +40,15 @@ public class Player extends MovingEntity {
 	private boolean isInvulnerable; // Indicates whether the player is invulnerable.
 	private boolean isShooting; // Indicates whether the player is currently shooting.
 	private boolean canShoot; // Indicates whether the player can shoot a bubble.
+	private boolean crystalRingActive;
+
+	public boolean isCrystalRingActive() {
+		return crystalRingActive;
+	}
+
+	public void setCrystalRingActive(boolean crystalRingActive) {
+		this.crystalRingActive = crystalRingActive;
+	}
 
 	/**
 	 * Returns the singleton instance of the {@code Player} class.
@@ -135,6 +144,7 @@ public class Player extends MovingEntity {
 		// Updates distance traveled according to the difference between x and
 		// previousX.
 		Model.getInstance().getCurrentLevel().getPowerupManager().increaseDistanceTraveled(Math.abs(x - previousX));
+		if (crystalRingActive && previousX != x) Model.getInstance().getCurrentUser().addPoints(1);
 
 		// Updates previousX with new x value.
 		previousX = x;
@@ -288,6 +298,7 @@ public class Player extends MovingEntity {
 	 */
 	@Override
 	public void updateEntity() {
+		
 		Optional<PlayerBubble> bounceBubble = Entity.checkBottomCollision(this,
 				Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles());
 		if (isJumping() && ((bounceBubble.isPresent() && bounceBubble.get().getEnemy() == null)

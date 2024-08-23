@@ -29,6 +29,8 @@ public class PowerupManager {
 	private boolean shoes;
 	private boolean pistol;
 	private boolean parasol;
+	private boolean dynamite;
+	private boolean crystalRing;
 
 	public PowerupManager() {
 		powerups = new CopyOnWriteArrayList<>();
@@ -56,6 +58,14 @@ public class PowerupManager {
 
 	public void increaseNumberOfJumps() {
 		numberOfJumps++;
+	}
+	
+	private boolean checkDynamite() {
+		return numberOfBubblesPopped > 2;
+	}
+	
+	private boolean checkCrystalRing() {
+		return numberOfBubblesPopped > 1;
 	}
 
 	private boolean checkShoes() {
@@ -123,6 +133,10 @@ public class PowerupManager {
 				// Gestisci eventuali eccezioni
 			}
 		}
+		if (checkCrystalRing() && !crystalRing) {
+			Model.getInstance().getCurrentLevel().spawnPowerup(new CrystalRing());
+		}
+		
 	}
 
 	public boolean isTherePowerup(int x, int y) {

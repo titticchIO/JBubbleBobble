@@ -31,7 +31,8 @@ public class Images {
 		imageMap.put("%", "/powerups/skeleton");
 		imageMap.put("@", "/powerups/parasol/");
 		imageMap.put("*", "/powerups/clock");	
-		imageMap.put("T", "/powerups/clock");	
+		imageMap.put("^", "/powerups/dynamite");
+		imageMap.put("&", "/powerups/crystalring");
 
 	}
 
