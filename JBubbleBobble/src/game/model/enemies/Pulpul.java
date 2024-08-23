@@ -96,10 +96,12 @@ public class Pulpul extends Enemy {
 
 	@Override
 	public void updateEntity() {
-		if (randomBoolean(200))
-			randomizeDirection();
-			// Aggiornamento della posizione basato sulla direzione corrente
-			updateXPos();
-			updateYPos();
+		if (!isStopped) {
+			if (randomBoolean(200))
+				randomizeDirection();
+				// Aggiornamento della posizione basato sulla direzione corrente
+				updateXPos();
+				updateYPos();
+		}
 	}
 }

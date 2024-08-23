@@ -56,10 +56,12 @@ public class Banebou extends Enemy {
 
 	@Override
 	public void updateEntity() {
-		super.updateEntity();
-		if (!HelpMethods.canMoveHere(x + xSpeed, y, width, height)||randomBoolean(1000))
-			changeDirection();
-		jump();
+		if (!isStopped) {
+			super.updateEntity();
+			if (!HelpMethods.canMoveHere(x + xSpeed, y, width, height)||randomBoolean(1000))
+				changeDirection();
+			jump();
+		}
 	}
 
 }

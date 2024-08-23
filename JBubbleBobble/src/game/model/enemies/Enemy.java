@@ -3,10 +3,12 @@ package game.model.enemies;
 import java.util.Random;
 
 import game.model.entities.MovingEntity;
+import game.model.entities.MovingEntity.Direction;
 
 public abstract class Enemy extends MovingEntity {
 
 	protected boolean popped;
+	protected boolean isStopped;
 
 	public Enemy(float x, float y, String code) {
 		super(x, y, code);
@@ -29,5 +31,15 @@ public abstract class Enemy extends MovingEntity {
 		popped = true;
 	}
 
+
+	public boolean isStopped() {
+		return isStopped;
+	}
+
+	public void setStopped(boolean isStopped) {
+		this.isStopped = isStopped;
+	}
+	
+	
 
 }
