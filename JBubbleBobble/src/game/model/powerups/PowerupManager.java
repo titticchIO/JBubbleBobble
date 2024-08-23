@@ -87,7 +87,7 @@ public class PowerupManager {
 		results.put(PinkCandy.class, (float) (numberOfBubbles - PinkCandy.getSpawnCondition()));
 		results.put(YellowCandy.class, (float) (numberOfJumpsOnBubbles - YellowCandy.getSpawnCondition()));
 		results.put(Shoes.class, (float) (distanceTravelled - Shoes.getSpawnCondition()));
-		results.put(Pistol.class, (float) (numberOfJumps - Pistol.getSpawnCondition()));
+		results.put(Skeleton.class, (float) (numberOfJumps - Skeleton.getSpawnCondition()));
 		results.put(Clock.class, (float) (numberOfBubblesPopped - Clock.getSpawnCondition()));
 		results.put(OrangeParasol.class, (float) (numberOfBubblesPopped - OrangeParasol.getSpawnCondition()));
 		results.put(RedParasol.class, (float) (numberOfBubblesPopped - RedParasol.getSpawnCondition()));
