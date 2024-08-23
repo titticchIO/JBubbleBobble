@@ -139,6 +139,7 @@ public class Level {
 	}
 
 	public void setBubblesSpawnPoints() {
+		bubblesSpawnPoints = new ArrayList<Float>();
 		int y = lvlData.length - 1;
 
 		for (int x = 0; x < lvlData[0].length; x++) {
