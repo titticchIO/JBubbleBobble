@@ -14,7 +14,8 @@ public abstract class Enemy extends MovingEntity {
 	/**
 	 * Indicates whether the enemy has been "popped".
 	 */
-	protected boolean popped;
+	protected boolean isPopped;
+	protected boolean isStopped;
 
 	/**
 	 * Constructs an {@code Enemy} object with the specified position and entity
@@ -48,14 +49,14 @@ public abstract class Enemy extends MovingEntity {
 	 * @return {@code true} if the enemy has been popped, {@code false} otherwise.
 	 */
 	public boolean isPopped() {
-		return popped;
+		return isPopped;
 	}
 
 	/**
-	 * Sets the enemy's popped state to {@code true}.
+	 * Sets the enemy's isPopped state to {@code true}.
 	 */
 	public void pop() {
-		popped = true;
+		isPopped = true;
 	}
 
 	/**
@@ -68,6 +69,25 @@ public abstract class Enemy extends MovingEntity {
 	 */
 	public boolean randomBoolean(int chances) {
 		return new Random().nextInt(0, chances) == 0;
+	}
+
+	/**
+	 * Returns whether the enemy is stopped.
+	 *
+	 * @return {@code true} if the enemy has been stopped, {@code false} otherwise.
+	 */
+	public boolean isStopped() {
+		return isStopped;
+	}
+
+	/**
+	 * Sets whether the player is currently stopped.
+	 *
+	 * @param isStopped {@code true} if the player is stopped, {@code false}
+	 *                  otherwise.
+	 */
+	public void setStopped(boolean isStopped) {
+		this.isStopped = isStopped;
 	}
 
 }

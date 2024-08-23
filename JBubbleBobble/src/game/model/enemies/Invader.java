@@ -81,21 +81,23 @@ public class Invader extends Enemy {
 
 	@Override
 	public void updateEntity() {
-		if (!HelpMethods.isEntityGrounded(this) && landed)
-			landed = false;
-		if (HelpMethods.isEntityGrounded(this) && !landed) {
-			landed = true;
-			randomizeDirection();
+		if (!isStopped) {
+			if (!HelpMethods.isEntityGrounded(this) && landed)
+				landed = false;
+			if (HelpMethods.isEntityGrounded(this) && !landed) {
+				landed = true;
+				randomizeDirection();
+			}
+			switchDirection();
+	
+			if (!inAir) {
+				updateXPos();
+			} else
+				setAirSpeed(0.5f);
+			move(0.5f);
+			updateYPos();
+			shootLaser();
 		}
-		switchDirection();
-
-		if (!inAir) {
-			updateXPos();
-		} else
-			setAirSpeed(0.5f);
-		move(0.5f);
-		updateYPos();
-		shootLaser();
 	}
 
 }
