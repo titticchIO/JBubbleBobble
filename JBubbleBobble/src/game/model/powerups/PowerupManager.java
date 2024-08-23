@@ -50,6 +50,14 @@ public class PowerupManager {
 	public void increaseNumberOfJumps() {
 		numberOfJumps++;
 	}
+	
+	private boolean checkDynamite() {
+		return numberOfBubblesPopped > 2;
+	}
+	
+	private boolean checkCrystalRing() {
+		return numberOfBubblesPopped > 1;
+	}
 
 	public float getPercentDiff(float a, float b) {
 		return ((a - b) / b) * 100;
@@ -114,6 +122,8 @@ public class PowerupManager {
 				// Gestisci eventuali eccezioni
 			}
 		}
+		
+		
 	}
 
 	public boolean isTherePowerup(int x, int y) {

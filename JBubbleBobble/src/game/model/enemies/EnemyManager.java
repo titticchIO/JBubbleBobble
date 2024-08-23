@@ -52,6 +52,10 @@ public class EnemyManager {
 	public void removeEnemy(Enemy enemy) {
 		enemies.remove(enemy);
 	}
+	
+	public void removeAllEnemies() {
+		enemies = new CopyOnWriteArrayList<>();
+	}
 
 	/**
 	 * Removes a laser from the list of managed lasers.
