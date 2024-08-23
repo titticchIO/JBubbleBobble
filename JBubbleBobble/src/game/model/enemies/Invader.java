@@ -2,12 +2,10 @@ package game.model.enemies;
 
 import static game.model.HelpMethods.isEntityInsideWall;
 import static game.model.HelpMethods.isSolidVerticalLine;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
 import game.model.HelpMethods;
 import game.model.Model;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Invader extends Enemy {
 
@@ -47,6 +45,7 @@ public class Invader extends Enemy {
 			if (isSolidVerticalLine(x + width + 1, y, y + height))
 				setDirection(Direction.LEFT);
 		}
+		default -> throw new IllegalArgumentException("Unexpected value: " + direction);
 		}
 	}
 

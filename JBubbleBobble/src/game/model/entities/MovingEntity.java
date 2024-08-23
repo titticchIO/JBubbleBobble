@@ -4,33 +4,63 @@ import game.model.HelpMethods;
 import game.model.level.Level;
 import game.model.tiles.Tile;
 
+/**
+ * The {@code MovingEntity} class represents an entity in the game that can
+ * move, jump, and interact with the environment. It extends the {@link Entity}
+ * class and adds additional properties and methods for movement, collision
+ * handling, gravity effects, and more.
+ */
 public abstract class MovingEntity extends Entity {
 
-	// Possible movement directions
+	/**
+	 * Enum representing possible movement directions for the entity.
+	 */
 	public enum Direction {
 		LEFT, RIGHT, STATIC
 	}
 
+	/**
+	 * Enum representing possible colors for the entity.
+	 */
 	public enum Color {
 		NORMAL, RED, BLUE
 	}
 
+	// Direction of movement
 	protected Direction direction;
+
+	// Current color of the entity
 	protected Color color;
+
+	// Speed along the x-axis
 	protected float xSpeed;
+
+	// Speed along the y-axis when the entity is in the air
 	protected float airSpeed;
+
+	// Speed at which the entity jumps
 	protected float jumpSpeed;
+
+	// Gravity force applied to the entity
 	protected float gravity;
+
+	// Speed applied after a collision to prevent sticking
 	protected float fallSpeedAfterCollision;
+
+	// Maximum falling speed
 	protected float maxFallingSpeed;
+
+	// Indicates if the entity is in the air
 	protected boolean inAir;
 
 	/**
-	 * Constructor
+	 * Constructs a {@code MovingEntity} with specified position and unique code.
+	 * Default values are assigned for gravity, jump speed, fall speed after
+	 * collision, and maximum falling speed.
 	 * 
-	 * @param x
-	 * @param y
-	 * @param code
+	 * @param x    The x-coordinate of the entity.
+	 * @param y    The y-coordinate of the entity.
+	 * @param code The unique code representing the entity.
 	 */
 	public MovingEntity(float x, float y, String code) {
 		super(x, y, code);
@@ -42,13 +72,15 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	/**
-	 * Constructor
+	 * Constructs a {@code MovingEntity} with specified position, dimensions, and
+	 * unique code. Default values are assigned for gravity, jump speed, fall speed
+	 * after collision, and maximum falling speed.
 	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param code
+	 * @param x      The x-coordinate of the entity.
+	 * @param y      The y-coordinate of the entity.
+	 * @param width  The width of the entity.
+	 * @param height The height of the entity.
+	 * @param code   The unique code representing the entity.
 	 */
 	public MovingEntity(float x, float y, float width, float height, String code) {
 		super(x, y, width, height, code);
@@ -60,71 +92,90 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	/**
-	 * @return xSpeed
+	 * Gets the current speed of the entity along the x-axis.
+	 * 
+	 * @return The x-axis speed of the entity.
 	 */
 	public float getxSpeed() {
 		return xSpeed;
 	}
 
 	/**
-	 * @return airSpeed
+	 * Gets the current speed of the entity while it is in the air.
+	 * 
+	 * @return The air speed of the entity.
 	 */
 	public float getAirSpeed() {
 		return airSpeed;
 	}
 
 	/**
-	 * @return direction
+	 * Gets the current movement direction of the entity.
+	 * 
+	 * @return The direction of the entity.
 	 */
 	public Direction getDirection() {
 		return direction;
 	}
 
 	/**
-	 * @return color
+	 * Gets the current color of the entity.
+	 * 
+	 * @return The color of the entity.
 	 */
 	public Color getColor() {
 		return color;
 	}
 
 	/**
-	 * @param xSpeed
+	 * Sets the speed of the entity along the x-axis.
+	 * 
+	 * @param xSpeed The new x-axis speed of the entity.
 	 */
 	public void setxSpeed(float xSpeed) {
 		this.xSpeed = xSpeed;
 	}
 
 	/**
-	 * @param airSpeed
+	 * Sets the speed of the entity while it is in the air.
+	 * 
+	 * @param airSpeed The new air speed of the entity.
 	 */
 	public void setAirSpeed(float airSpeed) {
 		this.airSpeed = airSpeed;
 	}
 
 	/**
-	 * @param jumpSpeed
+	 * Sets the speed at which the entity jumps.
+	 * 
+	 * @param jumpSpeed The new jump speed of the entity.
 	 */
 	public void setJumpSpeed(float jumpSpeed) {
 		this.jumpSpeed = jumpSpeed;
 	}
 
 	/**
-	 * @param direction
+	 * Sets the movement direction of the entity.
+	 * 
+	 * @param direction The new movement direction of the entity.
 	 */
 	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
 
 	/**
-	 * @param color
+	 * Sets the color of the entity.
+	 * 
+	 * @param color The new color of the entity.
 	 */
 	public void setColor(Color color) {
 		this.color = color;
 	}
 
 	/**
-	 * Updates the x-axis position based on speed and the ability to move. Also
-	 * handles collisions.
+	 * Updates the entity's position along the x-axis based on its speed and the
+	 * ability to move. Handles collisions with obstacles or walls, adjusting the
+	 * position to prevent moving through objects.
 	 */
 	public void updateXPos() {
 		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width, (int) height)
@@ -149,45 +200,46 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	/**
-	 * Updates the y-axis position based on air speed and the ability to move. Also
-	 * handles gravity and collisions.
+	 * Updates the entity's position along the y-axis based on air speed, gravity,
+	 * and collisions. Handles situations where the entity is in the air, hits the
+	 * roof, or goes out of bounds on the screen.
 	 */
 	protected void updateYPos() {
-		// Checks if entity is grounded
+		// Checks if the entity is grounded
 		inAir = !HelpMethods.isEntityGrounded(this);
 
-		// Checks if entity is inside screen
+		// Checks if the entity is outside the screen bounds
 		if (y > Level.GAME_HEIGHT + 1) {
-			setY(-1); // Moves entity on the top of the screen if it falls under floor
+			setY(-1); // Moves entity to the top of the screen if it falls below the floor
 			return;
 		}
 
 		if (y < -2) {
-			setY(Level.GAME_HEIGHT); // Moves entity on the bottom of the screen if it jumps over the roof
+			setY(Level.GAME_HEIGHT); // Moves entity to the bottom of the screen if it jumps over the roof
 			return;
 		}
 
-		// Handles entity's movement while in air or inside wall
+		// Handles the entity's movement while in air or inside a wall
 		if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(x, y, width, height)) {
-			// Handles collision with level roof
+			// Handles collision with the level roof
 			if (y <= Tile.TILE_SIZE && !HelpMethods.canMoveHere(x, y + airSpeed, width, height))
 				setAirSpeed(fallSpeedAfterCollision);
 			setY(y + airSpeed);
 			return;
 		}
 
-		// Handles free entity's in air movement
+		// Handles free movement in air
 		float delta = 0;
 
-		// Increments delta while in air till it reaches airSpeed
+		// Increment delta while in air until it reaches airSpeed
 		while (delta < airSpeed && HelpMethods.canMoveHere(x, y + delta, width, height)) {
 			delta += 0.01f;
 		}
 
-		// If delta is not equal to airSpeed it has hit an obstacle
+		// If delta does not reach airSpeed, an obstacle was hit
 		if (delta < airSpeed) {
-			setY(y - 1); // Moves position slightly up
-			resetInAir(); // Resets in air
+			setY(y - 1); // Move position slightly up to prevent overlap
+			resetInAir(); // Reset air-related states
 		}
 
 		// Updates y with calculated delta
@@ -195,7 +247,9 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	/**
-	 * Handles entity's jump
+	 * Makes the entity jump, setting it into the air with a negative vertical
+	 * speed. This method ensures the entity can only jump if it is grounded and not
+	 * inside a wall.
 	 */
 	public void jump() {
 		if (!inAir && !HelpMethods.isEntityInsideWall(x, y, width, height)) {
@@ -205,7 +259,8 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	/**
-	 * Resets inAir and airSpeed
+	 * Resets the in-air state and air speed of the entity. This is typically called
+	 * after the entity lands on the ground.
 	 */
 	public void resetInAir() {
 		inAir = false;
@@ -213,8 +268,9 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	/**
-	 * Handles the entity's gravity, increasing air speed up to a maximum if the
-	 * entity is not grounded.
+	 * Applies gravity to the entity, increasing its air speed up to a maximum value
+	 * if the entity is not grounded. This method simulates the effect of gravity on
+	 * the entity when it is in the air.
 	 */
 	public void gravity() {
 		if (!HelpMethods.isEntityGrounded(this) && airSpeed < maxFallingSpeed) {
@@ -224,8 +280,9 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	/**
-	 * Stops the entity's movement by setting the direction to STILL and xSpeed to
-	 * 0.
+	 * Stops the entity's movement by setting its direction to {@code STATIC} and
+	 * setting its xSpeed to 0. This effectively halts the entity's horizontal
+	 * motion.
 	 */
 	public void stop() {
 		setDirection(Direction.STATIC);
@@ -233,9 +290,10 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	/**
-	 * Moves the entity based on the current direction and specified speed.
+	 * Moves the entity based on the current direction and a specified speed.
 	 * 
-	 * @param speed Movement speed
+	 * @param speed The speed at which to move the entity.
+	 * @throws IllegalArgumentException If the direction is unexpected.
 	 */
 	public void move(float speed) {
 		switch (direction) {
@@ -246,8 +304,9 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	/**
-	 * Updates the entity's state, including movement, gravity, and image. Notifies
-	 * observers of changes.
+	 * Updates the entity's state, including movement, gravity, and any other
+	 * relevant changes. This method should be called every game tick to ensure the
+	 * entity behaves as expected.
 	 */
 	public void updateEntity() {
 		updateXPos();
