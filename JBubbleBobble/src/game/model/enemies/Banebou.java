@@ -4,7 +4,6 @@ import java.util.Random;
 
 import game.model.HelpMethods;
 
-
 public class Banebou extends Enemy {
 
 	private long lastChangeTime;
@@ -58,7 +57,8 @@ public class Banebou extends Enemy {
 	public void updateEntity() {
 		if (!isStopped) {
 			super.updateEntity();
-			if (!HelpMethods.canMoveHere(x + xSpeed, y, width, height)||randomBoolean(1000))
+			if ((!HelpMethods.canMoveHere(x + xSpeed, y, width, height) || randomBoolean(1000))
+					&& !HelpMethods.isEntityInsideWall(x, y, width, height))
 				changeDirection();
 			jump();
 		}

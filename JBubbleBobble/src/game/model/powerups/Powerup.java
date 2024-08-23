@@ -10,7 +10,7 @@ public abstract class Powerup extends Entity {
 	protected final int points;
 	protected long duration;
 	protected boolean toRemove;
-	protected int spawnCondition;
+	
 	
 	public Powerup(float x, float y, String code, int points, long duration) {
 		super(x, y, code);
@@ -24,10 +24,6 @@ public abstract class Powerup extends Entity {
 
 	public float getDuration() {
 		return duration;
-	}
-	
-	public int getSpawnCondition() {
-		return spawnCondition;
 	}
 
 	public boolean isToRemove() {

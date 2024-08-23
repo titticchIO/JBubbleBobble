@@ -6,11 +6,14 @@ public class BlueCandy extends Powerup {
 	private static final int POINTS = 100;
 	private static final long DURATION = 10000;
 	private static final float INCREASED_X_SPEED_AMOUNT = 2;
-	
+	private static int spawnCondition = 2;
+
+	public BlueCandy() {
+		super(0, 0, "£", POINTS, DURATION);
+	}
 
 	public BlueCandy(float x, float y) {
 		super(x, y, "£", POINTS, DURATION);
-		spawnCondition=2;
 	}
 
 	@Override
@@ -23,5 +26,9 @@ public class BlueCandy extends Powerup {
 	public void resetToNormal() {
 		PlayerBubble.setExtraXSpeed(1);
 		super.resetToNormal();
+	}
+
+	public static int getSpawnCondition() {
+		return spawnCondition;
 	}
 }

@@ -2,36 +2,20 @@ package game.model.powerups;
 
 import game.model.Model;
 
-public class Parasol extends Powerup {
+public abstract class Parasol extends Powerup {
 
 	private static final int POINTS = 5000;
 	private static final long DURATION = 0;
+	private int levelsToSkip;
 
-	public enum Color {
-		ORANGE, PURPLE, RED
-	}
-
-	private Color color;
-
-	public Parasol(float x, float y, Color color) {
+	public Parasol(float x, float y, int levelsToSkip) {
 		super(x, y, "@", POINTS, DURATION);
-		this.color = color;
-		spawnCondition = switch (color) {
-		case ORANGE -> 2;
-		case PURPLE -> 5;
-		case RED -> 10;
-		};
+		this.levelsToSkip = levelsToSkip;
 	}
 
 	@Override
 	public void effect() {
-		int times = switch (color) {
-		case ORANGE -> 3;
-		case PURPLE -> 5;
-		case RED -> 7;
-		};
-
-		for (int i = 0; i < times; i++) {
+		for (int i = 0; i < levelsToSkip; i++) {
 			Model.getInstance().nextLevel();
 			System.out.println("skip level");
 		}
@@ -42,10 +26,6 @@ public class Parasol extends Powerup {
 
 	@Override
 	public void resetToNormal() {
-	}
-
-	public Color getColor() {
-		return color;
 	}
 
 }

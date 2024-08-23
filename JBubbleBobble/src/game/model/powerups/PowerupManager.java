@@ -1,14 +1,20 @@
 package game.model.powerups;
 
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
+
 import game.model.Model;
-import game.model.entities.Player;
 import game.model.level.Level;
-import game.model.powerups.Parasol.Color;
-import game.model.powerups.BlueCandy;
 
 public class PowerupManager {
+
+	private Timer spawnTimer;
 	private List<Powerup> powerups;
 
 	private int numberOfJumps;
@@ -23,7 +29,6 @@ public class PowerupManager {
 	private boolean shoes;
 	private boolean pistol;
 	private boolean parasol;
-	private boolean clock;
 
 	public PowerupManager() {
 		powerups = new CopyOnWriteArrayList<>();
@@ -73,72 +78,51 @@ public class PowerupManager {
 		return numberOfJumps > 2;
 	}
 
-	private Color checkParasol() {
-//		Per ora conta il numero di bolle scoppiate, in futuro dovrà contare il numero di waterBubble scoppiate
-		if (parasol)
-			return null;
-		if (numberOfBubblesPopped > 0 && numberOfBubblesPopped < 5)
-			return Color.ORANGE;
-		if (numberOfBubblesPopped >= 5 && numberOfBubblesPopped < 10)
-			return Color.PURPLE;
-		if (numberOfBubblesPopped >= 10)
-			return Color.RED;
-		return null;
-	}
+	public HashMap<Class<? extends Powerup>, Float> getPowerupsConditionCompletions() {
+		HashMap<Class<? extends Powerup>, Float> results = new HashMap<Class<? extends Powerup>, Float>();
 
-	public int getPowerupConditionCompletion(Powerup powerup) {
-		int result = switch (powerup) {
-		case BlueCandy blueCandy -> numberOfBubblesPopped - blueCandy.getSpawnCondition();
-		case PinkCandy pinkCandy -> numberOfBubblesPopped - pinkCandy.getSpawnCondition();
-		default -> throw new IllegalArgumentException("Unexpected value: " + powerup);
-		};
+		// Inserisco i valori per ciascun power-up, convertendo int a float dove
+		// necessario
+		results.put(BlueCandy.class, (float) (numberOfBubblesPopped - BlueCandy.getSpawnCondition()));
+		results.put(PinkCandy.class, (float) (numberOfBubbles - PinkCandy.getSpawnCondition()));
+		results.put(YellowCandy.class, (float) (numberOfJumpsOnBubbles - YellowCandy.getSpawnCondition()));
+		results.put(Shoes.class, (float) (distanceTravelled - Shoes.getSpawnCondition()));
+		results.put(Pistol.class, (float) (numberOfJumps - Pistol.getSpawnCondition()));
+		results.put(Clock.class, (float) (numberOfBubblesPopped - Clock.getSpawnCondition()));
+		results.put(OrangeParasol.class, (float) (numberOfBubblesPopped - OrangeParasol.getSpawnCondition()));
+		results.put(RedParasol.class, (float) (numberOfBubblesPopped - RedParasol.getSpawnCondition()));
+		results.put(PurpleParasol.class, (float) (numberOfBubblesPopped - PurpleParasol.getSpawnCondition()));
 
-		return 0;
+		return results;
 	}
-
-	private boolean checkClock() {
-		return numberOfBubblesPopped > 3;
-	}
-	
-	
 
 	public void createPowerup() {
-		if (checkPinkCandy() && !pinkCandy) {
-			Model.getInstance().getCurrentLevel().spawnPowerup(new PinkCandy(0, 0));
-			pinkCandy = true;
-		}
+		// Ottieni le condizioni di completamento dei power-up
+		HashMap<Class<? extends Powerup>, Float> powerupsConditions = getPowerupsConditionCompletions();
 
-		if (checkYellowCandy() && !yellowCandy) {
-			Model.getInstance().getCurrentLevel().spawnPowerup(new YellowCandy(0, 0));
-			yellowCandy = true;
-		}
+		// Usa lo stream per trovare le 2 classi con i valori float maggiori
+		List<Class<? extends Powerup>> powerupsToSpawn = powerupsConditions.entrySet().stream()
+				// Ordina le entry per valore in ordine decrescente
+				.sorted(Map.Entry.<Class<? extends Powerup>, Float>comparingByValue(Comparator.reverseOrder()))
+				// Limita lo stream ai primi 2
+				.limit(2)
+				// Mappa le entry alle loro chiavi (le classi di power-up)
+				.map(Map.Entry::getKey)
+				// Colleziona in una lista
+				.collect(Collectors.toList());
 
-		if (checkBlueCandy() && !blueCandy) {
-			Model.getInstance().getCurrentLevel().spawnPowerup(new BlueCandy(0, 0));
-			blueCandy = true;
+		for (Class<? extends Powerup> powerupClass : powerupsToSpawn) {
+			// Logica per creare il power-up (ad esempio instanziare le classi)
+			try {
+				// Crea una nuova istanza della classe di power-up
+				Powerup powerupInstance = powerupClass.getDeclaredConstructor().newInstance();
+				// Logica per spawnare il power-up nel gioco
+				Model.getInstance().getCurrentLevel().spawnPowerup(powerupInstance);
+			} catch (Exception e) {
+				e.printStackTrace();
+				// Gestisci eventuali eccezioni
+			}
 		}
-		if (checkShoes() && !shoes) {
-
-			Model.getInstance().getCurrentLevel().spawnPowerup(new Shoes(0, 0));
-			shoes = true;
-		}
-
-		if (checkPistol() && !pistol) {
-			Model.getInstance().getCurrentLevel().spawnPowerup(new Pistol(0, 0));
-			pistol = true;
-		}
-
-		if (checkParasol() != null) {
-			Model.getInstance().getCurrentLevel().spawnPowerup(new Parasol(0, 0, checkParasol()));
-			parasol = true;
-		}
-
-	
-		if(checkClock() && !clock) {
-			Model.getInstance().getCurrentLevel().spawnPowerup(new Clock(0, 0));
-			clock = true;
-		}
-		
 	}
 
 	public boolean isTherePowerup(int x, int y) {
@@ -158,7 +142,19 @@ public class PowerupManager {
 	}
 
 	public void updatePowerups() {
-		createPowerup();
+		if (spawnTimer==null) {
+			spawnTimer=new Timer();
+			
+			spawnTimer.schedule(new TimerTask() {
+				
+				@Override
+				public void run() {
+					createPowerup();
+					spawnTimer=null;
+				}
+			}, 10000);
+		}
+			
 		for (Powerup powerup : powerups) {
 			powerup.updatePowerup();
 			if (powerup.isToRemove()) {
