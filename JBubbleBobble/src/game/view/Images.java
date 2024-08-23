@@ -29,7 +29,8 @@ public class Images {
 		imageMap.put("§", "/powerups/shoes");
 		imageMap.put("%", "/powerups/pistol");
 		imageMap.put("@", "/powerups/parasol/");
-	
+		imageMap.put("*", "/powerups/clock");	
+
 	}
 
 	public static BufferedImage getImage(String type, String position) {

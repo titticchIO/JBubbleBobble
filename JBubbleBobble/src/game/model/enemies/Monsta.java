@@ -75,8 +75,10 @@ public class Monsta extends Enemy {
 
 	@Override
 	public void updateEntity() {
-		bounce();
-		updateYPos();
-		updateXPos();
+		if (!isStopped) {
+			bounce();
+			updateYPos();
+			updateXPos();
+		}
 	}
 }

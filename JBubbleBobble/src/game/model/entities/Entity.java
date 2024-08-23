@@ -5,74 +5,85 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * This class describes all game entities
+ * The {@code Entity} class serves as the base class for all game entities. It
+ * provides the basic properties and methods needed for collision detection,
+ * positioning, and size management of entities in the game world.
  */
 public abstract class Entity {
 
 	/**
-	 * Checks collision with other entity
+	 * Checks if two entities collide with each other.
 	 * 
-	 * @param <T>
-	 * @param <U>
-	 * @param entity
-	 * @param otherEntity
-	 * @return
+	 * @param <T>         The type of the first entity.
+	 * @param <U>         The type of the second entity.
+	 * @param entity      The first entity.
+	 * @param otherEntity The second entity to check collision against.
+	 * @return {@code true} if the entities collide, {@code false} otherwise.
 	 */
 	public static <T extends Entity, U extends Entity> boolean checkCollision(T entity, U otherEntity) {
 		return entity.hit(otherEntity);
 	}
 
 	/**
-	 * Checks collision with list of entities
+	 * Checks if an entity collides with any entity in a list.
 	 * 
-	 * @param <T>
-	 * @param <U>
-	 * @param entity
-	 * @param list
-	 * @return
+	 * @param <T>    The type of the entity to check.
+	 * @param <U>    The type of entities in the list.
+	 * @param entity The entity to check for collision.
+	 * @param list   The list of entities to check against.
+	 * @return An {@code Optional} containing the first entity in the list that
+	 *         collides with the given entity, or {@code Optional.empty()} if no
+	 *         collision is detected.
 	 */
 	public static <T extends Entity, U extends Entity> Optional<U> checkCollision(T entity, List<U> list) {
 		return list.stream().filter(x -> x.hit(entity)).findFirst();
 	}
 
 	/**
-	 * Checks bottom collision with list of entities
+	 * Checks if an entity collides with the bottom of any entity in a list.
 	 * 
-	 * @param <T>
-	 * @param <U>
-	 * @param entity
-	 * @param list
-	 * @return
+	 * @param <T>    The type of the entity to check.
+	 * @param <U>    The type of entities in the list.
+	 * @param entity The entity to check for bottom collision.
+	 * @param list   The list of entities to check against.
+	 * @return An {@code Optional} containing the first entity in the list that
+	 *         collides with the bottom of the given entity, or
+	 *         {@code Optional.empty()} if no collision is detected.
 	 */
 	public static <T extends Entity, U extends Entity> Optional<U> checkBottomCollision(T entity, List<U> list) {
 		return list.stream().filter(x -> x.topHit(entity)).findFirst();
 	}
 
 	/**
-	 * Checks top collision with list of entities
+	 * Checks if an entity collides with the top of any entity in a list.
 	 * 
-	 * @param <T>
-	 * @param <U>
-	 * @param entity
-	 * @param list
-	 * @return
+	 * @param <T>    The type of the entity to check.
+	 * @param <U>    The type of entities in the list.
+	 * @param entity The entity to check for top collision.
+	 * @param list   The list of entities to check against.
+	 * @return An {@code Optional} containing the first entity in the list that
+	 *         collides with the top of the given entity, or
+	 *         {@code Optional.empty()} if no collision is detected.
 	 */
 	public static <T extends Entity, U extends Entity> Optional<U> checkTopCollision(T entity, List<U> list) {
 		return list.stream().filter(x -> x.bottomHit(entity)).findFirst();
 	}
 
+	// Position and dimensions of the entity
 	protected float x, y;
 	protected float width, height;
+
+	// Unique code identifier for the entity
 	private String code;
 
 	/**
-	 * Constructor
+	 * Constructs an {@code Entity} with specified position, dimensions, and code.
 	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param code
+	 * @param x      The x-coordinate of the entity.
+	 * @param y      The y-coordinate of the entity.
+	 * @param width  The width of the entity.
+	 * @param height The height of the entity.
+	 * @param code   The unique code representing the entity.
 	 */
 	public Entity(float x, float y, float width, float height, String code) {
 		this.x = x;
@@ -83,79 +94,98 @@ public abstract class Entity {
 	}
 
 	/**
-	 * Constructor
+	 * Constructs an {@code Entity} with specified position and code. The width and
+	 * height are set to the default tile size minus 1.
 	 * 
-	 * @param x
-	 * @param y
-	 * @param code
+	 * @param x    The x-coordinate of the entity.
+	 * @param y    The y-coordinate of the entity.
+	 * @param code The unique code representing the entity.
 	 */
 	public Entity(float x, float y, String code) {
 		this.x = x;
 		this.y = y;
 		this.code = code;
-		width = TILE_SIZE - 1;
-		height = TILE_SIZE - 1;
+		this.width = TILE_SIZE - 1;
+		this.height = TILE_SIZE - 1;
 	}
 
 	/**
-	 * @return x coordinate
+	 * Gets the x-coordinate of the entity.
+	 * 
+	 * @return The x-coordinate.
 	 */
 	public float getX() {
 		return x;
 	}
 
 	/**
-	 * @return y coordinate
+	 * Gets the y-coordinate of the entity.
+	 * 
+	 * @return The y-coordinate.
 	 */
 	public float getY() {
 		return y;
 	}
 
 	/**
-	 * @return entity's width
+	 * Gets the width of the entity.
+	 * 
+	 * @return The width.
 	 */
 	public float getWidth() {
 		return width;
 	}
 
 	/**
-	 * @return entity's height
+	 * Gets the height of the entity.
+	 * 
+	 * @return The height.
 	 */
 	public float getHeight() {
 		return height;
 	}
 
 	/**
-	 * @return entity's code
+	 * Gets the unique code representing the entity.
+	 * 
+	 * @return The entity's code.
 	 */
 	public String getCode() {
 		return code;
 	}
 
 	/**
-	 * @return array with entity's coordinates
+	 * Gets the position of the entity as an array.
+	 * 
+	 * @return A float array containing the x and y coordinates of the entity.
 	 */
 	public float[] getPosition() {
 		return new float[] { x, y };
 	}
 
 	/**
-	 * @param x
+	 * Sets the x-coordinate of the entity.
+	 * 
+	 * @param x The new x-coordinate.
 	 */
 	public void setX(float x) {
 		this.x = x;
 	}
 
 	/**
-	 * @param y
+	 * Sets the y-coordinate of the entity.
+	 * 
+	 * @param y The new y-coordinate.
 	 */
 	public void setY(float y) {
 		this.y = y;
 	}
 
 	/**
-	 * @param x
-	 * @param y
+	 * Sets the position of the entity.
+	 * 
+	 * @param x The new x-coordinate.
+	 * @param y The new y-coordinate.
 	 */
 	public void setPosition(float x, float y) {
 		setX(x);
@@ -163,24 +193,28 @@ public abstract class Entity {
 	}
 
 	/**
-	 * @param height
+	 * Sets the height of the entity.
+	 * 
+	 * @param height The new height.
 	 */
 	public void setHeight(float height) {
 		this.height = height;
 	}
 
 	/**
-	 * @param width
+	 * Sets the width of the entity.
+	 * 
+	 * @param width The new width.
 	 */
 	public void setWidth(float width) {
 		this.width = width;
 	}
 
 	/**
-	 * Method that checks any collision with another entity
+	 * Checks if this entity collides with another entity.
 	 * 
-	 * @param entity
-	 * @return if there is a hit
+	 * @param entity The other entity to check collision against.
+	 * @return {@code true} if there is a collision, {@code false} otherwise.
 	 */
 	public boolean hit(Entity entity) {
 		return this.x < entity.x + entity.width && this.x + this.width > entity.x && this.y < entity.y + entity.height
@@ -188,10 +222,10 @@ public abstract class Entity {
 	}
 
 	/**
-	 * Method that checks any top collision with another entity
+	 * Checks if this entity has collided with the top of another entity.
 	 * 
-	 * @param entity
-	 * @return if there is a top hit
+	 * @param entity The other entity to check top collision against.
+	 * @return {@code true} if there is a top collision, {@code false} otherwise.
 	 */
 	public boolean topHit(Entity entity) {
 		return this.y >= entity.y + entity.height && this.y < entity.y + entity.height + this.height
@@ -199,10 +233,10 @@ public abstract class Entity {
 	}
 
 	/**
-	 * Checks bottom collision with other entity
+	 * Checks if this entity has collided with the bottom of another entity.
 	 * 
-	 * @param entity
-	 * @return if there is a bottom hit
+	 * @param entity The other entity to check bottom collision against.
+	 * @return {@code true} if there is a bottom collision, {@code false} otherwise.
 	 */
 	public boolean bottomHit(Entity entity) {
 		return this.y + this.height <= entity.y && this.y + this.height > entity.y - this.height
@@ -210,25 +244,25 @@ public abstract class Entity {
 	}
 
 	/**
-	 * Calculates distance from another entity
+	 * Calculates the distance from this entity to another entity.
 	 * 
-	 * @param entity
-	 * @return the distance from another Entity
+	 * @param entity The other entity to calculate the distance from.
+	 * @return The distance between the closest edges of the two entities.
 	 */
 	public float getDistanceFrom(Entity entity) {
-		// Calculates minimum distance on x axis
+		// Calculate minimum distance on the x-axis
 		float xDist = Math.max(0, Math.max(entity.x - (this.x + this.width), this.x - (entity.x + entity.width)));
 
-		// Calculates minimum distance on y axis
+		// Calculate minimum distance on the y-axis
 		float yDist = Math.max(0, Math.max(entity.y - (this.y + this.height), this.y - (entity.y + entity.height)));
 
-		// If there is an overlap on one of the two axis distance is zero
+		// If there is an overlap on either axis, the distance is zero
 		if (xDist == 0 || yDist == 0) {
 			return Math.max(xDist, yDist);
 		}
 
-		// If there is no overlap, calculates Euclidean distance between closest
-		// entities edges
+		// If there is no overlap, calculate Euclidean distance between the closest
+		// edges
 		return (float) Math.sqrt(xDist * xDist + yDist * yDist);
 	}
 
@@ -251,5 +285,4 @@ public abstract class Entity {
 		Entity other = (Entity) obj;
 		return height == other.height && width == other.width && x == other.x && y == other.y;
 	}
-
 }

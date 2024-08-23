@@ -23,6 +23,7 @@ public class PowerupManager {
 	private boolean shoes;
 	private boolean pistol;
 	private boolean parasol;
+	private boolean clock;
 
 	public PowerupManager() {
 		powerups = new CopyOnWriteArrayList<>();
@@ -95,6 +96,12 @@ public class PowerupManager {
 		return 0;
 	}
 
+	private boolean checkClock() {
+		return numberOfBubblesPopped > 3;
+	}
+	
+	
+
 	public void createPowerup() {
 		if (checkPinkCandy() && !pinkCandy) {
 			Model.getInstance().getCurrentLevel().spawnPowerup(new PinkCandy(0, 0));
@@ -126,6 +133,12 @@ public class PowerupManager {
 			parasol = true;
 		}
 
+	
+		if(checkClock() && !clock) {
+			Model.getInstance().getCurrentLevel().spawnPowerup(new Clock(0, 0));
+			clock = true;
+		}
+		
 	}
 
 	public boolean isTherePowerup(int x, int y) {

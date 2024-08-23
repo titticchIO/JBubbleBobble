@@ -2,12 +2,10 @@ package game.model.enemies;
 
 import static game.model.HelpMethods.isEntityInsideWall;
 import static game.model.HelpMethods.isSolidVerticalLine;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
 import game.model.HelpMethods;
 import game.model.Model;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Invader extends Enemy {
 
@@ -47,6 +45,7 @@ public class Invader extends Enemy {
 			if (isSolidVerticalLine(x + width + 1, y, y + height))
 				setDirection(Direction.LEFT);
 		}
+		default -> throw new IllegalArgumentException("Unexpected value: " + direction);
 		}
 	}
 
@@ -82,21 +81,23 @@ public class Invader extends Enemy {
 
 	@Override
 	public void updateEntity() {
-		if (!HelpMethods.isEntityGrounded(this) && landed)
-			landed = false;
-		if (HelpMethods.isEntityGrounded(this) && !landed) {
-			landed = true;
-			randomizeDirection();
+		if (!isStopped) {
+			if (!HelpMethods.isEntityGrounded(this) && landed)
+				landed = false;
+			if (HelpMethods.isEntityGrounded(this) && !landed) {
+				landed = true;
+				randomizeDirection();
+			}
+			switchDirection();
+	
+			if (!inAir) {
+				updateXPos();
+			} else
+				setAirSpeed(0.5f);
+			move(0.5f);
+			updateYPos();
+			shootLaser();
 		}
-		switchDirection();
-
-		if (!inAir) {
-			updateXPos();
-		} else
-			setAirSpeed(0.5f);
-		move(0.5f);
-		updateYPos();
-		shootLaser();
 	}
 
 }
