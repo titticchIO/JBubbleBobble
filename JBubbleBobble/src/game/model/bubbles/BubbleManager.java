@@ -5,11 +5,14 @@ import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import game.model.Model;
+import game.model.entities.Player;
 import game.model.tiles.Tile;
 
 public class BubbleManager {
 	private List<Bubble> bubbles;
 	private List<PlayerBubble> playerBubbles;
+
+	private boolean doOnce = true;
 
 	public BubbleManager() {
 		bubbles = new CopyOnWriteArrayList<>();
@@ -28,14 +31,14 @@ public class BubbleManager {
 		playerBubbles.add(newBubble);
 	}
 
-	public void createBubble() {
+	public void createSpecialBubble() {
 		Random random = new Random();
 
-		if (random.nextInt(0, 200) == 0) {
-			switch (random.nextInt()) {
-			case 0 -> Model.getInstance().getCurrentLevel().spawnBubble(new ThunderBubble());
-			}
-
+		if (doOnce) {
+			doOnce = false;
+			Bubble fireBubble = new FireBubble();
+			Model.getInstance().getCurrentLevel().spawnBubble(fireBubble);
+			bubbles.add(fireBubble);
 		}
 	}
 
@@ -60,7 +63,8 @@ public class BubbleManager {
 	}
 
 	public void updateBubbles() {
-		bubbles.forEach(b->b.updateEntity());
-		playerBubbles.forEach(pb->pb.updateEntity());
+		bubbles.forEach(b -> b.updateEntity());
+		playerBubbles.forEach(pb -> pb.updateEntity());
+		createSpecialBubble();
 	}
 }

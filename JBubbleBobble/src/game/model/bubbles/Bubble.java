@@ -9,18 +9,12 @@ import game.model.tiles.Tile;
 
 public abstract class Bubble extends MovingEntity {
 
-	/**
-	 * tempo prima che la bolla scoppi
-	 */
-
-	protected float timeHorizontalMoving = 1000.0f;
-
 	protected float lifeSpan;
 
 	public Bubble(float x, float y, float width, float height, String code) {
 		super(x, y, width, height, code);
 		lifeSpan = 10000;
-		timeHorizontalMoving = 500;
+
 	}
 
 	public Bubble(float x, float y, float width, float height, float lifeSpan, String code) {
@@ -35,16 +29,8 @@ public abstract class Bubble extends MovingEntity {
 		return lifeSpan;
 	}
 
-	public float getTimeHorizontalMoving() {
-		return timeHorizontalMoving;
-	}
-
 	public void setLifeSpan(float lifeSpan) {
 		this.lifeSpan = lifeSpan;
-	}
-
-	public void setTimeHorizontalMoving(float timeHorizontalMoving) {
-		this.timeHorizontalMoving = timeHorizontalMoving;
 	}
 
 	/**
@@ -52,10 +38,6 @@ public abstract class Bubble extends MovingEntity {
 	 */
 	protected void decreaseLifeSpan(float k) {
 		setLifeSpan(getLifeSpan() - k);
-	}
-
-	protected void decreaseTimeHorizontalMoving(float k) {
-		setTimeHorizontalMoving(getTimeHorizontalMoving() - k);
 	}
 
 	public boolean isEnemyHit(Enemy enemy) {
@@ -66,6 +48,11 @@ public abstract class Bubble extends MovingEntity {
 	 * metodo per far scoppiare la bolla
 	 */
 	abstract public void pop();
+
+	protected void rise(float airSpeed) {
+		setAirSpeed(airSpeed);
+		setxSpeed(0);
+	}
 
 	@Override
 	protected void updateYPos() {
@@ -86,12 +73,9 @@ public abstract class Bubble extends MovingEntity {
 			pop();
 		} else {
 			decreaseLifeSpan(10.0f);// decrementa la lifespan della bolla (valore da calibrare con la view)
-			decreaseTimeHorizontalMoving(10.0f);// decrementa il tempo prima che vada a salire la bolla
 		}
-		if (timeHorizontalMoving <= 0)
-			updateYPos();
-		else
-			updateXPos();
+		updateYPos();
+		updateXPos();
 	}
 
 }

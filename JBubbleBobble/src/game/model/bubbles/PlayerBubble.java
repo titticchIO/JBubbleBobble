@@ -8,6 +8,7 @@ public class PlayerBubble extends Bubble {
 	private static float extraTravelTime = 1;
 	private static float extraXSpeed = 1;
 
+	protected float timeHorizontalMoving = 1000.0f;
 
 	/**
 	 * tempo prima che la bolla inizi a salire
@@ -33,6 +34,7 @@ public class PlayerBubble extends Bubble {
 		this.airSpeed = airSpeed;
 		this.lifeSpan = 5000;
 		this.travelTime = travelTime * extraTravelTime;
+		timeHorizontalMoving = 500;
 	}
 
 	/**
@@ -53,12 +55,12 @@ public class PlayerBubble extends Bubble {
 	/**
 	 * metodo per far fluttuare la bolla
 	 */
-	private void rise() {
+	@Override
+	protected void rise(float airSpeed) {
 //		fa salire la bolla
-		setAirSpeed(-0.5f); // da calibrare con la view
+		setAirSpeed(airSpeed);
 		setxSpeed(0);
 		decreaseTravelTime(1);
-
 	}
 
 	public Enemy getEnemy() {
@@ -77,7 +79,7 @@ public class PlayerBubble extends Bubble {
 	public static float getExtraTravelTime() {
 		return extraTravelTime;
 	}
-	
+
 	public static void setExtraTravelTime(float extraTravelTime) {
 		PlayerBubble.extraTravelTime = extraTravelTime;
 	}
@@ -88,6 +90,18 @@ public class PlayerBubble extends Bubble {
 
 	public static void setExtraXSpeed(float extraXSpeed) {
 		PlayerBubble.extraXSpeed = extraXSpeed;
+	}
+
+	public float getTimeHorizontalMoving() {
+		return timeHorizontalMoving;
+	}
+
+	public void setTimeHorizontalMoving(float timeHorizontalMoving) {
+		this.timeHorizontalMoving = timeHorizontalMoving;
+	}
+
+	protected void decreaseTimeHorizontalMoving(float k) {
+		setTimeHorizontalMoving(getTimeHorizontalMoving() - k);
 	}
 
 	@Override
@@ -107,7 +121,6 @@ public class PlayerBubble extends Bubble {
 				pb.popAndKill();
 		});
 	}
-	
 
 	@Override
 	public void updateEntity() {
@@ -115,24 +128,21 @@ public class PlayerBubble extends Bubble {
 			pop();
 		} else {
 			decreaseLifeSpan(10.0f);// decrementa la lifespan della bolla (valore da calibrare con la view)
-			decreaseTimeHorizontalMoving(10.0f * extraXSpeed / extraTravelTime);// decrementa il tempo prima che vada a salire la bolla
+			decreaseTimeHorizontalMoving(10.0f * extraXSpeed / extraTravelTime);// decrementa il tempo prima che la
+																				// bolla vada a salire
 		}
-		
-		
+
 		if (timeHorizontalMoving <= 0)
 			updateYPos();
 		else
 			updateXPos();
-		
-		
-		
+
 		if (travelTime > 0)
 			decreaseTravelTime(1 * extraXSpeed);
 		else if (travelTime <= 0) {
-			rise();
+			rise(-0.5f);
 		}
 	}
-
 
 	public static class Builder {
 		private float x, y, width, height;

@@ -18,6 +18,10 @@ public class Images {
 		imageMap.put("P", "/player/");
 		imageMap.put("°", "/bubbles/playerBubble");
 		imageMap.put("+", "/bubbles/playerBubble");
+		imageMap.put("-", "/bubbles/fireBubble");
+		imageMap.put("+", "/bubbles/thunderBubble");
+		imageMap.put("/", "/bubbles/waterBubble");
+		imageMap.put("#", "/bubbles/special_effects/fireBall");
 		imageMap.put("Z", "/enemies/zenchan/");
 		imageMap.put("I", "/enemies/invader/");
 		imageMap.put("M", "/enemies/monsta/");

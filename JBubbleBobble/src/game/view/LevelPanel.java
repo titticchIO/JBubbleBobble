@@ -68,21 +68,6 @@ public class LevelPanel extends JPanel {
 		img = switch (entity) {
 		case Tile tile -> Images.getImage(tile.getCode());
 		case Laser laser -> Images.getImage("I", "red");
-		/*
-		 * case Invader invader ->
-		 * AnimationLoader.loadEntityImage("enemies/invader/default.gif"); case Monsta
-		 * monsta->
-		 * AnimationLoader.loadEntityImage("enemies/monsta/"+monsta.getDirection().name(
-		 * ).toLowerCase()+".gif"); case SkelMonsta skelmonsta ->
-		 * AnimationLoader.loadEntityImage("enemies/skelmonsta/"+skelmonsta.getDirection
-		 * ().name().toLowerCase()+".gif"); case ZenChan zenChan ->
-		 * AnimationLoader.loadEntityImage("enemies/zenchan/"+zenChan.getDirection().
-		 * name().toLowerCase()+".gif"); case Pulpul pulpul ->
-		 * AnimationLoader.loadEntityImage("enemies/pulpul/default.gif"); case Banebou
-		 * banebou ->
-		 * AnimationLoader.loadEntityImage("enemies/banebou/"+banebou.getDirection().
-		 * name().toLowerCase()+".gif");
-		 */
 		case Enemy enemy -> AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColor());
 		case OrangeParasol orangeParasol -> Images.getImage("@", "orange");
 		case RedParasol redParasol -> Images.getImage("@", "red");
