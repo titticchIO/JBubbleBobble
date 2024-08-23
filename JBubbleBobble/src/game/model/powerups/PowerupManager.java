@@ -31,7 +31,6 @@ public class PowerupManager {
 		return powerups;
 	}
 
-
 	public void increaseNumberOfJumpsOnBubbles() {
 		numberOfJumpsOnBubbles++;
 	}

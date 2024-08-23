@@ -20,27 +20,23 @@ public class Parasol extends Powerup {
 
 	@Override
 	public void effect() {
-		switch (color) {
-		case ORANGE -> {
-			for (int i = 0; i < 3; i++)
-				Model.getInstance().nextLevel();
+		int times = switch (color) {
+		case ORANGE -> 3;
+		case PURPLE -> 5;
+		case RED -> 7;
+		};
+
+		for (int i = 0; i < times; i++) {
+			Model.getInstance().nextLevel();
+			System.out.println("skip level");
 		}
-		case PURPLE -> {
-			for (int i = 0; i < 5; i++)
-				Model.getInstance().nextLevel();
-		}
-		case RED -> {
-			for (int i = 0; i < 7; i++)
-				Model.getInstance().nextLevel();
-		}
-		}
+
 		setX(-200);
 
 	}
 
 	@Override
-	public void resetToNormal() {
-	}
+	public void resetToNormal() {}
 
 	public Color getColor() {
 		return color;

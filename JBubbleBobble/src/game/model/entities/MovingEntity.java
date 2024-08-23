@@ -35,7 +35,6 @@ public abstract class MovingEntity extends Entity {
 	public MovingEntity(float x, float y, String code) {
 		super(x, y, code);
 		direction = Direction.STATIC;
-		airSpeed = 0;
 		gravity = 0.02f;
 		jumpSpeed = -2.0f;
 		fallSpeedAfterCollision = 0.3f;
@@ -54,7 +53,6 @@ public abstract class MovingEntity extends Entity {
 	public MovingEntity(float x, float y, float width, float height, String code) {
 		super(x, y, width, height, code);
 		direction = Direction.STATIC;
-		airSpeed = 0;
 		gravity = 0.02f;
 		jumpSpeed = -2.0f;
 		fallSpeedAfterCollision = 0.3f;

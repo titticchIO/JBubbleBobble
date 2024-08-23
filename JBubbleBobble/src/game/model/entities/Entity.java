@@ -140,27 +140,6 @@ public abstract class Entity {
 	}
 
 	/**
-	 * @return top entity's edges
-	 */
-	public float[][] getTopVertexes() {
-		return new float[][] { { x, y }, { x + width, y } };
-	}
-
-	/**
-	 * @return bottom entity's edges
-	 */
-	public float[][] getBottomVertexes() {
-		return new float[][] { { x, y + height }, { x + width, y + height } };
-	}
-
-	/**
-	 * @return all entity's edges
-	 */
-	public float[][] getVertexes() {
-		return new float[][] { { x, y }, { x + width, y }, { x, y + height }, { x + width, y + height } };
-	}
-
-	/**
 	 * @param x
 	 */
 	public void setX(float x) {
@@ -198,6 +177,17 @@ public abstract class Entity {
 	}
 
 	/**
+	 * Method that checks any collision with another entity
+	 * 
+	 * @param entity
+	 * @return if there is a hit
+	 */
+	public boolean hit(Entity entity) {
+		return this.x < entity.x + entity.width && this.x + this.width > entity.x && this.y < entity.y + entity.height
+				&& this.y + this.height > entity.y;
+	}
+
+	/**
 	 * Method that checks any top collision with another entity
 	 * 
 	 * @param entity
@@ -217,17 +207,6 @@ public abstract class Entity {
 	public boolean bottomHit(Entity entity) {
 		return this.y + this.height <= entity.y && this.y + this.height > entity.y - this.height
 				&& this.x < entity.x + entity.width && this.x + this.width > entity.x;
-	}
-
-	/**
-	 * Method that checks any collision with another entity
-	 * 
-	 * @param entity
-	 * @return if there is a hit
-	 */
-	public boolean hit(Entity entity) {
-		return this.x < entity.x + entity.width && this.x + this.width > entity.x && this.y < entity.y + entity.height
-				&& this.y + this.height > entity.y;
 	}
 
 	/**

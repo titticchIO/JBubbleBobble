@@ -175,13 +175,12 @@ public class Player extends MovingEntity {
 			isInvulnerable = true;
 
 			// Sets new invulnerability timer
-			Timer invulnerabilityTimer = new Timer();
-			invulnerabilityTimer.schedule(new TimerTask() {
+
+			new Timer().schedule(new TimerTask() {
 				@Override
 				public void run() {
 					// When the timer ends player is vulnerable again
 					isInvulnerable = false;
-					invulnerabilityTimer.cancel(); // Stops the timer once completed
 				}
 			}, INVULNERABILITY_INTERVAL); // Sets the timer for the invulnerability interval
 		}
@@ -193,7 +192,7 @@ public class Player extends MovingEntity {
 	@Override
 	public void move(float speed) {
 		speed *= extraXSpeed;
-		System.out.println("velocità:" + speed);
+//		System.out.println("velocità:" + speed);
 		switch (direction) {
 		case LEFT -> setxSpeed(-1 * speed);
 		case RIGHT -> setxSpeed(speed);
@@ -220,13 +219,12 @@ public class Player extends MovingEntity {
 			canShoot = false;
 
 //			Creates new attack timer
-			Timer attackTimer = new Timer();
-			attackTimer.schedule(new TimerTask() {
+
+			new Timer().schedule(new TimerTask() {
 				@Override
 				public void run() {
 					// After milliseconds specified in attack time player can shoot again
 					canShoot = true;
-					attackTimer.cancel(); // Stops timer once completed
 				}
 
 			}, ATTACK_INTERVAL * attackSpeed); // Imposta il timer in base alla velocità di attacco
