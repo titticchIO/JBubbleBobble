@@ -1,8 +1,6 @@
 package game.model.entities;
 
 import game.model.HelpMethods;
-import game.model.Model;
-import game.model.Settings;
 import game.model.level.Level;
 import game.model.tiles.Tile;
 
@@ -17,30 +15,22 @@ public abstract class MovingEntity extends Entity {
 		NORMAL, RED, BLUE
 	}
 
-	// Movement speed on the x-axis: positive for right, negative for left
-	protected float xSpeed;
-
 	protected Direction direction;
 	protected Color color;
-
-	// Jumping and gravity variables
+	protected float xSpeed;
 	protected float airSpeed;
-	protected float gravity;
-
 	protected float jumpSpeed;
+	protected float gravity;
 	protected float fallSpeedAfterCollision;
 	protected float maxFallingSpeed;
 	protected boolean inAir;
 
 	/**
-	 * MovingEntity constructor. Initializes movement parameters and calls the super
-	 * constructor from Entity.
+	 * Constructor
 	 * 
-	 * @param x            x-coordinate of the entity
-	 * @param y            y-coordinate of the entity
-	 * @param width        Width of the entity
-	 * @param height       Height of the entity
-	 * @param positionCode Code to identify the position
+	 * @param x
+	 * @param y
+	 * @param code
 	 */
 	public MovingEntity(float x, float y, String code) {
 		super(x, y, code);
@@ -50,9 +40,17 @@ public abstract class MovingEntity extends Entity {
 		jumpSpeed = -2.0f;
 		fallSpeedAfterCollision = 0.3f;
 		maxFallingSpeed = 2;
-		inAir = false;
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param code
+	 */
 	public MovingEntity(float x, float y, float width, float height, String code) {
 		super(x, y, width, height, code);
 		direction = Direction.STATIC;
@@ -61,68 +59,69 @@ public abstract class MovingEntity extends Entity {
 		jumpSpeed = -2.0f;
 		fallSpeedAfterCollision = 0.3f;
 		maxFallingSpeed = 2;
-		inAir = false;
 	}
 
 	/**
-	 * Sets the speed on the x-axis.
-	 * 
-	 * @param xSpeed Speed on the x-axis
-	 */
-	public void setxSpeed(float xSpeed) {
-		this.xSpeed = xSpeed;
-	}
-
-	/**
-	 * Returns the speed on the x-axis.
-	 * 
-	 * @return Speed on the x-axis
+	 * @return xSpeed
 	 */
 	public float getxSpeed() {
 		return xSpeed;
 	}
 
 	/**
-	 * Sets the movement direction.
-	 * 
-	 * @param direction Movement direction
+	 * @return airSpeed
 	 */
-	public void setDirection(Direction direction) {
-		this.direction = direction;
+	public float getAirSpeed() {
+		return airSpeed;
 	}
 
+	/**
+	 * @return direction
+	 */
 	public Direction getDirection() {
 		return direction;
 	}
 
-	public void setJumpSpeed(float jumpSpeed) {
-		this.jumpSpeed = jumpSpeed;
-	}
-
+	/**
+	 * @return color
+	 */
 	public Color getColor() {
 		return color;
 	}
 
-	public void setColor(Color color) {
-		this.color = color;
+	/**
+	 * @param xSpeed
+	 */
+	public void setxSpeed(float xSpeed) {
+		this.xSpeed = xSpeed;
 	}
 
 	/**
-	 * Sets the air speed (airSpeed).
-	 * 
-	 * @param airSpeed Air speed
+	 * @param airSpeed
 	 */
 	public void setAirSpeed(float airSpeed) {
 		this.airSpeed = airSpeed;
 	}
 
 	/**
-	 * Returns the air speed (airSpeed).
-	 * 
-	 * @return Air speed
+	 * @param jumpSpeed
 	 */
-	public float getAirSpeed() {
-		return airSpeed;
+	public void setJumpSpeed(float jumpSpeed) {
+		this.jumpSpeed = jumpSpeed;
+	}
+
+	/**
+	 * @param direction
+	 */
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
+
+	/**
+	 * @param color
+	 */
+	public void setColor(Color color) {
+		this.color = color;
 	}
 
 	/**
@@ -156,50 +155,49 @@ public abstract class MovingEntity extends Entity {
 	 * handles gravity and collisions.
 	 */
 	protected void updateYPos() {
-		// Verifica se l'entità è a terra
+		// Checks if entity is grounded
 		inAir = !HelpMethods.isEntityGrounded(this);
 
-		// Controllo dei limiti verticali dello schermo
+		// Checks if entity is inside screen
 		if (y > Level.GAME_HEIGHT + 1) {
-			setY(-1); // Riporta l'entità nella parte superiore dello schermo se esce dal basso
+			setY(-1); // Moves entity on the top of the screen if it falls under floor
 			return;
 		}
 
 		if (y < -2) {
-			setY(Level.GAME_HEIGHT); // Riporta l'entità nella parte inferiore dello schermo se esce dall'alto
+			setY(Level.GAME_HEIGHT); // Moves entity on the bottom of the screen if it jumps over the roof
 			return;
 		}
 
-		// Gestione quando l'entità è in aria o dentro un muro
+		// Handles entity's movement while in air or inside wall
 		if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(x, y, width, height)) {
-			// Collisione con i tile sul limite superiore del livello
+			// Handles collision with level roof
 			if (y <= Tile.TILE_SIZE && !HelpMethods.canMoveHere(x, y + airSpeed, width, height))
 				setAirSpeed(fallSpeedAfterCollision);
 			setY(y + airSpeed);
 			return;
 		}
 
-		// Gestione del movimento verticale quando l'entità è in aria e può muoversi
-		// liberamente
+		// Handles free entity's in air movement
 		float delta = 0;
 
-		// Incrementa delta finché può muoversi in aria, fino a raggiungere airSpeed
+		// Increments delta while in air till it reaches airSpeed
 		while (delta < airSpeed && HelpMethods.canMoveHere(x, y + delta, width, height)) {
 			delta += 0.01f;
 		}
 
-		// Se delta non ha raggiunto airSpeed, significa che c'è stato un ostacolo
+		// If delta is not equal to airSpeed it has hit an obstacle
 		if (delta < airSpeed) {
-			setY(y - 1); // Regola leggermente la posizione verso l'alto per correggere
-			resetInAir(); // Reset dello stato in aria
+			setY(y - 1); // Moves position slightly up
+			resetInAir(); // Resets in air
 		}
 
-		// Aggiorna la posizione Y con il delta calcolato
+		// Updates y with calculated delta
 		setY(y + delta);
 	}
 
 	/**
-	 * Makes the entity jump if it's not in the air and not inside a wall.
+	 * Handles entity's jump
 	 */
 	public void jump() {
 		if (!inAir && !HelpMethods.isEntityInsideWall(x, y, width, height)) {
@@ -209,7 +207,7 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	/**
-	 * Resets the in-air state (inAir) and air speed (airSpeed).
+	 * Resets inAir and airSpeed
 	 */
 	public void resetInAir() {
 		inAir = false;
@@ -245,6 +243,7 @@ public abstract class MovingEntity extends Entity {
 		switch (direction) {
 		case LEFT -> setxSpeed(-1 * speed);
 		case RIGHT -> setxSpeed(speed);
+		default -> throw new IllegalArgumentException("Unexpected value: " + direction);
 		}
 	}
 
