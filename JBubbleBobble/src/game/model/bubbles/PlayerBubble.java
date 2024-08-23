@@ -28,7 +28,7 @@ public class PlayerBubble extends Bubble {
 	 */
 	private PlayerBubble(float x, float y, float width, float height, float xSpeed, float airSpeed, float lifeSpan,
 			float travelTime) {
-		super(x, y, width, height);
+		super(x, y, width, height, "°");
 		this.xSpeed = xSpeed * extraXSpeed;
 		this.airSpeed = airSpeed;
 		this.lifeSpan = 5000;

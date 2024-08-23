@@ -1,6 +1,7 @@
 package game.model.level;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
@@ -32,6 +33,7 @@ public class Level {
 	private PowerupManager powerupManager;
 	private String[][] lvlData;
 	private float[] playerSpawnPoint;
+	private List<Float> bubblesSpawnPoints;
 
 	public Level(int levelNum) {
 		tiles = new ArrayList<Tile>();
@@ -39,6 +41,7 @@ public class Level {
 		bubbleManager = new BubbleManager();
 		powerupManager = new PowerupManager();
 		lvlData = LevelLoader.loadLevel(this, levelNum);
+		setBubblesSpawnPoints();
 	}
 
 	public String[][] getLvlData() {
@@ -91,6 +94,10 @@ public class Level {
 		return enemyManager;
 	}
 
+	public List<Float> getBubblesSpawnPoints() {
+		return bubblesSpawnPoints;
+	}
+
 	public void setEnemyManager(EnemyManager eManager) {
 		this.enemyManager = eManager;
 	}
@@ -129,6 +136,16 @@ public class Level {
 
 	public void addTile(Tile tile) {
 		tiles.add(tile);
+	}
+
+	public void setBubblesSpawnPoints() {
+		int y = lvlData.length - 1;
+
+		for (int x = 0; x < lvlData[0].length; x++) {
+			if (" ".equals(lvlData[y][x]))
+				bubblesSpawnPoints.add((float) x * Tile.TILE_SIZE);
+
+		}
 	}
 
 	public Optional<Enemy> checkPlayerEnemyCollision() {
@@ -190,6 +207,15 @@ public class Level {
 			}
 		}
 
+	}
+
+	public void spawnBubble(Bubble bubble) {
+		if (bubblesSpawnPoints.size() != 0) {
+			float y = (lvlData.length) * Tile.TILE_SIZE;
+			float x = (bubblesSpawnPoints.get(new Random().nextInt(bubblesSpawnPoints.size())) - 1) * Tile.TILE_SIZE;
+			bubble.setPosition(x, y);
+			bubbleManager.addBubble(bubble);
+		}
 	}
 
 	public void removeEnemy(Enemy enemy) {

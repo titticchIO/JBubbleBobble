@@ -16,7 +16,8 @@ public class Images {
 		imageMap.put("3", "/blocks/normal_blocks/block_3");
 		imageMap.put("4", "/blocks/normal_blocks/block_4");
 		imageMap.put("P", "/player/");
-		imageMap.put("B", "/bubbles/");
+		imageMap.put("°", "/bubbles/playerBubble");
+		imageMap.put("+", "/bubbles/playerBubble");
 		imageMap.put("Z", "/enemies/zenchan/");
 		imageMap.put("I", "/enemies/invader/");
 		imageMap.put("M", "/enemies/monsta/");
@@ -30,6 +31,7 @@ public class Images {
 		imageMap.put("%", "/powerups/skeleton");
 		imageMap.put("@", "/powerups/parasol/");
 		imageMap.put("*", "/powerups/clock");	
+		imageMap.put("T", "/powerups/clock");	
 
 	}
 
