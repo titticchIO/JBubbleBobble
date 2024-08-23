@@ -21,7 +21,10 @@ import game.model.enemies.Pulpul;
 import game.model.enemies.SkelMonsta;
 import game.model.enemies.ZenChan;
 import game.model.level.Level;
+import game.model.powerups.OrangeParasol;
 import game.model.powerups.Parasol;
+import game.model.powerups.PurpleParasol;
+import game.model.powerups.RedParasol;
 import game.model.tiles.Tile;
 
 public class LevelPanel extends JPanel {
@@ -81,7 +84,9 @@ public class LevelPanel extends JPanel {
 		 * name().toLowerCase()+".gif");
 		 */
 		case Enemy enemy -> AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColor());
-		case Parasol parasol -> Images.getImage(parasol.getCode(), parasol.getColor().name().toLowerCase());
+		case OrangeParasol orangeParasol -> Images.getImage("@", "orange");
+		case RedParasol redParasol -> Images.getImage("@", "red");
+		case PurpleParasol purpleParasol -> Images.getImage("@", "purple");
 		case Player player -> switch (player.getDirection()) {
 		case RIGHT -> AnimationLoader.getPlayerImage("walk_right");
 		case LEFT -> AnimationLoader.getPlayerImage("walk_left");
