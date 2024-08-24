@@ -34,6 +34,10 @@ public class FireBall extends MovingEntity {
 		fireState = FireState.FALL;
 	}
 
+	public FireState getFireState() {
+		return fireState;
+	}
+
 	@Override
 	protected void updateYPos() {
 		setY(y + airSpeed);

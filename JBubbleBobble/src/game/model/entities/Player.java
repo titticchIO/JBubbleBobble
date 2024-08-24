@@ -290,7 +290,6 @@ public class Player extends MovingEntity {
 	 */
 	@Override
 	public void updateEntity() {
-		System.out.println("Player lives: "+lives);
 		updateXPos();
 		updateYPos();
 		gravity();

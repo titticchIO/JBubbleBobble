@@ -1,6 +1,7 @@
 package game.model.enemies;
 
 import java.util.Random;
+
 import game.model.entities.MovingEntity;
 
 /**
@@ -90,4 +91,5 @@ public abstract class Enemy extends MovingEntity {
 		this.isStopped = isStopped;
 	}
 
+	
 }

@@ -13,6 +13,8 @@ import game.model.bubbles.FireBubble;
 import game.model.bubbles.PlayerBubble;
 import game.model.bubbles.ThunderBubble;
 import game.model.bubbles.WaterBubble;
+import game.model.bubbles.special_effects.FireBall;
+import game.model.bubbles.special_effects.FireBall.FireState;
 import game.model.HelpMethods;
 import game.model.Model;
 import game.model.bubbles.Bubble;
@@ -278,8 +280,15 @@ public class Level {
 			}, Player.INVULNERABILITY_INTERVAL); // Sets the timer for the invulnerability interval.
 		}
 	}
-	
-	
+
+	private void checkSpecialCollisions() {
+		List<FireBall> burningFireBalls = bubbleManager.getFireBalls().stream()
+				.filter(f -> f.getFireState() == FireState.BURN).toList();
+		Optional<Enemy> enemyHit = Entity.checkCollisions(burningFireBalls, enemyManager.getEnemies());
+		if (enemyHit.isPresent()) {
+			enemyHit.get().stun(10);
+		}
+	}
 
 	private void checkAllCollisions() {
 		checkJump();
@@ -287,6 +296,7 @@ public class Level {
 		checkPlayerBubbleCollisions();
 		captureEnemies();
 		killEnemies();
+		checkSpecialCollisions();
 	}
 
 	public void updateLevel() {
