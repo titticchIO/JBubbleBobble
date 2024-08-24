@@ -1,6 +1,8 @@
 package game.model.user;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -85,6 +87,42 @@ public class UserMethods {
 	        e.printStackTrace();
 	    }
 	}
+	
+	public static void saveLastUser(User user) {
+	    String directoryPath = "resources/";
+	    File directory = new File(directoryPath);
+
+	    // Verifica e crea la directory se non esiste
+	    if (!directory.exists()) {
+	        directory.mkdirs();
+	    }
+
+	    File lastUserFile = new File(directoryPath + "last_user.txt");
+
+	    try (FileWriter writer = new FileWriter(lastUserFile)) {
+	        writer.write(user.getNickname());
+	        writer.flush();
+	    } catch (IOException e) {
+	        System.out.println("Errore nella scrittura del file: " + lastUserFile.getName());
+	        e.printStackTrace();
+	    }
+	}
+	
+	public static String getLastUser(String path) {
+        String lastLine = null;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            String currentLine;
+            while ((currentLine = reader.readLine()) != null) {
+                lastLine = currentLine;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lastLine;
+    }
+
 
     
 
