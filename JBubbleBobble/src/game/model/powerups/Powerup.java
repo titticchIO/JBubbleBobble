@@ -2,9 +2,11 @@ package game.model.powerups;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Optional;
 
 import game.model.Model;
 import game.model.entities.Entity;
+import game.model.entities.Player;
 
 public abstract class Powerup extends Entity {
 	protected final int points;
@@ -31,7 +33,7 @@ public abstract class Powerup extends Entity {
 	}
 
 	private boolean checkPlayerCollision() {
-		return Entity.checkCollision(Model.getInstance().getCurrentLevel().getPlayer(), this);
+		return Entity.checkCollision(Model.getInstance().getCurrentLevel().getPlayer(), this).isPresent();
 	}
 
 	public void effect() {
@@ -45,15 +47,16 @@ public abstract class Powerup extends Entity {
 	
 
 	public void updatePowerup() {
+		
+		System.out.println(checkPlayerCollision());
 		if (checkPlayerCollision()) {
 			// timer creation
-			Timer effectTimer = new Timer();
 			Model.getInstance().getCurrentUser().addPoints(points);
 			// effect starts
 			
 			effect();
 			// scheduling end of the effect
-			effectTimer.schedule(new TimerTask() {
+			new Timer().schedule(new TimerTask() {
 				@Override
 				public void run() {
 					resetToNormal();
