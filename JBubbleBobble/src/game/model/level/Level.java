@@ -269,7 +269,7 @@ public class Level {
 			player.setInvulnerable(true);
 
 			// Sets a new invulnerability timer.
-			new Timer().schedule(new TimerTask() {
+			new Timer("Invulnerability").schedule(new TimerTask() {
 				@Override
 				public void run() {
 					// When the timer ends, the player becomes vulnerable again.
