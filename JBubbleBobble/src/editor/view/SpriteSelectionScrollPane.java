@@ -1,5 +1,6 @@
 package editor.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -7,10 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneLayout;
+import javax.swing.border.Border;
 
 import game.view.ImageLoader;
 import game.view.Images;
@@ -38,6 +42,8 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 		// Aggiunta di un bottone vuoto
 		others.add(new SelectionButton(ImageLoader.importImg("/EmptyTile.png"), " "));
 
+		//others.add(new SelectionButton(ImageLoader.importImg("/editor/eraser.png"), " "));
+		
 		setSize();
 		setLayout(new ScrollPaneLayout());
 
@@ -46,6 +52,8 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 																								// etichette
 
 		JPanel buttonPanel = new JPanel(new GridLayout(totalRows, 1));
+		buttonPanel.setBackground(Color.BLACK);
+		//buttonPanel.setForeground(Color.YELLOW);
 		buttonPanel.setSize(new Dimension((int) (100 * SCALE), (int) (totalRows * 40 * SCALE)));
 
 		// Aggiungi i titoli e i bottoni per ogni categoria
@@ -55,25 +63,33 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 		addCategory(buttonPanel, "Altro", others);
 
 		setViewportView(buttonPanel);
+		
+		//setBackground(Color.BLACK);
 	}
 
 	private void addCategory(JPanel panel, String title, List<SelectionButton> buttons) {
-		// Aggiungi il titolo
-		JLabel label = new JLabel(title);
-		panel.add(label);
+	    // Crea un bordo di colore arancione
+	    Border grayBorder = BorderFactory.createLineBorder(Color.GRAY, 1);
 
-		// Aggiungi i bottoni corrispondenti
-		for (SelectionButton b : buttons) {
-			b.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					deselectAllButtons();
-					b.setSelected(true);
-					setCurrentButton(b);
-				}
-			});
-			panel.add(b);
-		}
+	    // Aggiungi il titolo
+	    JLabel label = new JLabel(title);
+	    label.setForeground(Color.YELLOW); // Imposta il colore del testo a giallo
+	    label.setBorder(grayBorder); // Imposta il bordo arancione sull'etichetta
+	    label.setHorizontalAlignment(JLabel.CENTER); // Allinea il testo orizzontalmente al centro
+	    panel.add(label);
+
+	    // Aggiungi i bottoni corrispondenti
+	    for (SelectionButton b : buttons) {
+	        b.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	                deselectAllButtons();
+	                b.setSelected(true);
+	                setCurrentButton(b);
+	            }
+	        });
+	        panel.add(b);
+	    }
 	}
 
 	private void addBlocks() {
@@ -97,7 +113,7 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 	}
 
 	private void setSize() {
-		Dimension size = new Dimension((int) (60 * SCALE), PANEL_HEIGHT);
+		Dimension size = new Dimension((int) (80 * SCALE), PANEL_HEIGHT);
 		setPreferredSize(size);
 	}
 
