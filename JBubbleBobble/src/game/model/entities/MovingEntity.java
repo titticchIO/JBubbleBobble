@@ -55,8 +55,8 @@ public abstract class MovingEntity extends Entity {
 
 	// Indicates if the entity is in the air
 	protected boolean inAir;
-	
-	//Indicates if the entity is stunned
+
+	// Indicates if the entity is stunned
 	protected boolean isStunned;
 
 	/**
@@ -183,9 +183,11 @@ public abstract class MovingEntity extends Entity {
 		float prevAirSpeed = airSpeed;
 		setxSpeed(0);
 		setAirSpeed(0);
+		isStunned = true;
 		new Timer("Stun Timer").schedule(new TimerTask() {
 			@Override
 			public void run() {
+				isStunned = false;
 				setxSpeed(prevXSpeed);
 				setAirSpeed(prevAirSpeed);
 				this.cancel();
