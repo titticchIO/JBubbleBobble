@@ -20,8 +20,10 @@ public abstract class Entity {
 	 * @param otherEntity The second entity to check collision against.
 	 * @return {@code true} if the entities collide, {@code false} otherwise.
 	 */
-	public static <T extends Entity, U extends Entity> boolean checkCollision(T entity, U otherEntity) {
-		return entity.hit(otherEntity);
+	public static <T extends Entity, U extends Entity> Optional<U> checkCollision(T entity, U otherEntity) {
+		if (entity.hit(otherEntity))
+			return Optional.of(otherEntity);
+		return Optional.empty();
 	}
 
 	/**
@@ -67,6 +69,10 @@ public abstract class Entity {
 	 */
 	public static <T extends Entity, U extends Entity> Optional<U> checkTopCollision(T entity, List<U> list) {
 		return list.stream().filter(x -> x.bottomHit(entity)).findFirst();
+	}
+
+	public static <T extends Entity, U extends Entity> Optional<U> checkCollisions(List<T> list1, List<U> list2) {
+		return list1.stream().flatMap(x -> list2.stream().filter(x::hit)).findFirst();
 	}
 
 	// Position and dimensions of the entity
@@ -266,9 +272,9 @@ public abstract class Entity {
 		return (float) Math.sqrt(xDist * xDist + yDist * yDist);
 	}
 
-	
 	/**
-	 * Returns a hash code value for the object. This method is supported for the benefit of hash tables.
+	 * Returns a hash code value for the object. This method is supported for the
+	 * benefit of hash tables.
 	 *
 	 * @return a hash code value for this object.
 	 */
@@ -285,10 +291,12 @@ public abstract class Entity {
 	/**
 	 * Indicates whether some other object is "equal to" this one.
 	 * 
-	 * The {@code equals} method implements an equivalence relation on non-null object references.
+	 * The {@code equals} method implements an equivalence relation on non-null
+	 * object references.
 	 * 
 	 * @param obj the reference object with which to compare.
-	 * @return {@code true} if this object is the same as the {@code obj} argument; {@code false} otherwise.
+	 * @return {@code true} if this object is the same as the {@code obj} argument;
+	 *         {@code false} otherwise.
 	 */
 	@Override
 	public boolean equals(Object obj) {

@@ -1,8 +1,6 @@
 package game.model.level;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Optional;
@@ -149,16 +147,20 @@ public class Level {
 		}
 	}
 
-	public Optional<Enemy> checkPlayerEnemyCollision() {
-		return enemyManager.getEnemies().stream().filter(x -> x.hit(player)).findFirst();
+	public boolean checkPlayerEnemyCollision() {
+		return Entity.checkCollision(player, enemyManager.getEnemies()).isPresent();
 	}
 
-	public Optional<Bubble> checkPlayerBubbleCollision() {
-		return bubbleManager.getBubbles().stream().filter(x -> x.hit(player)).findFirst();
+	public boolean checkPlayerBubbleCollision() {
+		return Entity.checkCollision(player, bubbleManager.getBubbles()).isPresent();
 	}
 
+	
+	public boolean checkEnemiesBubblesCollision() {
+		return Entity.checkCollisions(bubbleManager.getPlayerBubbles(), enemyManager.getEnemies()).isPresent();
+	}
 	public void captureEnemies() {
-		if (checkCollisions(bubbleManager.getPlayerBubbles(), enemyManager.getEnemies()))
+		if (checkEnemiesBubblesCollision())
 			bubbleManager.getPlayerBubbles().stream()
 					.forEach(b -> enemyManager.getEnemies().stream().filter(b::isEnemyHit).forEach(e -> {
 						if (!b.hasEnemy()) {
@@ -223,9 +225,7 @@ public class Level {
 		enemyManager.removeEnemy(enemy);
 	}
 
-	public static <T extends Entity, U extends Entity> boolean checkCollisions(List<T> list1, List<U> list2) {
-		return list1.stream().anyMatch(x -> list2.stream().anyMatch(x::hit));
-	}
+	
 
 	public void updateLevel() {
 		player.updateEntity();
@@ -235,11 +235,9 @@ public class Level {
 		captureEnemies();
 		killEnemies();
 
-		Optional<Enemy> oe = checkPlayerEnemyCollision();
-//		if (oe.isPresent()) System.out.println("Hittato enemy");
+//		if (checkPlayerEnemyCollision()) System.out.println("Hittato enemy");
 
-		Optional<Bubble> ob = checkPlayerBubbleCollision();
-//		if (ob.isPresent()) System.out.println("Hittato bolla");
+//		if (checkPlayerBubbleCollision()) System.out.println("Hittato bolla");
 
 	}
 

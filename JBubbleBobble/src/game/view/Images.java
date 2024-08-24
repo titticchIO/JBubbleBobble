@@ -17,7 +17,6 @@ public class Images {
 		imageMap.put("4", "/blocks/normal_blocks/block_4");
 		imageMap.put("P", "/player/");
 		imageMap.put("°", "/bubbles/playerBubble");
-		imageMap.put("+", "/bubbles/playerBubble");
 		imageMap.put("-", "/bubbles/fireBubble");
 		imageMap.put("+", "/bubbles/thunderBubble");
 		imageMap.put("/", "/bubbles/waterBubble");
