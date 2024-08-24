@@ -5,15 +5,22 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import game.model.bubbles.BubbleManager;
+import game.model.bubbles.FireBubble;
 import game.model.bubbles.PlayerBubble;
+import game.model.bubbles.ThunderBubble;
+import game.model.bubbles.WaterBubble;
+import game.model.HelpMethods;
+import game.model.Model;
 import game.model.bubbles.Bubble;
 import game.model.enemies.Enemy;
 import game.model.enemies.EnemyManager;
 import game.model.entities.Entity;
 import game.model.entities.Player;
-
+import game.model.entities.MovingEntity.Direction;
 import game.model.powerups.Powerup;
 import game.model.powerups.PowerupManager;
 import game.model.tiles.Tile;
@@ -70,9 +77,9 @@ public class Level {
 		entities.add(player);
 		entities.addAll(bubbleManager.getBubbles());
 		entities.addAll(bubbleManager.getPlayerBubbles());
-		entities.addAll(bubbleManager.getFireBalls());		
+		entities.addAll(bubbleManager.getFireBalls());
 		entities.addAll(bubbleManager.getBolts());
-		entities.addAll(bubbleManager.getWaters());	
+		entities.addAll(bubbleManager.getWaters());
 		entities.addAll(enemyManager.getEnemies());
 		entities.addAll(enemyManager.getLasers());
 		entities.addAll(powerupManager.getPowerups());
@@ -158,10 +165,10 @@ public class Level {
 		return Entity.checkCollision(player, bubbleManager.getBubbles()).isPresent();
 	}
 
-	
 	public boolean checkEnemiesBubblesCollision() {
 		return Entity.checkCollisions(bubbleManager.getPlayerBubbles(), enemyManager.getEnemies()).isPresent();
 	}
+
 	public void captureEnemies() {
 		if (checkEnemiesBubblesCollision())
 			bubbleManager.getPlayerBubbles().stream()
@@ -171,7 +178,7 @@ public class Level {
 								b.pop();
 							else
 								b.setEnemy(e);
-							removeEnemy(e);
+							enemyManager.removeEnemy(e);
 						}
 					}));
 	}
@@ -224,19 +231,70 @@ public class Level {
 		}
 	}
 
-	public void removeEnemy(Enemy enemy) {
-		enemyManager.removeEnemy(enemy);
+	public void checkJump() {
+		if (player.isJumping()) {
+			Optional<PlayerBubble> bounceBubble = Entity.checkBottomCollision(player, bubbleManager.getPlayerBubbles());
+			if (HelpMethods.isEntityGrounded(player))
+				player.jump();
+			if (bounceBubble.isPresent() && bounceBubble.get().getEnemy() == null) {
+				player.jump();
+				powerupManager.increaseNumberOfJumpsOnBubbles();
+			}
+		}
 	}
 
+	private void checkPlayerBubbleCollisions() {
+		Optional<PlayerBubble> playerPopBubble = Entity.checkTopCollision(player, bubbleManager.getPlayerBubbles());
+		if (playerPopBubble.isPresent()) {
+			playerPopBubble.get().popAndKill();
+			powerupManager.increaseNumberOfBubblesPopped();
+		}
+		Optional<Bubble> specialPopBubble = Entity.checkCollision(player, bubbleManager.getBubbles());
+		if (specialPopBubble.isPresent()) {
+			specialPopBubble.get().pop();
+			if (specialPopBubble.get() instanceof FireBubble)
+				powerupManager.increaseNumberOfFireBubblesPopped();
+			else if (specialPopBubble.get() instanceof WaterBubble)
+				powerupManager.increaseNumberOfWaterBubblesPopped();
+			else if (specialPopBubble.get() instanceof ThunderBubble)
+				powerupManager.increaseNumberOfThunderBubblesPopped();
+		}
+	}
+
+	public void checkLooseLife() {
+		// Checks if the player is invulnerable; if not, the player can lose a life.
+		if (!player.isInvulnerable() && Entity.checkCollision(player, enemyManager.getHazards()).isPresent()) {
+			player.looseLife();
+			// Activates invulnerability.
+			player.setInvulnerable(true);
+
+			// Sets a new invulnerability timer.
+			new Timer().schedule(new TimerTask() {
+				@Override
+				public void run() {
+					// When the timer ends, the player becomes vulnerable again.
+					player.setInvulnerable(false);
+				}
+			}, Player.INVULNERABILITY_INTERVAL); // Sets the timer for the invulnerability interval.
+		}
+	}
 	
+	
+
+	private void checkAllCollisions() {
+		checkJump();
+		checkLooseLife();
+		checkPlayerBubbleCollisions();
+		captureEnemies();
+		killEnemies();
+	}
 
 	public void updateLevel() {
 		player.updateEntity();
 		enemyManager.updateEnemies();
 		bubbleManager.updateBubbles();
 		powerupManager.updatePowerups();
-		captureEnemies();
-		killEnemies();
+		checkAllCollisions();
 
 //		if (checkPlayerEnemyCollision()) System.out.println("Hittato enemy");
 

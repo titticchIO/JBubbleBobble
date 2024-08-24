@@ -3,6 +3,7 @@ package game.model.entities;
 import game.model.bubbles.PlayerBubble;
 import game.model.bubbles.ThunderBubble;
 import game.model.bubbles.WaterBubble;
+import game.model.entities.MovingEntity.Direction;
 import game.model.level.Level;
 import game.model.bubbles.Bubble;
 import game.model.bubbles.FireBubble;
@@ -91,10 +92,10 @@ public class Player extends MovingEntity {
 	private Player(float x, float y, float width, float height) {
 		super(x, y, width, height, "P");
 		state = State.WALK;
-		bubbleDirection = Direction.RIGHT;
+		setBubbleDirection(Direction.RIGHT);
 		lives = NUMBER_OF_LIVES;
 		extraXSpeed = 1;
-		canShoot = true;
+		setCanShoot(true);
 		attackSpeed = 2;
 		previousX = x;
 	}
@@ -136,7 +137,7 @@ public class Player extends MovingEntity {
 	public void setDirection(Direction direction) {
 		super.setDirection(direction);
 		if (direction == Direction.RIGHT || direction == Direction.LEFT)
-			bubbleDirection = direction;
+			setBubbleDirection(direction);
 	}
 
 	/**
@@ -226,28 +227,10 @@ public class Player extends MovingEntity {
 	}
 
 	/**
-	 * Handles the player's loss of life. If the player is not invulnerable, this
-	 * method decreases the player's lives by one and activates a period of
-	 * invulnerability.
+	 * Handles the player's loss of life, decrementing its lives.
 	 */
 	public void looseLife() {
-		// Checks if the player is invulnerable; if not, the player can lose a life.
-		if (!isInvulnerable
-				&& Entity.checkCollision(this, Model.getInstance().getCurrentLevel().getEnemyManager().getHazards())
-						.isPresent()) {
-			lives--;
-			// Activates invulnerability.
-			isInvulnerable = true;
-
-			// Sets a new invulnerability timer.
-			new Timer().schedule(new TimerTask() {
-				@Override
-				public void run() {
-					// When the timer ends, the player becomes vulnerable again.
-					isInvulnerable = false;
-				}
-			}, INVULNERABILITY_INTERVAL); // Sets the timer for the invulnerability interval.
-		}
+		lives--;
 	}
 
 	/**
@@ -271,6 +254,8 @@ public class Player extends MovingEntity {
 	 * current direction if not obstructed by a wall, and shooting is temporarily
 	 * disabled after each shot.
 	 */
+	
+
 	public void shootBubble() {
 		// Checks if the player can shoot.
 		if (canShoot) {
@@ -296,41 +281,6 @@ public class Player extends MovingEntity {
 			}, ATTACK_INTERVAL * attackSpeed); // Sets the timer based on the attack speed.
 		}
 	}
-
-	public void checkJump() {
-
-		if (isJumping()) {
-			Optional<PlayerBubble> bounceBubble = Entity.checkBottomCollision(this,
-					Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles());
-			if (HelpMethods.isEntityGrounded(this))
-				jump();
-			if (bounceBubble.isPresent() && bounceBubble.get().getEnemy() == null) {
-				jump();
-				Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfJumpsOnBubbles();
-			}
-		}
-	}
-
-	private void checkBubbleCollisions() {
-		Optional<PlayerBubble> playerPopBubble = Entity.checkTopCollision(this,
-				Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles());
-		if (playerPopBubble.isPresent()) {
-			playerPopBubble.get().popAndKill();
-			Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfBubblesPopped();
-		}
-		Optional<Bubble> specialPopBubble = Entity.checkCollision(this,
-				Model.getInstance().getCurrentLevel().getBubbleManager().getBubbles());
-		if (specialPopBubble.isPresent()) {
-			specialPopBubble.get().pop();
-			if (specialPopBubble.get() instanceof FireBubble)
-				Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfFireBubblesPopped();
-			else if (specialPopBubble.get() instanceof WaterBubble)
-				Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfWaterBubblesPopped();
-			else if (specialPopBubble.get() instanceof ThunderBubble)
-				Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfThunderBubblesPopped();
-		}
-	}
-
 	/**
 	 * Updates the player's state each game tick. This includes checking for
 	 * collisions with bubbles, handling jumping, popping bubbles, updating
@@ -338,12 +288,33 @@ public class Player extends MovingEntity {
 	 */
 	@Override
 	public void updateEntity() {
-		checkJump();
-
-		checkBubbleCollisions();
+		System.out.println("Player lives: "+lives);
 		updateXPos();
 		updateYPos();
 		gravity();
-		looseLife();
+	}
+
+	public boolean isInvulnerable() {
+		return isInvulnerable;
+	}
+
+	public void setInvulnerable(boolean isInvulnerable) {
+		this.isInvulnerable = isInvulnerable;
+	}
+
+	public boolean isCanShoot() {
+		return canShoot;
+	}
+
+	public void setCanShoot(boolean canShoot) {
+		this.canShoot = canShoot;
+	}
+
+	public Direction getBubbleDirection() {
+		return bubbleDirection;
+	}
+
+	public void setBubbleDirection(Direction bubbleDirection) {
+		this.bubbleDirection = bubbleDirection;
 	}
 }
