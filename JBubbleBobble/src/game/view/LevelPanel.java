@@ -11,15 +11,11 @@ import javax.swing.JPanel;
 
 import game.model.entities.Entity;
 import game.model.entities.Player;
+import game.model.HelpMethods;
 import game.model.bubbles.PlayerBubble;
-import game.model.enemies.Banebou;
-import game.model.enemies.Enemy;
-import game.model.enemies.Invader;
-import game.model.enemies.Laser;
-import game.model.enemies.Monsta;
-import game.model.enemies.Pulpul;
-import game.model.enemies.SkelMonsta;
-import game.model.enemies.ZenChan;
+import game.model.bubbles.WaterBubble;
+import game.model.bubbles.special_effects.Water;
+import game.model.enemies.*;
 import game.model.level.Level;
 import game.model.powerups.OrangeParasol;
 import game.model.powerups.Parasol;
@@ -86,7 +82,8 @@ public class LevelPanel extends JPanel {
 				yield Images.getImage(playerBubble.getCode());
 			}
 		}
-
+		case WaterBubble waterBubble -> AnimationLoader.loadEntityImage("/bubbles/waterBubble.gif");
+		case Water water -> HelpMethods.isEntityGrounded(water) ? Images.getImage("_") : Images.getImage("|");
 		default -> Images.getImage(entity.getCode());
 		};
 		if (entity instanceof Tile) {

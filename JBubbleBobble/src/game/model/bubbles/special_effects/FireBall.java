@@ -19,6 +19,13 @@ public class FireBall extends MovingEntity {
 		super(x, y, "#");
 		airSpeed = 2.0f;
 		this.fireState = fireState;
+		new Timer().schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				Model.getInstance().getCurrentLevel().getBubbleManager().removeFireBall(FireBall.this);
+			}
+		}, 5000);
 	}
 
 	public FireBall(float x, float y) {
@@ -37,11 +44,10 @@ public class FireBall extends MovingEntity {
 		int xPos = (int) (x / TILE_SIZE);
 		int yPos = (int) (y / TILE_SIZE);
 		for (int i = 1; i < 3; i++) {
-			if (!lvlData[yPos][xPos + i].matches("[0-9]"))
+			if (lvlData[yPos + 1][xPos + i].matches("[0-9]"))
 				Model.getInstance().getCurrentLevel().getBubbleManager()
 						.addFireBall(new FireBall((xPos + i) * TILE_SIZE, yPos * TILE_SIZE, FireState.BURN));
-
-			if (!lvlData[yPos][xPos - i].matches("[0-9]"))
+			if (lvlData[yPos + 1][xPos - i].matches("[0-9]"))
 				Model.getInstance().getCurrentLevel().getBubbleManager()
 						.addFireBall(new FireBall((xPos - i) * TILE_SIZE, yPos * TILE_SIZE, FireState.BURN));
 
@@ -57,7 +63,6 @@ public class FireBall extends MovingEntity {
 
 			@Override
 			public void run() {
-				System.out.println("removed");
 				Model.getInstance().getCurrentLevel().getBubbleManager().removeFireBall(FireBall.this);
 			}
 		}, 5000);
