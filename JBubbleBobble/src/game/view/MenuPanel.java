@@ -70,21 +70,12 @@ public class MenuPanel extends JPanel {
             }
         };
 
-        String lastUser = UserMethods.getLastUser("resources/last_user.txt");
-        User firstUser = Model.getInstance().getUserByNickname(lastUser);
-        Model.getInstance().setCurrentUser(firstUser);
-        if (firstUser != null) {
-            currentUserPanel = new UserPanel(firstUser) {
-                {
-                    setBounds(10, 20, 100, 120);
-                    getUserButton().setBorderPainted(false); // Remove the button border
-                    getUserButton().setFocusPainted(false); // Remove the focus border
-                    getUserButton().addActionListener((e -> {}));	
-                }
-            };
-            add(currentUserPanel);
-        }
-
+        String lastUserNickname = UserMethods.getLastUser("resources/last_user.txt");
+        User lastUser = Model.getInstance().getUserByNickname(lastUserNickname);
+        Model.getInstance().setCurrentUser(lastUser);
+        
+        updateCurrentUserPanel();
+        
         userSelectionPopUp = new JPopupMenu();
         updateUserSelectionPopUp();
 
@@ -116,7 +107,8 @@ public class MenuPanel extends JPanel {
             userPanelContainer.add(userPanel);
 
             userPanel.getUserButton().addActionListener(e -> {
-                updateCurrentUserPanel(user);
+                Model.getInstance().setCurrentUser(user);  // Aggiorna il Model con l'utente selezionato
+                updateCurrentUserPanel();                  // Aggiorna il pannello utente corrente dopo aver cambiato l'utente nel Model
                 userSelectionPopUp.setVisible(false);
             });
         });
@@ -139,7 +131,8 @@ public class MenuPanel extends JPanel {
         userSelectionPopUp.setPreferredSize(new Dimension(120, 300));
     }
 
-    private void updateCurrentUserPanel(User user) {
+    private void updateCurrentUserPanel() {    	
+        User user = Model.getInstance().getCurrentUser();
         if (currentUserPanel != null) {
             remove(currentUserPanel);
         }
@@ -218,16 +211,16 @@ public class MenuPanel extends JPanel {
                 } catch (IOException e) {
                     System.err.println("Errore durante la copia del file: " + e.getMessage());
                 }
-                User newUser = new User(nickname, 0, avatarPath,0,0,0);
+                User newUser = new User(nickname, 0, avatarPath, 0, 0, 0);
                 Model.getInstance().addUser(newUser);
                 Model.getInstance().setCurrentUser(newUser);
-                updateCurrentUserPanel(newUser);
+                updateCurrentUserPanel();
                 UserMethods.saveUsersData(nickname, 0, 0, 0, 0);
                 
                 // Aggiorna il pop-up dopo aver aggiunto un nuovo utente
                 updateUserSelectionPopUp();
             } else {
-                JOptionPane.showMessageDialog(this, "Nickname e Avatar sono obbligatori!", "Errore", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Il nickname è obbligatorio!", "Errore", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
