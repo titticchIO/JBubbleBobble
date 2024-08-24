@@ -141,6 +141,8 @@ public class Model extends Observable {
 
 	public void setCurrentUser(User currentUser) {
 		this.currentUser = currentUser;
+		UserMethods.saveLastUser(currentUser);
+	
 	}
 
 	private void loadUsers() {
@@ -174,6 +176,15 @@ public class Model extends Observable {
 				break; // Uscire dal ciclo una volta trovato l'utente
 			}
 		}
+	}
+	
+	public User getUserByNickname(String selectedNickname) {
+		for (User user : users) { // 'users' è la lista di utenti
+			if (user.getNickname().equals(selectedNickname)) {
+				return user;
+			}
+		}
+		return null;
 	}
 
 	public ModelState getModelState() {

@@ -20,6 +20,8 @@ import game.model.Model;
 import game.model.user.User;
 
 public class UserPanel extends JPanel {
+	
+	private JButton userButton;
 
 	public UserPanel(User user) {
 		setOpaque(false);
@@ -27,7 +29,7 @@ public class UserPanel extends JPanel {
 		JLabel avatarLabel = new JLabel();
 		try {
 			BufferedImage avatar = ImageIO.read(Paths.get(user.getAvatarPath()).toFile());
-			ImageIcon avatarIcon = new ImageIcon(avatar.getScaledInstance(80, 80, Image.SCALE_SMOOTH)); // Scala
+			ImageIcon avatarIcon = new ImageIcon(avatar.getScaledInstance(100, 100, Image.SCALE_SMOOTH)); // Scala
 																										// l'avatar
 			avatarLabel.setIcon(avatarIcon);
 		} catch (IOException e) {
@@ -35,14 +37,22 @@ public class UserPanel extends JPanel {
 			avatarLabel.setText("No Avatar");
 		}
 		
-		JButton userButton = new JButton(user.getNickname());
+		userButton = new JButton(user.getNickname());
+		
+		/*
+		if (onlyView == true) {
+			userButton.setBorderPainted(false); // Remove the button border
+            userButton.setFocusPainted(false); // Remove the focus border
+    		//userButton.setEnabled(false);
+		}
+		*/
 		userButton.setBackground(Color.YELLOW);
 		userButton.setForeground(Color.MAGENTA);
 		Font font=new Font("Arial", Font.BOLD, 12);
 		userButton.setFont(font);
-		userButton.addActionListener(e -> {
-			// Imposta l'utente corrente nel Model
-			Model.getInstance().setCurrentUser(user);
+		userButton.addActionListener(e -> {			
+			Model.getInstance().setCurrentUser(user); // Imposta l'utente corrente nel Model	
+			
 		});
 
 		userButton.setHorizontalTextPosition(JButton.CENTER);
@@ -50,7 +60,13 @@ public class UserPanel extends JPanel {
 
 		add(avatarLabel, BorderLayout.CENTER);
 		add(userButton, BorderLayout.SOUTH);
-		setPreferredSize(new Dimension(100, 90));
+		setPreferredSize(new Dimension(100, 120));
 	}
+	
+	public JButton getUserButton() {
+		return userButton;
+	}
+	
+	
 
 }

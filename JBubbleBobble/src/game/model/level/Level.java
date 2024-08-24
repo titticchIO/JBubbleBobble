@@ -70,6 +70,7 @@ public class Level {
 		entities.add(player);
 		entities.addAll(bubbleManager.getBubbles());
 		entities.addAll(bubbleManager.getPlayerBubbles());
+		entities.addAll(bubbleManager.getFireBalls());		
 		entities.addAll(enemyManager.getEnemies());
 		entities.addAll(enemyManager.getLasers());
 		entities.addAll(powerupManager.getPowerups());

@@ -1,6 +1,10 @@
 package game.model.entities;
 
 import game.model.bubbles.PlayerBubble;
+import game.model.bubbles.ThunderBubble;
+import game.model.bubbles.WaterBubble;
+import game.model.bubbles.Bubble;
+import game.model.bubbles.FireBubble;
 import game.model.tiles.Tile;
 import game.model.HelpMethods;
 import game.model.Model;
@@ -144,7 +148,8 @@ public class Player extends MovingEntity {
 		// Updates distance traveled according to the difference between x and
 		// previousX.
 		Model.getInstance().getCurrentLevel().getPowerupManager().increaseDistanceTraveled(Math.abs(x - previousX));
-		if (crystalRingActive && previousX != x) Model.getInstance().getCurrentUser().addPoints(1);
+		if (crystalRingActive && previousX != x)
+			Model.getInstance().getCurrentUser().addPoints(1);
 
 		// Updates previousX with new x value.
 		previousX = x;
@@ -291,6 +296,40 @@ public class Player extends MovingEntity {
 		}
 	}
 
+	public void checkJump() {
+
+		if (isJumping()) {
+			Optional<PlayerBubble> bounceBubble = Entity.checkBottomCollision(this,
+					Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles());
+			if (HelpMethods.isEntityGrounded(this))
+				jump();
+			if (bounceBubble.isPresent() && bounceBubble.get().getEnemy() == null) {
+				jump();
+				Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfJumpsOnBubbles();
+			}
+		}
+	}
+
+	private void checkBubbleCollisions() {
+		Optional<PlayerBubble> playerPopBubble = Entity.checkTopCollision(this,
+				Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles());
+		if (playerPopBubble.isPresent()) {
+			playerPopBubble.get().popAndKill();
+			Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfBubblesPopped();
+		}
+		Optional<Bubble> specialPopBubble = Entity.checkCollision(this,
+				Model.getInstance().getCurrentLevel().getBubbleManager().getBubbles());
+		if (specialPopBubble.isPresent()) {
+			specialPopBubble.get().pop();
+			if (specialPopBubble.get() instanceof FireBubble)
+				Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfFireBubblesPopped();
+			else if (specialPopBubble.get() instanceof WaterBubble)
+				Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfWaterBubblesPopped();
+			else if (specialPopBubble.get() instanceof ThunderBubble)
+				Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfThunderBubblesPopped();
+		}
+	}
+
 	/**
 	 * Updates the player's state each game tick. This includes checking for
 	 * collisions with bubbles, handling jumping, popping bubbles, updating
@@ -298,22 +337,10 @@ public class Player extends MovingEntity {
 	 */
 	@Override
 	public void updateEntity() {
-		
-		Optional<PlayerBubble> bounceBubble = Entity.checkBottomCollision(this,
-				Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles());
-		if (isJumping() && ((bounceBubble.isPresent() && bounceBubble.get().getEnemy() == null)
-				|| HelpMethods.isEntityGrounded(this))) {
-			jump();
-			if (bounceBubble.isPresent() && bounceBubble.get().getEnemy() == null && isJumping)
-				Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfJumpsOnBubbles();
-		}
+		checkJump();
 
-		Optional<PlayerBubble> popBubble = Entity.checkTopCollision(this,
-				Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles());
-		if (popBubble.isPresent()) {
-			popBubble.get().popAndKill();
-			Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfBubblesPopped();
-		}
+		checkBubbleCollisions();
+
 		updateXPos();
 		updateYPos();
 		gravity();
