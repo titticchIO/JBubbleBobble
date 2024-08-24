@@ -12,8 +12,7 @@ public abstract class Powerup extends Entity {
 	protected final int points;
 	protected long duration;
 	protected boolean toRemove;
-	
-	
+
 	public Powerup(float x, float y, String code, int points, long duration) {
 		super(x, y, code);
 		this.points = points;
@@ -44,16 +43,13 @@ public abstract class Powerup extends Entity {
 	public void resetToNormal() {
 		toRemove = true;
 	}
-	
 
 	public void updatePowerup() {
-		
-		System.out.println(checkPlayerCollision());
 		if (checkPlayerCollision()) {
 			// timer creation
 			Model.getInstance().getCurrentUser().addPoints(points);
 			// effect starts
-			
+
 			effect();
 			// scheduling end of the effect
 			new Timer().schedule(new TimerTask() {
