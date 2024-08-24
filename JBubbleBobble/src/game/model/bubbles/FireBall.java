@@ -21,7 +21,8 @@ public class FireBall extends MovingEntity {
 		String[][] lvlData = Model.getInstance().getCurrentLevel().getLvlData();
 		int xPos = (int) (x / Tile.TILE_SIZE);
 		int yPos = (int) (y / Tile.TILE_SIZE);
-		System.out.println(lvlData[yPos-1][xPos]);
+		System.out.println("|" + lvlData[yPos + 1][xPos] + "|");
+		Model.getInstance().getCurrentLevel().getBubbleManager().removeFireBall(this);
 	}
 
 	@Override

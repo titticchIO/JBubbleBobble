@@ -17,11 +17,14 @@ public class PowerupManager {
 	private Timer spawnTimer;
 	private List<Powerup> powerups;
 
+	private float distanceTravelled;
 	private int numberOfJumps;
 	private int numberOfJumpsOnBubbles;
 	private int numberOfBubbles;
 	private int numberOfBubblesPopped;
-	private float distanceTravelled;
+	private int numberOfFireBubblesPopped;
+	private int numberOfWaterBubblesPopped;
+	private int numberOfThunderBubblesPopped;
 
 	public PowerupManager() {
 		powerups = new CopyOnWriteArrayList<>();
@@ -41,6 +44,15 @@ public class PowerupManager {
 
 	public void increaseNumberOfBubblesPopped() {
 		numberOfBubblesPopped++;
+	}
+	public void increaseNumberOfFireBubblesPopped() {
+		numberOfFireBubblesPopped++;
+	}
+	public void increaseNumberOfWaterBubblesPopped() {
+		numberOfWaterBubblesPopped++;
+	}
+	public void increaseNumberOfThunderBubblesPopped() {
+		numberOfThunderBubblesPopped++;
 	}
 
 	public void increaseDistanceTraveled(float newDistance) {

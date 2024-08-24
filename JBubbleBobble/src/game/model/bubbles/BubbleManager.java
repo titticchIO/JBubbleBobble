@@ -1,5 +1,6 @@
 package game.model.bubbles;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -11,12 +12,14 @@ import game.model.tiles.Tile;
 public class BubbleManager {
 	private List<Bubble> bubbles;
 	private List<PlayerBubble> playerBubbles;
+	private List<FireBall> fireBalls;
 
 	private boolean doOnce = true;
 
 	public BubbleManager() {
 		bubbles = new CopyOnWriteArrayList<>();
 		playerBubbles = new CopyOnWriteArrayList<>();
+		fireBalls = new CopyOnWriteArrayList<>();
 	}
 
 	public void createBubble(float x, float y, float xSpeed) {
@@ -54,6 +57,14 @@ public class BubbleManager {
 		playerBubbles.remove(playerBubble);
 	}
 
+	public void addFireBall(FireBall fireBall) {
+		fireBalls.add(fireBall);
+	}
+
+	public void removeFireBall(FireBall fireBall) {
+		fireBalls.remove(fireBall);
+	}
+
 	public List<Bubble> getBubbles() {
 		return bubbles;
 	}
@@ -61,10 +72,15 @@ public class BubbleManager {
 	public List<PlayerBubble> getPlayerBubbles() {
 		return playerBubbles;
 	}
+	
+	public List<FireBall> getFireBalls() {
+		return fireBalls;
+	}
 
 	public void updateBubbles() {
 		bubbles.forEach(b -> b.updateEntity());
 		playerBubbles.forEach(pb -> pb.updateEntity());
+		fireBalls.forEach(f->f.updateEntity());
 		createSpecialBubble();
 	}
 }
