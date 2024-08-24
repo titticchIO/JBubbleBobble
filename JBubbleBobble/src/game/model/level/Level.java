@@ -214,7 +214,7 @@ public class Level {
 	public void spawnBubble(Bubble bubble) {
 		if (bubblesSpawnPoints.size() != 0) {
 			float y = (lvlData.length) * Tile.TILE_SIZE;
-			float x = (bubblesSpawnPoints.get(new Random().nextInt(bubblesSpawnPoints.size())) - 1);
+			float x = (bubblesSpawnPoints.get(new Random().nextInt(bubblesSpawnPoints.size())));
 			bubble.setPosition(x, y);
 			bubbleManager.addBubble(bubble);
 		}

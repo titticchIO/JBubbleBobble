@@ -17,7 +17,7 @@ import game.controller.gamestates.Menu;
 public class Game implements Runnable {
 	private Thread gameThread;
 	private boolean running;
-	private final float GAME_SPEED = 1.0f;
+	private final float GAME_SPEED = 0.3f;
 	private final int FPS_SET = 120;
 	private final int UPS_SET = (int) (200 * GAME_SPEED);
 	private GameFrame gameFrame;

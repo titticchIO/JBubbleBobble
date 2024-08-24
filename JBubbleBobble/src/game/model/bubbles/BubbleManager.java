@@ -42,7 +42,6 @@ public class BubbleManager {
 			doOnce = false;
 			Bubble fireBubble = new FireBubble();
 			Model.getInstance().getCurrentLevel().spawnBubble(fireBubble);
-//			bubbles.add(fireBubble);
 		}
 	}
 
