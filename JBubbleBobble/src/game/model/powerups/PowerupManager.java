@@ -152,7 +152,7 @@ public class PowerupManager {
 
 	public void updatePowerups() {
 		if (spawnTimer == null) {
-			spawnTimer = new Timer();
+			spawnTimer = new Timer("Powerup Update");
 
 			spawnTimer.schedule(new TimerTask() {
 

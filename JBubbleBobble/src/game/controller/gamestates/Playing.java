@@ -3,6 +3,7 @@ package game.controller.gamestates;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import game.controller.AudioManager;
 import game.controller.Game;
 
 import game.model.Model;
@@ -10,6 +11,7 @@ import game.model.Model.ModelState;
 import game.model.bubbles.BubbleManager;
 import game.model.entities.MovingEntity.Direction;
 import game.model.level.Level;
+import game.view.AnimationLoader;
 import game.view.GameFrame.Screen;
 
 public class Playing extends State implements Statemethods {

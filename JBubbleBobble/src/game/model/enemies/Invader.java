@@ -65,7 +65,7 @@ public class Invader extends Enemy {
 				attackTimer.cancel();
 			}
 			// Crea un nuovo Timer per l'attacco
-			attackTimer = new Timer();
+			attackTimer = new Timer("Invader laser");
 			attackTimer.schedule(new TimerTask() {
 				@Override
 				public void run() {
