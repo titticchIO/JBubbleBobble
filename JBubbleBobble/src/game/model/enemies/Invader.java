@@ -9,16 +9,10 @@ import java.util.TimerTask;
 
 public class Invader extends Enemy {
 
-	public static final long ATTACK_INTERVAL = 2000;
+	public static final long ATTACK_INTERVAL = 1000;
 
-	private State state;
 	private boolean landed;
-	private Timer attackTimer;
-	private boolean canShoot;
-
-	public enum State {
-		WALK, SHOOT
-	}
+	private boolean startedShooting;
 
 	public Invader(float x, float y, float width, float height) {
 		super(x, y, width, height, "I");
@@ -26,11 +20,9 @@ public class Invader extends Enemy {
 
 	public Invader(float x, float y) {
 		super(x, y, "I");
-		state = State.WALK;
 		setAirSpeed(1);
 		setDirection(Direction.LEFT);
 		setColor(Color.NORMAL);
-		canShoot=true;
 	}
 
 	public void switchDirection() {
@@ -58,29 +50,25 @@ public class Invader extends Enemy {
 	}
 
 	private void shootLaser() {
-		if (canShoot && randomBoolean(3) ) {
+		if (randomBoolean(3)) {
 			Model.getInstance().getCurrentLevel().getEnemyManager().addLaser(new Laser(x + 5, y + height, 6, 20));
-			canShoot = false;
-			if (attackTimer != null) {
-				attackTimer.cancel();
-			}
-			// Crea un nuovo Timer per l'attacco
-			attackTimer = new Timer("Invader laser");
-			attackTimer.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					// Dopo attackSpeed millisecondi, il player può sparare di nuovo
-					canShoot = true;
-					attackTimer.cancel(); // Ferma il timer una volta completato
-				}
-			}, ATTACK_INTERVAL); // Imposta il timer in base alla velocità di attacco
-
 		}
+		new Timer("Invader Laser").schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				shootLaser();
+			}
+		}, ATTACK_INTERVAL);
 
 	}
 
 	@Override
 	public void updateEntity() {
+		if (!startedShooting) {
+			shootLaser();
+			startedShooting = true;
+		}
 		if (!isStopped) {
 			if (!HelpMethods.isEntityGrounded(this) && landed)
 				landed = false;
@@ -89,14 +77,13 @@ public class Invader extends Enemy {
 				randomizeDirection();
 			}
 			switchDirection();
-	
+
 			if (!inAir) {
 				updateXPos();
 			} else
 				setAirSpeed(0.5f);
 			move(0.5f);
 			updateYPos();
-			shootLaser();
 		}
 	}
 

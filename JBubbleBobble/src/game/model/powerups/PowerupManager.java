@@ -159,9 +159,9 @@ public class PowerupManager {
 				@Override
 				public void run() {
 					createPowerup();
-					spawnTimer.cancel();
+					spawnTimer=null;
 				}
-			}, 10000);
+			}, 20000);
 		}
 
 		for (Powerup powerup : powerups) {

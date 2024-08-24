@@ -48,7 +48,7 @@ public class Model extends Observable {
 		levels = new ArrayList<>();
 		users = new ArrayList<>();
 		loadUsers();
-		//setCurrentUser(users.getFirst());
+		// setCurrentUser(users.getFirst());
 		modelState = ModelState.PLAY;
 		setChanged();
 		notifyObservers();
@@ -104,6 +104,11 @@ public class Model extends Observable {
 		notifyObservers("next");
 	}
 
+	public void setWin() {
+		modelState = ModelState.WIN;
+		currentUser.addWonGame();// Set game state to WIN if no more levels
+	}
+
 	public void updateModel() {
 
 		currentLevel.updateLevel(); // Update the current level logic
@@ -116,8 +121,7 @@ public class Model extends Observable {
 			if (levelIterator.hasNext()) {
 				nextLevel(); // Proceed to the next level if all enemies are cleared
 			} else {
-				modelState = ModelState.WIN;
-				currentUser.addWonGame();// Set game state to WIN if no more levels
+				setWin();
 			}
 		}
 		setChanged();
@@ -142,7 +146,7 @@ public class Model extends Observable {
 	public void setCurrentUser(User currentUser) {
 		this.currentUser = currentUser;
 		UserMethods.saveLastUser(currentUser);
-	
+
 	}
 
 	private void loadUsers() {
@@ -177,7 +181,7 @@ public class Model extends Observable {
 			}
 		}
 	}
-	
+
 	public User getUserByNickname(String selectedNickname) {
 		for (User user : users) { // 'users' è la lista di utenti
 			if (user.getNickname().equals(selectedNickname)) {

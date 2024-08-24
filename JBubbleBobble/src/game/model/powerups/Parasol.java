@@ -16,8 +16,11 @@ public abstract class Parasol extends Powerup {
 	@Override
 	public void effect() {
 		for (int i = 0; i < levelsToSkip; i++) {
-			Model.getInstance().nextLevel();
-			System.out.println("skip level");
+			try {
+			Model.getInstance().nextLevel();}
+			catch (Exception e) {
+				Model.getInstance().setWin();
+			}
 		}
 
 		setX(-200);
