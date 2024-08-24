@@ -21,6 +21,7 @@ public class Images {
 		imageMap.put("+", "/bubbles/thunderBubble");
 		imageMap.put("/", "/bubbles/waterBubble");
 		imageMap.put("#", "/bubbles/special_effects/fireBall");
+		imageMap.put("?", "/bubbles/special_effects/bolt");
 		imageMap.put("_", "/bubbles/special_effects/water_horizontal");		
 		imageMap.put("|", "/bubbles/special_effects/water_vertical");		
 		imageMap.put("Z", "/enemies/zenchan/");

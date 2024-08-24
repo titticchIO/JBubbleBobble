@@ -1,6 +1,7 @@
 package game.model.bubbles;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -8,6 +9,7 @@ import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import game.model.Model;
+import game.model.bubbles.special_effects.Bolt;
 import game.model.bubbles.special_effects.FireBall;
 import game.model.bubbles.special_effects.Water;
 import game.model.entities.Player;
@@ -17,6 +19,7 @@ public class BubbleManager {
 	private List<Bubble> specialBubbles;
 	private List<PlayerBubble> playerBubbles;
 	private List<FireBall> fireBalls;
+	private List<Bolt> bolts;
 	private List<Water> waters;
 	private Timer waterUpdateTimer;
 
@@ -27,6 +30,7 @@ public class BubbleManager {
 		playerBubbles = new CopyOnWriteArrayList<>();
 		fireBalls = new CopyOnWriteArrayList<>();
 		waters = new CopyOnWriteArrayList<>();
+		bolts = new CopyOnWriteArrayList<>();
 	}
 
 	public void createBubble(float x, float y, float xSpeed) {
@@ -42,11 +46,9 @@ public class BubbleManager {
 	}
 
 	public void createSpecialBubble() {
-		Random random = new Random();
-
 		if (doOnce) {
 			doOnce = false;
-			Bubble waterBubble = new WaterBubble();
+			Bubble waterBubble = new ThunderBubble();
 			Model.getInstance().getCurrentLevel().spawnBubble(waterBubble);
 		}
 	}
@@ -71,6 +73,14 @@ public class BubbleManager {
 		fireBalls.remove(fireBall);
 	}
 
+	public void addBolt(Bolt bolt) {
+		bolts.add(bolt);
+	}
+
+	public void removeBolt(Bolt bolt) {
+		bolts.remove(bolt);
+	}
+
 	public void addWater(Water water) {
 		waters.add(water);
 	}
@@ -89,6 +99,10 @@ public class BubbleManager {
 
 	public List<FireBall> getFireBalls() {
 		return fireBalls;
+	}
+
+	public List<Bolt> getBolts() {
+		return bolts;
 	}
 
 	public List<Water> getWaters() {
@@ -110,6 +124,7 @@ public class BubbleManager {
 				}
 			}, 50);
 		}
+		bolts.forEach(b -> b.updateEntity());
 
 		createSpecialBubble();
 	}
