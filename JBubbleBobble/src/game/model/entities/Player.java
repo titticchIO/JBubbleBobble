@@ -3,6 +3,7 @@ package game.model.entities;
 import game.model.bubbles.PlayerBubble;
 import game.model.bubbles.ThunderBubble;
 import game.model.bubbles.WaterBubble;
+import game.model.level.Level;
 import game.model.bubbles.Bubble;
 import game.model.bubbles.FireBubble;
 import game.model.tiles.Tile;
@@ -340,7 +341,6 @@ public class Player extends MovingEntity {
 		checkJump();
 
 		checkBubbleCollisions();
-
 		updateXPos();
 		updateYPos();
 		gravity();

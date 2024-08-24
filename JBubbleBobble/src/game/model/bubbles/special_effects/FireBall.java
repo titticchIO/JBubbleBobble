@@ -23,7 +23,6 @@ public class FireBall extends MovingEntity {
 
 			@Override
 			public void run() {
-				System.out.println("removed");
 				Model.getInstance().getCurrentLevel().getBubbleManager().removeFireBall(FireBall.this);
 			}
 		}, 5000);
@@ -64,7 +63,6 @@ public class FireBall extends MovingEntity {
 
 			@Override
 			public void run() {
-				System.out.println("removed");
 				Model.getInstance().getCurrentLevel().getBubbleManager().removeFireBall(FireBall.this);
 			}
 		}, 5000);

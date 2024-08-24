@@ -47,8 +47,6 @@ public abstract class Powerup extends Entity {
 	
 
 	public void updatePowerup() {
-		
-		System.out.println(checkPlayerCollision());
 		if (checkPlayerCollision()) {
 			// timer creation
 			Model.getInstance().getCurrentUser().addPoints(points);

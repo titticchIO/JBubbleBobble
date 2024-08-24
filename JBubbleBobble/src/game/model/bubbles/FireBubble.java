@@ -21,8 +21,4 @@ public class FireBubble extends Bubble {
 
 	}
 
-	@Override
-	public void updateEntity() {
-		super.updateEntity();
-	}
 }
