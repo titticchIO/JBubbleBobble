@@ -1,9 +1,13 @@
 package game.view;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
@@ -40,14 +44,28 @@ public class GameFrame extends JFrame {
 				(int) (Level.GAME_HEIGHT * LevelPanel.SCALE)));
 
 		JPanel gamePanel = new JPanel(new BorderLayout());
+		
 		JPanel scorePanel = new JPanel(new GridBagLayout());
+		scorePanel.setBackground(Color.BLACK);
+		scorePanel.setPreferredSize(new Dimension(gamePanel.getWidth(), 30));
 
+		Font font=new Font("Arial", Font.BOLD, 12);
+		
 		// Inizializzazione delle label con valori 0
 		scoreLabel = new JLabel("Score: 0");
-		highScoreLabel = new JLabel("Highscore: 0");
-
-		scorePanel.add(scoreLabel);
-		scorePanel.add(highScoreLabel);
+		scoreLabel.setFont(font);
+		scoreLabel.setForeground(Color.YELLOW);
+		// Creazione delle constraints per le label
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(0, 0, 0, 20); // Spazio a destra di scoreLabel
+        scorePanel.add(scoreLabel, gbc);
+        
+		highScoreLabel = new JLabel("HighScore: 0");
+		highScoreLabel.setFont(font);
+		highScoreLabel.setForeground(Color.YELLOW);
+		// Aggiunta della highScoreLabel
+        gbc.insets = new Insets(0, 20, 0, 0); // Spazio a sinistra di highScoreLabe		
+		scorePanel.add(highScoreLabel, gbc);
 
 		gamePanel.add(scorePanel, BorderLayout.NORTH);
 
@@ -100,6 +118,6 @@ public class GameFrame extends JFrame {
 		int highScore = Model.getInstance().getCurrentUser().getHighScore();
 
 		scoreLabel.setText("Score: " + currentPoints);
-		highScoreLabel.setText("Highscore: " + highScore);
+		highScoreLabel.setText("HighScore: " + highScore);
 	}
 }

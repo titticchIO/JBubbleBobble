@@ -48,7 +48,7 @@ public class Model extends Observable {
 		levels = new ArrayList<>();
 		users = new ArrayList<>();
 		loadUsers();
-		setCurrentUser(users.getFirst());
+		//setCurrentUser(users.getFirst());
 		modelState = ModelState.PLAY;
 		setChanged();
 		notifyObservers();

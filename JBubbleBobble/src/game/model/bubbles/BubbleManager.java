@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import game.model.Model;
@@ -19,6 +21,7 @@ public class BubbleManager {
 	private List<FireBall> fireBalls;
 	private List<Bolt> bolts;
 	private List<Water> waters;
+	private Timer waterUpdateTimer;
 
 	private boolean doOnce = true;
 
@@ -26,8 +29,8 @@ public class BubbleManager {
 		specialBubbles = new CopyOnWriteArrayList<>();
 		playerBubbles = new CopyOnWriteArrayList<>();
 		fireBalls = new CopyOnWriteArrayList<>();
+		waters = new CopyOnWriteArrayList<>();
 		bolts = new CopyOnWriteArrayList<>();
-		waters = new ArrayList<Water>();
 	}
 
 	public void createBubble(float x, float y, float xSpeed) {
@@ -43,11 +46,9 @@ public class BubbleManager {
 	}
 
 	public void createSpecialBubble() {
-		Random random = new Random();
-
 		if (doOnce) {
 			doOnce = false;
-			Bubble waterBubble = new WaterBubble();
+			Bubble waterBubble = new ThunderBubble();
 			Model.getInstance().getCurrentLevel().spawnBubble(waterBubble);
 		}
 	}
@@ -71,11 +72,11 @@ public class BubbleManager {
 	public void removeFireBall(FireBall fireBall) {
 		fireBalls.remove(fireBall);
 	}
-	
+
 	public void addBolt(Bolt bolt) {
 		bolts.add(bolt);
 	}
-	
+
 	public void removeBolt(Bolt bolt) {
 		bolts.remove(bolt);
 	}
@@ -99,11 +100,11 @@ public class BubbleManager {
 	public List<FireBall> getFireBalls() {
 		return fireBalls;
 	}
+
 	public List<Bolt> getBolts() {
 		return bolts;
 	}
-	
-	
+
 	public List<Water> getWaters() {
 		return waters;
 	}
@@ -112,8 +113,19 @@ public class BubbleManager {
 		specialBubbles.forEach(b -> b.updateEntity());
 		playerBubbles.forEach(pb -> pb.updateEntity());
 		fireBalls.forEach(f -> f.updateEntity());
+		if (waterUpdateTimer == null) {
+			waterUpdateTimer = new Timer();
+			waterUpdateTimer.schedule(new TimerTask() {
+
+				@Override
+				public void run() {
+					waters.forEach(w -> w.updateEntity());
+					waterUpdateTimer = null;
+				}
+			}, 50);
+		}
 		bolts.forEach(b -> b.updateEntity());
-		waters.forEach(w->w.updateEntity());
+
 		createSpecialBubble();
 	}
 }
