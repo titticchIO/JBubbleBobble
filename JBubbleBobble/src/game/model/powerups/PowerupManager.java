@@ -159,7 +159,7 @@ public class PowerupManager {
 				@Override
 				public void run() {
 					createPowerup();
-					spawnTimer = null;
+					spawnTimer.cancel();
 				}
 			}, 10000);
 		}
