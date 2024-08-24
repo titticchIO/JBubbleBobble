@@ -14,61 +14,56 @@ import static game.model.entities.MovingEntity.Direction.*;
 
 public class Water extends MovingEntity {
 
-	private Timer moveTimer;
-
-	public Water(float x, float y) {
+	private int watersToSpawn;
+	private int lifeSpan;
+	
+	public Water(float x, float y,int watersToSpawn) {
 		super(x, y, "_");
 		setDirection(RIGHT);
+		this.watersToSpawn=watersToSpawn;
+		lifeSpan=70;
 	}
 
 	private void delete() {
 		Model.getInstance().getCurrentLevel().getBubbleManager().removeWater(this);
+		System.out.println("deleted");
 	}
 
 	private void updatePosition() {
-		if (!HelpMethods.isEntityGrounded(this))
-			setY(y + TILE_SIZE);
-		else {
-			switch (direction) {
-			case LEFT -> {
-				if (HelpMethods.canMoveHere(x - TILE_SIZE, y, width, height))
-					setX(x - TILE_SIZE);
-				else if (HelpMethods.canMoveHere(x + TILE_SIZE, y, width, height)) {
-					direction = RIGHT;
-					setX(x + TILE_SIZE);
-				} else
-					delete();
-			}
-			case RIGHT -> {
-				if (HelpMethods.canMoveHere(x + TILE_SIZE, y, width, height))
-					setX(x + TILE_SIZE);
-				else if (HelpMethods.canMoveHere(x - TILE_SIZE, y, width, height)) {
-					direction = LEFT;
-					setX(x - TILE_SIZE);
-				} else
-					delete();
-			}
-			default -> throw new IllegalArgumentException("Unexpected value: " + direction);
-			}
-		}
+	    if (watersToSpawn > 0) {
+	        Model.getInstance().getCurrentLevel().getBubbleManager().addWater(new Water(x, y, watersToSpawn - 1));
+	        watersToSpawn=0;
+	    }
+
+	    if (!HelpMethods.isEntityGrounded(this)) {
+	        setY(y + TILE_SIZE);
+	        return;
+	    }
+
+	    float newX = direction == LEFT ? x - TILE_SIZE : x + TILE_SIZE;
+	    if (HelpMethods.canMoveHere(newX, y, width, height)) {
+	        setX(newX);
+	    } else {
+	        // Try moving in the opposite direction if the first direction fails
+	        newX = direction == LEFT ? x + TILE_SIZE : x - TILE_SIZE;
+	        if (HelpMethods.canMoveHere(newX, y, width, height)) {
+	            direction = direction == LEFT ? RIGHT : LEFT;
+	            setX(newX);
+	        } else {
+	            delete();
+	        }
+	    }
 	}
+
 
 	@Override
 	public void updateEntity() {
-		System.out.println(direction.name());
-		if (moveTimer == null) {
-			moveTimer = new Timer();
-			moveTimer.schedule(new TimerTask() {
-
-				@Override
-				public void run() {
-					updatePosition();
-					moveTimer = null;
-
-				}
-			}, 300);
-		}
-
+		lifeSpan--;
+		if (lifeSpan==0)
+			delete();
+		if (y==Level.GAME_HEIGHT)
+			setY(-TILE_SIZE);
+		updatePosition();
 	}
 
 }

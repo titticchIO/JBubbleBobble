@@ -3,6 +3,8 @@ package game.model.bubbles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import game.model.Model;
@@ -16,6 +18,7 @@ public class BubbleManager {
 	private List<PlayerBubble> playerBubbles;
 	private List<FireBall> fireBalls;
 	private List<Water> waters;
+	private Timer waterUpdateTimer;
 
 	private boolean doOnce = true;
 
@@ -23,7 +26,7 @@ public class BubbleManager {
 		specialBubbles = new CopyOnWriteArrayList<>();
 		playerBubbles = new CopyOnWriteArrayList<>();
 		fireBalls = new CopyOnWriteArrayList<>();
-		waters = new ArrayList<Water>();
+		waters = new CopyOnWriteArrayList<>();
 	}
 
 	public void createBubble(float x, float y, float xSpeed) {
@@ -96,7 +99,18 @@ public class BubbleManager {
 		specialBubbles.forEach(b -> b.updateEntity());
 		playerBubbles.forEach(pb -> pb.updateEntity());
 		fireBalls.forEach(f -> f.updateEntity());
-		waters.forEach(w->w.updateEntity());
+		if (waterUpdateTimer == null) {
+			waterUpdateTimer = new Timer();
+			waterUpdateTimer.schedule(new TimerTask() {
+
+				@Override
+				public void run() {
+					waters.forEach(w -> w.updateEntity());
+					waterUpdateTimer = null;
+				}
+			}, 50);
+		}
+
 		createSpecialBubble();
 	}
 }
