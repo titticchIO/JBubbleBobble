@@ -5,6 +5,7 @@ import game.model.bubbles.ThunderBubble;
 import game.model.bubbles.WaterBubble;
 import game.model.entities.MovingEntity.Direction;
 import game.model.level.Level;
+import game.model.powerups.AmethystRing;
 import game.model.bubbles.Bubble;
 import game.model.bubbles.FireBubble;
 import game.model.tiles.Tile;
@@ -49,14 +50,8 @@ public class Player extends MovingEntity {
 	private boolean isShooting; // Indicates whether the player is currently shooting.
 	private boolean canShoot; // Indicates whether the player can shoot a bubble.
 	private boolean crystalRingActive;
+	private boolean amethystRingActive;
 
-	public boolean isCrystalRingActive() {
-		return crystalRingActive;
-	}
-
-	public void setCrystalRingActive(boolean crystalRingActive) {
-		this.crystalRingActive = crystalRingActive;
-	}
 
 	/**
 	 * Returns the singleton instance of the {@code Player} class.
@@ -129,6 +124,10 @@ public class Player extends MovingEntity {
 		return isShooting;
 	}
 
+	public boolean isCrystalRingActive() {
+		return crystalRingActive;
+	}
+	
 	/**
 	 * Sets the player's movement direction and adjusts the bubble shooting
 	 * direction accordingly.
@@ -199,6 +198,9 @@ public class Player extends MovingEntity {
 		this.isShooting = isShooting;
 	}
 
+	public void setCrystalRingActive(boolean crystalRingActive) {
+		this.crystalRingActive = crystalRingActive;
+	}
 	/**
 	 * Increases the player's firing rate by decreasing the time between shots.
 	 *
@@ -226,6 +228,8 @@ public class Player extends MovingEntity {
 		inAir = true;
 		airSpeed = jumpSpeed;
 		Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfJumps();
+		if (amethystRingActive) 
+			Model.getInstance().getCurrentUser().addPoints(AmethystRing.POINTS);
 	}
 
 	/**
@@ -317,5 +321,13 @@ public class Player extends MovingEntity {
 
 	public void setBubbleDirection(Direction bubbleDirection) {
 		this.bubbleDirection = bubbleDirection;
+	}
+
+	public boolean isAmethystRingActive() {
+		return amethystRingActive;
+	}
+
+	public void setAmethystRingActive(boolean amethystRingActive) {
+		this.amethystRingActive = amethystRingActive;
 	}
 }

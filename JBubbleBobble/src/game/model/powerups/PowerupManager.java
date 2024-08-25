@@ -76,7 +76,6 @@ public class PowerupManager {
 		results.put(PinkCandy.class, getPercentDiff(numberOfBubbles, PinkCandy.getSpawnCondition()));
 		results.put(YellowCandy.class, getPercentDiff(numberOfJumpsOnBubbles, YellowCandy.getSpawnCondition()));
 		results.put(Shoes.class, getPercentDiff(distanceTravelled, Shoes.getSpawnCondition()));
-//		results.put(Skeleton.class, getPercentDiff(numberOfJumps, Skeleton.getSpawnCondition()));
 		results.put(Clock.class, getPercentDiff(numberOfBubblesPopped, Clock.getSpawnCondition()));
 		results.put(Dynamite.class, getPercentDiff(numberOfBubblesPopped, Dynamite.getSpawnCondition()));
 		results.put(CrystalRing.class, getPercentDiff(numberOfBubblesPopped, CrystalRing.getSpawnCondition()));

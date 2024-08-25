@@ -16,12 +16,12 @@ public class Images {
 		imageMap.put("3", "/blocks/normal_blocks/block_3");
 		imageMap.put("4", "/blocks/normal_blocks/block_4");
 		imageMap.put("P", "/player/");
-		imageMap.put("°", "/bubbles/playerBubble");
-		imageMap.put("-", "/bubbles/fireBubble");
-		imageMap.put("+", "/bubbles/thunderBubble");
-		imageMap.put("/", "/bubbles/waterBubble");
-		imageMap.put("%", "/bubbles/specialBubble");
-		imageMap.put("#", "/bubbles/special_effects/fireBall");
+		imageMap.put("°", "/bubbles/player_bubble");
+		imageMap.put("-", "/bubbles/fire_bubble");
+		imageMap.put("+", "/bubbles/thunder_bubble");
+		imageMap.put("/", "/bubbles/water_bubble");
+		imageMap.put("%", "/bubbles/special_bubble");
+		imageMap.put("#", "/bubbles/special_effects/fire_ball");
 		imageMap.put("?", "/bubbles/special_effects/bolt");
 		imageMap.put("_", "/bubbles/special_effects/water_horizontal");		
 		imageMap.put("|", "/bubbles/special_effects/water_vertical");		
@@ -38,7 +38,9 @@ public class Images {
 		imageMap.put("@", "/powerups/parasol/");
 		imageMap.put("*", "/powerups/clock");	
 		imageMap.put("^", "/powerups/dynamite");
-		imageMap.put("&", "/powerups/crystalring");
+		imageMap.put("&", "/powerups/crystal_ring");
+		imageMap.put("(", "/powerups/amethyst_ring");
+		
 
 	}
 

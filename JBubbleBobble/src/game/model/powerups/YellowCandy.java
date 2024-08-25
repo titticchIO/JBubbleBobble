@@ -1,5 +1,6 @@
 package game.model.powerups;
 
+import game.model.Model;
 import game.model.entities.Player;
 
 public class YellowCandy extends Powerup {
@@ -25,6 +26,7 @@ public class YellowCandy extends Powerup {
 	@Override
 	public void resetToNormal() {
 		Player.getInstance().decreaseFiringRate(INCREASED_FIRING_RATE_AMOUNT);
+		Model.getInstance().getCurrentLevel().spawnPowerup(new AmethystRing());
 		super.resetToNormal();
 	}
 
