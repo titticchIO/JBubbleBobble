@@ -41,14 +41,24 @@ public class Level {
 	private String[][] lvlData;
 	private float[] playerSpawnPoint;
 	private List<Float> bubblesSpawnPoints;
+	private int levelNumber;
 
-	public Level(int levelNum) {
+	public Level(int levelNumber) {
+		this.levelNumber = levelNumber;
 		tiles = new ArrayList<Tile>();
 		enemyManager = new EnemyManager();
 		bubbleManager = new BubbleManager();
 		powerupManager = new PowerupManager();
-		lvlData = LevelLoader.loadLevel(this, levelNum);
+		lvlData = LevelLoader.loadLevel(this, levelNumber);
 		setBubblesSpawnPoints();
+	}
+
+	public int getLevelNumber() {
+		return levelNumber;
+	}
+
+	public void setLevelNumber(int levelNumber) {
+		this.levelNumber = levelNumber;
 	}
 
 	public String[][] getLvlData() {

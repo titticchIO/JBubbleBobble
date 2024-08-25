@@ -11,11 +11,12 @@ public class View implements Observer {
     private Level level;
     private LevelPanel levelPanel;
     private GameFrame gameFrame;
+    private TransitionPanel transitionPanel;
 
     // Singleton pattern to get View instance
     public static View getInstance(GameFrame gameFrame) {
         if (instance == null) {
-            instance = new View(new LevelPanel(gameFrame), gameFrame);
+            instance = new View(new LevelPanel(gameFrame), gameFrame, new TransitionPanel(gameFrame));
         }
         return instance;
     }
@@ -25,13 +26,18 @@ public class View implements Observer {
     }
 
     // Private constructor requiring GameFrame
-    private View(LevelPanel levelPanel, GameFrame gameFrame) {
+    private View(LevelPanel levelPanel, GameFrame gameFrame, TransitionPanel transitionPanel) {
         this.levelPanel = levelPanel;
         this.gameFrame = gameFrame;
+        this.transitionPanel = transitionPanel;
     }
 
     public LevelPanel getLevelPanel() {
         return levelPanel;
+    }
+    
+    public TransitionPanel getTransitionPanel() {
+    	return transitionPanel;
     }
 
     public Level getLevel() {
@@ -43,8 +49,9 @@ public class View implements Observer {
         level = Model.getInstance().getCurrentLevel();  // Update the level reference
 
         // Check if the level is changing
-        if (arg instanceof String s && s.equals("next")) {
+        if (arg instanceof String s && s.split("_")[0].equals("next")) {
             levelPanel.renderTilesOnce();  // Render tiles for the next level
+            levelPanel.startLevelTransition(Integer.parseInt(s.split("_")[1]));
         }
 
         // Check if points are updated
