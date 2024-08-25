@@ -43,32 +43,63 @@ public class EditorFrame extends JFrame {
 		topPanel.setBackground(Color.BLACK);
 
 		// Pulsanti per creare nuova griglia e aprirne una esistente
-		JButton newGridButton = new JButton();
-		ImageIcon newButtonImageIcon = new ImageIcon(
-				ImageLoader.importImg("/editor/new.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH));
-		newGridButton.setIcon(newButtonImageIcon);
-		newGridButton.setContentAreaFilled(false);
-		newGridButton.setPreferredSize(new Dimension(70, 35));
-		newGridButton.setBorderPainted(false);
-		newGridButton.setFocusPainted(false);
+		JButton newGridButton = new JButton(
+				new ImageIcon(ImageLoader.importImg("/editor/new.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH))) {
+			{
+				setContentAreaFilled(false);
+				setPreferredSize(new Dimension(70, 35));
+				setBorderPainted(false);
+				setFocusPainted(false);
 
-		JButton openGridButton = new JButton();
-		ImageIcon openButtonImageIcon = new ImageIcon(
-				ImageLoader.importImg("/editor/open.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH));
-		openGridButton.setIcon(openButtonImageIcon);
-		openGridButton.setContentAreaFilled(false);
-		openGridButton.setPreferredSize(new Dimension(70, 35));
-		openGridButton.setBorderPainted(false);
-		openGridButton.setFocusPainted(false);
+			}
+		};
 
-		JButton deleteLevelButton = new JButton();
-		ImageIcon deleteButtonImageIcon = new ImageIcon(
-				ImageLoader.importImg("/editor/delete.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH));
-		deleteLevelButton.setIcon(deleteButtonImageIcon);
-		deleteLevelButton.setContentAreaFilled(false);
-		deleteLevelButton.setPreferredSize(new Dimension(70, 35));
-		deleteLevelButton.setBorderPainted(false);
-		deleteLevelButton.setFocusPainted(false);
+		// OLD CODE
+//		ImageIcon newButtonImageIcon = new ImageIcon(
+//				ImageLoader.importImg("/editor/new.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH));
+//		newGridButton.setIcon(newButtonImageIcon);
+//		newGridButton.setContentAreaFilled(false);
+//		newGridButton.setPreferredSize(new Dimension(70, 35));
+//		newGridButton.setBorderPainted(false);
+//		newGridButton.setFocusPainted(false);
+
+		JButton openGridButton = new JButton(new ImageIcon(
+				ImageLoader.importImg("/editor/open.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH))) {
+			{
+				setContentAreaFilled(false);
+				setPreferredSize(new Dimension(70, 35));
+				setBorderPainted(false);
+				setFocusPainted(false);
+			}
+		};
+
+		// OLD CODE
+//		ImageIcon openButtonImageIcon = new ImageIcon(
+//				ImageLoader.importImg("/editor/open.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH));
+//		openGridButton.setIcon(openButtonImageIcon);
+//		openGridButton.setContentAreaFilled(false);
+//		openGridButton.setPreferredSize(new Dimension(70, 35));
+//		openGridButton.setBorderPainted(false);
+//		openGridButton.setFocusPainted(false);
+
+		JButton deleteLevelButton = new JButton(new ImageIcon(
+				ImageLoader.importImg("/editor/delete.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH))) {
+			{
+				setContentAreaFilled(false);
+				setPreferredSize(new Dimension(70, 35));
+				setBorderPainted(false);
+				setFocusPainted(false);
+			}
+		};
+
+		// OLD CODE
+//		ImageIcon deleteButtonImageIcon = new ImageIcon(
+//				ImageLoader.importImg("/editor/delete.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH));
+//		deleteLevelButton.setIcon(deleteButtonImageIcon);
+//		deleteLevelButton.setContentAreaFilled(false);
+//		deleteLevelButton.setPreferredSize(new Dimension(70, 35));
+//		deleteLevelButton.setBorderPainted(false);
+//		deleteLevelButton.setFocusPainted(false);
 
 		actualLevel = new JLabel(actualLevelNumber); // Inizializza JLabel
 
@@ -86,14 +117,24 @@ public class EditorFrame extends JFrame {
 		});
 
 		// Creazione del bottone con la scritta "Save"
-		saveLevelButton = new JButton();
-		ImageIcon saveButtonImageIcon = new ImageIcon(
-				ImageLoader.importImg("/editor/save.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH));
-		saveLevelButton.setIcon(saveButtonImageIcon);
-		saveLevelButton.setContentAreaFilled(false);
-		saveLevelButton.setPreferredSize(new Dimension(70, 35));
-		saveLevelButton.setBorderPainted(false);
-		saveLevelButton.setFocusPainted(false);
+		saveLevelButton = new JButton(new ImageIcon(
+				ImageLoader.importImg("/editor/save.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH))) {
+			{
+				setContentAreaFilled(false);
+				setPreferredSize(new Dimension(70, 35));
+				setBorderPainted(false);
+				setFocusPainted(false);
+			}
+		};
+
+		// OLD CODE
+//		ImageIcon saveButtonImageIcon = new ImageIcon(
+//				ImageLoader.importImg("/editor/save.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH));
+//		saveLevelButton.setIcon(saveButtonImageIcon);
+//		saveLevelButton.setContentAreaFilled(false);
+//		saveLevelButton.setPreferredSize(new Dimension(70, 35));
+//		saveLevelButton.setBorderPainted(false);
+//		saveLevelButton.setFocusPainted(false);
 
 		LevelsPopUpMenu levelSelectionPopup = new LevelsPopUpMenu(MenuType.OPEN, this);
 		LevelsPopUpMenu saveLevelPopup = new LevelsPopUpMenu(MenuType.SAVE, this);
