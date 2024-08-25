@@ -101,7 +101,8 @@ public class EditorFrame extends JFrame {
 //		deleteLevelButton.setBorderPainted(false);
 //		deleteLevelButton.setFocusPainted(false);
 
-		actualLevel = new JLabel(actualLevelNumber); // Inizializza JLabel
+		actualLevel = new JLabel(actualLevelNumber);
+		actualLevel.setForeground(Color.YELLOW); // Inizializza JLabel
 
 		// ActionListener per il pulsante "Nuova Griglia"
 		newGridButton.addActionListener(e -> {
