@@ -48,7 +48,7 @@ public class BubbleManager {
 	public void createSpecialBubble() {
 		if (doOnce) {
 			doOnce = false;
-			Bubble waterBubble = new ThunderBubble();
+			Bubble waterBubble = new SpecialBubble();
 			Model.getInstance().getCurrentLevel().spawnBubble(waterBubble);
 		}
 	}

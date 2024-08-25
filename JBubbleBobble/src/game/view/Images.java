@@ -20,6 +20,7 @@ public class Images {
 		imageMap.put("-", "/bubbles/fireBubble");
 		imageMap.put("+", "/bubbles/thunderBubble");
 		imageMap.put("/", "/bubbles/waterBubble");
+		imageMap.put("%", "/bubbles/specialBubble");
 		imageMap.put("#", "/bubbles/special_effects/fireBall");
 		imageMap.put("?", "/bubbles/special_effects/bolt");
 		imageMap.put("_", "/bubbles/special_effects/water_horizontal");		
@@ -34,7 +35,6 @@ public class Images {
 		imageMap.put("£", "/powerups/blue_candy");
 		imageMap.put("$", "/powerups/yellow_candy");
 		imageMap.put("§", "/powerups/shoes");
-		imageMap.put("%", "/powerups/skeleton");
 		imageMap.put("@", "/powerups/parasol/");
 		imageMap.put("*", "/powerups/clock");	
 		imageMap.put("^", "/powerups/dynamite");
