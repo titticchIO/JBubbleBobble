@@ -1,6 +1,5 @@
 package editor.view;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -27,7 +26,7 @@ public class EditorPanel extends JPanel {
 	public EditorPanel(EditorFrame ef, SpriteSelectionScrollPane selPane) {
 		this.selPane = selPane;
 		setSize();
-		//setBackground(Color.BLACK);
+		// setBackground(Color.BLACK);
 		sprites = new Sprite[ROWS][COLS];
 		setLayout(new GridLayout(ROWS, COLS));
 		for (int y = 0; y < ROWS; y++) {
