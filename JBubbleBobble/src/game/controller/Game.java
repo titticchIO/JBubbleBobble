@@ -31,6 +31,8 @@ public class Game implements Runnable {
 	private View view;
 
 	public Game() {
+		AudioManager.getInstance().play(AnimationLoader
+				.getAbsolutePath("Audio/Sound Tacks/01 Introduction ~ Main Theme (online-audio-converter.com).wav"));
 		model = Model.getInstance();
 		menu = new Menu(this);
 		win = new Win(this);
@@ -92,8 +94,6 @@ public class Game implements Runnable {
 		// here)
 		View.getInstance().getLevelPanel().renderTilesOnce();
 
-		
-		
 		// Set the game state back to the menu
 		GameState.state = GameState.MENU;
 

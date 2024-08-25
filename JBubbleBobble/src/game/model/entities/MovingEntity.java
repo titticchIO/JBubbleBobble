@@ -1,5 +1,8 @@
 package game.model.entities;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import game.model.HelpMethods;
 import game.model.level.Level;
 import game.model.tiles.Tile;
@@ -52,6 +55,9 @@ public abstract class MovingEntity extends Entity {
 
 	// Indicates if the entity is in the air
 	protected boolean inAir;
+
+	// Indicates if the entity is stunned
+	protected boolean isStunned;
 
 	/**
 	 * Constructs a {@code MovingEntity} with specified position and unique code.
@@ -170,6 +176,23 @@ public abstract class MovingEntity extends Entity {
 	 */
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+	public void stun(int stunTime) {
+		float prevXSpeed = xSpeed;
+		float prevAirSpeed = airSpeed;
+		setxSpeed(0);
+		setAirSpeed(0);
+		isStunned = true;
+		new Timer("Stun Timer").schedule(new TimerTask() {
+			@Override
+			public void run() {
+				isStunned = false;
+				setxSpeed(prevXSpeed);
+				setAirSpeed(prevAirSpeed);
+				this.cancel();
+			}
+		}, stunTime * 1000);
 	}
 
 	/**

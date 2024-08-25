@@ -1,5 +1,6 @@
 package editor.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -18,6 +19,7 @@ public class SelectionButton extends JToggleButton {
 		Image scaledImg = img.getScaledInstance(40 * (int) SCALE, 40 * (int) SCALE, Image.SCALE_SMOOTH);
 		setIcon(new ImageIcon(scaledImg));
 		setPreferredSize(new Dimension(40 * (int) SCALE, 40 * (int) SCALE));
+		setBackground(Color.BLACK);
 	}
 
 

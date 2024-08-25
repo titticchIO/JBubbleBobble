@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import game.view.ImageLoader;
 
 public class Sprite extends JButton {
-	private static BufferedImage EMPTY_SPRITE = ImageLoader.importImg("/Empty_Sprite.png");
+	private static BufferedImage EMPTY_SPRITE = ImageLoader.importImg("/editor/Black.png");
 	
 	private int x, y;
 	private float sideLength;
@@ -53,16 +53,16 @@ public class Sprite extends JButton {
 	}
 
 	public void render(Graphics g) {
-		
-		//Versione attuale:
-		((Graphics2D)g).drawImage(EMPTY_SPRITE, x * EditorPanel.SQUARE_SIZE, y * EditorPanel.SQUARE_SIZE, (int) sideLength, (int) sideLength, null);
-		
-		//Versione precedente:
-//		Graphics2D g2 = (Graphics2D) g;
-//		float thickness = 1;
-//		g2.setStroke(new BasicStroke(thickness));
-//		g2.setColor(Color.BLACK);
-//		g2.drawRect(x * EditorPanel.SQUARE_SIZE, y * EditorPanel.SQUARE_SIZE, (int) sideLength, (int) sideLength);
+	    // Disegna l'immagine vuota come sfondo (puoi mantenere questa parte se necessario)
+	    ((Graphics2D)g).drawImage(EMPTY_SPRITE, x * EditorPanel.SQUARE_SIZE, y * EditorPanel.SQUARE_SIZE, (int) sideLength, (int) sideLength, null);
+	    
+	    // Disegna il bordo giallo
+	    Graphics2D g2 = (Graphics2D) g;
+	    float thickness = 1; // Spessore del bordo
+	    g2.setStroke(new BasicStroke(thickness));
+	    g2.setColor(Color.GRAY);
+	    g2.drawRect(x * EditorPanel.SQUARE_SIZE, y * EditorPanel.SQUARE_SIZE, (int) sideLength, (int) sideLength);
 	}
+
 
 }

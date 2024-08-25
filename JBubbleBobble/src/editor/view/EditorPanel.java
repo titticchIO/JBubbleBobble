@@ -27,7 +27,7 @@ public class EditorPanel extends JPanel {
 	public EditorPanel(EditorFrame ef, SpriteSelectionScrollPane selPane) {
 		this.selPane = selPane;
 		setSize();
-//		setBackground(Color.WHITE);
+		//setBackground(Color.BLACK);
 		sprites = new Sprite[ROWS][COLS];
 		setLayout(new GridLayout(ROWS, COLS));
 		for (int y = 0; y < ROWS; y++) {

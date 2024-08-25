@@ -19,7 +19,7 @@ public class FireBall extends MovingEntity {
 		super(x, y, "#");
 		airSpeed = 2.0f;
 		this.fireState = fireState;
-		new Timer().schedule(new TimerTask() {
+		new Timer("Remove FireBall").schedule(new TimerTask() {
 
 			@Override
 			public void run() {
@@ -32,6 +32,10 @@ public class FireBall extends MovingEntity {
 		super(x, y, "#");
 		airSpeed = 2.0f;
 		fireState = FireState.FALL;
+	}
+
+	public FireState getFireState() {
+		return fireState;
 	}
 
 	@Override

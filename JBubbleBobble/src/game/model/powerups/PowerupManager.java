@@ -152,16 +152,16 @@ public class PowerupManager {
 
 	public void updatePowerups() {
 		if (spawnTimer == null) {
-			spawnTimer = new Timer();
+			spawnTimer = new Timer("Powerup Update");
 
 			spawnTimer.schedule(new TimerTask() {
 
 				@Override
 				public void run() {
 					createPowerup();
-					spawnTimer.cancel();
+					spawnTimer=null;
 				}
-			}, 10000);
+			}, 20000);
 		}
 
 		for (Powerup powerup : powerups) {

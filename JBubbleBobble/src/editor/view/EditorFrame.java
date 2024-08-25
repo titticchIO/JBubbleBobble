@@ -1,21 +1,26 @@
 package editor.view;
 
 import java.awt.BorderLayout;
-
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 import editor.model.LevelManager;
 
 import editor.view.LevelsPopUpMenu.MenuType;
+import game.view.ImageLoader;
 
 public class EditorFrame extends JFrame {
 	private EditorPanel editorPanel;
@@ -29,16 +34,45 @@ public class EditorFrame extends JFrame {
 	public EditorFrame() {
 		setLayout(new BorderLayout());
 		selectionPane = new SpriteSelectionScrollPane();
+		//selectionPane.setBackground(Color.BLACK);
 		editorPanel = new EditorPanel(this, selectionPane);
+		//editorPanel.setBackground(Color.BLACK);
 		popUps = new ArrayList<LevelsPopUpMenu>();
 
 		// Creazione del pannello superiore
 		JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		topPanel.setBackground(Color.BLACK);
 
 		// Pulsanti per creare nuova griglia e aprirne una esistente
-		JButton newGridButton = new JButton("New");
-		JButton openGridButton = new JButton("Open");
-		JButton deleteLevelButton = new JButton("Delete");
+		JButton newGridButton = new JButton();
+		ImageIcon newButtonImageIcon = new ImageIcon(
+                 ImageLoader.importImg("/editor/new.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH));
+		newGridButton.setIcon(newButtonImageIcon);
+		newGridButton.setContentAreaFilled(false);
+        newGridButton.setPreferredSize(new Dimension(70, 35));
+        newGridButton.setBorderPainted(false);
+        newGridButton.setFocusPainted(false);
+		
+		
+		JButton openGridButton = new JButton();
+		ImageIcon openButtonImageIcon = new ImageIcon(
+                ImageLoader.importImg("/editor/open.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH));
+		openGridButton.setIcon(openButtonImageIcon);
+		openGridButton.setContentAreaFilled(false);
+        openGridButton.setPreferredSize(new Dimension(70, 35));
+        openGridButton.setBorderPainted(false);
+        openGridButton.setFocusPainted(false);
+		
+		JButton deleteLevelButton = new JButton();
+		ImageIcon deleteButtonImageIcon = new ImageIcon(
+                ImageLoader.importImg("/editor/delete.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH));
+		deleteLevelButton.setIcon(deleteButtonImageIcon);
+		deleteLevelButton.setContentAreaFilled(false);
+        deleteLevelButton.setPreferredSize(new Dimension(70, 35));
+        deleteLevelButton.setBorderPainted(false);
+        deleteLevelButton.setFocusPainted(false);
+		
+		
 		actualLevel = new JLabel(actualLevelNumber); // Inizializza JLabel
 
 		// ActionListener per il pulsante "Nuova Griglia"
@@ -55,7 +89,14 @@ public class EditorFrame extends JFrame {
 		});
 
 		// Creazione del bottone con la scritta "Save"
-		saveLevelButton = new JButton("Save");
+		saveLevelButton = new JButton();
+		ImageIcon saveButtonImageIcon = new ImageIcon(
+                ImageLoader.importImg("/editor/save.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH));
+		saveLevelButton.setIcon(saveButtonImageIcon);
+		saveLevelButton.setContentAreaFilled(false);
+        saveLevelButton.setPreferredSize(new Dimension(70, 35));
+        saveLevelButton.setBorderPainted(false);
+        saveLevelButton.setFocusPainted(false);
 
 		LevelsPopUpMenu levelSelectionPopup = new LevelsPopUpMenu(MenuType.OPEN, this);
 		LevelsPopUpMenu saveLevelPopup = new LevelsPopUpMenu(MenuType.SAVE, this);

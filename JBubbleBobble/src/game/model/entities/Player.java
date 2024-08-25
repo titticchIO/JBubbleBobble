@@ -8,6 +8,8 @@ import game.model.level.Level;
 import game.model.bubbles.Bubble;
 import game.model.bubbles.FireBubble;
 import game.model.tiles.Tile;
+import game.view.AnimationLoader;
+import game.controller.AudioManager;
 import game.model.HelpMethods;
 import game.model.Model;
 import java.util.Optional;
@@ -272,7 +274,7 @@ public class Player extends MovingEntity {
 			canShoot = false;
 
 			// Creates a new attack timer.
-			new Timer().schedule(new TimerTask() {
+			new Timer("Shoot Bubble").schedule(new TimerTask() {
 				@Override
 				public void run() {
 					// After the specified attack time, the player can shoot again.
@@ -288,7 +290,6 @@ public class Player extends MovingEntity {
 	 */
 	@Override
 	public void updateEntity() {
-		System.out.println("Player lives: "+lives);
 		updateXPos();
 		updateYPos();
 		gravity();

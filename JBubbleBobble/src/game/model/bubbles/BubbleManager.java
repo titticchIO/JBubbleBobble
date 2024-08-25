@@ -113,8 +113,8 @@ public class BubbleManager {
 		specialBubbles.forEach(b -> b.updateEntity());
 		playerBubbles.forEach(pb -> pb.updateEntity());
 		fireBalls.forEach(f -> f.updateEntity());
-		if (waterUpdateTimer == null) {
-			waterUpdateTimer = new Timer();
+		if (waterUpdateTimer == null && waters.size() != 0) {
+			waterUpdateTimer = new Timer("Water Update");
 			waterUpdateTimer.schedule(new TimerTask() {
 
 				@Override
