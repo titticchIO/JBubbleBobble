@@ -91,6 +91,7 @@ public class Model extends Observable {
 		}
 
 		levelIterator = levels.iterator();
+		levelIterator.next();
 		modelState = ModelState.PLAY;
 		setChanged();
 		notifyObservers();
