@@ -18,12 +18,12 @@ import game.model.bubbles.special_effects.Water;
 import game.model.enemies.*;
 import game.model.level.Level;
 import game.model.powerups.OrangeParasol;
-import game.model.powerups.Parasol;
 import game.model.powerups.PurpleParasol;
 import game.model.powerups.RedParasol;
 import game.model.tiles.Tile;
 
 public class LevelPanel extends JPanel {
+	private static final long serialVersionUID = 1L;
 	public final static float SCALE = 1.5f;
 	private BufferedImage tilesImage;
 	private GameFrame gameFrame;

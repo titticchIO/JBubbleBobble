@@ -14,9 +14,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 
-import game.model.Model;
+import game.controller.ActionListenersManager;
 import game.model.user.User;
 
 public class UserPanel extends JPanel {
@@ -50,10 +49,7 @@ public class UserPanel extends JPanel {
 		userButton.setForeground(Color.MAGENTA);
 		Font font=new Font("Arial", Font.BOLD, 12);
 		userButton.setFont(font);
-		userButton.addActionListener(e -> {			
-			Model.getInstance().setCurrentUser(user); // Imposta l'utente corrente nel Model	
-			
-		});
+		userButton.addActionListener(ActionListenersManager.setCurrentUser(user));
 
 		userButton.setHorizontalTextPosition(JButton.CENTER);
 		userButton.setVerticalTextPosition(JButton.BOTTOM);

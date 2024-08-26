@@ -8,7 +8,6 @@ import java.awt.GridBagConstraints;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,6 +30,7 @@ public class GameFrame extends JFrame {
 	private JPanel layoutPanel;
 	private LevelPanel levelPanel;
 	private MenuPanel menuPanel;
+
 	private EndPanel winPanel;
 	private EndPanel lossPanel;
 
@@ -44,27 +44,27 @@ public class GameFrame extends JFrame {
 				(int) (Level.GAME_HEIGHT * LevelPanel.SCALE)));
 
 		JPanel gamePanel = new JPanel(new BorderLayout());
-		
+
 		JPanel scorePanel = new JPanel(new GridBagLayout());
 		scorePanel.setBackground(Color.BLACK);
 		scorePanel.setPreferredSize(new Dimension(gamePanel.getWidth(), 30));
 
-		Font font=new Font("Arial", Font.BOLD, 12);
-		
+		Font font = new Font("Arial", Font.BOLD, 12);
+
 		// Inizializzazione delle label con valori 0
 		scoreLabel = new JLabel("Score: 0");
 		scoreLabel.setFont(font);
 		scoreLabel.setForeground(Color.YELLOW);
 		// Creazione delle constraints per le label
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(0, 0, 0, 20); // Spazio a destra di scoreLabel
-        scorePanel.add(scoreLabel, gbc);
-        
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(0, 0, 0, 20); // Spazio a destra di scoreLabel
+		scorePanel.add(scoreLabel, gbc);
+
 		highScoreLabel = new JLabel("HighScore: 0");
 		highScoreLabel.setFont(font);
 		highScoreLabel.setForeground(Color.YELLOW);
 		// Aggiunta della highScoreLabel
-        gbc.insets = new Insets(0, 20, 0, 0); // Spazio a sinistra di highScoreLabe		
+		gbc.insets = new Insets(0, 20, 0, 0); // Spazio a sinistra di highScoreLabe
 		scorePanel.add(highScoreLabel, gbc);
 
 		gamePanel.add(scorePanel, BorderLayout.NORTH);
@@ -96,6 +96,10 @@ public class GameFrame extends JFrame {
 
 	public LevelPanel getLevelPanel() {
 		return levelPanel;
+	}
+
+	public MenuPanel getMenuPanel() {
+		return menuPanel;
 	}
 
 	public void showState(Screen screen) {

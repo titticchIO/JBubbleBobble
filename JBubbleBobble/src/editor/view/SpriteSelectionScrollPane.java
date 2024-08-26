@@ -23,6 +23,7 @@ import static editor.view.EditorPanel.PANEL_HEIGHT;
 import static editor.view.EditorPanel.SCALE;
 
 public class SpriteSelectionScrollPane extends JScrollPane {
+	private static final long serialVersionUID = 1L;
 	private List<SelectionButton> blocks;
 	private List<SelectionButton> enemies;
 	private List<SelectionButton> players;
@@ -42,8 +43,9 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 		// Aggiunta di un bottone vuoto
 		others.add(new SelectionButton(ImageLoader.importImg("/EmptyTile.png"), " "));
 
-		//others.add(new SelectionButton(ImageLoader.importImg("/editor/eraser.png"), " "));
-		
+		// others.add(new SelectionButton(ImageLoader.importImg("/editor/eraser.png"), "
+		// "));
+
 		setSize();
 		setLayout(new ScrollPaneLayout());
 
@@ -53,7 +55,7 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 
 		JPanel buttonPanel = new JPanel(new GridLayout(totalRows, 1));
 		buttonPanel.setBackground(Color.BLACK);
-		//buttonPanel.setForeground(Color.YELLOW);
+		// buttonPanel.setForeground(Color.YELLOW);
 		buttonPanel.setSize(new Dimension((int) (100 * SCALE), (int) (totalRows * 40 * SCALE)));
 
 		// Aggiungi i titoli e i bottoni per ogni categoria
@@ -63,33 +65,33 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 		addCategory(buttonPanel, "Altro", others);
 
 		setViewportView(buttonPanel);
-		
-		//setBackground(Color.BLACK);
+
+		// setBackground(Color.BLACK);
 	}
 
 	private void addCategory(JPanel panel, String title, List<SelectionButton> buttons) {
-	    // Crea un bordo di colore arancione
-	    Border grayBorder = BorderFactory.createLineBorder(Color.GRAY, 1);
+		// Crea un bordo di colore arancione
+		Border grayBorder = BorderFactory.createLineBorder(Color.GRAY, 1);
 
-	    // Aggiungi il titolo
-	    JLabel label = new JLabel(title);
-	    label.setForeground(Color.YELLOW); // Imposta il colore del testo a giallo
-	    label.setBorder(grayBorder); // Imposta il bordo arancione sull'etichetta
-	    label.setHorizontalAlignment(JLabel.CENTER); // Allinea il testo orizzontalmente al centro
-	    panel.add(label);
+		// Aggiungi il titolo
+		JLabel label = new JLabel(title);
+		label.setForeground(Color.YELLOW); // Imposta il colore del testo a giallo
+		label.setBorder(grayBorder); // Imposta il bordo arancione sull'etichetta
+		label.setHorizontalAlignment(JLabel.CENTER); // Allinea il testo orizzontalmente al centro
+		panel.add(label);
 
-	    // Aggiungi i bottoni corrispondenti
-	    for (SelectionButton b : buttons) {
-	        b.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent e) {
-	                deselectAllButtons();
-	                b.setSelected(true);
-	                setCurrentButton(b);
-	            }
-	        });
-	        panel.add(b);
-	    }
+		// Aggiungi i bottoni corrispondenti
+		for (SelectionButton b : buttons) {
+			b.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					deselectAllButtons();
+					b.setSelected(true);
+					setCurrentButton(b);
+				}
+			});
+			panel.add(b);
+		}
 	}
 
 	private void addBlocks() {
@@ -109,7 +111,7 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 	}
 
 	private void addPlayers() {
-		players.add(new SelectionButton(Images.getImage("P","static"), "P"));
+		players.add(new SelectionButton(Images.getImage("P", "static"), "P"));
 	}
 
 	private void setSize() {

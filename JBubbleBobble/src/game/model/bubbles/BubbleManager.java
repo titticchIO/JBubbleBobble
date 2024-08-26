@@ -113,6 +113,7 @@ public class BubbleManager {
 		specialBubbles.forEach(b -> b.updateEntity());
 		playerBubbles.forEach(pb -> pb.updateEntity());
 		fireBalls.forEach(f -> f.updateEntity());
+		bolts.forEach(b -> b.updateEntity());
 		if (waterUpdateTimer == null && waters.size() != 0) {
 			waterUpdateTimer = new Timer("Water Update");
 			waterUpdateTimer.schedule(new TimerTask() {
@@ -124,8 +125,6 @@ public class BubbleManager {
 				}
 			}, 50);
 		}
-		bolts.forEach(b -> b.updateEntity());
-
 		createSpecialBubble();
 	}
 }

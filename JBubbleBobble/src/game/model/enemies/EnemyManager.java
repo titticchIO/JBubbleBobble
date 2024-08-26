@@ -1,6 +1,8 @@
 package game.model.enemies;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 import game.model.entities.MovingEntity;
@@ -17,6 +19,7 @@ import game.model.entities.MovingEntity;
 public class EnemyManager {
 	private List<Enemy> enemies;
 	private List<Laser> lasers;
+	private Timer shootLaserTimer;
 
 	/**
 	 * Constructs an {@code EnemyManager} with empty lists of enemies and lasers.
@@ -52,7 +55,7 @@ public class EnemyManager {
 	public void removeEnemy(Enemy enemy) {
 		enemies.remove(enemy);
 	}
-	
+
 	public void removeAllEnemies() {
 		enemies = new CopyOnWriteArrayList<>();
 	}
@@ -101,6 +104,10 @@ public class EnemyManager {
 		return hazards;
 	}
 
+	public long numberOfInvaders() {
+		return enemies.stream().filter(x -> x instanceof Invader).count();
+	}
+
 	/**
 	 * Updates all managed enemies and lasers by invoking their respective update
 	 * methods.
@@ -112,5 +119,18 @@ public class EnemyManager {
 	public void updateEnemies() {
 		enemies.stream().forEach(Enemy::updateEntity);
 		lasers.stream().forEach(Laser::updateEntity);
+		if (shootLaserTimer == null && numberOfInvaders() != 0) {
+			shootLaserTimer = new Timer("Shoot laser");
+			shootLaserTimer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					enemies.stream().forEach( x -> {
+							if (x instanceof Invader invader)
+								invader.shootLaser();
+					});
+					shootLaserTimer = null;
+				}
+			}, 500);
+		}
 	}
 }

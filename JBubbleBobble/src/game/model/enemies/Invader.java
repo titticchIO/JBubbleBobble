@@ -4,15 +4,12 @@ import static game.model.HelpMethods.isEntityInsideWall;
 import static game.model.HelpMethods.isSolidVerticalLine;
 import game.model.HelpMethods;
 import game.model.Model;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Invader extends Enemy {
 
 	public static final long ATTACK_INTERVAL = 1000;
 
 	private boolean landed;
-	private boolean startedShooting;
 
 	public Invader(float x, float y, float width, float height) {
 		super(x, y, width, height, "I");
@@ -49,26 +46,13 @@ public class Invader extends Enemy {
 		}
 	}
 
-	private void shootLaser() {
-		if (randomBoolean(3)) {
+	public void shootLaser() {
+		if (randomBoolean(10)) 
 			Model.getInstance().getCurrentLevel().getEnemyManager().addLaser(new Laser(x + 5, y + height, 6, 20));
-		}
-		new Timer("Invader Laser").schedule(new TimerTask() {
-
-			@Override
-			public void run() {
-				shootLaser();
-			}
-		}, ATTACK_INTERVAL);
-
 	}
 
 	@Override
 	public void updateEntity() {
-		if (!startedShooting) {
-			shootLaser();
-			startedShooting = true;
-		}
 		if (!isStopped) {
 			if (!HelpMethods.isEntityGrounded(this) && landed)
 				landed = false;
