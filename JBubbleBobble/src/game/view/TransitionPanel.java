@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import game.model.Model;
 import game.model.level.Level;
 
 public class TransitionPanel extends JPanel {
@@ -60,6 +61,7 @@ public class TransitionPanel extends JPanel {
                     transitionTimer.stop();
                     // Passa allo stato di gioco successivo
                     gameFrame.showState(GameFrame.Screen.GAME);
+                    Model.getInstance().setToUpdate(true);
                 }
 
                 repaint();

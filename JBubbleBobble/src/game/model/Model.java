@@ -28,10 +28,19 @@ public class Model extends Observable {
 	private Level currentLevel;
 	private List<User> users;
 	private User currentUser;
+	private boolean toUpdate = true;
 
 	/*
 	 * private long score; private long highScore;
 	 */
+
+	public boolean isToUpdate() {
+		return toUpdate;
+	}
+
+	public void setToUpdate(boolean toUpdate) {
+		this.toUpdate = toUpdate;
+	}
 
 	private static Model instance;
 
@@ -98,13 +107,22 @@ public class Model extends Observable {
 	}
 
 	public void nextLevel() {
+		nextLevelTransition();
 		currentLevel = levelIterator.next();
 		Player.getInstance().setPosition(currentLevel.getPlayerSpawnPoint()[0], currentLevel.getPlayerSpawnPoint()[1]);
 		currentLevel.addPlayer(Player.getInstance());
 		System.out.println(getCurrentLevel().getLevelNumber());
 		setChanged();
-		notifyObservers("next_" + getCurrentLevel().getLevelNumber());
+		notifyObservers("next");
 	}
+	
+	public void nextLevelTransition() {
+		toUpdate = false;
+		setChanged();
+		notifyObservers("transition");
+	}
+
+
 
 	public void setWin() {
 		modelState = ModelState.WIN;
@@ -112,9 +130,10 @@ public class Model extends Observable {
 	}
 
 	public void updateModel() {
-
+		if(toUpdate) {
 		currentLevel.updateLevel(); // Update the current level logic
 		updatePoints(); // Update points based on the current state
+		}
 		if (currentLevel.getPlayer().getLives() == 0) {
 			modelState = ModelState.LOSS; // Set game state to LOSS if player is out of lives
 			currentUser.addLostGame();

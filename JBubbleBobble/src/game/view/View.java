@@ -49,11 +49,19 @@ public class View implements Observer {
     public void update(Observable o, Object arg) {
         level = Model.getInstance().getCurrentLevel();  // Update the level reference
 
-        // Check if the level is changing
-        if (arg instanceof String s && s.split("_")[0].equals("next")) {
-            levelPanel.renderTilesOnce();  // Render tiles for the next level
-            levelPanel.startLevelTransition(Integer.parseInt(s.split("_")[1]));
+        if (arg instanceof String s && s.equals("transition")) {
+        	levelPanel.startLevelTransition(level.getLevelNumber() + 1);
+            //levelPanel.renderTilesOnce();  // Render tiles for the next level
+            
         }
+        
+        
+        // Check if the level is changing
+        if (arg instanceof String s && s.equals("next")) {
+            levelPanel.renderTilesOnce();  // Render tiles for the next level
+            
+        }
+        
 
         // Check if points are updated
         if (arg instanceof String s && s.equals("points")) {
