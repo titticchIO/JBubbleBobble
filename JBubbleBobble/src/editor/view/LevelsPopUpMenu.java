@@ -131,26 +131,33 @@ public class LevelsPopUpMenu extends JPopupMenu {
     }
     
     private void saveLevelImage(int levelNumber, EditorFrame editorFrame) {
-    	// Salva l'immagine del livello
         try {
             BufferedImage image = new BufferedImage(editorFrame.getEditorPanel().getWidth(),
                                                     editorFrame.getEditorPanel().getHeight(),
                                                     BufferedImage.TYPE_INT_RGB);
             Graphics g = image.getGraphics();
-            editorFrame.getEditorPanel().paint(g);
+
+            // Rimuovi il bordo grigio durante il rendering
+            for (Sprite[] row : editorFrame.getEditorPanel().getSprites()) {
+                for (Sprite s : row) {
+                    s.renderWithoutBorder(g); // Usa il metodo senza bordo
+                }
+            }
+
             g.dispose();
-            
+
             // Specifica il percorso e il nome del file dell'immagine
             File outputFile = new File("resources/levelsimg/Livello" + levelNumber + ".png");
             ImageIO.write(image, "png", outputFile);
-            
+
             System.out.println("Level image saved as: " + outputFile.getAbsolutePath());
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(editorFrame, "Error saving level image.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         // Aggiorna i popup menu
         editorFrame.getPopUps().forEach(p -> p.rebuildMenu());
     }
+
 }

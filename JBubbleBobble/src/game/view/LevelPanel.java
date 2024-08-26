@@ -1,5 +1,6 @@
 package game.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -35,6 +36,7 @@ public class LevelPanel extends JPanel {
 	public LevelPanel(GameFrame gameFrame) {
 		setPanelSize();
 		this.gameFrame = gameFrame;
+		setBackground(Color.BLACK);
 	}
 
 	private void setPanelSize() {

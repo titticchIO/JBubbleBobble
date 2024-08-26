@@ -47,6 +47,7 @@ public class GameFrame extends JFrame {
 	    layoutPanel.add(transitionPanel, "TRANSITION");
 
 		JPanel gamePanel = new JPanel(new BorderLayout());
+		//gamePanel.setBackground(Color.BLACK);
 		
 		JPanel scorePanel = new JPanel(new GridBagLayout());
 		scorePanel.setBackground(Color.BLACK);

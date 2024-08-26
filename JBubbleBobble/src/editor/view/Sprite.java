@@ -56,13 +56,22 @@ public class Sprite extends JButton {
 	    // Disegna l'immagine vuota come sfondo (puoi mantenere questa parte se necessario)
 	    ((Graphics2D)g).drawImage(EMPTY_SPRITE, x * EditorPanel.SQUARE_SIZE, y * EditorPanel.SQUARE_SIZE, (int) sideLength, (int) sideLength, null);
 	    
-	    // Disegna il bordo giallo
+	    // Disegna il bordo grigio
 	    Graphics2D g2 = (Graphics2D) g;
 	    float thickness = 1; // Spessore del bordo
 	    g2.setStroke(new BasicStroke(thickness));
 	    g2.setColor(Color.GRAY);
 	    g2.drawRect(x * EditorPanel.SQUARE_SIZE, y * EditorPanel.SQUARE_SIZE, (int) sideLength, (int) sideLength);
 	}
+	
+	public void renderWithoutBorder(Graphics g) {
+	    if (img != null) {
+	        g.drawImage(img, x * EditorPanel.SQUARE_SIZE, y * EditorPanel.SQUARE_SIZE, (int) sideLength, (int) sideLength, null);
+	    } else {
+	        g.clearRect(x * EditorPanel.SQUARE_SIZE, y * EditorPanel.SQUARE_SIZE, (int) sideLength, (int) sideLength);
+	    }
+	}
+
 
 
 }
