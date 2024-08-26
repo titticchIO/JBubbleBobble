@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import game.controller.ActionListenersManager;
@@ -104,7 +106,8 @@ public class MenuPanel extends JPanel {
 		Model.getInstance().getUsers().forEach(user -> {
 			UserPanel userPanel = new UserPanel(user);
 			userPanelContainer.add(userPanel);
-			userPanel.getUserButton().addActionListener(ActionListenersManager.updateUserSelection(user, userSelectionPopUp));
+			userPanel.getUserButton()
+					.addActionListener(ActionListenersManager.updateUserSelection(user, userSelectionPopUp));
 		});
 
 		JButton newUserButton = new JButton() {
@@ -143,12 +146,35 @@ public class MenuPanel extends JPanel {
 	}
 
 	public void showLeaderboard() {
-		JFrame leaderboardFrame = new JFrame("Leaderboard");
 		LeaderboardPanel leaderboardPanel = new LeaderboardPanel();
+		// leaderboardPanel.setBackground(Color.BLACK);
+
+		// Creazione del frame
+		JFrame leaderboardFrame = new JFrame("Leaderboard");
+		// leaderboardFrame.setBackground(Color.BLACK);
+
+		// Aggiungi il pannello al frame
 		leaderboardFrame.add(leaderboardPanel);
-		leaderboardFrame.setSize(450, 300);
+
+		// Ottieni le dimensioni preferite del pannello leaderboard (che include il
+		// JScrollPane)
+		Dimension preferredSize = leaderboardPanel.getPreferredSize();
+
+		// Imposta la dimensione del frame in base alla dimensione preferita del
+		// pannello leaderboard
+		leaderboardFrame.setSize(preferredSize.width, preferredSize.height); // Aggiungi un margine
+
+		// Centra il frame rispetto alla finestra principale
 		leaderboardFrame.setLocationRelativeTo(null);
+
+		// Imposta l'operazione di chiusura del frame
+		leaderboardFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+		// Mostra il frame
 		leaderboardFrame.setVisible(true);
+
+		// Impedisce il ridimensionamento del frame dopo averlo mostrato
+		leaderboardFrame.setResizable(false);
 	}
 
 	@Override

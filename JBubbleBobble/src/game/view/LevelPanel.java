@@ -1,5 +1,6 @@
 package game.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -35,6 +36,7 @@ public class LevelPanel extends JPanel {
 	public LevelPanel(GameFrame gameFrame) {
 		setPanelSize();
 		this.gameFrame = gameFrame;
+		setBackground(Color.BLACK);
 	}
 
 	private void setPanelSize() {
@@ -47,6 +49,19 @@ public class LevelPanel extends JPanel {
 		Graphics g = tilesImage.getGraphics();
 		View.getInstance(gameFrame).getLevel().getTiles().forEach(t -> renderEntity(t, g));
 	}
+	
+	 public void startLevelTransition(int levelNumber) {
+	        // Cattura l'immagine attuale del livello
+	        BufferedImage currentLevelImage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+	        Graphics g = currentLevelImage.getGraphics();
+	        paintComponent(g);  // Disegna lo stato corrente del livello su currentLevelImage
+	        g.dispose();
+
+	        // Passa l'immagine catturata al transitionPanel
+	        TransitionPanel transitionPanel = View.getInstance().getTransitionPanel();
+	        transitionPanel.startTransition(currentLevelImage, ImageLoader.importImg("/levelsimg/Livello" + levelNumber + ".png"));
+	        gameFrame.showState(GameFrame.Screen.TRANSITION);
+	    }
 
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -93,5 +108,7 @@ public class LevelPanel extends JPanel {
 			g.drawImage(img, (int) entity.getX(), (int) entity.getY(), (int) entity.getWidth() + 1,
 					(int) entity.getHeight() + 1, null);
 	}
+	
+	
 
 }

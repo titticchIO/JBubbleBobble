@@ -24,7 +24,7 @@ import game.view.EndPanel.Ending;
 public class GameFrame extends JFrame {
 
 	public enum Screen {
-		MENU, GAME, WIN, LOSS
+		MENU, GAME, WIN, LOSS, TRANSITION
 	}
 
 	private JPanel layoutPanel;
@@ -43,8 +43,10 @@ public class GameFrame extends JFrame {
 		layoutPanel.setSize(new Dimension((int) (Level.GAME_WIDTH * LevelPanel.SCALE),
 				(int) (Level.GAME_HEIGHT * LevelPanel.SCALE)));
 
-		JPanel gamePanel = new JPanel(new BorderLayout());
+		TransitionPanel transitionPanel = View.getInstance(this).getTransitionPanel();
+		layoutPanel.add(transitionPanel, "TRANSITION");
 
+		JPanel gamePanel = new JPanel(new BorderLayout());
 		JPanel scorePanel = new JPanel(new GridBagLayout());
 		scorePanel.setBackground(Color.BLACK);
 		scorePanel.setPreferredSize(new Dimension(gamePanel.getWidth(), 30));

@@ -1,9 +1,15 @@
 package editor.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -43,6 +49,8 @@ public class LevelsPopUpMenu extends JPopupMenu {
         // Carica i livelli e crea i bottoni in base al tipo di menu
         levels.forEach(level -> {
             JButton button = new JButton("Level " + level);
+            button.setBackground(Color.BLACK);
+            button.setForeground(Color.YELLOW);
             button.addActionListener(e -> {
                 int numero = Integer.parseInt(level);
                 switch (menuType) {
@@ -63,6 +71,8 @@ public class LevelsPopUpMenu extends JPopupMenu {
         if (menuType == MenuType.SAVE) {
             int newLevelNumber = levels.size() + 1;
             JButton newLevelButton = new JButton("new Level (" + newLevelNumber + ")");
+            newLevelButton.setBackground(Color.BLACK);
+            newLevelButton.setForeground(Color.YELLOW);
             newLevelButton.addActionListener(e -> {
                 handleSaveLevel(newLevelNumber, editorFrame);
             });
@@ -104,10 +114,12 @@ public class LevelsPopUpMenu extends JPopupMenu {
     }
 
     private void handleSaveLevel(int levelNumber, EditorFrame editorFrame) {
+        // Salva il livello
         LevelManager.saveLevelFile(levelNumber);
         editorFrame.setActualLevelNumber(String.valueOf(levelNumber));
         editorFrame.getActualLevel().setText("Level " + levelNumber);
-        editorFrame.getPopUps().forEach(p->p.rebuildMenu());
+        saveLevelImage(levelNumber, editorFrame);
+        
     }
 
     private void handleDeleteLevel(int levelNumber, EditorFrame editorFrame) {
@@ -115,5 +127,37 @@ public class LevelsPopUpMenu extends JPopupMenu {
         editorFrame.setActualLevelNumber("");
         editorFrame.getActualLevel().setText("");
         editorFrame.getPopUps().forEach(p->p.rebuildMenu());
+        
     }
+    
+    private void saveLevelImage(int levelNumber, EditorFrame editorFrame) {
+        try {
+            BufferedImage image = new BufferedImage(editorFrame.getEditorPanel().getWidth(),
+                                                    editorFrame.getEditorPanel().getHeight(),
+                                                    BufferedImage.TYPE_INT_RGB);
+            Graphics g = image.getGraphics();
+
+            // Rimuovi il bordo grigio durante il rendering
+            for (Sprite[] row : editorFrame.getEditorPanel().getSprites()) {
+                for (Sprite s : row) {
+                    s.renderWithoutBorder(g); // Usa il metodo senza bordo
+                }
+            }
+
+            g.dispose();
+
+            // Specifica il percorso e il nome del file dell'immagine
+            File outputFile = new File("resources/levelsimg/Livello" + levelNumber + ".png");
+            ImageIO.write(image, "png", outputFile);
+
+            System.out.println("Level image saved as: " + outputFile.getAbsolutePath());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(editorFrame, "Error saving level image.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        // Aggiorna i popup menu
+        editorFrame.getPopUps().forEach(p -> p.rebuildMenu());
+    }
+
 }
