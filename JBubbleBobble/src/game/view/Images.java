@@ -12,9 +12,14 @@ public class Images {
 	static {
 		imageMap = new HashMap<>();
 		imageMap.put("1", "/blocks/normal_blocks/block_1");
-		imageMap.put("2", "/blocks/normal_blocks/block_2");
-		imageMap.put("3", "/blocks/normal_blocks/block_3");
-		imageMap.put("4", "/blocks/normal_blocks/block_4");
+		imageMap.put("2", "/blocks/normal_blocks/block_3");
+		imageMap.put("3", "/blocks/normal_blocks/block_5");
+		imageMap.put("4", "/blocks/normal_blocks/block_6");
+		imageMap.put("5", "/blocks/normal_blocks/block_10");
+		imageMap.put("6", "/blocks/normal_blocks/block_25");
+		imageMap.put("7", "/blocks/normal_blocks/block_21");
+		imageMap.put("8", "/blocks/normal_blocks/block_15");
+		imageMap.put("9", "/blocks/normal_blocks/block_19");
 		imageMap.put("P", "/player/");
 		imageMap.put("°", "/bubbles/player_bubble");
 		imageMap.put("-", "/bubbles/fire_bubble");
@@ -23,8 +28,8 @@ public class Images {
 		imageMap.put("%", "/bubbles/special_bubble");
 		imageMap.put("#", "/bubbles/special_effects/fire_ball");
 		imageMap.put("?", "/bubbles/special_effects/bolt");
-		imageMap.put("_", "/bubbles/special_effects/water_horizontal");		
-		imageMap.put("|", "/bubbles/special_effects/water_vertical");		
+		imageMap.put("_", "/bubbles/special_effects/water_horizontal");
+		imageMap.put("|", "/bubbles/special_effects/water_vertical");
 		imageMap.put("Z", "/enemies/zenchan/");
 		imageMap.put("I", "/enemies/invader/");
 		imageMap.put("M", "/enemies/monsta/");
@@ -36,24 +41,23 @@ public class Images {
 		imageMap.put("$", "/powerups/yellow_candy");
 		imageMap.put("§", "/powerups/shoes");
 		imageMap.put("@", "/powerups/parasol/");
-		imageMap.put("*", "/powerups/clock");	
+		imageMap.put("*", "/powerups/clock");
 		imageMap.put("^", "/powerups/dynamite");
 		imageMap.put("&", "/powerups/crystal_ring");
 		imageMap.put("(", "/powerups/amethyst_ring");
-		
 
 	}
 
 	public static BufferedImage getImage(String type, String position) {
 		return ImageLoader.importImg(imageMap.get(type) + position + ".png");
 	}
-	
+
 	public static BufferedImage getImage(String imageCode) {
 		BufferedImage img;
 		if (imageCode.matches("[A-Za-z]"))
 			img = ImageLoader.importImg(imageMap.get(imageCode) + "right.png");
 		else
-			img = ImageLoader.importImg(imageMap.get(imageCode+"") + ".png");
+			img = ImageLoader.importImg(imageMap.get(imageCode + "") + ".png");
 		return img;
 	}
 
