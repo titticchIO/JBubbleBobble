@@ -10,7 +10,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 import game.model.Model;
-import game.model.level.Level;
 
 public class PowerupManager {
 

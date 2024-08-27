@@ -11,33 +11,33 @@ public class LevelManager {
 	public static final int ROWS = 24;
 	public static final int COLS = 30;
 
-	private static String[][] level;
+	private static char[][] level;
 
 	public LevelManager() {
-		level = new String[ROWS][COLS];
+		level =  new char[ROWS][COLS];
 		emptyLevel();
 	}
 
-	public LevelManager(String wallTile) {
-		level = new String[ROWS][COLS];
+	public LevelManager(char wallTile) {
+		level = new char[ROWS][COLS];
 
 		setWalls(wallTile);
 		emptyLevel();
 	}
 
-	public static void setLevel(String[][] levelData) {
+	public static void setLevel(char[][] levelData) {
 		level = levelData;
 	}
 
 	public static void emptyLevel() {
 		for (int i = 0; i < ROWS; i++) {
 			for (int j = 0; j < COLS; j++) {
-				level[i][j] = " ";
+				level[i][j] = ' ';
 			}
 		}
 	}
 
-	public void setWalls(String tile) {
+	public void setWalls(char tile) {
 		try {
 			for (int x = 0; x < COLS; x++) {
 				level[0][x] = tile;
@@ -54,7 +54,7 @@ public class LevelManager {
 
 	}
 
-	public static void setTile(int y, int x, String tile) {
+	public static void setTile(int y, int x, char tile) {
 		if (y >= 0 && y < ROWS && x >= 0 && x < COLS) {
 			level[y][x] = tile;
 		} else {
@@ -63,7 +63,7 @@ public class LevelManager {
 		}
 	}
 
-	public static String[][] getLevel() {
+	public static char[][] getLevel() {
 		return level;
 	}
 
@@ -71,7 +71,7 @@ public class LevelManager {
 		List<String> out = new ArrayList<>();
 
 		for (int i = 0; i < ROWS; i++) {
-			out.add(String.join("|", level[i]));
+			out.add(String.valueOf(level[i]));
 		}
 
 		return String.join("\n", out);
@@ -123,9 +123,4 @@ public class LevelManager {
 			System.err.println("Error deleting file:" + filePath + "|" + e.getMessage());
 		}
 	}
-
-	public static void main(String[] args) {
-		LevelManager.deleteLevelFile(1111111111);
-	}
-
 }

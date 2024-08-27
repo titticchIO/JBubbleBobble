@@ -5,9 +5,10 @@ import game.model.tiles.Tile;
 import game.model.bubbles.special_effects.Bolt;
 
 public class ThunderBubble extends Bubble {
+	public static final char CODE = '+';
 
 	public ThunderBubble() {
-		super(0, 0, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1, "+");
+		super(0, 0, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1, CODE);
 		rise(-0.1f);
 		lifeSpan *= 10;
 	}

@@ -1,7 +1,6 @@
 package game.model.bubbles;
 
 import game.model.HelpMethods;
-import game.model.Model;
 import game.model.enemies.Enemy;
 import game.model.entities.MovingEntity;
 import game.model.level.Level;
@@ -11,13 +10,13 @@ public abstract class Bubble extends MovingEntity {
 
 	protected float lifeSpan;
 
-	public Bubble(float x, float y, float width, float height, String code) {
+	public Bubble(float x, float y, float width, float height, char code) {
 		super(x, y, width, height, code);
 		lifeSpan = 10000;
 
 	}
 
-	public Bubble(float x, float y, float width, float height, float lifeSpan, String code) {
+	public Bubble(float x, float y, float width, float height, float lifeSpan, char code) {
 		super(x, y, width, height, code);
 		this.lifeSpan = lifeSpan;
 	}

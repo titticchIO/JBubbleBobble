@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Arrays;
 
 import javax.swing.JPanel;
 
@@ -86,10 +85,10 @@ public class EditorPanel extends JPanel {
 		setPreferredSize(size);
 	}
 
-	public void loadLevel(String[][] levelData) {
+	public void loadLevel(char[][] levelData) {
 		for (int y = 0; y < levelData.length; y++) {
 			for (int x = 0; x < levelData[y].length; x++) {
-				if (!levelData[y][x].equals(" ")) {
+				if (levelData[y][x] != ' ') {
 					sprites[y][x].updateSprite(Images.getImage(levelData[y][x]));
 				}
 			}

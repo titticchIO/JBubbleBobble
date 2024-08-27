@@ -5,6 +5,7 @@ import game.model.enemies.Enemy;
 
 public class PlayerBubble extends Bubble {
 
+	public static final char CODE = '°';
 	private static float extraTravelTime = 1;
 	private static float extraXSpeed = 1;
 
@@ -29,7 +30,7 @@ public class PlayerBubble extends Bubble {
 	 */
 	private PlayerBubble(float x, float y, float width, float height, float xSpeed, float airSpeed, float lifeSpan,
 			float travelTime) {
-		super(x, y, width, height, "°");
+		super(x, y, width, height, CODE);
 		this.xSpeed = xSpeed * extraXSpeed;
 		this.airSpeed = airSpeed;
 		this.lifeSpan = 5000;
@@ -146,7 +147,6 @@ public class PlayerBubble extends Bubble {
 
 	public static class Builder {
 		private float x, y, width, height;
-		private String imagePath;
 		private float xSpeed, airSpeed;
 		private float lifeSpan = 10000;
 		private float travelTime = 100;

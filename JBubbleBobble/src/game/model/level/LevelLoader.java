@@ -5,32 +5,30 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import game.model.enemies.*;
-import game.model.entities.Player;
-import game.model.powerups.Powerup;
 import game.model.tiles.Tile;
 
 import static game.model.tiles.Tile.TILE_SIZE;;
 
 public class LevelLoader {
 
-	private final static String PLAYER = "P";
-	private final static String ZEN_CHAN = "Z";
-	private final static String MONSTA = "M";
-	private final static String BANEBOU = "N";
-	private final static String PULPUL = "U";
-	private final static String SKELMONSTA = "S";
-	private final static String INVADER = "I";
+	private final static char PLAYER = 'P';
+	private final static char ZEN_CHAN = 'Z';
+	private final static char MONSTA = 'M';
+	private final static char BANEBOU = 'N';
+	private final static char PULPUL = 'U';
+	private final static char SKELMONSTA = 'S';
+	private final static char INVADER = 'I';
 
-	public static String[][] readLevelFile(int levelNum) {
+	public static char[][] readLevelFile(int levelNum) {
 
-		String[][] matrice = new String[Level.NUM_VERTICAL_TILES][Level.NUM_HORIZONTAL_TILES];
+		char[][] matrice = new char[Level.NUM_VERTICAL_TILES][Level.NUM_HORIZONTAL_TILES];
 
 		String levelPath = "resources/levels/Livello" + levelNum + ".txt";
 
 		try (BufferedReader br = new BufferedReader(new FileReader(levelPath))) {
 			int i = 0;
 			while (br.ready()) {
-				matrice[i] = br.readLine().split("\\|");
+				matrice[i] = br.readLine().toCharArray();
 				i++;
 			}
 		} catch (IOException e) {
@@ -42,15 +40,15 @@ public class LevelLoader {
 
 	// crea gli oggetti nel level in base alla matrice
 
-	public static String[][] loadLevel(Level level, int levelNum) {
-		String[][] matrice = readLevelFile(levelNum);
+	public static char[][] loadLevel(Level level, int levelNum) {
+		char[][] matrice = readLevelFile(levelNum);
 		int x = 0;
 		int y = 0;
-		for (String[] linea : matrice) {
-			for (String c : linea) {
-				if (!c.equals(" "))
+		for (char[] linea : matrice) {
+			for (char c : linea) {
+				if (!(c == ' '))
 					switch (c) {
-					case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" ->
+					case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ->
 						level.addTile(new Tile(x * TILE_SIZE, y * TILE_SIZE, c));
 					case PLAYER -> {
 						level.setPlayerSpawnPoint(x * TILE_SIZE, y * TILE_SIZE);

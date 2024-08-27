@@ -1,18 +1,14 @@
 package game.model.enemies;
 
-import java.util.Random;
-
-import game.model.entities.MovingEntity.Color;
 import game.model.level.Level;
 import game.model.tiles.Tile;
 
 public class SkelMonsta extends Enemy {
-
+	public static final char CODE = 'S';
 	private static final float FLIGHT_SPEED = 0.4f;
-	
 
 	public SkelMonsta(float x, float y) {
-		super(x, y, "S");
+		super(x, y, CODE);
 		setxSpeed(0.3f);
 		setAirSpeed(0.3f);
 		setDirection(Direction.RIGHT);
@@ -20,7 +16,7 @@ public class SkelMonsta extends Enemy {
 	}
 
 	public SkelMonsta(float x, float y, float width, float height) {
-		super(x, y, width, height, "S");
+		super(x, y, width, height, CODE);
 		setxSpeed(0.3f);
 		setAirSpeed(0.3f);
 		setDirection(Direction.RIGHT);
@@ -40,7 +36,7 @@ public class SkelMonsta extends Enemy {
 			if (randomBoolean(10))
 				setY(y - 3);
 		}
-		
+
 		// GO RIGHT
 		if (x - 1 <= Tile.TILE_SIZE) {
 			setxSpeed(FLIGHT_SPEED);
@@ -54,7 +50,7 @@ public class SkelMonsta extends Enemy {
 			if (randomBoolean(10))
 				setX(x + 3);
 		}
-		
+
 	}
 
 	@Override

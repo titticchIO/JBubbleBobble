@@ -42,7 +42,7 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 		addEnemies();
 		addPlayers();
 		// Aggiunta di un bottone vuoto
-		SelectionButton eraser = new SelectionButton(ImageLoader.importImg("/EmptyTile.png"), " ");
+		SelectionButton eraser = new SelectionButton(ImageLoader.importImg("/EmptyTile.png"), ' ');
 		others.add(eraser);
 		setCurrentButton(eraser);
 
@@ -92,22 +92,22 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 
 	private void addBlocks() {
 		for (int i = 1; i <= 4; i++) {
-			String number = String.valueOf(i);
+			char number = (char) (i+'0');
 			blocks.add(new SelectionButton(Images.getImage(number), number));
 		}
 	}
 
 	private void addEnemies() {
-		enemies.add(new SelectionButton(Images.getImage("Z"), "Z"));
-		enemies.add(new SelectionButton(Images.getImage("M"), "M"));
-		enemies.add(new SelectionButton(Images.getImage("N"), "N"));
-		enemies.add(new SelectionButton(Images.getImage("I"), "I"));
-		enemies.add(new SelectionButton(Images.getImage("U"), "U"));
-		enemies.add(new SelectionButton(Images.getImage("S"), "S"));
+		enemies.add(new SelectionButton(Images.getImage('Z'), 'Z'));
+		enemies.add(new SelectionButton(Images.getImage('M'), 'M'));
+		enemies.add(new SelectionButton(Images.getImage('N'), 'N'));
+		enemies.add(new SelectionButton(Images.getImage('I'), 'I'));
+		enemies.add(new SelectionButton(Images.getImage('U'), 'U'));
+		enemies.add(new SelectionButton(Images.getImage('S'), 'S'));
 	}
 
 	private void addPlayers() {
-		players.add(new SelectionButton(Images.getImage("P", "static"), "P"));
+		players.add(new SelectionButton(Images.getImage('P', "static"), 'P'));
 	}
 
 	private void setSize() {

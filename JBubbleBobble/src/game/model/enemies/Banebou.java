@@ -15,6 +15,7 @@ import game.model.HelpMethods;
  */
 
 public class Banebou extends Enemy {
+	public static final char CODE = 'N';
 
 	private long lastChangeTime;
 	private long changeInterval;
@@ -27,7 +28,7 @@ public class Banebou extends Enemy {
 	 * @param y the initial y-coordinate of the {@code Banebou}
 	 */
 	public Banebou(float x, float y) {
-		super(x, y, "N");
+		super(x, y, CODE);
 		setxSpeed(0.7f);
 		setJumpSpeed(-1.5f);
 		setDirection(Direction.RIGHT);
@@ -46,7 +47,7 @@ public class Banebou extends Enemy {
 	 * @param height the height of the {@code Banebou}
 	 */
 	public Banebou(float x, float y, float width, float height) {
-		super(x, y, width, height, "N");
+		super(x, y, width, height, CODE);
 		setxSpeed(0.7f);
 		setJumpSpeed(-1.5f);
 		setDirection(Direction.RIGHT);

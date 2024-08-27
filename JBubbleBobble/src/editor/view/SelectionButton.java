@@ -11,9 +11,9 @@ import static editor.view.EditorPanel.SCALE;
 
 public class SelectionButton extends JToggleButton {
 	private BufferedImage img;
-	private String code;
+	private char code;
 
-	public SelectionButton(BufferedImage img,String code) {
+	public SelectionButton(BufferedImage img,char code) {
 		this.img = img;
 		this.code=code;
 		Image scaledImg = img.getScaledInstance(40 * (int) SCALE, 40 * (int) SCALE, Image.SCALE_SMOOTH);
@@ -26,7 +26,7 @@ public class SelectionButton extends JToggleButton {
 	public BufferedImage getImg() {
 		return img;
 	}
-	public String getCode() {
+	public char getCode() {
 		return code;
 	}
 

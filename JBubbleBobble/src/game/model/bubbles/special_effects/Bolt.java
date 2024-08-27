@@ -1,10 +1,7 @@
 package game.model.bubbles.special_effects;
 
 import java.util.Optional;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import game.model.HelpMethods;
 import game.model.Model;
 import game.model.enemies.Enemy;
 import game.model.entities.Entity;
@@ -16,9 +13,10 @@ import game.model.tiles.Tile;
 public class Bolt extends MovingEntity {
 	
 	public static final float BOLT_SPEED = 2;
+	public static final char CODE = '?';
 
 	public Bolt(float x, float y) {
-		super(x, y, Tile.TILE_SIZE-1, Tile.TILE_SIZE-1, "?");
+		super(x, y, Tile.TILE_SIZE-1, Tile.TILE_SIZE-1, CODE);
 		setBoltXSpeed();
 	}
 	

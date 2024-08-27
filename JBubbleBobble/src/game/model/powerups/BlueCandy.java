@@ -3,17 +3,18 @@ package game.model.powerups;
 import game.model.bubbles.PlayerBubble;
 
 public class BlueCandy extends Powerup {
+	public static final char CODE = '£';
 	private static final int POINTS = 100;
 	private static final long DURATION = 10000;
 	private static final float INCREASED_X_SPEED_AMOUNT = 2;
 	private static int spawnCondition = 2;
 
 	public BlueCandy() {
-		super(0, 0, "£", POINTS, DURATION);
+		super(0, 0, CODE, POINTS, DURATION);
 	}
 
 	public BlueCandy(float x, float y) {
-		super(x, y, "£", POINTS, DURATION);
+		super(x, y, CODE, POINTS, DURATION);
 	}
 
 	@Override

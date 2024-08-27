@@ -7,16 +7,17 @@ import game.model.Model;
 
 public class Invader extends Enemy {
 
+	public static final char CODE = 'I';
 	public static final long ATTACK_INTERVAL = 1000;
 
 	private boolean landed;
 
 	public Invader(float x, float y, float width, float height) {
-		super(x, y, width, height, "I");
+		super(x, y, width, height, CODE);
 	}
 
 	public Invader(float x, float y) {
-		super(x, y, "I");
+		super(x, y, CODE);
 		setAirSpeed(1);
 		setDirection(Direction.LEFT);
 		setColor(Color.NORMAL);

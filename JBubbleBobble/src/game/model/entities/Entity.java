@@ -80,7 +80,7 @@ public abstract class Entity {
 	protected float width, height;
 
 	// Unique code identifier for the entity
-	private String code;
+	private char code;
 
 	/**
 	 * Constructs an {@code Entity} with specified position, dimensions, and code.
@@ -91,7 +91,7 @@ public abstract class Entity {
 	 * @param height The height of the entity.
 	 * @param code   The unique code representing the entity.
 	 */
-	public Entity(float x, float y, float width, float height, String code) {
+	public Entity(float x, float y, float width, float height, char code) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -107,7 +107,7 @@ public abstract class Entity {
 	 * @param y    The y-coordinate of the entity.
 	 * @param code The unique code representing the entity.
 	 */
-	public Entity(float x, float y, String code) {
+	public Entity(float x, float y, char code) {
 		this.x = x;
 		this.y = y;
 		this.code = code;
@@ -156,7 +156,7 @@ public abstract class Entity {
 	 * 
 	 * @return The entity's code.
 	 */
-	public String getCode() {
+	public char getCode() {
 		return code;
 	}
 

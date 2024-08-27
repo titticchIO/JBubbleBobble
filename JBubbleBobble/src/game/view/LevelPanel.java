@@ -8,6 +8,7 @@ import java.awt.Image;
 
 import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import game.model.entities.Entity;
@@ -19,6 +20,7 @@ import game.model.bubbles.special_effects.Water;
 import game.model.enemies.*;
 import game.model.level.Level;
 import game.model.powerups.OrangeParasol;
+import game.model.powerups.Parasol;
 import game.model.powerups.PurpleParasol;
 import game.model.powerups.RedParasol;
 import game.model.tiles.Tile;
@@ -79,27 +81,29 @@ public class LevelPanel extends JPanel {
 		Image img;
 		img = switch (entity) {
 		case Tile tile -> Images.getImage(tile.getCode());
-		case Laser laser -> Images.getImage("I", "red");
+		case Laser laser -> Images.getImage(Laser.CODE);
 		case Enemy enemy -> AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColor());
-		case OrangeParasol orangeParasol -> Images.getImage("@", "orange");
-		case RedParasol redParasol -> Images.getImage("@", "red");
-		case PurpleParasol purpleParasol -> Images.getImage("@", "purple");
+		case OrangeParasol orangeParasol -> Images.getImage(Parasol.CODE, "orange");
+		case RedParasol redParasol -> Images.getImage(Parasol.CODE, "red");
+		case PurpleParasol purpleParasol -> Images.getImage(Parasol.CODE, "purple");
 		case Player player -> switch (player.getDirection()) {
 		case RIGHT -> AnimationLoader.getPlayerImage("walk_right");
 		case LEFT -> AnimationLoader.getPlayerImage("walk_left");
-		case STATIC -> Images.getImage("P", "static");
+		case STATIC -> Images.getImage(Player.CODE, "static");
 		default -> throw new IllegalArgumentException("Unexpected value: " + player.getDirection());
 		};
 		case PlayerBubble playerBubble -> {
-			if (playerBubble.hasEnemy()) {
+			if (playerBubble.getLifeSpan() <= 500) {
+				yield AnimationLoader.loadBubblePoppingImage();
+			} else if (playerBubble.hasEnemy()) {
 				yield AnimationLoader.loadBubbleEnemyImage(playerBubble.getEnemy().getCode(),
 						playerBubble.getEnemy().getColor());
 			} else {
 				yield Images.getImage(playerBubble.getCode());
 			}
 		}
-		case WaterBubble waterBubble -> AnimationLoader.loadEntityImage("/bubbles/waterBubble.gif");
-		case Water water -> HelpMethods.isEntityGrounded(water) ? Images.getImage("_") : Images.getImage("|");
+		case WaterBubble waterBubble -> AnimationLoader.loadEntityImage("/bubbles/water_bubble.gif");
+		case Water water -> HelpMethods.isEntityGrounded(water) ? Images.getImage('_') : Images.getImage('|');
 		default -> Images.getImage(entity.getCode());
 		};
 		if (entity instanceof Tile) {

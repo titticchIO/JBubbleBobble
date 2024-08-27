@@ -12,11 +12,12 @@ public class FireBall extends MovingEntity {
 	public enum FireState {
 		FALL, BURN
 	}
-
+	
+	public static final char CODE = '#';
 	public FireState fireState;
 
 	public FireBall(float x, float y, FireState fireState) {
-		super(x, y, "#");
+		super(x, y, CODE);
 		airSpeed = 2.0f;
 		this.fireState = fireState;
 		new Timer("Remove FireBall").schedule(new TimerTask() {
@@ -29,7 +30,7 @@ public class FireBall extends MovingEntity {
 	}
 
 	public FireBall(float x, float y) {
-		super(x, y, "#");
+		super(x, y, CODE);
 		airSpeed = 2.0f;
 		fireState = FireState.FALL;
 	}
@@ -44,14 +45,14 @@ public class FireBall extends MovingEntity {
 	}
 
 	private void spawnFireBalls() {
-		String[][] lvlData = Model.getInstance().getCurrentLevel().getLvlData();
+		char[][] lvlData = Model.getInstance().getCurrentLevel().getLvlData();
 		int xPos = (int) (x / TILE_SIZE);
 		int yPos = (int) (y / TILE_SIZE);
 		for (int i = 1; i < 3; i++) {
-			if (lvlData[yPos + 1][xPos + i].matches("[0-9]"))
+			if (Character.isDigit(lvlData[yPos + 1][xPos + i]))
 				Model.getInstance().getCurrentLevel().getBubbleManager()
 						.addFireBall(new FireBall((xPos + i) * TILE_SIZE, yPos * TILE_SIZE, FireState.BURN));
-			if (lvlData[yPos + 1][xPos - i].matches("[0-9]"))
+			if (Character.isDigit(lvlData[yPos + 1][xPos - i]))
 				Model.getInstance().getCurrentLevel().getBubbleManager()
 						.addFireBall(new FireBall((xPos - i) * TILE_SIZE, yPos * TILE_SIZE, FireState.BURN));
 

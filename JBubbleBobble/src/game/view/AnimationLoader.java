@@ -67,12 +67,16 @@ public class AnimationLoader {
 		}
 	}
 	
-	public static Image loadBubbleEnemyImage(String code, Color color) {
+	public static Image loadBubbleEnemyImage(char code, Color color) {
 		return loadEntityImage(EnemiesPath.getPath(code) + "bubbled-" + color.name().toLowerCase() + ".gif");
 	}
 	
-	public static Image loadEnemyImage(String code, Direction direction, Color color) {
-		if (code.equals("I") || code.equals("U")) 
+	public static Image loadBubblePoppingImage() {
+		return loadEntityImage("/bubbles/bubble_pops.gif");
+	}
+	
+	public static Image loadEnemyImage(char code, Direction direction, Color color) {
+		if (code == 'I' || code == 'U') 
 			return loadEntityImage(EnemiesPath.getPath(code) + "default-" + color.name().toLowerCase() + ".gif");
 		return loadEntityImage(EnemiesPath.getPath(code) + direction.name().toLowerCase() + "-" + color.name().toLowerCase() + ".gif");
 	}

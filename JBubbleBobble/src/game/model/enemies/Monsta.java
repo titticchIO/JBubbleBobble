@@ -5,19 +5,11 @@ import static game.model.HelpMethods.isSolidVerticalLine;
 import game.model.HelpMethods;
 
 public class Monsta extends Enemy {
-
+	public static final char CODE = 'M';
 	private static final float FLIGHT_SPEED = 0.3f; // Velocità minima per evitare che il nemico si blocchi
 
 	public Monsta(float x, float y) {
-		super(x, y, "M");
-		setxSpeed(0.3f);
-		setAirSpeed(0.3f);
-		setDirection(Direction.RIGHT);
-		setColor(Color.NORMAL);
-	}
-
-	public Monsta(float x, float y, String code) {
-		super(x, y, code);
+		super(x, y, CODE);
 		setxSpeed(0.3f);
 		setAirSpeed(0.3f);
 		setDirection(Direction.RIGHT);
@@ -25,18 +17,12 @@ public class Monsta extends Enemy {
 	}
 
 	public Monsta(float x, float y, float width, float height) {
-		super(x, y, width, height, "M");
+		super(x, y, width, height, CODE);
 		setxSpeed(0.3f);
 		setAirSpeed(0.3f);
 		setDirection(Direction.RIGHT);
 	}
 
-	public Monsta(float x, float y, float width, float height, String code) {
-		super(x, y, width, height, code);
-		setxSpeed(0.3f);
-		setAirSpeed(0.3f);
-		setDirection(Direction.RIGHT);
-	}
 
 	public void bounce() {
 		// GO DOWN

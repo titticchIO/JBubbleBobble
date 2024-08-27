@@ -18,7 +18,7 @@ public class HelpMethods {
 	}
 
 	public static boolean isSolid(float x, float y) {
-		String[][] lvlData=Model.getInstance().getCurrentLevel().getLvlData();
+		char[][] lvlData=Model.getInstance().getCurrentLevel().getLvlData();
 		
 		if (x < 0 ||  x >= Level.GAME_WIDTH) {
 //			System.out.println("OUT OF BOUNDS");
@@ -33,9 +33,9 @@ public class HelpMethods {
 		float xIndex = x / Tile.TILE_SIZE;
 		float yIndex = y / Tile.TILE_SIZE;
 
-		String value = lvlData[(int) yIndex][(int) xIndex];
+		char value = lvlData[(int) yIndex][(int) xIndex];
 
-		return value.matches("^[0-9]");
+		return Character.isDigit(value);
 	}
 
 	public static boolean isEntityInsideWall(float x, float y, float width, float height) {

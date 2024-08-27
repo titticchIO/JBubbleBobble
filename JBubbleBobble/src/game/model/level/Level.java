@@ -16,13 +16,11 @@ import game.model.bubbles.WaterBubble;
 import game.model.bubbles.special_effects.FireBall;
 import game.model.bubbles.special_effects.FireBall.FireState;
 import game.model.HelpMethods;
-import game.model.Model;
 import game.model.bubbles.Bubble;
 import game.model.enemies.Enemy;
 import game.model.enemies.EnemyManager;
 import game.model.entities.Entity;
 import game.model.entities.Player;
-import game.model.entities.MovingEntity.Direction;
 import game.model.powerups.Powerup;
 import game.model.powerups.PowerupManager;
 import game.model.tiles.Tile;
@@ -38,10 +36,11 @@ public class Level {
 	private EnemyManager enemyManager;
 	private BubbleManager bubbleManager;
 	private PowerupManager powerupManager;
-	private String[][] lvlData;
+	private char[][] lvlData;
 	private float[] playerSpawnPoint;
 	private List<Float> bubblesSpawnPoints;
 	private int levelNumber;
+	private int simultaneousKills;
 
 	public Level(int levelNumber) {
 		this.levelNumber = levelNumber;
@@ -61,7 +60,7 @@ public class Level {
 		this.levelNumber = levelNumber;
 	}
 
-	public String[][] getLvlData() {
+	public char[][] getLvlData() {
 		return lvlData;
 	}
 
@@ -73,11 +72,11 @@ public class Level {
 		}
 
 		// Itera attraverso le righe della matrice
-		for (String[] row : lvlData) {
+		for (char[] row : lvlData) {
 			// Itera attraverso gli elementi di ciascuna riga
-			for (String element : row) {
+			for (char c : row) {
 				// Stampa l'elemento con uno spazio di separazione
-				System.out.print(element + " ");
+				System.out.print(c + " ");
 			}
 			// Aggiungi una nuova riga alla fine di ogni riga della matrice
 			System.out.println();
@@ -163,7 +162,7 @@ public class Level {
 		int y = lvlData.length - 1;
 
 		for (int x = 0; x < lvlData[0].length; x++) {
-			if (" ".equals(lvlData[y][x]))
+			if (lvlData[y][x] == ' ')
 				bubblesSpawnPoints.add((float) x * Tile.TILE_SIZE);
 
 		}
@@ -188,7 +187,7 @@ public class Level {
 						if (!b.hasEnemy()) {
 							if (player.isShooting())
 								b.pop();
-							else
+							else if (b.getLifeSpan()>500)
 								b.setEnemy(e);
 							enemyManager.removeEnemy(e);
 						}
@@ -199,8 +198,10 @@ public class Level {
 		Optional<PlayerBubble> bubbleWithEnemy = Entity.checkCollision(player, bubbleManager.getPlayerBubbles());
 		if (bubbleWithEnemy.isPresent() && bubbleWithEnemy.get().hasEnemy())
 			bubbleManager.getPlayerBubbles().stream().filter(PlayerBubble::hasEnemy).forEach(b -> {
-				if (b.hit(player))
+				if (b.hit(player)) {
 					b.popAndKill();
+					setSimultaneousKills(getSimultaneousKills() + 1);
+				}
 			});
 	}
 
@@ -212,7 +213,7 @@ public class Level {
 
 		for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
 			// Verifica se la posizione è valida per generare il powerup
-			if (lvlData[y][x].equals(" ") && lvlData[y + 1][x].matches("[0-9]")
+			if (lvlData[y][x] == ' ' && Character.isDigit(lvlData[y + 1][x]) 
 					&& !powerupManager.isTherePowerup(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE)) {
 				powerup.setPosition(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE);
 				powerupManager.addPowerup(powerup);
@@ -310,6 +311,7 @@ public class Level {
 	}
 
 	public void updateLevel() {
+		System.out.println("Player lives: "+player.getLives());
 		player.updateEntity();
 		enemyManager.updateEnemies();
 		bubbleManager.updateBubbles();
@@ -320,6 +322,14 @@ public class Level {
 
 //		if (checkPlayerBubbleCollision()) System.out.println("Hittato bolla");
 
+	}
+
+	public int getSimultaneousKills() {
+		return simultaneousKills;
+	}
+
+	public void setSimultaneousKills(int simultaneousKills) {
+		this.simultaneousKills = simultaneousKills;
 	}
 
 }

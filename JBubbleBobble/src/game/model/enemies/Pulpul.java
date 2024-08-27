@@ -1,26 +1,21 @@
-
 package game.model.enemies;
 
 import java.util.Random;
-
 import game.model.HelpMethods;
-import game.model.Settings;
-import game.model.entities.MovingEntity.Color;
 import game.model.level.Level;
 
-import static game.model.HelpMethods.isSolid;
-
 public class Pulpul extends Enemy {
+	public static final char CODE = 'U';
 
 	public Pulpul(float x, float y) {
-		super(x, y, "U");
+		super(x, y, CODE);
 		setxSpeed(0.5f);
 		setAirSpeed(0);
 		setColor(Color.NORMAL);
 	}
 
 	public Pulpul(float x, float y, float width, float height) {
-		super(x, y, width, height, "U");
+		super(x, y, width, height, CODE);
 		setxSpeed(0.5f);
 		setAirSpeed(0);
 		setColor(Color.NORMAL);
@@ -99,9 +94,9 @@ public class Pulpul extends Enemy {
 		if (!isStopped) {
 			if (randomBoolean(200))
 				randomizeDirection();
-				// Aggiornamento della posizione basato sulla direzione corrente
-				updateXPos();
-				updateYPos();
+			// Aggiornamento della posizione basato sulla direzione corrente
+			updateXPos();
+			updateYPos();
 		}
 	}
 }

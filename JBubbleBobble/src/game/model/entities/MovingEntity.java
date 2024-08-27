@@ -68,7 +68,7 @@ public abstract class MovingEntity extends Entity {
 	 * @param y    The y-coordinate of the entity.
 	 * @param code The unique code representing the entity.
 	 */
-	public MovingEntity(float x, float y, String code) {
+	public MovingEntity(float x, float y, char code) {
 		super(x, y, code);
 		direction = Direction.STATIC;
 		gravity = 0.02f;
@@ -88,7 +88,7 @@ public abstract class MovingEntity extends Entity {
 	 * @param height The height of the entity.
 	 * @param code   The unique code representing the entity.
 	 */
-	public MovingEntity(float x, float y, float width, float height, String code) {
+	public MovingEntity(float x, float y, float width, float height, char code) {
 		super(x, y, width, height, code);
 		direction = Direction.STATIC;
 		gravity = 0.02f;

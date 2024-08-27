@@ -1,19 +1,9 @@
 package game.model.entities;
 
-import game.model.bubbles.PlayerBubble;
-import game.model.bubbles.ThunderBubble;
-import game.model.bubbles.WaterBubble;
-import game.model.entities.MovingEntity.Direction;
-import game.model.level.Level;
 import game.model.powerups.AmethystRing;
-import game.model.bubbles.Bubble;
-import game.model.bubbles.FireBubble;
 import game.model.tiles.Tile;
-import game.view.AnimationLoader;
-import game.controller.AudioManager;
 import game.model.HelpMethods;
 import game.model.Model;
-import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -33,6 +23,7 @@ public class Player extends MovingEntity {
 		WALK, JUMP, SHOOT
 	}
 
+	public static final char CODE = 'P';
 	public static final int NUMBER_OF_LIVES = 200; // The total number of lives the player starts with.
 	public static final long INVULNERABILITY_INTERVAL = 5000; // The duration of invulnerability after losing a life.
 	public static final long ATTACK_INTERVAL = 100; // The minimum time interval between bubble shots (in milliseconds).
@@ -87,7 +78,7 @@ public class Player extends MovingEntity {
 	 * @param height the height of the player.
 	 */
 	private Player(float x, float y, float width, float height) {
-		super(x, y, width, height, "P");
+		super(x, y, width, height, CODE);
 		state = State.WALK;
 		setBubbleDirection(Direction.RIGHT);
 		lives = NUMBER_OF_LIVES;
@@ -237,6 +228,11 @@ public class Player extends MovingEntity {
 	 */
 	public void looseLife() {
 		lives--;
+	}
+	
+	
+	public void heal() {
+		lives = NUMBER_OF_LIVES;
 	}
 
 	/**

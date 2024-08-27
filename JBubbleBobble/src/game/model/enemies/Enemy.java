@@ -26,7 +26,7 @@ public abstract class Enemy extends MovingEntity {
 	 * @param y    The y-coordinate of the enemy.
 	 * @param code The unique code representing the enemy.
 	 */
-	public Enemy(float x, float y, String code) {
+	public Enemy(float x, float y, char code) {
 		super(x, y, code);
 	}
 
@@ -40,7 +40,7 @@ public abstract class Enemy extends MovingEntity {
 	 * @param height The height of the enemy.
 	 * @param code   The unique code representing the enemy.
 	 */
-	public Enemy(float x, float y, float width, float height, String code) {
+	public Enemy(float x, float y, float width, float height, char code) {
 		super(x, y, width, height, code);
 	}
 

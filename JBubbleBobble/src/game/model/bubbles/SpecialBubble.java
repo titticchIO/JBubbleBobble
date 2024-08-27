@@ -8,9 +8,10 @@ import game.model.entities.Player;
 import game.model.tiles.Tile;
 
 public class SpecialBubble extends Bubble {
+	public static final char CODE = '%';
 
 	public SpecialBubble() {
-		super(0, 0, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1, "%");
+		super(0, 0, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1, CODE);
 		rise(-0.1f);
 		lifeSpan *= 10;
 	}

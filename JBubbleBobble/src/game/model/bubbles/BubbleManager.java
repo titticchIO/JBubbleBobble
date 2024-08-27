@@ -1,7 +1,5 @@
 package game.model.bubbles;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -12,7 +10,6 @@ import game.model.Model;
 import game.model.bubbles.special_effects.Bolt;
 import game.model.bubbles.special_effects.FireBall;
 import game.model.bubbles.special_effects.Water;
-import game.model.entities.Player;
 import game.model.tiles.Tile;
 
 public class BubbleManager {
@@ -22,8 +19,7 @@ public class BubbleManager {
 	private List<Bolt> bolts;
 	private List<Water> waters;
 	private Timer waterUpdateTimer;
-
-	private boolean doOnce = true;
+	private boolean doOnce;
 
 	public BubbleManager() {
 		specialBubbles = new CopyOnWriteArrayList<>();
@@ -46,12 +42,27 @@ public class BubbleManager {
 	}
 
 	public void createSpecialBubble() {
-		if (doOnce) {
-			doOnce = false;
-			Bubble waterBubble = new SpecialBubble();
-			Model.getInstance().getCurrentLevel().spawnBubble(waterBubble);
+		int bubbleCase = new Random().nextInt(5000);
+		if (!doOnce && bubbleCase < 4) {
+			doOnce = true;
+			Bubble specialBubble;
+			switch (bubbleCase) {
+			case 0 -> specialBubble = new FireBubble();
+			case 1 -> specialBubble = new WaterBubble();
+			case 2 -> specialBubble = new ThunderBubble();
+			default -> specialBubble = new SpecialBubble();
+			}
+			Model.getInstance().getCurrentLevel().spawnBubble(specialBubble);
 		}
 	}
+	
+	public void createExtendBubble() {
+		if (Model.getInstance().getCurrentLevel().getSimultaneousKills() > 1) {
+			Model.getInstance().getCurrentLevel().spawnBubble(new ExtendBubble());
+			Model.getInstance().getCurrentLevel().setSimultaneousKills(0);
+		}
+	}
+
 
 	public void addBubble(Bubble bubble) {
 		specialBubbles.add(bubble);
@@ -126,5 +137,6 @@ public class BubbleManager {
 			}, 50);
 		}
 		createSpecialBubble();
+		createExtendBubble();
 	}
 }

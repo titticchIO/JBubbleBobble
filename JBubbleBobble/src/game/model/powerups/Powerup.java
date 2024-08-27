@@ -2,18 +2,16 @@ package game.model.powerups;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Optional;
 
 import game.model.Model;
 import game.model.entities.Entity;
-import game.model.entities.Player;
 
 public abstract class Powerup extends Entity {
 	protected final int points;
 	protected long duration;
 	protected boolean toRemove;
 
-	public Powerup(float x, float y, String code, int points, long duration) {
+	public Powerup(float x, float y, char code, int points, long duration) {
 		super(x, y, code);
 		this.points = points;
 		this.duration = duration;

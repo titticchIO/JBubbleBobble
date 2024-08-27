@@ -1,20 +1,19 @@
 package game.model.powerups;
 
 import game.model.Model;
-import game.model.entities.Player;
 
 public class Clock extends Powerup {
-
+	public static final char CODE = '*';
 	private static final int POINTS = 200;
 	private static final long DURATION = 6000;
 	private static int spawnCondition = 2;
 
 	public Clock() {
-		super(0, 0, "*", POINTS, DURATION);
+		super(0, 0, CODE, POINTS, DURATION);
 	}
 
 	public Clock(float x, float y) {
-		super(x, y, "*", POINTS, DURATION);
+		super(x, y, CODE, POINTS, DURATION);
 	}
 
 	@Override
