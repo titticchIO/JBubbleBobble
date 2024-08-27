@@ -3,7 +3,7 @@ package game.view;
 import javax.swing.ImageIcon;
 
 import game.model.EnemiesPath;
-import game.model.entities.MovingEntity.Color;
+import game.model.enemies.Enemy.ColorState;
 import game.model.entities.MovingEntity.Direction;
 
 import java.awt.Image;
@@ -67,7 +67,7 @@ public class AnimationLoader {
 		}
 	}
 	
-	public static Image loadBubbleEnemyImage(char code, Color color) {
+	public static Image loadBubbleEnemyImage(char code, ColorState color) {
 		return loadEntityImage(EnemiesPath.getPath(code) + "bubbled-" + color.name().toLowerCase() + ".gif");
 	}
 	
@@ -75,7 +75,11 @@ public class AnimationLoader {
 		return loadEntityImage("/bubbles/bubble_pops.gif");
 	}
 	
-	public static Image loadEnemyImage(char code, Direction direction, Color color) {
+	public static Image loadBubbleEnemyImage(char code) {
+		return loadEntityImage(EnemiesPath.getPath(code) + "bubbled.gif");
+	}
+	
+	public static Image loadEnemyImage(char code, Direction direction, ColorState color) {
 		if (code == 'I' || code == 'U') 
 			return loadEntityImage(EnemiesPath.getPath(code) + "default-" + color.name().toLowerCase() + ".gif");
 		return loadEntityImage(EnemiesPath.getPath(code) + direction.name().toLowerCase() + "-" + color.name().toLowerCase() + ".gif");

@@ -12,7 +12,7 @@ public class SkelMonsta extends Enemy {
 		setxSpeed(0.3f);
 		setAirSpeed(0.3f);
 		setDirection(Direction.RIGHT);
-		setColor(Color.NORMAL);
+		setColorState(ColorState.NORMAL);
 	}
 
 	public SkelMonsta(float x, float y, float width, float height) {
@@ -20,7 +20,7 @@ public class SkelMonsta extends Enemy {
 		setxSpeed(0.3f);
 		setAirSpeed(0.3f);
 		setDirection(Direction.RIGHT);
-		setColor(Color.NORMAL);
+		setColorState(ColorState.NORMAL);
 	}
 
 	public void bounce() {

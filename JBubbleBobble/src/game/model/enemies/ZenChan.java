@@ -3,6 +3,7 @@ package game.model.enemies;
 import static game.model.HelpMethods.isSolidVerticalLine;
 import static game.model.HelpMethods.isEntityInsideWall;
 
+
 public class ZenChan extends Enemy {
 	public static final char CODE = 'Z';
 
@@ -10,14 +11,14 @@ public class ZenChan extends Enemy {
 		super(x, y, CODE);
 		setDirection(Direction.RIGHT);
 		setJumpSpeed(-1.5f);
-		setColor(Color.NORMAL);
+		setColorState(ColorState.NORMAL);
 	}
 
 	public ZenChan(float x, float y, float width, float height) {
 		super(x, y, width, height, CODE);
 		setDirection(Direction.RIGHT);
 		setJumpSpeed(-1.5f);
-		setColor(Color.NORMAL);
+		setColorState(ColorState.NORMAL);
 	}
 
 	public void switchDirection() {
@@ -41,7 +42,7 @@ public class ZenChan extends Enemy {
 		if (!isStopped) {
 			super.updateEntity();
 			switchDirection();
-			move(0.4f);
+			move(0.4f * movementSpeed);
 			if (randomBoolean(1000))
 				jump();
 		}

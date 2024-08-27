@@ -22,18 +22,10 @@ public abstract class MovingEntity extends Entity {
 		LEFT, RIGHT, STATIC
 	}
 
-	/**
-	 * Enum representing possible colors for the entity.
-	 */
-	public enum Color {
-		NORMAL, RED, BLUE
-	}
+	
 
 	// Direction of movement
 	protected Direction direction;
-
-	// Current color of the entity
-	protected Color color;
 
 	// Speed along the x-axis
 	protected float xSpeed;
@@ -124,14 +116,6 @@ public abstract class MovingEntity extends Entity {
 		return direction;
 	}
 
-	/**
-	 * Gets the current color of the entity.
-	 * 
-	 * @return The color of the entity.
-	 */
-	public Color getColor() {
-		return color;
-	}
 
 	/**
 	 * Sets the speed of the entity along the x-axis.
@@ -169,14 +153,7 @@ public abstract class MovingEntity extends Entity {
 		this.direction = direction;
 	}
 
-	/**
-	 * Sets the color of the entity.
-	 * 
-	 * @param color The new color of the entity.
-	 */
-	public void setColor(Color color) {
-		this.color = color;
-	}
+	
 
 	public void stun(int stunTime) {
 		float prevXSpeed = xSpeed;

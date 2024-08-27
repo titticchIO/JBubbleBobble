@@ -111,7 +111,6 @@ public class Model extends Observable {
 		currentLevel = levelIterator.next();
 		Player.getInstance().setPosition(currentLevel.getPlayerSpawnPoint()[0], currentLevel.getPlayerSpawnPoint()[1]);
 		currentLevel.addPlayer(Player.getInstance());
-		System.out.println(getCurrentLevel().getLevelNumber());
 		setChanged();
 		notifyObservers("next");
 	}

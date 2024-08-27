@@ -11,14 +11,14 @@ public class Pulpul extends Enemy {
 		super(x, y, CODE);
 		setxSpeed(0.5f);
 		setAirSpeed(0);
-		setColor(Color.NORMAL);
+		setColorState(ColorState.NORMAL);
 	}
 
 	public Pulpul(float x, float y, float width, float height) {
 		super(x, y, width, height, CODE);
 		setxSpeed(0.5f);
 		setAirSpeed(0);
-		setColor(Color.NORMAL);
+		setColorState(ColorState.NORMAL);
 	}
 
 	private void changeDirection() {
@@ -43,21 +43,21 @@ public class Pulpul extends Enemy {
 		int randomInt = new Random().nextInt(4);
 		switch (randomInt) {
 		case 0:
-			setAirSpeed(-0.5f);
+			setAirSpeed(-0.5f * movementSpeed);
 			setxSpeed(0);
 			break;
 		case 1:
-			setAirSpeed(0.5f);
+			setAirSpeed(0.5f * movementSpeed);
 			setxSpeed(0);
 			break;
 		case 2:
 			direction = Direction.LEFT;
-			setxSpeed(-0.5f);
+			setxSpeed(-0.5f * movementSpeed);
 			setAirSpeed(0);
 			break;
 		case 3:
 			direction = Direction.RIGHT;
-			setxSpeed(0.5f);
+			setxSpeed(0.5f * movementSpeed);
 			setAirSpeed(0);
 			break;
 		}

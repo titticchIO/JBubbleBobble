@@ -8,7 +8,6 @@ import java.awt.Image;
 
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import game.model.entities.Entity;
@@ -82,7 +81,7 @@ public class LevelPanel extends JPanel {
 		img = switch (entity) {
 		case Tile tile -> Images.getImage(tile.getCode());
 		case Laser laser -> Images.getImage(Laser.CODE);
-		case Enemy enemy -> AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColor());
+		case Enemy enemy -> AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColorState());
 		case OrangeParasol orangeParasol -> Images.getImage(Parasol.CODE, "orange");
 		case RedParasol redParasol -> Images.getImage(Parasol.CODE, "red");
 		case PurpleParasol purpleParasol -> Images.getImage(Parasol.CODE, "purple");
@@ -97,7 +96,7 @@ public class LevelPanel extends JPanel {
 				yield AnimationLoader.loadBubblePoppingImage();
 			} else if (playerBubble.hasEnemy()) {
 				yield AnimationLoader.loadBubbleEnemyImage(playerBubble.getEnemy().getCode(),
-						playerBubble.getEnemy().getColor());
+						playerBubble.getEnemy().getColorState());
 			} else {
 				yield Images.getImage(playerBubble.getCode());
 			}

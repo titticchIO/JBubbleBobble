@@ -91,7 +91,7 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 	}
 
 	private void addBlocks() {
-		for (int i = 1; i <= 4; i++) {
+		for (int i = 1; i <= 9; i++) {
 			char number = (char) (i+'0');
 			blocks.add(new SelectionButton(Images.getImage(number), number));
 		}

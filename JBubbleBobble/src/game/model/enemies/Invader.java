@@ -20,7 +20,7 @@ public class Invader extends Enemy {
 		super(x, y, CODE);
 		setAirSpeed(1);
 		setDirection(Direction.LEFT);
-		setColor(Color.NORMAL);
+		setColorState(ColorState.NORMAL);
 	}
 
 	public void switchDirection() {
@@ -67,7 +67,7 @@ public class Invader extends Enemy {
 				updateXPos();
 			} else
 				setAirSpeed(0.5f);
-			move(0.5f);
+			move(0.5f * movementSpeed);
 			updateYPos();
 		}
 	}
