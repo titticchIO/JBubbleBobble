@@ -6,7 +6,6 @@ import static game.model.HelpMethods.isEntityInsideWall;
 import java.util.Random;
 
 import game.model.Model;
-import game.model.entities.MovingEntity.Color;
 import game.model.level.LevelLoader;
 
 public class ZenChan extends Enemy {
@@ -17,13 +16,13 @@ public class ZenChan extends Enemy {
 		super(x, y, "Z");
 		setDirection(Direction.RIGHT);
 		setJumpSpeed(-1.5f);
-		setColor(Color.NORMAL);
+		setColorState(ColorState.NORMAL);
 	}
 	public ZenChan(float x, float y, float width, float height) {
 		super(x, y, width, height, "Z");
 		setDirection(Direction.RIGHT);
 		setJumpSpeed(-1.5f);
-		setColor(Color.NORMAL);
+		setColorState(ColorState.NORMAL);
 	}
 
 	public void switchDirection() {
@@ -46,7 +45,7 @@ public class ZenChan extends Enemy {
 		if(!isStopped) {
 			super.updateEntity();
 			switchDirection();
-			move(0.4f);
+			move(0.4f * movementSpeed);
 			if (randomBoolean(1000))
 				jump();
 		}

@@ -13,7 +13,7 @@ public class Monsta extends Enemy {
 		setxSpeed(0.3f);
 		setAirSpeed(0.3f);
 		setDirection(Direction.RIGHT);
-		setColor(Color.NORMAL);
+		setColorState(ColorState.NORMAL);
 	}
 
 	public Monsta(float x, float y, String code) {
@@ -21,7 +21,7 @@ public class Monsta extends Enemy {
 		setxSpeed(0.3f);
 		setAirSpeed(0.3f);
 		setDirection(Direction.RIGHT);
-		setColor(Color.NORMAL);
+		setColorState(ColorState.NORMAL);
 	}
 
 	public Monsta(float x, float y, float width, float height) {
@@ -41,25 +41,25 @@ public class Monsta extends Enemy {
 	public void bounce() {
 		// GO DOWN
 		if (isSolidHorizontalLine(x, x + width, y - 1)) {
-			setAirSpeed(FLIGHT_SPEED);
+			setAirSpeed(FLIGHT_SPEED * movementSpeed);
 			if (randomBoolean(10) && HelpMethods.canMoveHere(x, y + 3, width, height)) {
 				setY(y + 3);
 			}
 			// DO UP
 		} else if (isSolidHorizontalLine(x, x + width, y + height + 1)) {
-			setAirSpeed(-FLIGHT_SPEED);
+			setAirSpeed(-FLIGHT_SPEED * movementSpeed);
 			if (randomBoolean(10) && HelpMethods.canMoveHere(x, y - 3, width, height))
 				setY(y - 3);
 		}
 		// GO RIGHT
 		if (isSolidVerticalLine(x - 1, y, y + height)) {
-			setxSpeed(FLIGHT_SPEED);
+			setxSpeed(FLIGHT_SPEED * movementSpeed);
 			setDirection(Direction.RIGHT);
 			if (randomBoolean(10) && HelpMethods.canMoveHere(x - 3, y, width, height))
 				setX(x - 3);
 			// GO LEFT
 		} else if (isSolidVerticalLine(x + width + 1, y, y + height)) {
-			setxSpeed(-FLIGHT_SPEED);
+			setxSpeed(-FLIGHT_SPEED * movementSpeed);
 			setDirection(Direction.LEFT);
 			if (randomBoolean(10) && HelpMethods.canMoveHere(x + 3, y, width, height))
 				setX(x + 3);

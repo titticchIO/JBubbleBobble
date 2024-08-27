@@ -22,6 +22,7 @@ import game.model.powerups.OrangeParasol;
 import game.model.powerups.PurpleParasol;
 import game.model.powerups.RedParasol;
 import game.model.tiles.Tile;
+import game.model.enemies.Enemy.ColorState;
 
 public class LevelPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -80,7 +81,7 @@ public class LevelPanel extends JPanel {
 		img = switch (entity) {
 		case Tile tile -> Images.getImage(tile.getCode());
 		case Laser laser -> Images.getImage("I", "red");
-		case Enemy enemy -> AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColor());
+		case Enemy enemy -> AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColorState());
 		case OrangeParasol orangeParasol -> Images.getImage("@", "orange");
 		case RedParasol redParasol -> Images.getImage("@", "red");
 		case PurpleParasol purpleParasol -> Images.getImage("@", "purple");
@@ -92,8 +93,7 @@ public class LevelPanel extends JPanel {
 		};
 		case PlayerBubble playerBubble -> {
 			if (playerBubble.hasEnemy()) {
-				yield AnimationLoader.loadBubbleEnemyImage(playerBubble.getEnemy().getCode(),
-						playerBubble.getEnemy().getColor());
+				yield AnimationLoader.loadBubbleEnemyImage(playerBubble.getEnemy().getCode());
 			} else {
 				yield Images.getImage(playerBubble.getCode());
 			}

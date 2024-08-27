@@ -1,8 +1,6 @@
 package game.model.enemies;
 
 import java.util.Random;
-
-import game.model.entities.MovingEntity.Color;
 import game.model.level.Level;
 import game.model.tiles.Tile;
 
@@ -16,7 +14,7 @@ public class SkelMonsta extends Enemy {
 		setxSpeed(0.3f);
 		setAirSpeed(0.3f);
 		setDirection(Direction.RIGHT);
-		setColor(Color.NORMAL);
+		setColorState(ColorState.NORMAL);
 	}
 
 	public SkelMonsta(float x, float y, float width, float height) {
@@ -24,7 +22,7 @@ public class SkelMonsta extends Enemy {
 		setxSpeed(0.3f);
 		setAirSpeed(0.3f);
 		setDirection(Direction.RIGHT);
-		setColor(Color.NORMAL);
+		setColorState(ColorState.NORMAL);
 	}
 
 	public void bounce() {

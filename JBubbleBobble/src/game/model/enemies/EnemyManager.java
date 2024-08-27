@@ -5,6 +5,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import game.model.enemies.Enemy.ColorState;
 import game.model.entities.MovingEntity;
 
 /**
@@ -20,6 +22,7 @@ public class EnemyManager {
 	private List<Enemy> enemies;
 	private List<Laser> lasers;
 	private Timer shootLaserTimer;
+	private Timer changeColorTimer;
 
 	/**
 	 * Constructs an {@code EnemyManager} with empty lists of enemies and lasers.
@@ -132,5 +135,16 @@ public class EnemyManager {
 				}
 			}, 500);
 		}
+		if (changeColorTimer == null) {
+			changeColorTimer = new Timer("Change color");
+			changeColorTimer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					enemies.stream().forEach(x -> x.setColorState(ColorState.RED));
+					changeColorTimer = null;
+				}
+			}, 15000);
+		}
+			
 	}
 }
