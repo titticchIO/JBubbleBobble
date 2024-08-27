@@ -19,18 +19,28 @@ import javax.swing.JPanel;
 import editor.model.LevelManager;
 
 import editor.view.LevelsPopUpMenu.MenuType;
+import editor.controller.ActionListenersManager;
 import game.view.ImageLoader;
 
 public class EditorFrame extends JFrame {
+	private static EditorFrame instance;
 	private EditorPanel editorPanel;
 	private SpriteSelectionScrollPane selectionPane;
 	private JButton saveLevelButton;
 	private String actualLevelNumber;
 	private JLabel actualLevel;
 	private List<LevelsPopUpMenu> popUps;
+	
+	
+	public static EditorFrame getInstance() {
+		if (instance == null)
+			instance = new EditorFrame();
+		return instance;
+	}
+	
 
 	@SuppressWarnings("serial")
-	public EditorFrame() {
+	private EditorFrame() {
 		setLayout(new BorderLayout());
 		selectionPane = new SpriteSelectionScrollPane();
 		// selectionPane.setBackground(Color.BLACK);
@@ -105,17 +115,7 @@ public class EditorFrame extends JFrame {
 		actualLevel.setForeground(Color.YELLOW); // Inizializza JLabel
 
 		// ActionListener per il pulsante "Nuova Griglia"
-		newGridButton.addActionListener(e -> {
-			// Azione per creare una nuova griglia
-			LevelManager.emptyLevel(); // Presumendo che questo svuoti il livello corrente
-			getContentPane().remove(editorPanel); // Rimuovi il pannello esistente
-			editorPanel = new EditorPanel(this, selectionPane); // Crea un nuovo EditorPanel
-			add(editorPanel, BorderLayout.CENTER); // Aggiungi il nuovo EditorPanel al frame
-			actualLevelNumber = ""; // Resetta il numero del livello
-			actualLevel.setText("Level " + actualLevelNumber); // Aggiorna l'etichetta
-			revalidate(); // Aggiorna il layout del frame
-			repaint(); // Ridisegna il frame
-		});
+		newGridButton.addActionListener(ActionListenersManager.newGridButton(editorPanel, selectionPane));
 
 		// Creazione del bottone con la scritta "Save"
 		saveLevelButton = new JButton(new ImageIcon(
@@ -153,15 +153,9 @@ public class EditorFrame extends JFrame {
 		topPanel.add(actualLevel);
 
 		// ActionListener per il pulsante "Apri Griglia"
-		openGridButton.addActionListener(e -> {
-			levelSelectionPopup.show(openGridButton, 0, openGridButton.getHeight());
-		});
-		saveLevelButton.addActionListener(e -> {
-			saveLevelPopup.show(saveLevelButton, 0, saveLevelButton.getHeight());
-		});
-		deleteLevelButton.addActionListener(e -> {
-			deleteLevelPopup.show(deleteLevelButton, 0, deleteLevelButton.getHeight());
-		});
+		openGridButton.addActionListener(ActionListenersManager.openGridButton(levelSelectionPopup, openGridButton));
+		saveLevelButton.addActionListener(ActionListenersManager.saveLevelButton(saveLevelPopup, saveLevelButton));
+		deleteLevelButton.addActionListener(ActionListenersManager.deleteLevelButton(deleteLevelPopup, deleteLevelButton));
 
 		// Aggiunta dei componenti al frame
 		add(topPanel, BorderLayout.NORTH); // Pannello superiore

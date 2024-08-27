@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneLayout;
 import javax.swing.border.Border;
 
+import editor.controller.ActionListenersManager;
 import game.view.ImageLoader;
 import game.view.Images;
 
@@ -41,7 +42,9 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 		addEnemies();
 		addPlayers();
 		// Aggiunta di un bottone vuoto
-		others.add(new SelectionButton(ImageLoader.importImg("/EmptyTile.png"), " "));
+		SelectionButton eraser = new SelectionButton(ImageLoader.importImg("/EmptyTile.png"), " ");
+		others.add(eraser);
+		setCurrentButton(eraser);
 
 		// others.add(new SelectionButton(ImageLoader.importImg("/editor/eraser.png"), "
 		// "));
@@ -82,14 +85,7 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 
 		// Aggiungi i bottoni corrispondenti
 		for (SelectionButton b : buttons) {
-			b.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					deselectAllButtons();
-					b.setSelected(true);
-					setCurrentButton(b);
-				}
-			});
+			b.addActionListener(ActionListenersManager.addSelectionButton(this, b));
 			panel.add(b);
 		}
 	}
@@ -119,7 +115,7 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 		setPreferredSize(size);
 	}
 
-	private void deselectAllButtons() {
+	public void deselectAllButtons() {
 		for (SelectionButton b : blocks)
 			b.setSelected(false);
 		for (SelectionButton b : enemies)

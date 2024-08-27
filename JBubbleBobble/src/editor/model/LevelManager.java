@@ -1,14 +1,16 @@
 
 package editor.model;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LevelManager {
+
 	public static final String LEVELS_REL_PATH = "resources/levels";
 	public static final int ROWS = 24;
 	public static final int COLS = 30;
-	
+
 	private static String[][] level;
 
 	public LevelManager() {
@@ -59,6 +61,10 @@ public class LevelManager {
 			System.out.println(x + "|" + y);
 			throw new IndexOutOfBoundsException("Posizione fuori dai limiti del livello");
 		}
+	}
+
+	public static String[][] getLevel() {
+		return level;
 	}
 
 	private static String matriceToString() {
@@ -112,14 +118,12 @@ public class LevelManager {
 					return; // Exit method if file creation fails
 				}
 			}
-			
+
 		} catch (Exception e) {
 			System.err.println("Error deleting file:" + filePath + "|" + e.getMessage());
 		}
 	}
-	
-	
-	
+
 	public static void main(String[] args) {
 		LevelManager.deleteLevelFile(1111111111);
 	}

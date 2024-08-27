@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JOptionPane;
 
+import editor.controller.ActionListenersManager;
 import editor.model.LevelManager;
 import editor.model.LevelReader;
 import game.model.level.LevelLoader;
@@ -51,20 +52,7 @@ public class LevelsPopUpMenu extends JPopupMenu {
             JButton button = new JButton("Level " + level);
             button.setBackground(Color.BLACK);
             button.setForeground(Color.YELLOW);
-            button.addActionListener(e -> {
-                int numero = Integer.parseInt(level);
-                switch (menuType) {
-                    case OPEN:
-                        handleOpenLevel(numero, editorFrame);
-                        break;
-                    case SAVE:
-                        handleSaveLevel(numero, editorFrame);
-                        break;
-                    case DELETE:
-                        handleDeleteLevel(numero, editorFrame);
-                        break;
-                }
-            });
+            button.addActionListener(ActionListenersManager.levelHandlers(this, level, menuType, editorFrame));
             panel.add(button);
         });
 
@@ -73,9 +61,7 @@ public class LevelsPopUpMenu extends JPopupMenu {
             JButton newLevelButton = new JButton("new Level (" + newLevelNumber + ")");
             newLevelButton.setBackground(Color.BLACK);
             newLevelButton.setForeground(Color.YELLOW);
-            newLevelButton.addActionListener(e -> {
-                handleSaveLevel(newLevelNumber, editorFrame);
-            });
+            newLevelButton.addActionListener(ActionListenersManager.handleSaveLevel(newLevelNumber, editorFrame));
             panel.add(newLevelButton);
         }
 
@@ -89,7 +75,7 @@ public class LevelsPopUpMenu extends JPopupMenu {
         this.repaint();
     }
 
-    private void handleOpenLevel(int levelNumber, EditorFrame editorFrame) {
+    public void handleOpenLevel(int levelNumber, EditorFrame editorFrame) {
         try {
             String[][] levelData = LevelLoader.readLevelFile(levelNumber);
             if (levelData != null) {
@@ -113,7 +99,7 @@ public class LevelsPopUpMenu extends JPopupMenu {
         
     }
 
-    private void handleSaveLevel(int levelNumber, EditorFrame editorFrame) {
+    public void handleSaveLevel(int levelNumber, EditorFrame editorFrame) {
         // Salva il livello
         LevelManager.saveLevelFile(levelNumber);
         editorFrame.setActualLevelNumber(String.valueOf(levelNumber));
@@ -122,7 +108,7 @@ public class LevelsPopUpMenu extends JPopupMenu {
         
     }
 
-    private void handleDeleteLevel(int levelNumber, EditorFrame editorFrame) {
+    public void handleDeleteLevel(int levelNumber, EditorFrame editorFrame) {
         LevelManager.deleteLevelFile(levelNumber);
         editorFrame.setActualLevelNumber("");
         editorFrame.getActualLevel().setText("");

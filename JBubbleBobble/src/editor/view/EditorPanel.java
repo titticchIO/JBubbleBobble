@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
 
 import javax.swing.JPanel;
 
@@ -97,6 +98,15 @@ public class EditorPanel extends JPanel {
 
 	}
 
+	public void reset() {
+		for (Sprite[] row : sprites) {
+			for (Sprite sprite : row) {
+				sprite.updateSprite(Sprite.EMPTY_SPRITE);
+			}
+		}
+		repaint(); // Ridisegna il pannello per riflettere le modifiche
+	}
+
 	public Sprite[][] getSprites() {
 		return sprites;
 	}
@@ -122,4 +132,8 @@ public class EditorPanel extends JPanel {
 		LevelManager.setTile(y, x, button.getCode());
 		repaint();
 	}
+
+//	public void reset() {
+//		loa
+//	}
 }
