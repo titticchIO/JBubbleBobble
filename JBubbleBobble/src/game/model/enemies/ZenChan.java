@@ -3,7 +3,6 @@ package game.model.enemies;
 import static game.model.HelpMethods.isSolidVerticalLine;
 import static game.model.HelpMethods.isEntityInsideWall;
 
-
 public class ZenChan extends Enemy {
 	public static final char CODE = 'Z';
 
@@ -39,6 +38,7 @@ public class ZenChan extends Enemy {
 
 	@Override
 	public void updateEntity() {
+		super.updateEntity();
 		if (!isStopped) {
 			super.updateEntity();
 			switchDirection();

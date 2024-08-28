@@ -15,7 +15,10 @@ import game.model.bubbles.ThunderBubble;
 import game.model.bubbles.WaterBubble;
 import game.model.bubbles.special_effects.FireBall;
 import game.model.bubbles.special_effects.FireBall.FireState;
+import game.model.Fruit;
+import game.model.FruitManager;
 import game.model.HelpMethods;
+import game.model.Model;
 import game.model.bubbles.Bubble;
 import game.model.enemies.Enemy;
 import game.model.enemies.EnemyManager;
@@ -36,6 +39,7 @@ public class Level {
 	private EnemyManager enemyManager;
 	private BubbleManager bubbleManager;
 	private PowerupManager powerupManager;
+	private FruitManager fruitManager;
 	private char[][] lvlData;
 	private float[] playerSpawnPoint;
 	private List<Float> bubblesSpawnPoints;
@@ -48,6 +52,7 @@ public class Level {
 		enemyManager = new EnemyManager();
 		bubbleManager = new BubbleManager();
 		powerupManager = new PowerupManager();
+		fruitManager = new FruitManager();
 		lvlData = LevelLoader.loadLevel(this, levelNumber);
 		setBubblesSpawnPoints();
 	}
@@ -85,20 +90,24 @@ public class Level {
 
 	public List<Entity> getEntities() {
 		List<Entity> entities = new ArrayList<Entity>();
-//		entities.add(player);
 		entities.addAll(bubbleManager.getBubbles());
 		entities.addAll(bubbleManager.getPlayerBubbles());
 		entities.addAll(bubbleManager.getFireBalls());
 		entities.addAll(bubbleManager.getBolts());
 		entities.addAll(bubbleManager.getWaters());
-		entities.addAll(enemyManager.getEnemies());
 		entities.addAll(enemyManager.getLasers());
 		entities.addAll(powerupManager.getPowerups());
+		entities.addAll(fruitManager.getFruits());
+		
 		return entities;
 	}
 
 	public PowerupManager getPowerupManager() {
 		return powerupManager;
+	}
+
+	public FruitManager getFruitManager() {
+		return fruitManager;
 	}
 
 	public Player getPlayer() {
@@ -304,6 +313,14 @@ public class Level {
 			player.stun(5);
 		}
 	}
+	
+	private void checkFruitCollisions() {
+		Optional<Fruit> fruitHit=Entity.checkCollision(player, fruitManager.getFruits());
+		if (fruitHit.isPresent()) {
+			fruitManager.removeFruit(fruitHit.get());
+			Model.getInstance().getCurrentUser().addPoints(fruitHit.get().getPoints());
+		}
+	}
 
 	private void checkAllCollisions() {
 		checkJump();
@@ -312,6 +329,7 @@ public class Level {
 		captureEnemies();
 		killEnemies();
 		checkSpecialCollisions();
+		checkFruitCollisions();
 	}
 
 	public void updateLevel() {

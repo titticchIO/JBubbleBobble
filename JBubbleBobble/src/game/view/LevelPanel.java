@@ -76,11 +76,12 @@ public class LevelPanel extends JPanel {
 
 		g2d.drawImage(tilesImage, 0, 0, this);
 		renderPlayer(View.getInstance().getLevel().getPlayer(), g2d);
+		View.getInstance().getLevel().getEnemyManager().getEnemies().forEach(e -> renderEnemy(e, g2d));
 		View.getInstance(gameFrame).getLevel().getEntities().forEach(e -> renderEntity(e, g2d));
 	}
 
-	public void renderPlayer(Player player, Graphics g) {
-		Image playerImg = null;
+	private void renderPlayer(Player player, Graphics g) {
+		Image playerImg;
 		if (player.isStunned())
 			playerImg = player.getDirection() == Direction.LEFT ? AnimationLoader.getPlayerImage("stun_left")
 					: AnimationLoader.getPlayerImage("stun_right");
@@ -92,7 +93,19 @@ public class LevelPanel extends JPanel {
 				(int) player.getHeight() + 1, null);
 	}
 
-	public void renderEntity(Entity entity, Graphics g) {
+	private void renderEnemy(Enemy enemy, Graphics g) {
+		Image enemyImage;
+		if (enemy.isDead()) {
+			enemyImage = AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColorState());
+//			enemyImage= prendi l'immagine del nemico morto;
+		} else {
+			enemyImage = AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColorState());
+		}
+		g.drawImage(enemyImage, (int) enemy.getX(), (int) enemy.getY(), (int) enemy.getWidth() + 1,
+				(int) enemy.getHeight() + 1, null);
+	}
+
+	private void renderEntity(Entity entity, Graphics g) {
 		Image img;
 		img = switch (entity) {
 		case Tile tile -> Images.getImage(tile.getCode());
