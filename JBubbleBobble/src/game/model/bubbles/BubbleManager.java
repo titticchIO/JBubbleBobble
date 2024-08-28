@@ -41,26 +41,25 @@ public class BubbleManager {
 	}
 
 	public void createSpecialBubble() {
-		int bubbleCase = new Random().nextInt(5000);
-		if (bubbleCase < 4) {
-			Bubble specialBubble;
-			switch (bubbleCase) {
-			case 0 -> specialBubble = new FireBubble();
-			case 1 -> specialBubble = new WaterBubble();
-			case 2 -> specialBubble = new ThunderBubble();
-			default -> specialBubble = new SpecialBubble();
-			}
-			Model.getInstance().getCurrentLevel().spawnBubble(specialBubble);
+		int bubbleCase = new Random().nextInt(20000);
+
+		Bubble specialBubble = null;
+		switch (bubbleCase) {
+		case 0 -> specialBubble = new FireBubble();
+		case 5000 -> specialBubble = new WaterBubble();
+		case 10000 -> specialBubble = new SpecialBubble();
+		case 19999 -> specialBubble = new ThunderBubble();
 		}
+		if (specialBubble != null)
+			Model.getInstance().getCurrentLevel().spawnBubble(specialBubble);
 	}
-	
+
 	public void createExtendBubble() {
 		if (Model.getInstance().getCurrentLevel().getSimultaneousKills() > 1) {
 			Model.getInstance().getCurrentLevel().spawnBubble(new ExtendBubble());
 			Model.getInstance().getCurrentLevel().setSimultaneousKills(0);
 		}
 	}
-
 
 	public void addBubble(Bubble bubble) {
 		specialBubbles.add(bubble);

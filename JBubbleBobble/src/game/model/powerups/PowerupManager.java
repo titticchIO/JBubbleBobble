@@ -169,7 +169,7 @@ public class PowerupManager {
 					createPowerup();
 					spawnTimer = null;
 				}
-			}, 10000);
+			}, 50000);
 		}
 
 		for (Powerup powerup : powerups) {
