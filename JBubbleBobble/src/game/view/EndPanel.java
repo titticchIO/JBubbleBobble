@@ -18,8 +18,8 @@ public class EndPanel extends JPanel {
 
 	public EndPanel(Ending ending) {
 		img = switch (ending) {
-		case WIN -> ImageLoader.importImg("/WinScreen.png");
-		case LOSS -> ImageLoader.importImg("/LooseScreen.png");
+		case WIN -> ImageLoader.importImg("/menu/WinScreen.png");
+		case LOSS -> ImageLoader.importImg("/menu/LooseScreen.png");
 		};
 		setSize(new Dimension((int) (Level.GAME_WIDTH * LevelPanel.SCALE),
 				(int) (Level.GAME_HEIGHT * LevelPanel.SCALE)));

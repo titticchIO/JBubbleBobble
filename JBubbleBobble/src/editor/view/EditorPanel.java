@@ -1,5 +1,6 @@
 package editor.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -26,7 +27,7 @@ public class EditorPanel extends JPanel {
 	public EditorPanel(EditorFrame ef, SpriteSelectionScrollPane selPane) {
 		this.selPane = selPane;
 		setSize();
-		// setBackground(Color.BLACK);
+		 setBackground(Color.BLACK);
 		sprites = new Sprite[ROWS][COLS];
 		setLayout(new GridLayout(ROWS, COLS));
 		for (int y = 0; y < ROWS; y++) {
@@ -56,7 +57,7 @@ public class EditorPanel extends JPanel {
 							try {
 								updateSprite(sprites[y][x], x, y);
 							} catch (Exception e2) {
-								System.err.println("Coordinate outside level bounds");
+//								System.err.println("Coordinate outside level bounds");
 							}
 
 						}
@@ -74,9 +75,9 @@ public class EditorPanel extends JPanel {
 		for (Sprite[] row : sprites)
 			for (Sprite s : row) {
 				s.render(g);
-				if (s.getImg() != null) {
-					s.drawSprite(g);
-				}
+//				if (s.getSpriteImg() != null) {
+//					s.drawSprite(g);
+//				}
 			}
 	}
 
@@ -89,7 +90,7 @@ public class EditorPanel extends JPanel {
 		for (int y = 0; y < levelData.length; y++) {
 			for (int x = 0; x < levelData[y].length; x++) {
 				if (levelData[y][x] != ' ') {
-					sprites[y][x].updateSprite(Images.getImage(levelData[y][x]));
+					sprites[y][x].updateSpriteImg(Images.getImage(levelData[y][x]));
 				}
 			}
 		}
@@ -100,7 +101,7 @@ public class EditorPanel extends JPanel {
 	public void reset() {
 		for (Sprite[] row : sprites) {
 			for (Sprite sprite : row) {
-				sprite.updateSprite(Sprite.EMPTY_SPRITE);
+				sprite.updateSpriteImg(null);
 			}
 		}
 		repaint(); // Ridisegna il pannello per riflettere le modifiche
@@ -113,26 +114,19 @@ public class EditorPanel extends JPanel {
 	public static void setEmptySprites(Sprite[][] sprites) {
 		for (int y = 0; y < ROWS; y++) {
 			for (int x = 0; x < COLS; x++) {
-				sprites[y][x].updateSprite(null); // Imposta il sprite come vuoto
+				sprites[y][x].updateSpriteImg(null); // Imposta lo sprite come vuoto
 			}
 		}
 	}
 
-	public void setSprites(Sprite[][] sprites) {
-		this.sprites = sprites;
-	}
-
 	private void updateSprite(Sprite sprite, int x, int y) {
 		SelectionButton button = selPane.getCurrentButton();
-		if (button != null)
-			sprite.updateSprite(button.getImg());
+		if (button.getCode() != ' ')
+			sprite.updateSpriteImg(button.getImg());
 		else
-			sprite.updateSprite(null);
+			sprite.updateSpriteImg(null);
 		LevelManager.setTile(y, x, button.getCode());
 		repaint();
 	}
 
-//	public void reset() {
-//		loa
-//	}
 }

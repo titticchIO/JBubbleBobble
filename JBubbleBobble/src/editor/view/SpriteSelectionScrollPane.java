@@ -41,13 +41,9 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 		addBlocks();
 		addEnemies();
 		addPlayers();
-		// Aggiunta di un bottone vuoto
-		SelectionButton eraser = new SelectionButton(ImageLoader.importImg("/EmptyTile.png"), ' ');
+		SelectionButton eraser = new SelectionButton(ImageLoader.importImg("/editor/eraser.png"), ' ');
 		others.add(eraser);
-		setCurrentButton(eraser);
-
-		// others.add(new SelectionButton(ImageLoader.importImg("/editor/eraser.png"), "
-		// "));
+		setCurrentButton(blocks.getFirst());
 
 		setSize();
 		setLayout(new ScrollPaneLayout());

@@ -116,6 +116,11 @@ public class PlayerBubble extends Bubble {
 
 	public void popAndKill() {
 		Model.getInstance().getCurrentLevel().getBubbleManager().removePlayerBubble(this);
+		if (enemy != null) {
+			enemy.setPosition(getX(), getY());
+			Model.getInstance().getCurrentLevel().getEnemyManager().addEnemy(enemy);
+			enemy.kill();
+		}
 		Model.getInstance().getCurrentUser().addPoints(100);
 		Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles().forEach(pb -> {
 			if (getDistanceFrom(pb) < 10) {

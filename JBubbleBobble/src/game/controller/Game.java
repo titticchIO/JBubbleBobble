@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import game.controller.gamestates.GameState;
 import game.controller.gamestates.Loss;
 import game.controller.gamestates.Menu;
+import game.controller.gamestates.Pause;
 
 public class Game implements Runnable {
 	private Thread gameThread;
@@ -26,9 +27,12 @@ public class Game implements Runnable {
 	private Menu menu;
 	private Win win;
 	private Loss loss;
+	private Pause pause;
 
 	private Model model;
 	private View view;
+
+	
 
 	public Game() {
 		AudioManager.getInstance().play(AnimationLoader
@@ -37,6 +41,7 @@ public class Game implements Runnable {
 		menu = new Menu(this);
 		win = new Win(this);
 		loss = new Loss(this);
+		pause = new Pause(this);
 		gameFrame = new GameFrame(this, new InputManager(this), menu);
 		view = View.getInstance(gameFrame);
 		model.addObserver(view);
@@ -50,6 +55,14 @@ public class Game implements Runnable {
 
 	public Menu getMenu() {
 		return menu;
+	}
+	
+	public Pause getPause() {
+		return pause;
+	}
+
+	public void setPause(Pause pause) {
+		this.pause = pause;
 	}
 
 	public Win getWin() {
@@ -107,6 +120,7 @@ public class Game implements Runnable {
 		case PLAYING -> playing.update();
 		case WIN -> win.update();
 		case LOSS -> loss.update();
+		case PAUSE -> pause.update();
 		}
 	}
 

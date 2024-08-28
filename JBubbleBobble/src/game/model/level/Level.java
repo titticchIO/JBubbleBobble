@@ -17,12 +17,15 @@ import game.model.bubbles.ThunderBubble;
 import game.model.bubbles.WaterBubble;
 import game.model.bubbles.special_effects.FireBall;
 import game.model.bubbles.special_effects.FireBall.FireState;
+import game.model.Fruit;
+import game.model.FruitManager;
 import game.model.HelpMethods;
 import game.model.Model;
 import game.model.bubbles.Bubble;
 import game.model.enemies.Enemy;
 import game.model.enemies.EnemyManager;
 import game.model.entities.Entity;
+import game.model.entities.MovingEntity;
 import game.model.entities.Player;
 import game.model.powerups.Powerup;
 import game.model.powerups.PowerupManager;
@@ -39,6 +42,7 @@ public class Level {
 	private EnemyManager enemyManager;
 	private BubbleManager bubbleManager;
 	private PowerupManager powerupManager;
+	private FruitManager fruitManager;
 	private char[][] lvlData;
 	private float[] playerSpawnPoint;
 	private List<Float> bubblesSpawnPoints;
@@ -51,6 +55,7 @@ public class Level {
 		enemyManager = new EnemyManager();
 		bubbleManager = new BubbleManager();
 		powerupManager = new PowerupManager();
+		fruitManager = new FruitManager();
 		lvlData = LevelLoader.loadLevel(this, levelNumber);
 		setBubblesSpawnPoints();
 	}
@@ -88,20 +93,24 @@ public class Level {
 
 	public List<Entity> getEntities() {
 		List<Entity> entities = new ArrayList<Entity>();
-		entities.add(player);
 		entities.addAll(bubbleManager.getBubbles());
 		entities.addAll(bubbleManager.getPlayerBubbles());
 		entities.addAll(bubbleManager.getFireBalls());
 		entities.addAll(bubbleManager.getBolts());
 		entities.addAll(bubbleManager.getWaters());
-		entities.addAll(enemyManager.getEnemies());
 		entities.addAll(enemyManager.getLasers());
 		entities.addAll(powerupManager.getPowerups());
+		entities.addAll(fruitManager.getFruits());
+
 		return entities;
 	}
 
 	public PowerupManager getPowerupManager() {
 		return powerupManager;
+	}
+
+	public FruitManager getFruitManager() {
+		return fruitManager;
 	}
 
 	public Player getPlayer() {
@@ -285,7 +294,10 @@ public class Level {
 
 	public void checkLooseLife() {
 		// Checks if the player is invulnerable; if not, the player can lose a life.
-		if (!player.isInvulnerable() && Entity.checkCollision(player, enemyManager.getHazards()).isPresent()) {
+		Optional<MovingEntity> hazardHit = Entity.checkCollision(player, enemyManager.getHazards());
+		if (!player.isInvulnerable() && hazardHit.isPresent()) {
+			if (hazardHit.get() instanceof Enemy enemy && enemy.isDead())
+				return;
 			player.looseLife();
 			// Activates invulnerability.
 			player.setInvulnerable(true);
@@ -306,7 +318,19 @@ public class Level {
 				.filter(f -> f.getFireState() == FireState.BURN).toList();
 		Optional<Enemy> enemyHit = Entity.checkCollisions(burningFireBalls, enemyManager.getEnemies());
 		if (enemyHit.isPresent()) {
-			enemyHit.get().stun(10);
+//			enemyHit.get().kill();
+		}
+		Optional<FireBall> playerHit = Entity.checkCollision(player, burningFireBalls);
+		if (playerHit.isPresent()) {
+			player.stun(5);
+		}
+	}
+
+	private void checkFruitCollisions() {
+		Optional<Fruit> fruitHit = Entity.checkCollision(player, fruitManager.getFruits());
+		if (fruitHit.isPresent()) {
+			fruitManager.removeFruit(fruitHit.get());
+			Model.getInstance().getCurrentUser().addPoints(fruitHit.get().getPoints());
 		}
 	}
 
@@ -317,10 +341,11 @@ public class Level {
 		captureEnemies();
 		killEnemies();
 		checkSpecialCollisions();
+		checkFruitCollisions();
 	}
 
 	public void updateLevel() {
-//		System.out.println("Player lives: "+player.getLives());
+//		System.out.println("Player lives: " + player.getLives());
 		player.updateEntity();
 		enemyManager.updateEnemies();
 		bubbleManager.updateBubbles();

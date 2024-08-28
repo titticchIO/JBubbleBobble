@@ -11,8 +11,10 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import game.model.entities.Entity;
+import game.model.entities.MovingEntity.Direction;
 import game.model.entities.Player;
 import game.model.HelpMethods;
+import game.model.bubbles.BubbleManager;
 import game.model.bubbles.PlayerBubble;
 import game.model.bubbles.WaterBubble;
 import game.model.bubbles.special_effects.Water;
@@ -73,24 +75,46 @@ public class LevelPanel extends JPanel {
 		super.paintComponent(g2d);
 
 		g2d.drawImage(tilesImage, 0, 0, this);
+		renderPlayer(View.getInstance().getLevel().getPlayer(), g2d);
+		View.getInstance().getLevel().getEnemyManager().getEnemies().forEach(e -> renderEnemy(e, g2d));
 		View.getInstance(gameFrame).getLevel().getEntities().forEach(e -> renderEntity(e, g2d));
 	}
 
-	public void renderEntity(Entity entity, Graphics g) {
+	private void renderPlayer(Player player, Graphics g) {
+		Image playerImg;
+		if (player.isStunned())
+			playerImg = player.getDirection() == Direction.LEFT ? AnimationLoader.getPlayerImage("stun_left")
+					: AnimationLoader.getPlayerImage("stun_right");
+		else {
+			playerImg = player.getDirection() == Direction.STATIC ? Images.getImage(Player.CODE, "static")
+					: AnimationLoader.getPlayerImage("walk_" + player.getDirection().name().toLowerCase());
+		}
+		g.drawImage(playerImg, (int) player.getX(), (int) player.getY(), (int) player.getWidth() + 1,
+				(int) player.getHeight() + 1, null);
+	}
+
+	private void renderEnemy(Enemy enemy, Graphics g) {
+		Image enemyImage;
+		if (enemy.isDead()) {
+			enemyImage = AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColorState());
+//			enemyImage= prendi l'immagine del nemico morto;
+		} else {
+			enemyImage = AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColorState());
+		}
+		g.drawImage(enemyImage, (int) enemy.getX(), (int) enemy.getY(), (int) enemy.getWidth() + 1,
+				(int) enemy.getHeight() + 1, null);
+	}
+
+	private void renderEntity(Entity entity, Graphics g) {
 		Image img;
 		img = switch (entity) {
 		case Tile tile -> Images.getImage(tile.getCode());
 		case Laser laser -> Images.getImage(Laser.CODE);
-		case Enemy enemy -> AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColorState());
+		case Enemy enemy ->
+			AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColorState());
 		case OrangeParasol orangeParasol -> Images.getImage(Parasol.CODE, "orange");
 		case RedParasol redParasol -> Images.getImage(Parasol.CODE, "red");
 		case PurpleParasol purpleParasol -> Images.getImage(Parasol.CODE, "purple");
-		case Player player -> switch (player.getDirection()) {
-		case RIGHT -> AnimationLoader.getPlayerImage("walk_right");
-		case LEFT -> AnimationLoader.getPlayerImage("walk_left");
-		case STATIC -> Images.getImage(Player.CODE, "static");
-		default -> throw new IllegalArgumentException("Unexpected value: " + player.getDirection());
-		};
 		case PlayerBubble playerBubble -> {
 			if (playerBubble.getLifeSpan() <= 500) {
 				yield AnimationLoader.loadBubblePoppingImage();

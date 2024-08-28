@@ -24,7 +24,7 @@ import game.view.EndPanel.Ending;
 public class GameFrame extends JFrame {
 
 	public enum Screen {
-		MENU, GAME, WIN, LOSS, TRANSITION
+		MENU, GAME, WIN, LOSS, TRANSITION, PAUSE
 	}
 
 	private JPanel layoutPanel;
@@ -33,6 +33,7 @@ public class GameFrame extends JFrame {
 
 	private EndPanel winPanel;
 	private EndPanel lossPanel;
+	private PausePanel pausePanel;
 
 	// Aggiunti per mostrare e aggiornare punti e highscore
 	private JLabel scoreLabel;
@@ -77,6 +78,7 @@ public class GameFrame extends JFrame {
 		menuPanel = new MenuPanel(menu);
 		winPanel = new EndPanel(Ending.WIN);
 		lossPanel = new EndPanel(Ending.LOSS);
+		pausePanel = new PausePanel(levelPanel, game);
 
 		// Attach the PlayerController as a KeyListener
 		addKeyListener(playerController);
@@ -87,6 +89,7 @@ public class GameFrame extends JFrame {
 		layoutPanel.add(gamePanel, Screen.GAME.name());
 		layoutPanel.add(winPanel, Screen.WIN.name());
 		layoutPanel.add(lossPanel, Screen.LOSS.name());
+		layoutPanel.add(pausePanel, Screen.PAUSE.name());
 
 		add(layoutPanel);
 		pack();
@@ -105,6 +108,7 @@ public class GameFrame extends JFrame {
 	}
 
 	public void showState(Screen screen) {
+		if (screen == Screen.PAUSE) pausePanel.drawBackground();
 		((CardLayout) layoutPanel.getLayout()).show(layoutPanel, screen.name());
 		layoutPanel.revalidate();
 		layoutPanel.repaint();

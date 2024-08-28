@@ -54,6 +54,7 @@ public class Invader extends Enemy {
 
 	@Override
 	public void updateEntity() {
+		super.updateEntity();
 		if (!isStopped) {
 			if (!HelpMethods.isEntityGrounded(this) && landed)
 				landed = false;
