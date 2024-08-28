@@ -22,8 +22,6 @@ public abstract class MovingEntity extends Entity {
 		LEFT, RIGHT, STATIC
 	}
 
-	private Timer stunTimer;
-
 	// Direction of movement
 	protected Direction direction;
 
@@ -47,9 +45,6 @@ public abstract class MovingEntity extends Entity {
 
 	// Indicates if the entity is in the air
 	protected boolean inAir;
-
-	// Indicates if the entity is stunned
-	protected boolean isStunned;
 
 	/**
 	 * Constructs a {@code MovingEntity} with specified position and unique code.
@@ -120,9 +115,7 @@ public abstract class MovingEntity extends Entity {
 	 * 
 	 * @return
 	 */
-	public boolean isStunned() {
-		return isStunned;
-	}
+
 
 	/**
 	 * Sets the speed of the entity along the x-axis.
@@ -158,24 +151,6 @@ public abstract class MovingEntity extends Entity {
 	 */
 	public void setDirection(Direction direction) {
 			this.direction = direction;
-	}
-
-	public void stun(int stunTime) {
-		if (stunTimer == null) {
-			System.out.println("stunned");
-			setxSpeed(0);
-			setAirSpeed(0);
-			isStunned = true;
-			stunTimer = new Timer("Stun Timer");
-			stunTimer.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					isStunned = false;
-					this.cancel();
-					stunTimer = null;
-				}
-			}, stunTime * 1000);
-		}
 	}
 
 	/**

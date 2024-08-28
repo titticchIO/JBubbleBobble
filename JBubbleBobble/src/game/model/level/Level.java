@@ -297,7 +297,7 @@ public class Level {
 				.filter(f -> f.getFireState() == FireState.BURN).toList();
 		Optional<Enemy> enemyHit = Entity.checkCollisions(burningFireBalls, enemyManager.getEnemies());
 		if (enemyHit.isPresent()) {
-			enemyHit.get().stun(10);
+//			enemyHit.get().kill();
 		}
 		Optional<FireBall> playerHit = Entity.checkCollision(player, burningFireBalls);
 		if (playerHit.isPresent()) {

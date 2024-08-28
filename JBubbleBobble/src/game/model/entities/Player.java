@@ -30,9 +30,12 @@ public class Player extends MovingEntity {
 
 	private static Player instance; // Singleton instance of the Player class.
 
+	private Timer stunTimer;
+	
 	private Direction bubbleDirection; // Direction in which the player will shoot bubbles.
 	private State state; // Current state of the player.
 	private int lives; // Current number of lives the player has.
+	private boolean isStunned; // Indicates if the entity is stunned
 	private long attackSpeed; // The speed at which the player can shoot bubbles.
 	private float extraXSpeed; // Extra speed applied to the player's movement.
 	private float previousX; // Previous x-coordinate used for distance tracking.
@@ -105,6 +108,10 @@ public class Player extends MovingEntity {
 		return isJumping;
 	}
 
+	public boolean isStunned() {
+		return isStunned;
+	}
+	
 	/**
 	 * Returns whether the player is currently shooting.
 	 *
@@ -282,6 +289,25 @@ public class Player extends MovingEntity {
 		}
 	}
 
+	public void stun(int stunTime) {
+		if (stunTimer == null) {
+			System.out.println("stunned");
+			setxSpeed(0);
+			setAirSpeed(0);
+			isStunned = true;
+			stunTimer = new Timer("Stun Timer");
+			stunTimer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					isStunned = false;
+					this.cancel();
+					stunTimer = null;
+				}
+			}, stunTime * 1000);
+		}
+	}
+
+	
 	/**
 	 * Updates the player's state each game tick. This includes checking for
 	 * collisions with bubbles, handling jumping, popping bubbles, updating
