@@ -66,7 +66,11 @@ public class Playing extends State implements Statemethods {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-
+		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			GameState.state = GameState.PAUSE;
+			game.getGameFrame().showState(Screen.PAUSE);
+		}
+		
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_W:
 			if (!Model.getInstance().getCurrentLevel().getPlayer().isStunned())

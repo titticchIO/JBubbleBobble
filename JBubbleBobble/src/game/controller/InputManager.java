@@ -27,6 +27,7 @@ public class InputManager implements KeyListener {
 		case PLAYING -> game.getPlaying().keyPressed(e);
 		case WIN -> game.getWin().keyPressed(e);
 		case LOSS-> game.getLoss().keyPressed(e);
+		case PAUSE -> game.getPause().keyPressed(e);
 		}
 	}
 
