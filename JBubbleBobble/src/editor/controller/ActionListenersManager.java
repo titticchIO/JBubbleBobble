@@ -59,8 +59,8 @@ public class ActionListenersManager {
 		};
 	}
 	
-	public static ActionListener handleSaveLevel(int newLevelNumber, EditorFrame editorFrame) {
-		return e -> handleSaveLevel(newLevelNumber, editorFrame);
+	public static ActionListener handleSaveLevel(LevelsPopUpMenu lvlPopMen, int newLevelNumber, EditorFrame editorFrame) {
+		return e -> lvlPopMen.handleSaveLevel(newLevelNumber, editorFrame);
 	}
 	
 	public static ActionListener addSelectionButton(SpriteSelectionScrollPane spriteSelectionScrollPane, SelectionButton b) {

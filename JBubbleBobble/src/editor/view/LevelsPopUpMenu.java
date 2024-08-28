@@ -61,7 +61,7 @@ public class LevelsPopUpMenu extends JPopupMenu {
 			JButton newLevelButton = new JButton("new Level (" + newLevelNumber + ")");
 			newLevelButton.setBackground(Color.BLACK);
 			newLevelButton.setForeground(Color.YELLOW);
-			newLevelButton.addActionListener(ActionListenersManager.handleSaveLevel(newLevelNumber, editorFrame));
+			newLevelButton.addActionListener(ActionListenersManager.handleSaveLevel(this, newLevelNumber, editorFrame));
 			panel.add(newLevelButton);
 		}
 
