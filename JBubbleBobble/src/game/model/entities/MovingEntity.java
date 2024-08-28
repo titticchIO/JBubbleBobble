@@ -22,7 +22,7 @@ public abstract class MovingEntity extends Entity {
 		LEFT, RIGHT, STATIC
 	}
 
-	
+	private Timer stunTimer;
 
 	// Direction of movement
 	protected Direction direction;
@@ -116,6 +116,13 @@ public abstract class MovingEntity extends Entity {
 		return direction;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isStunned() {
+		return isStunned;
+	}
 
 	/**
 	 * Sets the speed of the entity along the x-axis.
@@ -150,26 +157,25 @@ public abstract class MovingEntity extends Entity {
 	 * @param direction The new movement direction of the entity.
 	 */
 	public void setDirection(Direction direction) {
-		this.direction = direction;
+			this.direction = direction;
 	}
 
-	
-
 	public void stun(int stunTime) {
-		float prevXSpeed = xSpeed;
-		float prevAirSpeed = airSpeed;
-		setxSpeed(0);
-		setAirSpeed(0);
-		isStunned = true;
-		new Timer("Stun Timer").schedule(new TimerTask() {
-			@Override
-			public void run() {
-				isStunned = false;
-				setxSpeed(prevXSpeed);
-				setAirSpeed(prevAirSpeed);
-				this.cancel();
-			}
-		}, stunTime * 1000);
+		if (stunTimer == null) {
+			System.out.println("stunned");
+			setxSpeed(0);
+			setAirSpeed(0);
+			isStunned = true;
+			stunTimer = new Timer("Stun Timer");
+			stunTimer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					isStunned = false;
+					this.cancel();
+					stunTimer = null;
+				}
+			}, stunTime * 1000);
+		}
 	}
 
 	/**

@@ -43,7 +43,6 @@ public class Player extends MovingEntity {
 	private boolean crystalRingActive;
 	private boolean amethystRingActive;
 
-
 	/**
 	 * Returns the singleton instance of the {@code Player} class.
 	 *
@@ -118,7 +117,7 @@ public class Player extends MovingEntity {
 	public boolean isCrystalRingActive() {
 		return crystalRingActive;
 	}
-	
+
 	/**
 	 * Sets the player's movement direction and adjusts the bubble shooting
 	 * direction accordingly.
@@ -192,6 +191,7 @@ public class Player extends MovingEntity {
 	public void setCrystalRingActive(boolean crystalRingActive) {
 		this.crystalRingActive = crystalRingActive;
 	}
+
 	/**
 	 * Increases the player's firing rate by decreasing the time between shots.
 	 *
@@ -219,7 +219,7 @@ public class Player extends MovingEntity {
 		inAir = true;
 		airSpeed = jumpSpeed;
 		Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfJumps();
-		if (amethystRingActive) 
+		if (amethystRingActive)
 			Model.getInstance().getCurrentUser().addPoints(AmethystRing.POINTS);
 	}
 
@@ -229,8 +229,7 @@ public class Player extends MovingEntity {
 	public void looseLife() {
 		lives--;
 	}
-	
-	
+
 	public void heal() {
 		lives = NUMBER_OF_LIVES;
 	}
@@ -256,7 +255,6 @@ public class Player extends MovingEntity {
 	 * current direction if not obstructed by a wall, and shooting is temporarily
 	 * disabled after each shot.
 	 */
-	
 
 	public void shootBubble() {
 		// Checks if the player can shoot.
@@ -283,6 +281,7 @@ public class Player extends MovingEntity {
 			}, ATTACK_INTERVAL * attackSpeed); // Sets the timer based on the attack speed.
 		}
 	}
+
 	/**
 	 * Updates the player's state each game tick. This includes checking for
 	 * collisions with bubbles, handling jumping, popping bubbles, updating
@@ -290,9 +289,11 @@ public class Player extends MovingEntity {
 	 */
 	@Override
 	public void updateEntity() {
-		updateXPos();
-		updateYPos();
-		gravity();
+		if (!isStunned()) {
+			updateXPos();
+		}
+			updateYPos();
+			gravity();
 	}
 
 	public boolean isInvulnerable() {

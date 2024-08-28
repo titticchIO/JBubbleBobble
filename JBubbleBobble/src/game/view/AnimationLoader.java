@@ -19,14 +19,16 @@ public class AnimationLoader {
 	// Percorsi delle animazioni del player
 	private static final String PLAYER_WALK_LEFT = "player/left_walk.gif";
 	private static final String PLAYER_WALK_RIGHT = "player/right_walk.gif";
-//	private static final String PLAYER_JUMP = "player/jump.gif";
+	private static final String PLAYER_STUN_LEFT = "player/stun_left.gif";
+	private static final String PLAYER_STUN_RIGHT = "player/stun_right.gif";
 	// Aggiungi altri percorsi delle animazioni del player qui
 
 	static {
 		// Carica le animazioni del player staticamente
 		playerAnimations.put("walk_left", loadImageIcon(PLAYER_WALK_LEFT));
 		playerAnimations.put("walk_right", loadImageIcon(PLAYER_WALK_RIGHT));
-//		playerAnimations.put("jump", loadImageIcon(PLAYER_JUMP));
+		playerAnimations.put("stun_left", loadImageIcon(PLAYER_STUN_LEFT));
+		playerAnimations.put("stun_right", loadImageIcon(PLAYER_STUN_RIGHT));
 		// Carica altre animazioni del player
 	}
 

@@ -85,7 +85,7 @@ public class Level {
 
 	public List<Entity> getEntities() {
 		List<Entity> entities = new ArrayList<Entity>();
-		entities.add(player);
+//		entities.add(player);
 		entities.addAll(bubbleManager.getBubbles());
 		entities.addAll(bubbleManager.getPlayerBubbles());
 		entities.addAll(bubbleManager.getFireBalls());
@@ -187,7 +187,7 @@ public class Level {
 						if (!b.hasEnemy()) {
 							if (player.isShooting())
 								b.pop();
-							else if (b.getLifeSpan()>500)
+							else if (b.getLifeSpan() > 500)
 								b.setEnemy(e);
 							enemyManager.removeEnemy(e);
 						}
@@ -213,7 +213,7 @@ public class Level {
 
 		for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
 			// Verifica se la posizione è valida per generare il powerup
-			if (lvlData[y][x] == ' ' && Character.isDigit(lvlData[y + 1][x]) 
+			if (lvlData[y][x] == ' ' && Character.isDigit(lvlData[y + 1][x])
 					&& !powerupManager.isTherePowerup(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE)) {
 				powerup.setPosition(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE);
 				powerupManager.addPowerup(powerup);
@@ -299,6 +299,10 @@ public class Level {
 		if (enemyHit.isPresent()) {
 			enemyHit.get().stun(10);
 		}
+		Optional<FireBall> playerHit = Entity.checkCollision(player, burningFireBalls);
+		if (playerHit.isPresent()) {
+			player.stun(5);
+		}
 	}
 
 	private void checkAllCollisions() {
@@ -311,7 +315,7 @@ public class Level {
 	}
 
 	public void updateLevel() {
-		System.out.println("Player lives: "+player.getLives());
+//		System.out.println("Player lives: " + player.getLives());
 		player.updateEntity();
 		enemyManager.updateEnemies();
 		bubbleManager.updateBubbles();

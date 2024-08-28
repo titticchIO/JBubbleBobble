@@ -45,6 +45,7 @@ public class BubbleManager {
 		int bubbleCase = new Random().nextInt(5000);
 		if (!doOnce && bubbleCase < 4) {
 			doOnce = true;
+			Model.getInstance().getCurrentLevel().spawnBubble(new FireBubble());
 			Bubble specialBubble;
 			switch (bubbleCase) {
 			case 0 -> specialBubble = new FireBubble();

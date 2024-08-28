@@ -69,19 +69,24 @@ public class Playing extends State implements Statemethods {
 
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_W:
-			Model.getInstance().getCurrentLevel().getPlayer().setJumping(true);
+			if (!Model.getInstance().getCurrentLevel().getPlayer().isStunned())
+				Model.getInstance().getCurrentLevel().getPlayer().setJumping(true);
 			break;
 		case KeyEvent.VK_A:
-			Model.getInstance().getCurrentLevel().getPlayer().setDirection(Direction.LEFT);
-			Model.getInstance().getCurrentLevel().getPlayer().move(0.7f);
-
+			if (!Model.getInstance().getCurrentLevel().getPlayer().isStunned()) {
+				Model.getInstance().getCurrentLevel().getPlayer().setDirection(Direction.LEFT);
+				Model.getInstance().getCurrentLevel().getPlayer().move(0.7f);
+			}
 			break;
 		case KeyEvent.VK_D:
-			Model.getInstance().getCurrentLevel().getPlayer().setDirection(Direction.RIGHT);
-			Model.getInstance().getCurrentLevel().getPlayer().move(0.7f);
+			if (!Model.getInstance().getCurrentLevel().getPlayer().isStunned()) {
+				Model.getInstance().getCurrentLevel().getPlayer().setDirection(Direction.RIGHT);
+				Model.getInstance().getCurrentLevel().getPlayer().move(0.7f);
+			}
 			break;
 		case KeyEvent.VK_SPACE:
-			Model.getInstance().getCurrentLevel().getPlayer().shootBubble();
+			if (!Model.getInstance().getCurrentLevel().getPlayer().isStunned())
+				Model.getInstance().getCurrentLevel().getPlayer().shootBubble();
 		}
 
 	}
