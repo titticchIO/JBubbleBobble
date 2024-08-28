@@ -57,25 +57,26 @@ public class ActionListenersManager {
 	}
 
 	public static ActionListener chooseAvatar(JLabel avatarPreviewLabel, JButton chooseAvatarButton) {
-		return e -> {
-			JFileChooser fileChooser = new JFileChooser();
-			fileChooser.setDialogTitle("Seleziona un Avatar");
-			fileChooser.setFileFilter(
-					new javax.swing.filechooser.FileNameExtensionFilter("Immagini", "png", "jpg", "jpeg"));
-			int returnValue = fileChooser.showOpenDialog(null);
-			if (returnValue == JFileChooser.APPROVE_OPTION) {
-				String selectedAvatarPath = fileChooser.getSelectedFile().getPath();
-				try {
-					BufferedImage avatar = ImageIO.read(Paths.get(selectedAvatarPath).toFile());
-					ImageIcon avatarIcon = new ImageIcon(avatar.getScaledInstance(40, 40, Image.SCALE_SMOOTH));
-					avatarPreviewLabel.setIcon(avatarIcon);
-					avatarPreviewLabel.putClientProperty("avatarPath", selectedAvatarPath);
-				} catch (IOException ex) {
-					ex.printStackTrace();
-					JOptionPane.showMessageDialog(chooseAvatarButton, "Errore durante il caricamento dell'avatar!",
-							"Errore", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		};
+	    return e -> {
+	        JFileChooser fileChooser = new JFileChooser();
+	        fileChooser.setDialogTitle("Seleziona un Avatar");
+	        fileChooser.setFileFilter(
+	                new javax.swing.filechooser.FileNameExtensionFilter("Immagini", "png", "jpg", "jpeg"));
+	        int returnValue = fileChooser.showOpenDialog(null);
+	        if (returnValue == JFileChooser.APPROVE_OPTION) {
+	            String selectedAvatarPath = fileChooser.getSelectedFile().getPath();
+	            try {
+	                BufferedImage avatar = ImageIO.read(Paths.get(selectedAvatarPath).toFile());
+	                ImageIcon avatarIcon = new ImageIcon(avatar.getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+	                avatarPreviewLabel.setIcon(avatarIcon);
+	                avatarPreviewLabel.putClientProperty("avatarPath", selectedAvatarPath);
+	            } catch (IOException ex) {
+	                ex.printStackTrace();
+	                JOptionPane.showMessageDialog(chooseAvatarButton, "Errore durante il caricamento dell'avatar!",
+	                        "Errore", JOptionPane.ERROR_MESSAGE);
+	            }
+	        }
+	    };
 	}
+
 }
