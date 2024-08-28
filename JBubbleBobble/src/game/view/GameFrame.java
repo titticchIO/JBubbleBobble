@@ -78,7 +78,7 @@ public class GameFrame extends JFrame {
 		menuPanel = new MenuPanel(menu);
 		winPanel = new EndPanel(Ending.WIN);
 		lossPanel = new EndPanel(Ending.LOSS);
-		pausePanel = new PausePanel(levelPanel);
+		pausePanel = new PausePanel(levelPanel, game);
 
 		// Attach the PlayerController as a KeyListener
 		addKeyListener(playerController);

@@ -14,10 +14,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 
+import game.controller.gamestates.GameState;
 import game.controller.gamestates.Menu;
 import game.model.Model;
 import game.model.user.User;
 import game.view.View;
+import game.view.GameFrame.Screen;
 import editor.controller.Main;
 
 public class ActionListenersManager {
@@ -77,6 +79,20 @@ public class ActionListenersManager {
 	            }
 	        }
 	    };
+	}
+	
+	public static ActionListener resumeGame(Game game) {
+		return e -> {
+			GameState.state = GameState.PLAYING;
+			game.getGameFrame().showState(Screen.GAME);
+		};		
+	}
+	
+	public static ActionListener backToMenu(Game game) {
+		return e -> {
+			game.resetGame();
+		};
+		
 	}
 
 }

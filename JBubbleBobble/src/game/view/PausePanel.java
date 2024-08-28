@@ -10,15 +10,19 @@ import java.awt.image.Kernel;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import game.controller.ActionListenersManager;
+import game.controller.Game;
 import game.model.level.Level;
 
 public class PausePanel extends JPanel {
     
     private BufferedImage levelImage;
     private LevelPanel levelPanel;
+    private Game game;
 
-    public PausePanel(LevelPanel levelPanel) {
+    public PausePanel(LevelPanel levelPanel, Game game) {
         this.levelPanel = levelPanel;
+        this.game = game;
 
         setSize(new Dimension((int) (Level.GAME_WIDTH * LevelPanel.SCALE),
                 (int) (Level.GAME_HEIGHT * LevelPanel.SCALE)));
@@ -27,8 +31,12 @@ public class PausePanel extends JPanel {
 
         // Crea i bottoni
         JButton resumeButton = new JButton("Resume");
+        resumeButton.addActionListener(ActionListenersManager.resumeGame(game));
         resumeButton.setBounds(220,220, 100, 30);
+        
+        
         JButton exitButton = new JButton("Exit");
+        exitButton.addActionListener(ActionListenersManager.backToMenu(game));
         exitButton.setBounds(220,270, 100, 30);
         
         // Aggiungi i bottoni al pannello
