@@ -95,8 +95,7 @@ public class LevelPanel extends JPanel {
 			if (playerBubble.getLifeSpan() <= 500) {
 				yield AnimationLoader.loadBubblePoppingImage();
 			} else if (playerBubble.hasEnemy()) {
-				yield AnimationLoader.loadBubbleEnemyImage(playerBubble.getEnemy().getCode(),
-						playerBubble.getEnemy().getColorState());
+				yield AnimationLoader.loadBubbleEnemyImage(playerBubble.getEnemy().getCode());
 			} else {
 				yield Images.getImage(playerBubble.getCode());
 			}

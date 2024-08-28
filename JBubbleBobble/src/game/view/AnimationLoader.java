@@ -67,10 +67,6 @@ public class AnimationLoader {
 		}
 	}
 	
-	public static Image loadBubbleEnemyImage(char code, ColorState color) {
-		return loadEntityImage(EnemiesPath.getPath(code) + "bubbled-" + color.name().toLowerCase() + ".gif");
-	}
-	
 	public static Image loadBubblePoppingImage() {
 		return loadEntityImage("/bubbles/bubble_pops.gif");
 	}

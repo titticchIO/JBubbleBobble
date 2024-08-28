@@ -15,6 +15,11 @@ public class Images {
 		imageMap.put('2', "/blocks/normal_blocks/block_2");
 		imageMap.put('3', "/blocks/normal_blocks/block_3");
 		imageMap.put('4', "/blocks/normal_blocks/block_4");
+		imageMap.put('5', "/blocks/normal_blocks/block_5");
+		imageMap.put('6', "/blocks/normal_blocks/block_6");
+		imageMap.put('7', "/blocks/normal_blocks/block_7");
+		imageMap.put('8', "/blocks/normal_blocks/block_8");
+		imageMap.put('9', "/blocks/normal_blocks/block_9");
 		imageMap.put('P', "/player/");
 		imageMap.put('°', "/bubbles/player_bubble");
 		imageMap.put('-', "/bubbles/fire_bubble");
