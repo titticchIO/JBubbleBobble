@@ -23,6 +23,7 @@ import game.model.bubbles.Bubble;
 import game.model.enemies.Enemy;
 import game.model.enemies.EnemyManager;
 import game.model.entities.Entity;
+import game.model.entities.MovingEntity;
 import game.model.entities.Player;
 import game.model.powerups.Powerup;
 import game.model.powerups.PowerupManager;
@@ -98,7 +99,7 @@ public class Level {
 		entities.addAll(enemyManager.getLasers());
 		entities.addAll(powerupManager.getPowerups());
 		entities.addAll(fruitManager.getFruits());
-		
+
 		return entities;
 	}
 
@@ -285,7 +286,10 @@ public class Level {
 
 	public void checkLooseLife() {
 		// Checks if the player is invulnerable; if not, the player can lose a life.
-		if (!player.isInvulnerable() && Entity.checkCollision(player, enemyManager.getHazards()).isPresent()) {
+		Optional<MovingEntity> hazardHit = Entity.checkCollision(player, enemyManager.getHazards());
+		if (!player.isInvulnerable() && hazardHit.isPresent()) {
+			if (hazardHit.get() instanceof Enemy enemy && enemy.isDead())
+				return;
 			player.looseLife();
 			// Activates invulnerability.
 			player.setInvulnerable(true);
@@ -313,9 +317,9 @@ public class Level {
 			player.stun(5);
 		}
 	}
-	
+
 	private void checkFruitCollisions() {
-		Optional<Fruit> fruitHit=Entity.checkCollision(player, fruitManager.getFruits());
+		Optional<Fruit> fruitHit = Entity.checkCollision(player, fruitManager.getFruits());
 		if (fruitHit.isPresent()) {
 			fruitManager.removeFruit(fruitHit.get());
 			Model.getInstance().getCurrentUser().addPoints(fruitHit.get().getPoints());
