@@ -4,9 +4,9 @@ import game.model.Model;
 
 public class Dynamite extends Powerup{
 	public static final char CODE = '^';
-	private static final int POINTS = 200;
-	private static final long DURATION = 1;
-	private static int spawnCondition = 2;
+	public static final int SPAWN_CONDITION = 2;
+	public static final int POINTS = 200;
+	public static final long DURATION = 1;
 
 	public Dynamite() {
 		super(0, 0, CODE, POINTS, DURATION);
@@ -25,10 +25,6 @@ public class Dynamite extends Powerup{
 	@Override
 	public void resetToNormal() {
 		
-	}
-
-	public static int getSpawnCondition() {
-		return spawnCondition;
 	}
 	
 }

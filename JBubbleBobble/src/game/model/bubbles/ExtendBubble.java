@@ -9,7 +9,7 @@ public class ExtendBubble extends Bubble {
 	private static int codesIndex;
 
 	public static void incrementCodesIndex() {
-		codesIndex = (codesIndex < CODES.length) ? codesIndex + 1 : 0;
+		codesIndex = (codesIndex < CODES.length-1) ? codesIndex + 1 : 0;
 	}
 
 	public ExtendBubble() {
@@ -20,7 +20,6 @@ public class ExtendBubble extends Bubble {
 
 	@Override
 	public void pop() {
-		incrementCodesIndex();
 		if (codesIndex == CODES.length-1)
 			Player.getInstance().heal();
 		Model.getInstance().getCurrentLevel().getBubbleManager().removeBubble(this);

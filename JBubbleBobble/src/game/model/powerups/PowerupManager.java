@@ -17,13 +17,21 @@ public class PowerupManager {
 	private List<Powerup> powerups;
 
 	private float distanceTravelled;
-	private int numberOfJumps;
 	private int numberOfJumpsOnBubbles;
 	private int numberOfBubbles;
 	private int numberOfBubblesPopped;
 	private int numberOfFireBubblesPopped;
 	private int numberOfWaterBubblesPopped;
 	private int numberOfThunderBubblesPopped;
+	private int numberOfSpecialBubblesPopped;
+	private int numberOfExtendBubblesPopped;
+	private int numberOfYellowCandies;
+	private int numberOfBlueCandies;
+	
+
+	public int getNumberOfBubblesPopped() {
+		return numberOfBubblesPopped;
+	}
 
 	public PowerupManager() {
 		powerups = new CopyOnWriteArrayList<>();
@@ -44,23 +52,40 @@ public class PowerupManager {
 	public void increaseNumberOfBubblesPopped() {
 		numberOfBubblesPopped++;
 	}
+
 	public void increaseNumberOfFireBubblesPopped() {
 		numberOfFireBubblesPopped++;
 	}
+
 	public void increaseNumberOfWaterBubblesPopped() {
 		numberOfWaterBubblesPopped++;
 	}
+
 	public void increaseNumberOfThunderBubblesPopped() {
 		numberOfThunderBubblesPopped++;
 	}
+	
+	public void increaseNumberOfSpecialBubblesPopped() {
+		numberOfSpecialBubblesPopped++;
+	}
+	
+	public void increaseNumberOfExtendBubblesPopped() {
+		numberOfExtendBubblesPopped++;
+	}
+	
+	public void increaseNumberOfYellowCandies() {
+		numberOfYellowCandies++;
+	}
 
+	public void increaseNumberOfBlueCandies() {
+		numberOfBlueCandies++;
+	}
+	
 	public void increaseDistanceTraveled(float newDistance) {
 		distanceTravelled += newDistance;
 	}
+	
 
-	public void increaseNumberOfJumps() {
-		numberOfJumps++;
-	}
 
 	public float getPercentDiff(float a, float b) {
 		return ((a - b) / b) * 100;
@@ -71,33 +96,18 @@ public class PowerupManager {
 
 		// Adds for each powerup the percentage difference between the current value and
 		// the minimum;
-		results.put(BlueCandy.class, getPercentDiff(numberOfBubblesPopped, BlueCandy.getSpawnCondition()));
-		results.put(PinkCandy.class, getPercentDiff(numberOfBubbles, PinkCandy.getSpawnCondition()));
-		results.put(YellowCandy.class, getPercentDiff(numberOfJumpsOnBubbles, YellowCandy.getSpawnCondition()));
-		results.put(Shoes.class, getPercentDiff(distanceTravelled, Shoes.getSpawnCondition()));
-		results.put(Clock.class, getPercentDiff(numberOfBubblesPopped, Clock.getSpawnCondition()));
-		results.put(Dynamite.class, getPercentDiff(numberOfBubblesPopped, Dynamite.getSpawnCondition()));
-		results.put(CrystalRing.class, getPercentDiff(numberOfBubblesPopped, CrystalRing.getSpawnCondition()));
-		
-		
-		
-		HashMap<Class<? extends Powerup>, Float> parasolRes = new HashMap<Class<? extends Powerup>, Float>();
-		parasolRes.put(OrangeParasol.class, getPercentDiff(numberOfBubblesPopped, OrangeParasol.getSpawnCondition()));
-		parasolRes.put(RedParasol.class, getPercentDiff(numberOfBubblesPopped, RedParasol.getSpawnCondition()));
-		parasolRes.put(PurpleParasol.class, getPercentDiff(numberOfBubblesPopped, PurpleParasol.getSpawnCondition()));
+		results.put(PinkCandy.class, getPercentDiff(numberOfBubbles, PinkCandy.SPAWN_CONDITION));
+		results.put(BlueCandy.class, getPercentDiff(numberOfBubblesPopped, BlueCandy.SPAWN_CONDITION));
+		results.put(YellowCandy.class, getPercentDiff(numberOfJumpsOnBubbles, YellowCandy.SPAWN_CONDITION));
+		results.put(Shoes.class, getPercentDiff(distanceTravelled, Shoes.SPAWN_CONDITION));
+		results.put(Clock.class, getPercentDiff(numberOfThunderBubblesPopped, Clock.SPAWN_CONDITION));
+		results.put(Dynamite.class, getPercentDiff(numberOfFireBubblesPopped, Dynamite.SPAWN_CONDITION));
+		results.put(OrangeParasol.class, getPercentDiff(numberOfWaterBubblesPopped, OrangeParasol.SPAWN_CONDITION));
+		results.put(RedParasol.class, getPercentDiff(numberOfSpecialBubblesPopped, RedParasol.SPAWN_CONDITION));
+		results.put(PurpleParasol.class, getPercentDiff(numberOfExtendBubblesPopped, PurpleParasol.SPAWN_CONDITION));
+		results.put(CrystalRing.class, getPercentDiff(numberOfYellowCandies, CrystalRing.SPAWN_CONDITION));
+		results.put(AmethystRing.class, getPercentDiff(numberOfBlueCandies, AmethystRing.SPAWN_CONDITION));
 
-		Map.Entry<Class<? extends Powerup>, Float> maxEntry = null;
-		for (Map.Entry<Class<? extends Powerup>, Float> entry : parasolRes.entrySet()) {
-			if (maxEntry == null || entry.getValue() > maxEntry.getValue()) {
-				maxEntry = entry;
-			}
-		}
-
-		// Aggiungi l'entry con il valore massimo a results
-		if (maxEntry != null) {
-			results.put(maxEntry.getKey(), maxEntry.getValue());
-		}
-		
 		return results;
 	}
 
@@ -122,14 +132,14 @@ public class PowerupManager {
 				// Crea una nuova istanza della classe di power-up
 				Powerup powerupInstance = powerupClass.getDeclaredConstructor().newInstance();
 				// Logica per spawnare il power-up nel gioco
+				System.out.println(numberOfExtendBubblesPopped);
 				Model.getInstance().getCurrentLevel().spawnPowerup(powerupInstance);
 			} catch (Exception e) {
 				e.printStackTrace();
 				// Gestisci eventuali eccezioni
 			}
 		}
-		
-		
+
 	}
 
 	public boolean isTherePowerup(int x, int y) {
@@ -157,9 +167,9 @@ public class PowerupManager {
 				@Override
 				public void run() {
 					createPowerup();
-					spawnTimer=null;
+					spawnTimer = null;
 				}
-			}, 20000);
+			}, 10000);
 		}
 
 		for (Powerup powerup : powerups) {

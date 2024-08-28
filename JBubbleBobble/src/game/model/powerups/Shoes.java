@@ -5,10 +5,10 @@ import game.model.level.Level;
 
 public class Shoes extends Powerup {
 	public static final char CODE = '§';
-	private static final int POINTS = 100;
-	private static final long DURATION = 10000;
-	private static final float INCREASED_X_SPEED_AMOUNT = 2f;
-	private static float spawnCondition = 2 * Level.GAME_WIDTH;
+	public static final int SPAWN_CONDITION = 10 * Level.GAME_WIDTH;
+	public static final int POINTS = 100;
+	public static final long DURATION = 10000;
+	public static final float INCREASED_X_SPEED_AMOUNT = 2f;
 
 	public Shoes() {
 		super(0, 0, CODE, POINTS, DURATION);
@@ -27,9 +27,5 @@ public class Shoes extends Powerup {
 	@Override
 	public void resetToNormal() {
 		Model.getInstance().getCurrentLevel().getPlayer().setExtraXSpeed(1);
-	}
-
-	public static float getSpawnCondition() {
-		return spawnCondition;
 	}
 }

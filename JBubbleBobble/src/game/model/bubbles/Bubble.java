@@ -39,10 +39,11 @@ public abstract class Bubble extends MovingEntity {
 		setLifeSpan(getLifeSpan() - k);
 	}
 
-	public boolean isEnemyHit(Enemy enemy) {
+	public boolean hasHitEnemy(Enemy enemy) {
 		return enemy.hit(this);
 	}
-
+	
+	
 	/**
 	 * metodo per far scoppiare la bolla
 	 */

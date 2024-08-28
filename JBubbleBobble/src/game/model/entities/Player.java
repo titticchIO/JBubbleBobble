@@ -218,7 +218,6 @@ public class Player extends MovingEntity {
 	public void jump() {
 		inAir = true;
 		airSpeed = jumpSpeed;
-		Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfJumps();
 		if (amethystRingActive) 
 			Model.getInstance().getCurrentUser().addPoints(AmethystRing.POINTS);
 	}

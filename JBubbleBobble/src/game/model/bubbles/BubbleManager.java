@@ -19,7 +19,6 @@ public class BubbleManager {
 	private List<Bolt> bolts;
 	private List<Water> waters;
 	private Timer waterUpdateTimer;
-	private boolean doOnce;
 
 	public BubbleManager() {
 		specialBubbles = new CopyOnWriteArrayList<>();
@@ -43,8 +42,7 @@ public class BubbleManager {
 
 	public void createSpecialBubble() {
 		int bubbleCase = new Random().nextInt(5000);
-		if (!doOnce && bubbleCase < 4) {
-			doOnce = true;
+		if (bubbleCase < 4) {
 			Bubble specialBubble;
 			switch (bubbleCase) {
 			case 0 -> specialBubble = new FireBubble();

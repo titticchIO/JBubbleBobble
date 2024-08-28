@@ -9,13 +9,16 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import game.model.bubbles.BubbleManager;
+import game.model.bubbles.ExtendBubble;
 import game.model.bubbles.FireBubble;
 import game.model.bubbles.PlayerBubble;
+import game.model.bubbles.SpecialBubble;
 import game.model.bubbles.ThunderBubble;
 import game.model.bubbles.WaterBubble;
 import game.model.bubbles.special_effects.FireBall;
 import game.model.bubbles.special_effects.FireBall.FireState;
 import game.model.HelpMethods;
+import game.model.Model;
 import game.model.bubbles.Bubble;
 import game.model.enemies.Enemy;
 import game.model.enemies.EnemyManager;
@@ -183,11 +186,11 @@ public class Level {
 	public void captureEnemies() {
 		if (checkEnemiesBubblesCollision())
 			bubbleManager.getPlayerBubbles().stream()
-					.forEach(b -> enemyManager.getEnemies().stream().filter(b::isEnemyHit).forEach(e -> {
+					.forEach(b -> enemyManager.getEnemies().stream().filter(b::hasHitEnemy).forEach(e -> {
 						if (!b.hasEnemy()) {
 							if (player.isShooting())
 								b.pop();
-							else if (b.getLifeSpan()>500)
+							else if (b.getLifeSpan() > 500)
 								b.setEnemy(e);
 							enemyManager.removeEnemy(e);
 						}
@@ -213,7 +216,7 @@ public class Level {
 
 		for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
 			// Verifica se la posizione è valida per generare il powerup
-			if (lvlData[y][x] == ' ' && Character.isDigit(lvlData[y + 1][x]) 
+			if (lvlData[y][x] == ' ' && Character.isDigit(lvlData[y + 1][x])
 					&& !powerupManager.isTherePowerup(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE)) {
 				powerup.setPosition(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE);
 				powerupManager.addPowerup(powerup);
@@ -271,6 +274,12 @@ public class Level {
 				powerupManager.increaseNumberOfWaterBubblesPopped();
 			else if (specialPopBubble.get() instanceof ThunderBubble)
 				powerupManager.increaseNumberOfThunderBubblesPopped();
+			else if (specialPopBubble.get() instanceof SpecialBubble)
+				powerupManager.increaseNumberOfSpecialBubblesPopped();
+			else if (specialPopBubble.get() instanceof ExtendBubble) {
+				ExtendBubble.incrementCodesIndex();
+				powerupManager.increaseNumberOfExtendBubblesPopped();
+			}
 		}
 	}
 
@@ -311,7 +320,7 @@ public class Level {
 	}
 
 	public void updateLevel() {
-		System.out.println("Player lives: "+player.getLives());
+//		System.out.println("Player lives: "+player.getLives());
 		player.updateEntity();
 		enemyManager.updateEnemies();
 		bubbleManager.updateBubbles();

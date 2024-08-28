@@ -15,9 +15,9 @@ public class ThunderBubble extends Bubble {
 
 	@Override
 	public void pop() {
-		System.out.println("Popped");
-		Model.getInstance().getCurrentLevel().getBubbleManager().addBolt(new Bolt(x, y));
-		Model.getInstance().getCurrentLevel().getBubbleManager().removeBubble(this);
+		BubbleManager bm = Model.getInstance().getCurrentLevel().getBubbleManager();
+		bm.addBolt(new Bolt(x, y));
+		bm.removeBubble(this);
 	}
 
 	@Override

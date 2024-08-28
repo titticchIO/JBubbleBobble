@@ -4,9 +4,9 @@ import game.model.Model;
 
 public class Clock extends Powerup {
 	public static final char CODE = '*';
-	private static final int POINTS = 200;
-	private static final long DURATION = 6000;
-	private static int spawnCondition = 2;
+	public static final int SPAWN_CONDITION = 2;
+	public static final int POINTS = 200;
+	public static final long DURATION = 6000;
 
 	public Clock() {
 		super(0, 0, CODE, POINTS, DURATION);
@@ -25,10 +25,6 @@ public class Clock extends Powerup {
 	@Override
 	public void resetToNormal() {
 		Model.getInstance().getCurrentLevel().getEnemyManager().getEnemies().stream().forEach(x -> x.setStopped(false));
-	}
-
-	public static int getSpawnCondition() {
-		return spawnCondition;
 	}
 
 }

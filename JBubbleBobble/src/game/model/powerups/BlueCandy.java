@@ -4,10 +4,10 @@ import game.model.bubbles.PlayerBubble;
 
 public class BlueCandy extends Powerup {
 	public static final char CODE = '£';
-	private static final int POINTS = 100;
-	private static final long DURATION = 10000;
-	private static final float INCREASED_X_SPEED_AMOUNT = 2;
-	private static int spawnCondition = 2;
+	public static final int SPAWN_CONDITION = 20;
+	public static final int POINTS = 100;
+	public static final long DURATION = 10000;
+	public static final float INCREASED_X_SPEED_AMOUNT = 2;
 
 	public BlueCandy() {
 		super(0, 0, CODE, POINTS, DURATION);
@@ -27,9 +27,5 @@ public class BlueCandy extends Powerup {
 	public void resetToNormal() {
 		PlayerBubble.setExtraXSpeed(1);
 		super.resetToNormal();
-	}
-
-	public static int getSpawnCondition() {
-		return spawnCondition;
 	}
 }
