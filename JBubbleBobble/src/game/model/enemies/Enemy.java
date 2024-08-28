@@ -23,7 +23,7 @@ public abstract class Enemy extends MovingEntity {
 	protected float movementSpeed = 1.0f;
 	protected boolean dead;
 
-	private static final int RED_TIME = 10000; // Tempo in millisecondi prima di diventare rosso
+	public static final int RED_TIME = 10000; // Tempo in millisecondi prima di diventare rosso
 
 	public float getMovementSpeed() {
 		return movementSpeed;
