@@ -59,23 +59,6 @@ public class View implements Observer {
 			case "bubble"-> AudioManager.getInstance().play(AnimationLoader.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (6).wav"));
 			}
 		}
-		
-		if (arg instanceof String s && s.equals("transition")) {
-			levelPanel.startLevelTransition(level.getLevelNumber() + 1);
-			// levelPanel.renderTilesOnce(); // Render tiles for the next level
-
-		}
-
-		// Check if the level is changing
-		if (arg instanceof String s && s.equals("next")) {
-			levelPanel.renderTilesOnce(); // Render tiles for the next level
-
-		}
-
-		// Check if points are updated
-		if (arg instanceof String s && s.equals("points")) {
-			gameFrame.updateScoreAndHighscore(); // Update score display
-		}
 
 		// If the model was reset, make sure to re-render the level
 		if (arg instanceof Level) {
