@@ -13,9 +13,7 @@ import game.model.Model;
 
 public class PowerupManager {
 
-	private Timer spawnTimer;
 	private List<Powerup> powerups;
-
 	private float distanceTravelled;
 	private int numberOfJumpsOnBubbles;
 	private int numberOfBubbles;
@@ -27,6 +25,7 @@ public class PowerupManager {
 	private int numberOfExtendBubblesPopped;
 	private int numberOfYellowCandies;
 	private int numberOfBlueCandies;
+	private Timer spawnTimer;
 	
 
 	public int getNumberOfBubblesPopped() {
@@ -169,7 +168,7 @@ public class PowerupManager {
 					createPowerup();
 					spawnTimer = null;
 				}
-			}, 50000);
+			}, 30000);
 		}
 
 		for (Powerup powerup : powerups) {

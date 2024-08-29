@@ -18,6 +18,7 @@ public class BubbleManager {
 	private List<FireBall> fireBalls;
 	private List<Bolt> bolts;
 	private List<Water> waters;
+	private Timer spawnSpecialBubbleTimer;
 	private Timer waterUpdateTimer;
 
 	public BubbleManager() {
@@ -41,17 +42,17 @@ public class BubbleManager {
 	}
 
 	public void createSpecialBubble() {
-		int bubbleCase = new Random().nextInt(20000);
 
 		Bubble specialBubble = null;
-		switch (bubbleCase) {
+		switch (new Random().nextInt(4)) {
 		case 0 -> specialBubble = new FireBubble();
-		case 5000 -> specialBubble = new WaterBubble();
-		case 10000 -> specialBubble = new SpecialBubble();
-		case 19999 -> specialBubble = new ThunderBubble();
+		case 1 -> specialBubble = new WaterBubble();
+		case 2 -> specialBubble = new SpecialBubble();
+		case 3 -> specialBubble = new ThunderBubble();
 		}
 		if (specialBubble != null)
 			Model.getInstance().getCurrentLevel().spawnBubble(specialBubble);
+
 	}
 
 	public void createExtendBubble() {
@@ -133,7 +134,18 @@ public class BubbleManager {
 				}
 			}, 50);
 		}
-		createSpecialBubble();
-		createExtendBubble();
+
+		if (spawnSpecialBubbleTimer == null) {
+			spawnSpecialBubbleTimer = new Timer("Spawn Special Bubble");
+
+			spawnSpecialBubbleTimer.schedule(new TimerTask() {
+
+				@Override
+				public void run() {
+					createSpecialBubble();
+					spawnSpecialBubbleTimer = null;
+				}
+			}, 30000);
+		}
 	}
 }
