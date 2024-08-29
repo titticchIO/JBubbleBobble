@@ -38,13 +38,6 @@ public class MenuPanel extends JPanel {
 	private void initMenu() {
 		setLayout(null);
 
-		JButton playButton = new JButton("Play") {
-			{
-				setBounds(300, 400, 100, 50);
-				addActionListener(ActionListenersManager.startGame(menu));
-			}
-		};
-
 		JButton editorButton = new JButton() {
 			{
 				setBounds(610, 20, 100, 50);
@@ -93,7 +86,6 @@ public class MenuPanel extends JPanel {
 			}
 		};
 
-		add(playButton);
 		add(editorButton);
 		add(leaderboardButton);
 		add(userSelectionButton);
