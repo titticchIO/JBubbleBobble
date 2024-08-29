@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>10</y>
+      <w>460</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>editor.view::EditorPanel
+--
++ROWS = 24: int
++COLS = 30: int
++DEFAULT_SQUARE_SIZE = 20: int
++SCALE = 1: float
++SQUARE_SIZE = (int) (DEFAULT_SQUARE_SIZE * SCALE): int
++PANEL_WIDTH = SQUARE_SIZE * COLS: int
++PANEL_HEIGHT = SQUARE_SIZE * ROWS: int
+-sprites: Sprite[][]
+-selPane: SpriteSelectionScrollPane
+-isMousePressed = false: boolean
+--
++EditorPanel(EditorFrame ef, SpriteSelectionScrollPane selPane): ctor
+#paintComponent(Graphics g): void
+-setSize(): void
++loadLevel(char[][] levelData): void
++reset(): void
++getSprites(): Sprite[][]
++setEmptySprites(Sprite[][] sprites): void
+-updateSprite(Sprite sprite, int x, int y): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>480</x>
+      <y>10</y>
+      <w>370</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>editor.view::EditorFrame
+--
+-instance: EditorFrame
+-editorPanel: EditorPanel
+-selectionPane: SpriteSelectionScrollPane
+-saveLevelButton: JButton
+-actualLevelNumber: String
+-actualLevel: JLabel
+-popUps: List&lt;LevelsPopUpMenu&gt;
+--
+-EditorFrame(): ctor
++getInstance(): EditorFrame
++getEditorPanel(): EditorPanel
++setEditorPanel(EditorPanel editorPanel): void
++getActualLevelNumber(): String
++setActualLevelNumber(String actualLevelNumber): void
++getActualLevel(): JLabel
++setActualLevel(JLabel actualLevel): void
++getSelectionPane(): SpriteSelectionScrollPane
++getPopUps(): List&lt;LevelsPopUpMenu&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>860</x>
+      <y>10</y>
+      <w>490</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>editor.view::SpriteSelectionScrollPane
+--
+-serialVersionUID = 1L: long
+-blocks: List&lt;SelectionButton&gt;
+-enemies: List&lt;SelectionButton&gt;
+-players: List&lt;SelectionButton&gt;
+-others: List&lt;SelectionButton&gt;
+-selectedButton: SelectionButton
+--
++SpriteSelectionScrollPane(): ctor
+-addCategory(JPanel panel, String title, List&lt;SelectionButton&gt; buttons): void
+-addBlocks(): void
+-addEnemies(): void
+-addPlayers(): void
+-setSize(): void
++deselectAllButtons(): void
++getCurrentButton(): SelectionButton
++setCurrentButton(SelectionButton selectedButton): void
+#paintComponent(Graphics g): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>380</y>
+      <w>330</w>
+      <h>290</h>
+    </coordinates>
+    <panel_attributes>editor.model::LevelManager
+--
++LEVELS_REL_PATH = "resources/levels": String
++ROWS = 24: int
++COLS = 30: int
+-level: char[][]
+--
++LevelManager(): ctor
++LevelManager(char wallTile): ctor
++setLevel(char[][] levelData): void
++emptyLevel(): void
++setWalls(char tile): void
++setTile(int y, int x, char tile): void
++getLevel(): char[][]
+-matriceToString(): String
++saveLevelFile(int levelNum): void
++deleteLevelFile(int levelNum): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>350</x>
+      <y>380</y>
+      <w>290</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>editor.view::Sprite
+--
+-x, y: int
+-sideLength: float
+-spriteImg: BufferedImage
+--
++Sprite(int x, int y, float side_length): ctor
++getX(): int
++getY(): int
++getSideLength(): float
++getSpriteImg(): BufferedImage
++updateSpriteImg(BufferedImage img): void
++render(Graphics g): void
++renderWithoutBorder(Graphics g): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>650</x>
+      <y>380</y>
+      <w>490</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>editor.view::LevelsPopUpMenu
+--
+-menuType: MenuType
+-editorFrame: EditorFrame
+--
++LevelsPopUpMenu(MenuType menuType, EditorFrame editorFrame): ctor
+-rebuildMenu(): void
++handleOpenLevel(int levelNumber, EditorFrame editorFrame): void
++handleSaveLevel(int levelNumber, EditorFrame editorFrame): void
++handleDeleteLevel(int levelNumber, EditorFrame editorFrame): void
+-saveLevelImage(int levelNumber, EditorFrame editorFrame): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1150</x>
+      <y>380</y>
+      <w>840</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>editor.controller::ActionListenersManager
+--
+--
++newGridButton(EditorPanel editorPanel, SpriteSelectionScrollPane selectionPane): ActionListener
++openGridButton(LevelsPopUpMenu levelSelectionPopup, JButton openGridButton): ActionListener
++saveLevelButton(LevelsPopUpMenu saveLevelPopup, JButton saveLevelButton): ActionListener
++deleteLevelButton(LevelsPopUpMenu deleteLevelPopup, JButton deleteLevelButton): ActionListener
++levelHandlers(LevelsPopUpMenu levelsPopUpMenu, String level, MenuType menuType, EditorFrame editorFrame): ActionListener
++handleSaveLevel(LevelsPopUpMenu lvlPopMen, int newLevelNumber, EditorFrame editorFrame): ActionListener
++addSelectionButton(SpriteSelectionScrollPane spriteSelectionScrollPane, SelectionButton b): ActionListener
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>680</y>
+      <w>350</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>editor.view::SelectionButton
+--
+-img: BufferedImage
+-code: char
+--
++SelectionButton(BufferedImage img, char code): ctor
++getImg(): BufferedImage
++getCode(): char
++hashCode(): int
++equals(Object obj): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>370</x>
+      <y>680</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>editor.controller::Main
+--
+--
++main(String[] args): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>560</x>
+      <y>680</y>
+      <w>270</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>editor.controller::NewLevelActionListener
+--
+--
++actionPerformed(ActionEvent e): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>840</x>
+      <y>680</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>editor.controller::Test
+--
+--
++main(String[] args): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>870</y>
+      <w>180</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>editor.model::LevelReader
+--
+--
++getLevels(): List&lt;String&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
