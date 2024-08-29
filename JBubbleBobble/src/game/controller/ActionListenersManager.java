@@ -21,6 +21,8 @@ import game.model.user.User;
 import game.view.View;
 import game.view.GameFrame.Screen;
 import editor.controller.Main;
+import editor.model.LevelManager;
+import editor.view.EditorFrame;
 
 public class ActionListenersManager {
 
@@ -34,7 +36,15 @@ public class ActionListenersManager {
 	}
 
 	public static ActionListener startEditor() {
-		return e -> Main.main(null);
+		return e -> {
+			EditorFrame ef = EditorFrame.getInstance();
+	        if (!ef.isVisible()) {
+	            ef.setVisible(true);
+	            new LevelManager();
+	        } else {
+	            ef.toFront(); // Porta l'editor in primo piano
+	        }
+		};
 	}
 
 	public static ActionListener showLeaderboard() {
