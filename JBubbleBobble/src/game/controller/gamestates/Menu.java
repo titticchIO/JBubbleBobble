@@ -50,7 +50,9 @@ public class Menu extends State implements Statemethods{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-//		game.startGameLoop();
+		if (e.getKeyCode() == KeyEvent.VK_P) {
+					game.startGameLoop();			
+		}
 		
 	}
 
