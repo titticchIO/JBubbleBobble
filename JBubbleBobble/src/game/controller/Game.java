@@ -35,8 +35,8 @@ public class Game implements Runnable {
 	
 
 	public Game() {
-		AudioManager.getInstance().play(AnimationLoader
-				.getAbsolutePath("Audio/Sound Tacks/01 Introduction ~ Main Theme (online-audio-converter.com).wav"));
+//		AudioManager.getInstance().play(AnimationLoader
+//				.getAbsolutePath("Audio/Sound Tacks/01 Introduction ~ Main Theme (online-audio-converter.com).wav"));
 		model = Model.getInstance();
 		menu = new Menu(this);
 		win = new Win(this);
