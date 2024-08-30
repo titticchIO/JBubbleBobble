@@ -3,10 +3,12 @@ package game.view;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -30,14 +32,33 @@ public class PausePanel extends JPanel {
         setLayout(null);
 
         // Crea i bottoni
-        JButton resumeButton = new JButton("Resume");
-        resumeButton.addActionListener(ActionListenersManager.resumeGame(game));
-        resumeButton.setBounds(220,220, 100, 30);
+        JButton resumeButton = new JButton() {
+			{
+				setBounds(260,150, 180, 90);
+				addActionListener(ActionListenersManager.resumeGame(game));
+				ImageIcon resumeButtonImageIcon = new ImageIcon(
+						ImageLoader.importImg("/menu/resume.png").getScaledInstance(180, 90, Image.SCALE_SMOOTH));
+				setIcon(resumeButtonImageIcon);
+				setContentAreaFilled(false);
+				setBorderPainted(false);
+				setFocusPainted(false);
+			}
+		};
         
         
-        JButton exitButton = new JButton("Exit");
-        exitButton.addActionListener(ActionListenersManager.backToMenu(game));
-        exitButton.setBounds(220,270, 100, 30);
+        JButton exitButton = new JButton("Exit") {
+			{
+				setBounds(260,350, 180, 90);
+				addActionListener(ActionListenersManager.backToMenu(game));
+				ImageIcon exitButtonImageIcon = new ImageIcon(
+						ImageLoader.importImg("/menu/menu.png").getScaledInstance(180, 90, Image.SCALE_SMOOTH));
+				setIcon(exitButtonImageIcon);
+				setContentAreaFilled(false);
+				setBorderPainted(false);
+				setFocusPainted(false);
+			}
+		}; 
+    
         
         // Aggiungi i bottoni al pannello
         add(resumeButton);
