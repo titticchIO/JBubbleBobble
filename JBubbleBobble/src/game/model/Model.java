@@ -21,7 +21,7 @@ public class Model extends Observable {
 	public enum ModelState {
 		PLAY, WIN, LOSS
 	}
-
+	
 	private List<Level> levels;
 	private Iterator<Level> levelIterator;
 	private Level currentLevel;
@@ -223,5 +223,13 @@ public class Model extends Observable {
 		setChanged();
 		notifyObservers();
 	}
-
+	
+	public void sendNotification(Object arg) {
+		setChanged();
+		notifyObservers(arg);
+	}
+	public void sendNotification() {
+		setChanged();
+		notifyObservers();
+	}
 }

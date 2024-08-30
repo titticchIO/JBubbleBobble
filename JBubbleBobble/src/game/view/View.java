@@ -3,6 +3,7 @@ package game.view;
 import java.util.Observable;
 import java.util.Observer;
 
+import game.controller.AudioManager;
 import game.controller.gamestates.Menu;
 import game.model.Model;
 import game.model.level.Level;
@@ -47,22 +48,16 @@ public class View implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		level = Model.getInstance().getCurrentLevel(); // Update the level reference
-
-		if (arg instanceof String s && s.equals("transition")) {
-			levelPanel.startLevelTransition(level.getLevelNumber() + 1);
-			// levelPanel.renderTilesOnce(); // Render tiles for the next level
-
-		}
-
-		// Check if the level is changing
-		if (arg instanceof String s && s.equals("next")) {
-			levelPanel.renderTilesOnce(); // Render tiles for the next level
-
-		}
-
-		// Check if points are updated
-		if (arg instanceof String s && s.equals("points")) {
-			gameFrame.updateScoreAndHighscore(); // Update score display
+		
+		if (arg instanceof String s) {
+			switch(s) {
+			case "transition"->levelPanel.startLevelTransition(level.getLevelNumber() + 1);
+			case "next"->levelPanel.renderTilesOnce(); // Render tiles for the next level
+			case "points"->gameFrame.updateScoreAndHighscore(); // Update score display
+			
+//			AUDIO NOTIFICATIONS:
+			case "bubble"-> AudioManager.getInstance().play(AnimationLoader.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (6).wav"));
+			}
 		}
 
 		// If the model was reset, make sure to re-render the level

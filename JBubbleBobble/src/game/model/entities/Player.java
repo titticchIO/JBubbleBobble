@@ -273,7 +273,8 @@ public class Player extends MovingEntity {
 					&& !HelpMethods.isEntityInsideWall(x - Tile.TILE_SIZE, y, width, height)) {
 				Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x - Tile.TILE_SIZE, y, -2);
 			}
-
+			
+			Model.getInstance().sendNotification("bubble");
 			// Disables shooting until the end of the waiting time.
 			canShoot = false;
 
