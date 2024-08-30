@@ -1,6 +1,5 @@
 package game.model.powerups;
 
-import game.model.Model;
 import game.model.entities.Player;
 
 public class YellowCandy extends Powerup {

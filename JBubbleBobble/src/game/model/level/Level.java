@@ -197,11 +197,10 @@ public class Level {
 			bubbleManager.getPlayerBubbles().stream()
 					.forEach(b -> enemyManager.getEnemies().stream().filter(b::hasHitEnemy).forEach(e -> {
 						if (!b.hasEnemy()) {
+							b.setEnemy(e);
+							enemyManager.removeEnemy(e);
 							if (player.isShooting())
 								b.pop();
-							else if (b.getLifeSpan() > 500)
-								b.setEnemy(e);
-							enemyManager.removeEnemy(e);
 						}
 					}));
 	}

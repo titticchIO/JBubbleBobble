@@ -31,7 +31,7 @@ public class Player extends MovingEntity {
 	private static Player instance; // Singleton instance of the Player class.
 
 	private Timer stunTimer;
-	
+
 	private Direction bubbleDirection; // Direction in which the player will shoot bubbles.
 	private State state; // Current state of the player.
 	private int lives; // Current number of lives the player has.
@@ -45,6 +45,7 @@ public class Player extends MovingEntity {
 	private boolean canShoot; // Indicates whether the player can shoot a bubble.
 	private boolean crystalRingActive;
 	private boolean amethystRingActive;
+	private boolean rubyRingActive;
 
 	/**
 	 * Returns the singleton instance of the {@code Player} class.
@@ -111,7 +112,7 @@ public class Player extends MovingEntity {
 	public boolean isStunned() {
 		return isStunned;
 	}
-	
+
 	/**
 	 * Returns whether the player is currently shooting.
 	 *
@@ -225,7 +226,7 @@ public class Player extends MovingEntity {
 	public void jump() {
 		inAir = true;
 		airSpeed = jumpSpeed;
-		if (amethystRingActive) 
+		if (amethystRingActive)
 			Model.getInstance().getCurrentUser().addPoints(AmethystRing.POINTS);
 	}
 
@@ -269,11 +270,15 @@ public class Player extends MovingEntity {
 			if (bubbleDirection == Direction.RIGHT
 					&& !HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
 				Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x + Tile.TILE_SIZE, y, 2);
+				if (rubyRingActive)
+					Model.getInstance().getCurrentUser().addPoints(100);
 			} else if (bubbleDirection == Direction.LEFT
 					&& !HelpMethods.isEntityInsideWall(x - Tile.TILE_SIZE, y, width, height)) {
 				Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x - Tile.TILE_SIZE, y, -2);
+				if (rubyRingActive)
+					Model.getInstance().getCurrentUser().addPoints(100);
 			}
-			
+
 			Model.getInstance().sendNotification("bubble");
 			// Disables shooting until the end of the waiting time.
 			canShoot = false;
@@ -307,7 +312,6 @@ public class Player extends MovingEntity {
 		}
 	}
 
-	
 	/**
 	 * Updates the player's state each game tick. This includes checking for
 	 * collisions with bubbles, handling jumping, popping bubbles, updating
@@ -318,8 +322,8 @@ public class Player extends MovingEntity {
 		if (!isStunned()) {
 			updateXPos();
 		}
-			updateYPos();
-			gravity();
+		updateYPos();
+		gravity();
 	}
 
 	public boolean isInvulnerable() {
@@ -353,4 +357,13 @@ public class Player extends MovingEntity {
 	public void setAmethystRingActive(boolean amethystRingActive) {
 		this.amethystRingActive = amethystRingActive;
 	}
+
+	public boolean isRubyRingActive() {
+		return rubyRingActive;
+	}
+
+	public void setRubyRingActive(boolean rubyRingActive) {
+		this.rubyRingActive = rubyRingActive;
+	}
+
 }

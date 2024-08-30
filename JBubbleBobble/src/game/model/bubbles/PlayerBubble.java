@@ -9,13 +9,12 @@ public class PlayerBubble extends Bubble {
 	private static float extraTravelTime = 1;
 	private static float extraXSpeed = 1;
 
-	protected float timeHorizontalMoving = 1000.0f;
 
 	/**
 	 * tempo prima che la bolla inizi a salire
 	 */
 	private float travelTime;
-
+	protected float timeHorizontalMoving;
 	private Enemy enemy;
 
 	/**
@@ -139,6 +138,9 @@ public class PlayerBubble extends Bubble {
 			decreaseTimeHorizontalMoving(10.0f * extraXSpeed / extraTravelTime);// decrementa il tempo prima che la
 																				// bolla vada a salire
 		}
+		
+		if (lifeSpan <= 500)
+			airSpeed = 0;
 
 		if (timeHorizontalMoving <= 0)
 			updateYPos();

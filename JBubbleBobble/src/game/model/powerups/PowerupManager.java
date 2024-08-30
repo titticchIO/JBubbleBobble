@@ -25,6 +25,7 @@ public class PowerupManager {
 	private int numberOfExtendBubblesPopped;
 	private int numberOfYellowCandies;
 	private int numberOfBlueCandies;
+	private int numberOfPinkCandies;
 	private Timer spawnTimer;
 	
 
@@ -80,6 +81,10 @@ public class PowerupManager {
 		numberOfBlueCandies++;
 	}
 	
+	public void increaseNumberOfPinkCandies() {
+		numberOfPinkCandies++;
+	}
+	
 	public void increaseDistanceTraveled(float newDistance) {
 		distanceTravelled += newDistance;
 	}
@@ -106,6 +111,7 @@ public class PowerupManager {
 		results.put(PurpleParasol.class, getPercentDiff(numberOfExtendBubblesPopped, PurpleParasol.SPAWN_CONDITION));
 		results.put(CrystalRing.class, getPercentDiff(numberOfYellowCandies, CrystalRing.SPAWN_CONDITION));
 		results.put(AmethystRing.class, getPercentDiff(numberOfBlueCandies, AmethystRing.SPAWN_CONDITION));
+		results.put(RubyRing.class, getPercentDiff(numberOfPinkCandies, RubyRing.SPAWN_CONDITION));
 
 		return results;
 	}

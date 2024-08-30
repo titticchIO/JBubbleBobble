@@ -3,6 +3,8 @@ package game.model.bubbles;
 import game.model.Model;
 import game.model.tiles.Tile;
 import game.model.bubbles.special_effects.Bolt;
+import game.model.entities.Entity;
+import game.model.entities.Player;
 
 public class ThunderBubble extends Bubble {
 	public static final char CODE = '+';
@@ -15,13 +17,15 @@ public class ThunderBubble extends Bubble {
 
 	@Override
 	public void pop() {
-		BubbleManager bm = Model.getInstance().getCurrentLevel().getBubbleManager();
-		bm.addBolt(new Bolt(x, y));
-		bm.removeBubble(this);
+		Model.getInstance().getCurrentLevel().getBubbleManager().removeBubble(this);
 	}
 
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
+		if (Entity.checkCollision(this, Player.getInstance()).isPresent()) {
+			Model.getInstance().getCurrentLevel().getBubbleManager().addBolt(new Bolt(x, y));
+			pop();
+		}
 	}
 }

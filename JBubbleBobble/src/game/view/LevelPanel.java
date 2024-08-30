@@ -14,7 +14,6 @@ import game.model.entities.Entity;
 import game.model.entities.MovingEntity.Direction;
 import game.model.entities.Player;
 import game.model.HelpMethods;
-import game.model.bubbles.BubbleManager;
 import game.model.bubbles.PlayerBubble;
 import game.model.bubbles.WaterBubble;
 import game.model.bubbles.special_effects.Water;

@@ -30,7 +30,8 @@ public class Images {
 		imageMap.put('N', "/enemies/banebou/");
 		imageMap.put('U', "/enemies/pulpul/");
 		imageMap.put('S', "/enemies/skelmonsta/");
-//		BUBBLES
+
+//		BUBBLES:
 		imageMap.put('°', "/bubbles/player_bubble");
 		imageMap.put('-', "/bubbles/fire_bubble");
 		imageMap.put('+', "/bubbles/thunder_bubble");
@@ -49,31 +50,31 @@ public class Images {
 		imageMap.put('<', "/fruits/watermelon");
 		imageMap.put('>', "/fruits/pear");
 		imageMap.put(':', "/fruits/orange");
-		
-		
+
 //		POWERUPS:
 		imageMap.put('!', "/powerups/pink_candy");
 		imageMap.put('£', "/powerups/blue_candy");
 		imageMap.put('$', "/powerups/yellow_candy");
 		imageMap.put('§', "/powerups/shoes");
 		imageMap.put('@', "/powerups/parasol/");
-		imageMap.put('*', "/powerups/clock");	
+		imageMap.put('*', "/powerups/clock");
 		imageMap.put('^', "/powerups/dynamite");
 		imageMap.put('&', "/powerups/crystal_ring");
 		imageMap.put('=', "/powerups/amethyst_ring");
-		
+		imageMap.put('.', "/powerups/ruby_ring");
+
 //		EFFECTS:
 		imageMap.put('"', "/enemies/invader/red");
 		imageMap.put('#', "/bubbles/special_effects/fire_ball");
 		imageMap.put('?', "/bubbles/special_effects/bolt");
-		imageMap.put('_', "/bubbles/special_effects/water_horizontal");		
+		imageMap.put('_', "/bubbles/special_effects/water_horizontal");
 		imageMap.put('|', "/bubbles/special_effects/water_vertical");
 	}
 
 	public static BufferedImage getImage(Character type, String position) {
 		return ImageLoader.importImg(imageMap.get(type) + position + ".png");
 	}
-	
+
 	public static BufferedImage getImage(Character imageCode) {
 		BufferedImage img;
 		if (Character.isAlphabetic(imageCode))
@@ -84,9 +85,9 @@ public class Images {
 	}
 
 	public static void main(String[] args) {
-		char codeChar='*';
+		char codeChar = '*';
 		System.out.println(imageMap.keySet());
 		System.out.println(imageMap.keySet().contains(codeChar));
 	}
-	
+
 }

@@ -228,6 +228,7 @@ public class Model extends Observable {
 		setChanged();
 		notifyObservers(arg);
 	}
+	
 	public void sendNotification() {
 		setChanged();
 		notifyObservers();
