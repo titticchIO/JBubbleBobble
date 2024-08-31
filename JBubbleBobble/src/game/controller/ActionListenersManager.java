@@ -28,7 +28,10 @@ import editor.view.EditorFrame;
 public class ActionListenersManager {
 
 	public static ActionListener setCurrentUser(User user) {
-		return e -> Model.getInstance().setCurrentUser(user); // Imposta l'utente corrente nel Model
+		return e -> {
+			Model.getInstance().setCurrentUser(user);
+			View.getInstance().getGameFrame().requestFocus();
+		}; // Imposta l'utente corrente nel Model
 
 	}
 
