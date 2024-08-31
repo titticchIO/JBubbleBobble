@@ -88,7 +88,7 @@ public class MenuPanel extends JPanel {
 			}
 		};
 
-		JButton cheatButton=new JButton(".") {
+		JButton cheatButton=new JButton() {
 			{
 				setBounds(337, 450, 40, 37);
 				setContentAreaFilled(false);
