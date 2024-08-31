@@ -24,6 +24,7 @@ public class Images {
 
 //		ENTITIES:
 		imageMap.put('P', "/player/");
+		imageMap.put('B', "/enemies/boss/");
 		imageMap.put('Z', "/enemies/zenchan/");
 		imageMap.put('I', "/enemies/invader/");
 		imageMap.put('M', "/enemies/monsta/");

@@ -109,8 +109,6 @@ public class LevelPanel extends JPanel {
 		img = switch (entity) {
 		case Tile tile -> Images.getImage(tile.getCode());
 		case Laser laser -> Images.getImage(Laser.CODE);
-		case Enemy enemy ->
-			AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColorState());
 		case OrangeParasol orangeParasol -> Images.getImage(Parasol.CODE, "orange");
 		case RedParasol redParasol -> Images.getImage(Parasol.CODE, "red");
 		case PurpleParasol purpleParasol -> Images.getImage(Parasol.CODE, "purple");

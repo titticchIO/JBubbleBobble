@@ -1,6 +1,5 @@
 package game.model.enemies;
 
-import java.util.Random;
 import game.model.HelpMethods;
 
 /**
@@ -17,9 +16,6 @@ import game.model.HelpMethods;
 public class Banebou extends Enemy {
 	public static final char CODE = 'N';
 
-	private long lastChangeTime;
-	private long changeInterval;
-
 	/**
 	 * Constructs a {@code Banebou} with the specified position. Initializes the
 	 * enemy with default speed, jump speed, direction, and color.
@@ -33,8 +29,6 @@ public class Banebou extends Enemy {
 		setJumpSpeed(-1.5f);
 		setDirection(Direction.RIGHT);
 		setColorState(ColorState.NORMAL);
-		lastChangeTime = System.currentTimeMillis();
-		changeInterval = 8000;
 	}
 
 	/**
@@ -52,8 +46,6 @@ public class Banebou extends Enemy {
 		setJumpSpeed(-1.5f);
 		setDirection(Direction.RIGHT);
 		setColorState(ColorState.NORMAL);
-		lastChangeTime = System.currentTimeMillis();
-		changeInterval = 8000;
 	}
 
 	/**
@@ -65,7 +57,6 @@ public class Banebou extends Enemy {
 	 * milliseconds.
 	 */
 	private void changeDirection() {
-		changeInterval = new Random().nextLong(8000, 10000);
 		switch (direction) {
 		case LEFT:
 			setDirection(Direction.RIGHT);
@@ -81,22 +72,6 @@ public class Banebou extends Enemy {
 	}
 
 	/**
-	 * Checks if the direction of the {@code Banebou} needs to be changed based on
-	 * the elapsed time.
-	 * 
-	 * <p>
-	 * If the time elapsed since the last direction change exceeds the
-	 * {@code changeInterval}, the direction is changed.
-	 */
-	public void checkAndChangeDirection() {
-		long currentTime = System.currentTimeMillis();
-		if (currentTime - lastChangeTime > changeInterval) {
-			changeDirection();
-			lastChangeTime = currentTime;
-		}
-	}
-
-	/**
 	 * Updates the state of the {@code Banebou}. This includes moving, checking for
 	 * collisions, and possibly changing direction. The enemy also performs jumping
 	 * actions.
@@ -107,9 +82,11 @@ public class Banebou extends Enemy {
 	 */
 	@Override
 	public void updateEntity() {
+		updateXPos();
+		updateYPos();
+		gravity();
 		super.updateEntity();
 		if (!isStopped) {
-			super.updateEntity();
 			if ((!HelpMethods.canMoveHere(x + xSpeed, y, width, height) || randomBoolean(1000))
 					&& !HelpMethods.isEntityInsideWall(x, y, width, height))
 				changeDirection();

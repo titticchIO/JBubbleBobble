@@ -38,9 +38,11 @@ public class ZenChan extends Enemy {
 
 	@Override
 	public void updateEntity() {
+		updateXPos();
+		updateYPos();
+		gravity();
 		super.updateEntity();
 		if (!isStopped) {
-			super.updateEntity();
 			switchDirection();
 			move(0.4f * movementSpeed);
 			if (randomBoolean(1000))

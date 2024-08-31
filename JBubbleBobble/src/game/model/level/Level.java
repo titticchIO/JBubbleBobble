@@ -22,6 +22,7 @@ import game.model.FruitManager;
 import game.model.HelpMethods;
 import game.model.Model;
 import game.model.bubbles.Bubble;
+import game.model.enemies.Boss;
 import game.model.enemies.Enemy;
 import game.model.enemies.EnemyManager;
 import game.model.entities.Entity;
@@ -196,7 +197,9 @@ public class Level {
 		if (checkEnemiesBubblesCollision())
 			bubbleManager.getPlayerBubbles().stream()
 					.forEach(b -> enemyManager.getEnemies().stream().filter(b::hasHitEnemy).forEach(e -> {
-						if (!b.hasEnemy()) {
+						if (e instanceof Boss) {
+							b.pop();
+						} else if (!b.hasEnemy()) {
 							b.setEnemy(e);
 							enemyManager.removeEnemy(e);
 							if (player.isShooting())
@@ -210,8 +213,9 @@ public class Level {
 		if (bubbleWithEnemy.isPresent() && bubbleWithEnemy.get().hasEnemy())
 			bubbleManager.getPlayerBubbles().stream().filter(PlayerBubble::hasEnemy).forEach(b -> {
 				if (b.hit(player)) {
+					if (b.getEnemy() != null)
+						setSimultaneousKills(getSimultaneousKills() + 1);
 					b.popAndKill();
-					setSimultaneousKills(getSimultaneousKills() + 1);
 				}
 			});
 	}
