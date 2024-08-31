@@ -15,8 +15,9 @@ import javax.swing.ScrollPaneLayout;
 import javax.swing.border.Border;
 
 import editor.controller.ActionListenersManager;
+import game.view.AnimationAndImagesLoader;
 import game.view.ImageLoader;
-import game.view.Images;
+
 
 import static editor.view.EditorPanel.PANEL_HEIGHT;
 import static editor.view.EditorPanel.SCALE;
@@ -87,22 +88,22 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 	private void addBlocks() {
 		for (int i = 1; i <= 9; i++) {
 			char number = (char) (i+'0');
-			blocks.add(new SelectionButton(Images.getImage(number), number));
+			blocks.add(new SelectionButton(AnimationAndImagesLoader.getImage(number), number));
 		}
 	}
 
 	private void addEnemies() {
-		enemies.add(new SelectionButton(Images.getImage('Z'), 'Z'));
-		enemies.add(new SelectionButton(Images.getImage('M'), 'M'));
-		enemies.add(new SelectionButton(Images.getImage('N'), 'N'));
-		enemies.add(new SelectionButton(Images.getImage('I'), 'I'));
-		enemies.add(new SelectionButton(Images.getImage('U'), 'U'));
-		enemies.add(new SelectionButton(Images.getImage('S'), 'S'));
-		enemies.add(new SelectionButton(Images.getImage('B'), 'B'));
+		enemies.add(new SelectionButton(AnimationAndImagesLoader.getImage('Z'), 'Z'));
+		enemies.add(new SelectionButton(AnimationAndImagesLoader.getImage('M'), 'M'));
+		enemies.add(new SelectionButton(AnimationAndImagesLoader.getImage('N'), 'N'));
+		enemies.add(new SelectionButton(AnimationAndImagesLoader.getImage('I'), 'I'));
+		enemies.add(new SelectionButton(AnimationAndImagesLoader.getImage('U'), 'U'));
+		enemies.add(new SelectionButton(AnimationAndImagesLoader.getImage('S'), 'S'));
+		enemies.add(new SelectionButton(AnimationAndImagesLoader.getImage('B'), 'B'));
 	}
 
 	private void addPlayers() {
-		players.add(new SelectionButton(Images.getImage('P', "static"), 'P'));
+		players.add(new SelectionButton(AnimationAndImagesLoader.getImage('P'), 'P'));
 	}
 
 	private void setSize() {

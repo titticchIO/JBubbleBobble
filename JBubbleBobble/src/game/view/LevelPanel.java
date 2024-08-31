@@ -82,11 +82,11 @@ public class LevelPanel extends JPanel {
 	private void renderPlayer(Player player, Graphics g) {
 		Image playerImg;
 		if (player.isStunned())
-			playerImg = player.getDirection() == Direction.LEFT ? AnimationLoader.getPlayerImage("stun_left")
-					: AnimationLoader.getPlayerImage("stun_right");
+			playerImg = player.getDirection() == Direction.LEFT ? AnimationAndImagesLoader.getPlayerImage("stun_left")
+					: AnimationAndImagesLoader.getPlayerImage("stun_right");
 		else {
-			playerImg = player.getDirection() == Direction.STATIC ? Images.getImage(Player.CODE, "static")
-					: AnimationLoader.getPlayerImage("walk_" + player.getDirection().name().toLowerCase());
+			playerImg = player.getDirection() == Direction.STATIC ? AnimationAndImagesLoader.getImage(Player.CODE, "static")
+					: AnimationAndImagesLoader.getPlayerImage("walk_" + player.getDirection().name().toLowerCase());
 		}
 		g.drawImage(playerImg, (int) player.getX(), (int) player.getY(), (int) player.getWidth() + 1,
 				(int) player.getHeight() + 1, null);
@@ -95,10 +95,10 @@ public class LevelPanel extends JPanel {
 	private void renderEnemy(Enemy enemy, Graphics g) {
 		Image enemyImage;
 		if (enemy.isDead()) {
-			enemyImage = AnimationLoader.loadDeadEnemyImage(enemy.getCode());
+			enemyImage = AnimationAndImagesLoader.loadDeadEnemyImage(enemy.getCode());
 //			enemyImage= prendi l'immagine del nemico morto;
 		} else {
-			enemyImage = AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColorState());
+			enemyImage = AnimationAndImagesLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColorState());
 		}
 		g.drawImage(enemyImage, (int) enemy.getX(), (int) enemy.getY(), (int) enemy.getWidth() + 1,
 				(int) enemy.getHeight() + 1, null);
@@ -107,23 +107,23 @@ public class LevelPanel extends JPanel {
 	private void renderEntity(Entity entity, Graphics g) {
 		Image img;
 		img = switch (entity) {
-		case Tile tile -> Images.getImage(tile.getCode());
-		case Laser laser -> Images.getImage(Laser.CODE);
-		case OrangeParasol orangeParasol -> Images.getImage(Parasol.CODE, "orange");
-		case RedParasol redParasol -> Images.getImage(Parasol.CODE, "red");
-		case PurpleParasol purpleParasol -> Images.getImage(Parasol.CODE, "purple");
+		case Tile tile -> AnimationAndImagesLoader.getImage(tile.getCode());
+		case Laser laser -> AnimationAndImagesLoader.getImage(Laser.CODE);
+		case OrangeParasol orangeParasol -> AnimationAndImagesLoader.getImage(Parasol.CODE, "orange");
+		case RedParasol redParasol -> AnimationAndImagesLoader.getImage(Parasol.CODE, "red");
+		case PurpleParasol purpleParasol -> AnimationAndImagesLoader.getImage(Parasol.CODE, "purple");
 		case PlayerBubble playerBubble -> {
 			if (playerBubble.getLifeSpan() <= 500) {
-				yield AnimationLoader.loadBubblePoppingImage();
+				yield AnimationAndImagesLoader.loadBubblePoppingImage();
 			} else if (playerBubble.hasEnemy()) {
-				yield AnimationLoader.loadBubbleEnemyImage(playerBubble.getEnemy().getCode());
+				yield AnimationAndImagesLoader.loadBubbleEnemyImage(playerBubble.getEnemy().getCode());
 			} else {
-				yield Images.getImage(playerBubble.getCode());
+				yield AnimationAndImagesLoader.getImage(playerBubble.getCode());
 			}
 		}
-		case WaterBubble waterBubble -> AnimationLoader.loadEntityImage("/bubbles/water_bubble.gif");
-		case Water water -> HelpMethods.isEntityGrounded(water) ? Images.getImage('_') : Images.getImage('|');
-		default -> Images.getImage(entity.getCode());
+		case WaterBubble waterBubble -> AnimationAndImagesLoader.loadEntityImage("/bubbles/water_bubble.gif");
+		case Water water -> HelpMethods.isEntityGrounded(water) ? AnimationAndImagesLoader.getImage('_') : AnimationAndImagesLoader.getImage('|');
+		default -> AnimationAndImagesLoader.getImage(entity.getCode());
 		};
 		if (entity instanceof Tile) {
 			g.drawImage(img, (int) entity.getX(), (int) entity.getY(), (int) entity.getWidth(),

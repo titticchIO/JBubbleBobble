@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 
 import editor.model.LevelManager;
-import game.view.Images;
+import game.view.AnimationAndImagesLoader;
 
 public class EditorPanel extends JPanel {
 	public static final int ROWS = 24;
@@ -90,7 +90,7 @@ public class EditorPanel extends JPanel {
 		for (int y = 0; y < levelData.length; y++) {
 			for (int x = 0; x < levelData[y].length; x++) {
 				if (levelData[y][x] != ' ') {
-					sprites[y][x].updateSpriteImg(Images.getImage(levelData[y][x]));
+					sprites[y][x].updateSpriteImg(AnimationAndImagesLoader.getImage(levelData[y][x]));
 				}
 			}
 		}
