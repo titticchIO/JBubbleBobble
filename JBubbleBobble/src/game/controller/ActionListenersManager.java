@@ -19,6 +19,7 @@ import game.controller.gamestates.Menu;
 import game.model.Model;
 import game.model.user.User;
 import game.view.View;
+import game.view.CheatFrame;
 import game.view.GameFrame.Screen;
 import editor.controller.Main;
 import editor.model.LevelManager;
@@ -103,6 +104,13 @@ public class ActionListenersManager {
 			game.resetGame();
 		};
 		
+	}
+	
+	public static ActionListener enableCheats() {
+		return e->{
+			View.getInstance().setCheatFrame(new CheatFrame());
+			System.out.println("hello");
+		};
 	}
 
 }
