@@ -18,6 +18,7 @@ public class LevelLoader {
 	private final static char PULPUL = 'U';
 	private final static char SKELMONSTA = 'S';
 	private final static char INVADER = 'I';
+	private final static char BOSS = 'B';
 
 	public static char[][] readLevelFile(int levelNum) {
 
@@ -62,6 +63,7 @@ public class LevelLoader {
 						case PULPUL -> new Pulpul(x * TILE_SIZE, y * TILE_SIZE);
 						case INVADER -> new Invader(x * TILE_SIZE, y * TILE_SIZE);
 						case SKELMONSTA -> new SkelMonsta(x * TILE_SIZE, y * TILE_SIZE);
+						case BOSS -> new Boss(x * TILE_SIZE, y * TILE_SIZE);
 						default -> throw new IllegalArgumentException("Unexpected value: " + c);
 						});
 					}

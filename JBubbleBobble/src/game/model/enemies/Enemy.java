@@ -20,7 +20,7 @@ public abstract class Enemy extends MovingEntity {
 	// Current color of the entity
 	protected ColorState colorState;
 	protected float redXSpeed;
-	protected float movementSpeed = 1.0f;
+	protected float movementSpeed;
 	protected boolean dead;
 
 	public static final int RED_TIME = 10000; // Tempo in millisecondi prima di diventare rosso
@@ -40,13 +40,15 @@ public abstract class Enemy extends MovingEntity {
 		super(x, y, code);
 		redXSpeed = 2.0f;
 		colorState = ColorState.NORMAL;
+		movementSpeed = 1.0f;
 		// initializeColorChangeTimer();
 	}
 
 	public Enemy(float x, float y, float width, float height, char code) {
 		super(x, y, width, height, code);
-		redXSpeed = 4.0f;
+		redXSpeed = 2.0f;
 		colorState = ColorState.NORMAL;
+		movementSpeed = 1.0f;
 		// initializeColorChangeTimer();
 	}
 
@@ -108,6 +110,7 @@ public abstract class Enemy extends MovingEntity {
 			});
 			Model.getInstance().getCurrentLevel().getFruitManager().addFruit(fruit);
 			Model.getInstance().getCurrentLevel().getEnemyManager().removeEnemy(this);
+			System.out.println("Estas muerto");
 		}
 	}
 

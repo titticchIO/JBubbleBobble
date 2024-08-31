@@ -16,6 +16,7 @@ public class EnemiesPath {
         pathsMap.put('U', "enemies/pulpul/");
         pathsMap.put('I', "enemies/invader/");
         pathsMap.put('S', "enemies/skelmonsta/");
+        pathsMap.put('B', "enemies/boss/");
         // Aggiungi altri percorsi per le altre lettere...
     }
 

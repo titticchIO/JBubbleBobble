@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,6 +98,7 @@ public class SpriteSelectionScrollPane extends JScrollPane {
 		enemies.add(new SelectionButton(Images.getImage('I'), 'I'));
 		enemies.add(new SelectionButton(Images.getImage('U'), 'U'));
 		enemies.add(new SelectionButton(Images.getImage('S'), 'S'));
+		enemies.add(new SelectionButton(Images.getImage('B'), 'B'));
 	}
 
 	private void addPlayers() {
