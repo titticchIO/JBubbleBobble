@@ -159,6 +159,8 @@ public abstract class MovingEntity extends Entity {
 	 * position to prevent moving through objects.
 	 */
 	public void updateXPos() {
+		if (y>Level.GAME_HEIGHT)
+			return;
 		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width, (int) height)
 				|| (HelpMethods.isEntityInsideWall(x, y, width, height)
 						&& (x + xSpeed >= Tile.TILE_SIZE && x + xSpeed + width <= Level.GAME_WIDTH - Tile.TILE_SIZE))) {
