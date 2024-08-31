@@ -13,6 +13,7 @@ public class View implements Observer {
 	private Level level;
 	private LevelPanel levelPanel;
 	private GameFrame gameFrame;
+	private CheatFrame cheatFrame;
 
 	private TransitionPanel transitionPanel;
 
@@ -48,6 +49,14 @@ public class View implements Observer {
 
 	public Level getLevel() {
 		return level;
+	}
+
+	public CheatFrame getCheatFrame() {
+		return cheatFrame;
+	}
+
+	public void setCheatFrame(CheatFrame cheatFrame) {
+		this.cheatFrame = cheatFrame;
 	}
 
 	@Override

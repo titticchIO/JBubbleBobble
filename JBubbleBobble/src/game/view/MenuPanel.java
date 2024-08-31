@@ -88,9 +88,20 @@ public class MenuPanel extends JPanel {
 			}
 		};
 
+		JButton cheatButton=new JButton(".") {
+			{
+				setBounds(337, 450, 40, 37);
+				setContentAreaFilled(false);
+				setBorderPainted(false);
+				setFocusPainted(false);
+				addActionListener(ActionListenersManager.enableCheats());
+			}
+		};
+		
 		add(editorButton);
 		add(leaderboardButton);
 		add(userSelectionButton);
+		add(cheatButton);
 	}
 
 	private void updateUserSelectionPopUp() {
