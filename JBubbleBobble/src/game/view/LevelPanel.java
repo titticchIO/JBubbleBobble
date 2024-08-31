@@ -95,7 +95,7 @@ public class LevelPanel extends JPanel {
 	private void renderEnemy(Enemy enemy, Graphics g) {
 		Image enemyImage;
 		if (enemy.isDead()) {
-			enemyImage = AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColorState());
+			enemyImage = AnimationLoader.loadDeadEnemyImage(enemy.getCode());
 //			enemyImage= prendi l'immagine del nemico morto;
 		} else {
 			enemyImage = AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColorState());
@@ -109,8 +109,6 @@ public class LevelPanel extends JPanel {
 		img = switch (entity) {
 		case Tile tile -> Images.getImage(tile.getCode());
 		case Laser laser -> Images.getImage(Laser.CODE);
-		case Enemy enemy ->
-			AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColorState());
 		case OrangeParasol orangeParasol -> Images.getImage(Parasol.CODE, "orange");
 		case RedParasol redParasol -> Images.getImage(Parasol.CODE, "red");
 		case PurpleParasol purpleParasol -> Images.getImage(Parasol.CODE, "purple");
