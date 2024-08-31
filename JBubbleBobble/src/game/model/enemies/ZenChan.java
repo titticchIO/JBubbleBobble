@@ -21,7 +21,7 @@ public class ZenChan extends Enemy {
 	}
 
 	public void switchDirection() {
-		if (isEntityInsideWall(x, y, width, height))
+		if (isEntityInsideWall(this))
 			return;
 		switch (direction) {
 		case LEFT -> {
@@ -38,15 +38,18 @@ public class ZenChan extends Enemy {
 
 	@Override
 	public void updateEntity() {
-		updateXPos();
 		updateYPos();
-		gravity();
-		super.updateEntity();
-		if (!isStopped) {
-			switchDirection();
-			move(0.4f * movementSpeed);
-			if (randomBoolean(1000))
-				jump();
+		if (isDead()) {
+			removeEnemy();
+		} else {
+			updateXPos();
+			gravity();
+			if (!isStopped) {
+				switchDirection();
+				move(0.4f * movementSpeed);
+				if (randomBoolean(600))
+					jump();
+			}
 		}
 	}
 

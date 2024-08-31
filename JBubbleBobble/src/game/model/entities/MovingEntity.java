@@ -162,7 +162,7 @@ public abstract class MovingEntity extends Entity {
 		if (y>Level.GAME_HEIGHT)
 			return;
 		if (HelpMethods.canMoveHere(x + xSpeed, y, (int) width, (int) height)
-				|| (HelpMethods.isEntityInsideWall(x, y, width, height)
+				|| (HelpMethods.isEntityInsideWall(this)
 						&& (x + xSpeed >= Tile.TILE_SIZE && x + xSpeed + width <= Level.GAME_WIDTH - Tile.TILE_SIZE))) {
 			setX(x + xSpeed);
 		} else {
@@ -203,7 +203,7 @@ public abstract class MovingEntity extends Entity {
 		}
 
 		// Handles the entity's movement while in air or inside a wall
-		if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(x, y, width, height)) {
+		if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(this)) {
 			// Handles collision with the level roof
 			if (y <= Tile.TILE_SIZE && !HelpMethods.canMoveHere(x, y + airSpeed, width, height))
 				setAirSpeed(fallSpeedAfterCollision);
@@ -235,7 +235,7 @@ public abstract class MovingEntity extends Entity {
 	 * inside a wall.
 	 */
 	public void jump() {
-		if (!inAir && !HelpMethods.isEntityInsideWall(x, y, width, height)) {
+		if (!inAir && !HelpMethods.isEntityInsideWall(this)) {
 			inAir = true;
 			airSpeed = jumpSpeed;
 		}

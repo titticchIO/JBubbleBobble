@@ -95,12 +95,11 @@ public abstract class Enemy extends MovingEntity {
 	public void kill() {
 		dead = true;
 		setxSpeed(0);
-		setAirSpeed(-1);
+		setAirSpeed(0.7f);
 	}
 
-	@Override
-	public void updateEntity() {
-		if (isDead() && HelpMethods.isEntityGrounded(this)) {
+	public void removeEnemy() {
+		if (HelpMethods.isEntityGrounded(this)) {
 			Fruit fruit = new Fruit(x, y, switch (new Random().nextInt(5)) {
 			case 0 -> FruitType.BANANA;
 			case 1 -> FruitType.ORANGE;

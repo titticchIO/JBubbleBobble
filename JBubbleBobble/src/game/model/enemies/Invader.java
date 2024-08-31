@@ -24,7 +24,7 @@ public class Invader extends Enemy {
 	}
 
 	public void switchDirection() {
-		if (isEntityInsideWall(x, y, width, height))
+		if (isEntityInsideWall(this))
 			return;
 		switch (direction) {
 		case LEFT -> {
@@ -54,7 +54,11 @@ public class Invader extends Enemy {
 
 	@Override
 	public void updateEntity() {
-		super.updateEntity();
+		updateYPos();
+		if (isDead()) {
+			removeEnemy();
+		}
+		else {
 		if (!isStopped) {
 			if (!HelpMethods.isEntityGrounded(this) && landed)
 				landed = false;
@@ -69,8 +73,7 @@ public class Invader extends Enemy {
 			} else
 				setAirSpeed(0.5f);
 			move(0.5f * movementSpeed);
-			updateYPos();
 		}
-	}
+	}}
 
 }

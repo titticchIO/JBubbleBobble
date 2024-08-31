@@ -82,15 +82,19 @@ public class Banebou extends Enemy {
 	 */
 	@Override
 	public void updateEntity() {
-		updateXPos();
 		updateYPos();
-		gravity();
-		super.updateEntity();
-		if (!isStopped) {
-			if ((!HelpMethods.canMoveHere(x + xSpeed, y, width, height) || randomBoolean(1000))
-					&& !HelpMethods.isEntityInsideWall(x, y, width, height))
-				changeDirection();
-			jump();
+		if (isDead()) {
+			removeEnemy();
+		} else {
+			updateXPos();
+			gravity();
+//			super.updateEntity();
+			if (!isStopped) {
+				if ((!HelpMethods.canMoveHere(x + xSpeed, y, width, height) || randomBoolean(1000))
+						&& !HelpMethods.isEntityInsideWall(this))
+					changeDirection();
+				jump();
+			}
 		}
 	}
 }

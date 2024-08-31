@@ -199,7 +199,7 @@ public class Level {
 					.forEach(b -> enemyManager.getEnemies().stream().filter(b::hasHitEnemy).forEach(e -> {
 						if (e instanceof Boss) {
 							b.pop();
-						} else if (!b.hasEnemy()) {
+						} else if (!b.hasEnemy() && !e.isDead()) {
 							b.setEnemy(e);
 							enemyManager.removeEnemy(e);
 							if (player.isShooting())
@@ -273,7 +273,7 @@ public class Level {
 
 	private void checkPlayerBubbleCollisions() {
 		Optional<PlayerBubble> playerPopBubble = Entity.checkTopCollision(player, bubbleManager.getPlayerBubbles());
-		if (playerPopBubble.isPresent()) {
+		if (playerPopBubble.isPresent()&&HelpMethods.isEntityInsideWall(playerPopBubble.get())) {
 			playerPopBubble.get().popAndKill();
 			powerupManager.increaseNumberOfBubblesPopped();
 		}

@@ -16,7 +16,6 @@ public class Monsta extends Enemy {
 		setColorState(ColorState.NORMAL);
 	}
 
-
 	public Monsta(float x, float y, float width, float height) {
 		super(x, y, width, height, CODE);
 		setxSpeed(0.3f);
@@ -24,7 +23,6 @@ public class Monsta extends Enemy {
 		setDirection(Direction.RIGHT);
 		setColorState(ColorState.NORMAL);
 	}
-
 
 	public void bounce() {
 		// GO DOWN
@@ -56,11 +54,14 @@ public class Monsta extends Enemy {
 
 	@Override
 	public void updateEntity() {
-		super.updateEntity();
-		if (!isStopped) {
-			bounce();
-			updateYPos();
-			updateXPos();
+		updateYPos();
+		if (isDead()) {
+			removeEnemy();
+		} else {
+			if (!isStopped) {
+				bounce();
+				updateXPos();
+			}
 		}
 	}
 }

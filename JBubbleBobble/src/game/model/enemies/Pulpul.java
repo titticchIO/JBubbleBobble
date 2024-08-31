@@ -91,13 +91,15 @@ public class Pulpul extends Enemy {
 
 	@Override
 	public void updateEntity() {
-		super.updateEntity();
+		updateYPos();
+		if (isDead()) {
+			removeEnemy();
+		} else {
 		if (!isStopped) {
 			if (randomBoolean(200))
 				randomizeDirection();
 			// Aggiornamento della posizione basato sulla direzione corrente
 			updateXPos();
-			updateYPos();
-		}
+		}}
 	}
 }
