@@ -2,16 +2,17 @@ package game.view;
 
 import javax.swing.ImageIcon;
 
-import game.model.EnemiesPath;
+import game.model.Paths;
 import game.model.enemies.Enemy.ColorState;
 import game.model.entities.MovingEntity.Direction;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AnimationLoader {
+public class AnimationAndImagesLoader {
 
 	// Mappa per contenere le animazioni del player caricate staticamente
 	private static final Map<String, ImageIcon> playerAnimations = new HashMap<>();
@@ -74,16 +75,32 @@ public class AnimationLoader {
 	}
 	
 	public static Image loadBubbleEnemyImage(char code) {
-		return loadEntityImage(EnemiesPath.getPath(code) + "bubbled.gif");
+		return loadEntityImage(Paths.getPath(code) + "bubbled.gif");
 	}
 	
 	public static Image loadEnemyImage(char code, Direction direction, ColorState color) {
 		if (code == 'I' || code == 'U') 
-			return loadEntityImage(EnemiesPath.getPath(code) + "default-" + color.name().toLowerCase() + ".gif");
-		return loadEntityImage(EnemiesPath.getPath(code) + direction.name().toLowerCase() + "-" + color.name().toLowerCase() + ".gif");
+			return loadEntityImage(Paths.getPath(code) + "default-" + color.name().toLowerCase() + ".gif");
+		return loadEntityImage(Paths.getPath(code) + direction.name().toLowerCase() + "-" + color.name().toLowerCase() + ".gif");
 	}
 	
 	public static Image loadDeadEnemyImage(char code) {
-		return loadEntityImage(EnemiesPath.getPath(code) + "dead.gif");
+		return loadEntityImage(Paths.getPath(code) + "dead.gif");
 	}
+	
+
+	public static BufferedImage getImage(char imageCode) {
+		BufferedImage img;
+		if (Character.isAlphabetic(imageCode))
+			img = ImageLoader.importImg(Paths.getPath(imageCode) + "image.png");
+		else
+			img = ImageLoader.importImg(Paths.getPath(imageCode) + ".png");
+		return img;
+	}
+	
+	public static BufferedImage getImage(Character type, String position) {
+		return ImageLoader.importImg(Paths.getPath(type) + position + ".png");
+	}
+
+
 }

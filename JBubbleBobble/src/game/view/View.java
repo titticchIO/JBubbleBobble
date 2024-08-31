@@ -62,7 +62,7 @@ public class View implements Observer {
 
 //			AUDIO NOTIFICATIONS:
 			case "bubble" -> AudioManager.getInstance()
-					.play(AnimationLoader.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (6).wav"));
+					.play(AnimationAndImagesLoader.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (6).wav"));
 			}
 		}
 

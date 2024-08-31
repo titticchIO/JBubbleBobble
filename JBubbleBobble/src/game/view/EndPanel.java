@@ -20,7 +20,7 @@ public class EndPanel extends JPanel {
 	public EndPanel(Ending ending) {
 		img = switch (ending) {
 		case WIN -> ImageLoader.importImg("/menu/WinScreen.png");
-		case LOSS -> AnimationLoader.loadEntityImage("/menu/LooseScreen.gif");
+		case LOSS -> AnimationAndImagesLoader.loadEntityImage("/menu/LooseScreen.gif");
 		};
 		setSize(new Dimension((int) (Level.GAME_WIDTH * LevelPanel.SCALE),
 				(int) (Level.GAME_HEIGHT * LevelPanel.SCALE)));
