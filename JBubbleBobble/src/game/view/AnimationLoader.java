@@ -82,4 +82,8 @@ public class AnimationLoader {
 			return loadEntityImage(EnemiesPath.getPath(code) + "default-" + color.name().toLowerCase() + ".gif");
 		return loadEntityImage(EnemiesPath.getPath(code) + direction.name().toLowerCase() + "-" + color.name().toLowerCase() + ".gif");
 	}
+	
+	public static Image loadDeadEnemyImage(char code) {
+		return loadEntityImage(EnemiesPath.getPath(code) + "dead.gif");
+	}
 }

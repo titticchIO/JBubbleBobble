@@ -95,7 +95,7 @@ public class LevelPanel extends JPanel {
 	private void renderEnemy(Enemy enemy, Graphics g) {
 		Image enemyImage;
 		if (enemy.isDead()) {
-			enemyImage = AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColorState());
+			enemyImage = AnimationLoader.loadDeadEnemyImage(enemy.getCode());
 //			enemyImage= prendi l'immagine del nemico morto;
 		} else {
 			enemyImage = AnimationLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColorState());

@@ -188,46 +188,45 @@ public abstract class MovingEntity extends Entity {
 	 * roof, or goes out of bounds on the screen.
 	 */
 	protected void updateYPos() {
-		// Checks if the entity is grounded
-		inAir = !HelpMethods.isEntityGrounded(this);
+	    inAir = !HelpMethods.isEntityGrounded(this);
 
-		// Checks if the entity is outside the screen bounds
-		if (y > Level.GAME_HEIGHT + 1) {
-			setY(-1); // Moves entity to the top of the screen if it falls below the floor
-			return;
-		}
+	    // Verifica se l'entità è fuori dai limiti dello schermo
+	    if (y > Level.GAME_HEIGHT + 1) {
+	        setY(-1); // Se cade fuori dallo schermo, riposizionala in cima
+	        return;
+	    }
 
-		if (y < -2) {
-			setY(Level.GAME_HEIGHT); // Moves entity to the bottom of the screen if it jumps over the roof
-			return;
-		}
+	    if (y < -2) {
+	        setY(Level.GAME_HEIGHT); // Se va oltre il soffitto, riportala in basso
+	        return;
+	    }
 
-		// Handles the entity's movement while in air or inside a wall
-		if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(x, y, width, height)) {
-			// Handles collision with the level roof
-			if (y <= Tile.TILE_SIZE && !HelpMethods.canMoveHere(x, y + airSpeed, width, height))
-				setAirSpeed(fallSpeedAfterCollision);
-			setY(y + airSpeed);
-			return;
-		}
+	    // Gestisci il movimento in aria o dentro un muro
+	    if (airSpeed <= 0 || HelpMethods.isEntityInsideWall(x, y, width, height)) {
+	        if (y <= Tile.TILE_SIZE && !HelpMethods.canMoveHere(x, y + airSpeed, width, height)) {
+	            setAirSpeed(fallSpeedAfterCollision);
+	        }
+	        setY(y + airSpeed);
+	        return;
+	    }
 
-		// Handles free movement in air
-		float delta = 0;
+	    // Movimento libero in aria
+	    float delta = 0;
 
-		// Increment delta while in air until it reaches airSpeed
-		while (delta < airSpeed && HelpMethods.canMoveHere(x, y + delta, width, height)) {
-			delta += 0.01f;
-		}
+	    // Incrementa delta mentre sei in aria fino a raggiungere airSpeed
+	    while (delta < airSpeed && HelpMethods.canMoveHere(x, y + delta, width, height)) {
+	        delta += 0.001f; // Maggiore precisione per evitare salti errati
+	    }
 
-		// If delta does not reach airSpeed, an obstacle was hit
-		if (delta < airSpeed) {
-			setY(y - 1); // Move position slightly up to prevent overlap
-			resetInAir(); // Reset air-related states
-		}
+	    // Se delta non raggiunge airSpeed, un ostacolo è stato colpito
+	    if (delta < airSpeed) {
+	        setY(y - 1); // Muovi leggermente verso l'alto per evitare sovrapposizioni
+	        resetInAir(); // Resetta lo stato in aria
+	    }
 
-		// Updates y with calculated delta
-		setY(y + delta);
+	    setY(y + delta); // Aggiorna y con il delta calcolato
 	}
+
 
 	/**
 	 * Makes the entity jump, setting it into the air with a negative vertical
@@ -256,7 +255,7 @@ public abstract class MovingEntity extends Entity {
 	 * the entity when it is in the air.
 	 */
 	public void gravity() {
-		if (!HelpMethods.isEntityGrounded(this) && airSpeed < maxFallingSpeed) {
+		if (!HelpMethods.isEntityGrounded(this) && airSpeed < maxFallingSpeed) {		
 			inAir = true;
 			airSpeed += gravity;
 		}
