@@ -1,6 +1,8 @@
 package game.view;
 
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -159,8 +161,53 @@ public class MenuPanel extends JPanel {
 		// Centra il frame rispetto alla finestra principale
 		leaderboardFrame.setLocationRelativeTo(null);
 
-		// Imposta l'operazione di chiusura del frame
-		leaderboardFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		leaderboardFrame.addWindowListener(new WindowListener() {
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// Riporta il focus sul GameFrame
+				View.getInstance().getGameFrame().requestFocus();
+				// Chiude il frame
+				leaderboardFrame.dispose(); // Chiude il EditorFrame
+
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		// Mostra il frame
 		leaderboardFrame.setVisible(true);

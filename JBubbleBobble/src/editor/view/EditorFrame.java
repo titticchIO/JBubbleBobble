@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -21,6 +23,7 @@ import editor.model.LevelManager;
 import editor.view.LevelsPopUpMenu.MenuType;
 import editor.controller.ActionListenersManager;
 import game.view.ImageLoader;
+import game.view.View;
 
 public class EditorFrame extends JFrame {
 	private static EditorFrame instance;
@@ -30,14 +33,12 @@ public class EditorFrame extends JFrame {
 	private String actualLevelNumber;
 	private JLabel actualLevel;
 	private List<LevelsPopUpMenu> popUps;
-	
-	
+
 	public static EditorFrame getInstance() {
 		if (instance == null)
 			instance = new EditorFrame();
 		return instance;
 	}
-	
 
 	@SuppressWarnings("serial")
 	private EditorFrame() {
@@ -64,15 +65,6 @@ public class EditorFrame extends JFrame {
 			}
 		};
 
-		// OLD CODE
-//		ImageIcon newButtonImageIcon = new ImageIcon(
-//				ImageLoader.importImg("/editor/new.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH));
-//		newGridButton.setIcon(newButtonImageIcon);
-//		newGridButton.setContentAreaFilled(false);
-//		newGridButton.setPreferredSize(new Dimension(70, 35));
-//		newGridButton.setBorderPainted(false);
-//		newGridButton.setFocusPainted(false);
-
 		JButton openGridButton = new JButton(new ImageIcon(
 				ImageLoader.importImg("/editor/open.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH))) {
 			{
@@ -83,15 +75,6 @@ public class EditorFrame extends JFrame {
 			}
 		};
 
-		// OLD CODE
-//		ImageIcon openButtonImageIcon = new ImageIcon(
-//				ImageLoader.importImg("/editor/open.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH));
-//		openGridButton.setIcon(openButtonImageIcon);
-//		openGridButton.setContentAreaFilled(false);
-//		openGridButton.setPreferredSize(new Dimension(70, 35));
-//		openGridButton.setBorderPainted(false);
-//		openGridButton.setFocusPainted(false);
-
 		JButton deleteLevelButton = new JButton(new ImageIcon(
 				ImageLoader.importImg("/editor/delete.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH))) {
 			{
@@ -101,15 +84,6 @@ public class EditorFrame extends JFrame {
 				setFocusPainted(false);
 			}
 		};
-
-		// OLD CODE
-//		ImageIcon deleteButtonImageIcon = new ImageIcon(
-//				ImageLoader.importImg("/editor/delete.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH));
-//		deleteLevelButton.setIcon(deleteButtonImageIcon);
-//		deleteLevelButton.setContentAreaFilled(false);
-//		deleteLevelButton.setPreferredSize(new Dimension(70, 35));
-//		deleteLevelButton.setBorderPainted(false);
-//		deleteLevelButton.setFocusPainted(false);
 
 		actualLevel = new JLabel(actualLevelNumber);
 		actualLevel.setForeground(Color.YELLOW); // Inizializza JLabel
@@ -127,15 +101,6 @@ public class EditorFrame extends JFrame {
 				setFocusPainted(false);
 			}
 		};
-
-		// OLD CODE
-//		ImageIcon saveButtonImageIcon = new ImageIcon(
-//				ImageLoader.importImg("/editor/save.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH));
-//		saveLevelButton.setIcon(saveButtonImageIcon);
-//		saveLevelButton.setContentAreaFilled(false);
-//		saveLevelButton.setPreferredSize(new Dimension(70, 35));
-//		saveLevelButton.setBorderPainted(false);
-//		saveLevelButton.setFocusPainted(false);
 
 		LevelsPopUpMenu levelSelectionPopup = new LevelsPopUpMenu(MenuType.OPEN, this);
 		LevelsPopUpMenu saveLevelPopup = new LevelsPopUpMenu(MenuType.SAVE, this);
@@ -155,13 +120,61 @@ public class EditorFrame extends JFrame {
 		// ActionListener per il pulsante "Apri Griglia"
 		openGridButton.addActionListener(ActionListenersManager.openGridButton(levelSelectionPopup, openGridButton));
 		saveLevelButton.addActionListener(ActionListenersManager.saveLevelButton(saveLevelPopup, saveLevelButton));
-		deleteLevelButton.addActionListener(ActionListenersManager.deleteLevelButton(deleteLevelPopup, deleteLevelButton));
+		deleteLevelButton
+				.addActionListener(ActionListenersManager.deleteLevelButton(deleteLevelPopup, deleteLevelButton));
 
 		// Aggiunta dei componenti al frame
 		add(topPanel, BorderLayout.NORTH); // Pannello superiore
 		add(editorPanel, BorderLayout.CENTER); // Pannello centrale
 		add(selectionPane, BorderLayout.EAST); // Pannello di selezione
 
+		addWindowListener(new WindowListener() {
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// Riporta il focus sul GameFrame
+				View.getInstance().getGameFrame().requestFocus();
+				// Chiude il frame
+				dispose(); // Chiude il EditorFrame
+
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		pack();
 		setLocationRelativeTo(null);
 		setResizable(false);

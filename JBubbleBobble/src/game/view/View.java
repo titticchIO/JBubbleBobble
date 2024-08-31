@@ -13,6 +13,7 @@ public class View implements Observer {
 	private Level level;
 	private LevelPanel levelPanel;
 	private GameFrame gameFrame;
+
 	private TransitionPanel transitionPanel;
 
 	// Singleton pattern to get View instance
@@ -33,6 +34,10 @@ public class View implements Observer {
 		this.transitionPanel = transitionPanel;
 	}
 
+	public GameFrame getGameFrame() {
+		return gameFrame;
+	}
+
 	public LevelPanel getLevelPanel() {
 		return levelPanel;
 	}
@@ -48,15 +53,16 @@ public class View implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		level = Model.getInstance().getCurrentLevel(); // Update the level reference
-		
+
 		if (arg instanceof String s) {
-			switch(s) {
-			case "transition"->levelPanel.startLevelTransition(level.getLevelNumber() + 1);
-			case "next"->levelPanel.renderTilesOnce(); // Render tiles for the next level
-			case "points"->gameFrame.updateScoreAndHighscore(); // Update score display
-			
+			switch (s) {
+			case "transition" -> levelPanel.startLevelTransition(level.getLevelNumber() + 1);
+			case "next" -> levelPanel.renderTilesOnce(); // Render tiles for the next level
+			case "points" -> gameFrame.updateScoreAndHighscore(); // Update score display
+
 //			AUDIO NOTIFICATIONS:
-			case "bubble"-> AudioManager.getInstance().play(AnimationLoader.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (6).wav"));
+			case "bubble" -> AudioManager.getInstance()
+					.play(AnimationLoader.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (6).wav"));
 			}
 		}
 

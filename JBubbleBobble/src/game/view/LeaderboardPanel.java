@@ -66,6 +66,7 @@ public class LeaderboardPanel extends JPanel {
 
         // Imposta la dimensione preferita del pannello
         setPreferredSize(new Dimension(550, 300));
+        
     }
 
     @Override
