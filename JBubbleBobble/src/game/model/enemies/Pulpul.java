@@ -91,7 +91,7 @@ public class Pulpul extends Enemy {
 
 	@Override
 	public void updateEntity() {
-		super.updateEntity();
+		super.spawnFood();
 		if (!isStopped) {
 			if (randomBoolean(200))
 				randomizeDirection();

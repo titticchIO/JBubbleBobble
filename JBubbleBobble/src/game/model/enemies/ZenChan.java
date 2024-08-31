@@ -38,10 +38,8 @@ public class ZenChan extends Enemy {
 
 	@Override
 	public void updateEntity() {
-		updateXPos();
-		updateYPos();
-		gravity();
 		super.updateEntity();
+		super.spawnFood();
 		if (!isStopped) {
 			switchDirection();
 			move(0.4f * movementSpeed);

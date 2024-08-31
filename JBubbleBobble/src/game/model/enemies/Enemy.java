@@ -23,6 +23,7 @@ public abstract class Enemy extends MovingEntity {
 	protected float movementSpeed;
 	protected boolean dead;
 
+
 	public static final int RED_TIME = 10000; // Tempo in millisecondi prima di diventare rosso
 
 	public float getMovementSpeed() {
@@ -98,8 +99,7 @@ public abstract class Enemy extends MovingEntity {
 		setAirSpeed(-1);
 	}
 
-	@Override
-	public void updateEntity() {
+	public void spawnFood() {
 		if (isDead() && HelpMethods.isEntityGrounded(this)) {
 			Fruit fruit = new Fruit(x, y, switch (new Random().nextInt(5)) {
 			case 0 -> FruitType.BANANA;
@@ -112,6 +112,11 @@ public abstract class Enemy extends MovingEntity {
 			Model.getInstance().getCurrentLevel().getEnemyManager().removeEnemy(this);
 			System.out.println("Estas muerto");
 		}
+	}
+	
+	@Override
+	public void updateEntity() {
+		super.updateEntity();
 	}
 
 	/**

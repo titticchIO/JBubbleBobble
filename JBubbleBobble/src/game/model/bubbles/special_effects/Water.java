@@ -1,6 +1,10 @@
 package game.model.bubbles.special_effects;
 
 import static game.model.tiles.Tile.TILE_SIZE;
+
+
+import game.model.Fruit;
+import game.model.Fruit.FruitType;
 import game.model.HelpMethods;
 import game.model.Model;
 import game.model.level.Level;
@@ -12,6 +16,7 @@ public class Water extends MovingEntity {
 	public static final char CODE = '_';
 	private int watersToSpawn;
 	private int lifeSpan;
+	private FruitType fruitType;
 
 	public Water(float x, float y, int watersToSpawn) {
 		super(x, y, CODE);
@@ -50,14 +55,22 @@ public class Water extends MovingEntity {
 			}
 		}
 	}
+	
+	public void setFruit(FruitType fruitType) {
+		this.fruitType = fruitType;
+	}
 
 	@Override
 	public void updateEntity() {
 		lifeSpan--;
-		if (lifeSpan == 0)
+		if (lifeSpan <= 0) {
+			if (fruitType != null)
+				Model.getInstance().getCurrentLevel().getFruitManager().addFruit(new Fruit(x, y, fruitType));
 			delete();
+		}
 		if (y == Level.GAME_HEIGHT)
 			setY(-TILE_SIZE);
+		
 		updatePosition();
 	}
 

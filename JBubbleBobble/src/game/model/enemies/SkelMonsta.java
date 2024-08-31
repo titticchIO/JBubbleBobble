@@ -65,7 +65,7 @@ public class SkelMonsta extends Enemy {
 
 	@Override
 	public void updateEntity() {
-		super.updateEntity();
+		super.spawnFood();
 		if (!isStopped) {
 			bounce();
 			updateYPos();
