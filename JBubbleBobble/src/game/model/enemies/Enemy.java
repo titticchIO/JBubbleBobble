@@ -23,6 +23,7 @@ public abstract class Enemy extends MovingEntity {
 	protected float movementSpeed;
 	protected boolean dead;
 
+
 	public static final int RED_TIME = 10000; // Tempo in millisecondi prima di diventare rosso
 
 	public float getMovementSpeed() {
@@ -111,6 +112,11 @@ public abstract class Enemy extends MovingEntity {
 			Model.getInstance().getCurrentLevel().getEnemyManager().removeEnemy(this);
 			System.out.println("Estas muerto");
 		}
+	}
+	
+	@Override
+	public void updateEntity() {
+		super.updateEntity();
 	}
 
 	/**

@@ -17,6 +17,7 @@ import game.model.bubbles.ThunderBubble;
 import game.model.bubbles.WaterBubble;
 import game.model.bubbles.special_effects.FireBall;
 import game.model.bubbles.special_effects.FireBall.FireState;
+import game.model.bubbles.special_effects.Water;
 import game.model.Fruit;
 import game.model.FruitManager;
 import game.model.HelpMethods;
@@ -58,6 +59,7 @@ public class Level {
 		powerupManager = new PowerupManager();
 		fruitManager = new FruitManager();
 		lvlData = LevelLoader.loadLevel(this, levelNumber);
+		enemyManager.setBoss();
 		setBubblesSpawnPoints();
 	}
 
@@ -317,16 +319,29 @@ public class Level {
 	}
 
 	private void checkSpecialCollisions() {
+		Optional<Enemy> enemyHit;
+		// Enemy fire balls collision
 		List<FireBall> burningFireBalls = bubbleManager.getFireBalls().stream()
 				.filter(f -> f.getFireState() == FireState.BURN).toList();
-		Optional<Enemy> enemyHit = Entity.checkCollisions(burningFireBalls, enemyManager.getEnemies());
+		enemyHit = Entity.checkCollisions(burningFireBalls, enemyManager.getEnemies());
 		if (enemyHit.isPresent()) {
-//			enemyHit.get().kill();
+			enemyHit.get().kill();
+			enemyHit.get().updateEntity();
 		}
+		// Player fire balls collisions
 		Optional<FireBall> playerHit = Entity.checkCollision(player, burningFireBalls);
 		if (playerHit.isPresent()) {
 			player.stun(5);
 		}
+		// Enemy water collision
+		List<Water> torrent = bubbleManager.getWaters().stream().toList();
+		enemyHit = Entity.checkCollisions(torrent, enemyManager.getEnemies());
+		if (enemyHit.isPresent()) {
+			Optional<Water> water = Entity.checkCollision(enemyHit.get(), bubbleManager.getWaters());
+			water.get().setFruit(Fruit.randomFruitType());
+			enemyManager.removeEnemy(enemyHit.get());
+		}
+
 	}
 
 	private void checkFruitCollisions() {
@@ -354,6 +369,7 @@ public class Level {
 		bubbleManager.updateBubbles();
 		powerupManager.updatePowerups();
 		checkAllCollisions();
+		System.out.println(enemyManager.isBoss());
 
 //		if (checkPlayerEnemyCollision()) System.out.println("Hittato enemy");
 

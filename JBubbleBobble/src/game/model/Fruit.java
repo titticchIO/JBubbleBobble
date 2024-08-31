@@ -1,5 +1,8 @@
 package game.model;
 
+import java.util.Random;
+
+import game.model.Fruit.FruitType;
 import game.model.entities.Entity;
 
 
@@ -24,6 +27,17 @@ public class Fruit extends Entity {
 		points = fruitType.points;
 	}
 
+	public static FruitType randomFruitType() {
+		return switch (new Random().nextInt(5)) {
+		case 0 -> FruitType.BANANA;
+		case 1 -> FruitType.ORANGE;
+		case 2 -> FruitType.PEACH;
+		case 3 -> FruitType.PEAR;
+		default -> FruitType.WATERMELON;
+		};
+}
+
+	
 	public int getPoints() {
 		return points;
 	}

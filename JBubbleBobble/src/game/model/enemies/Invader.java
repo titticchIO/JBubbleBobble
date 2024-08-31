@@ -48,7 +48,7 @@ public class Invader extends Enemy {
 	}
 
 	public void shootLaser() {
-		if (randomBoolean(10)) 
+		if (randomBoolean(10))
 			Model.getInstance().getCurrentLevel().getEnemyManager().addLaser(new Laser(x + 5, y + height, 6, 20));
 	}
 
@@ -57,23 +57,23 @@ public class Invader extends Enemy {
 		updateYPos();
 		if (isDead()) {
 			removeEnemy();
-		}
-		else {
-		if (!isStopped) {
-			if (!HelpMethods.isEntityGrounded(this) && landed)
-				landed = false;
-			if (HelpMethods.isEntityGrounded(this) && !landed) {
-				landed = true;
-				randomizeDirection();
-			}
-			switchDirection();
+		} else {
+			if (!isStopped) {
+				if (!HelpMethods.isEntityGrounded(this) && landed)
+					landed = false;
+				if (HelpMethods.isEntityGrounded(this) && !landed) {
+					landed = true;
+					randomizeDirection();
+				}
+				switchDirection();
 
-			if (!inAir) {
-				updateXPos();
-			} else
-				setAirSpeed(0.5f);
-			move(0.5f * movementSpeed);
+				if (!inAir) {
+					updateXPos();
+				} else
+					setAirSpeed(0.5f);
+				move(0.5f * movementSpeed);
+			}
 		}
-	}}
+	}
 
 }

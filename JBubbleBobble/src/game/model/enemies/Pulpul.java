@@ -91,6 +91,7 @@ public class Pulpul extends Enemy {
 
 	@Override
 	public void updateEntity() {
+
 		updateYPos();
 		if (isDead()) {
 			removeEnemy();

@@ -88,13 +88,13 @@ public class Banebou extends Enemy {
 		} else {
 			updateXPos();
 			gravity();
-//			super.updateEntity();
 			if (!isStopped) {
 				if ((!HelpMethods.canMoveHere(x + xSpeed, y, width, height) || randomBoolean(1000))
 						&& !HelpMethods.isEntityInsideWall(this))
 					changeDirection();
 				jump();
 			}
+
 		}
 	}
 }

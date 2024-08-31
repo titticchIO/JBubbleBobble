@@ -10,6 +10,7 @@ import game.model.Model;
 import game.model.bubbles.special_effects.Bolt;
 import game.model.bubbles.special_effects.FireBall;
 import game.model.bubbles.special_effects.Water;
+import game.model.entities.MovingEntity;
 import game.model.tiles.Tile;
 
 public class BubbleManager {
@@ -45,10 +46,11 @@ public class BubbleManager {
 
 		Bubble specialBubble = null;
 		switch (new Random().nextInt(4)) {
-		case 0 -> specialBubble = new FireBubble();
-		case 1 -> specialBubble = new WaterBubble();
-		case 2 -> specialBubble = new SpecialBubble();
-		case 3 -> specialBubble = new ThunderBubble();
+//		case 0 -> specialBubble = new FireBubble();
+//		case 1 -> specialBubble = new WaterBubble();
+//		case 2 -> specialBubble = new SpecialBubble();
+//		case 3 -> specialBubble = new ThunderBubble();
+		default -> specialBubble = new WaterBubble();
 		}
 		if (specialBubble != null)
 			Model.getInstance().getCurrentLevel().spawnBubble(specialBubble);
@@ -135,9 +137,9 @@ public class BubbleManager {
 			}, 50);
 		}
 
-		if (spawnSpecialBubbleTimer == null) {
+		if (spawnSpecialBubbleTimer == null && !Model.getInstance().getCurrentLevel().getEnemyManager().isBoss()) {
 			spawnSpecialBubbleTimer = new Timer("Spawn Special Bubble");
-
+			
 			spawnSpecialBubbleTimer.schedule(new TimerTask() {
 
 				@Override
@@ -145,7 +147,17 @@ public class BubbleManager {
 					createSpecialBubble();
 					spawnSpecialBubbleTimer = null;
 				}
-			}, 30000);
+			}, 2000);
+		} else if (spawnSpecialBubbleTimer == null) {
+			spawnSpecialBubbleTimer = new Timer("Spawn Special Bubble");
+			spawnSpecialBubbleTimer.schedule(new TimerTask() {
+				
+				@Override
+				public void run() {
+					createSpecialBubble();
+					spawnSpecialBubbleTimer = null;
+				}
+			}, 4000);
 		}
 	}
 }

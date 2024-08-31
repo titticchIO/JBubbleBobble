@@ -91,7 +91,7 @@ public class Boss extends Enemy {
 
 	@Override
 	public void updateEntity() {
-		System.out.println("Vite boss: "+lives);
+//		System.out.println("Vite boss: "+lives);
 		if (!isStopped) {
 			if (randomBoolean(200))
 				randomizeDirection();
