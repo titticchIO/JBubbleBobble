@@ -46,6 +46,12 @@ public abstract class Powerup extends Entity {
 		if (checkPlayerCollision()) {
 			// timer creation
 			Model.getInstance().getCurrentUser().addPoints(points);
+			if (this instanceof PinkCandy) 
+				Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfPinkCandies();
+			else if (this instanceof BlueCandy) 
+				Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfBlueCandies();
+			else if (this instanceof YellowCandy)
+				Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfYellowCandies();
 			// effect starts
 
 			effect();

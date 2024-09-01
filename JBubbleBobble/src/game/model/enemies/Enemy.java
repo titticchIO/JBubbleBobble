@@ -18,10 +18,12 @@ public abstract class Enemy extends MovingEntity {
 	}
 
 	// Current color of the entity
-	protected ColorState colorState;
+	private ColorState colorState;
 	protected float redXSpeed;
 	protected float movementSpeed;
-	protected boolean dead;
+	private boolean dead;
+	private boolean isPopped;
+	protected boolean isStopped;
 
 
 	public static final int RED_TIME = 10000; // Tempo in millisecondi prima di diventare rosso
@@ -34,8 +36,6 @@ public abstract class Enemy extends MovingEntity {
 		this.movementSpeed = speed;
 	}
 
-	protected boolean isPopped;
-	protected boolean isStopped;
 
 	public Enemy(float x, float y, char code) {
 		super(x, y, code);
@@ -55,10 +55,6 @@ public abstract class Enemy extends MovingEntity {
 
 	public boolean isPopped() {
 		return isPopped;
-	}
-
-	public void pop() {
-		isPopped = true;
 	}
 
 	public boolean randomBoolean(int chances) {

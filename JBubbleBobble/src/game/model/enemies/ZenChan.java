@@ -13,14 +13,7 @@ public class ZenChan extends Enemy {
 		setColorState(ColorState.NORMAL);
 	}
 
-	public ZenChan(float x, float y, float width, float height) {
-		super(x, y, width, height, CODE);
-		setDirection(Direction.RIGHT);
-		setJumpSpeed(-1.5f);
-		setColorState(ColorState.NORMAL);
-	}
-
-	public void switchDirection() {
+	private void switchDirection() {
 		if (isEntityInsideWall(this))
 			return;
 		switch (direction) {

@@ -61,7 +61,6 @@ public class EditorFrame extends JFrame {
 				setPreferredSize(new Dimension(70, 35));
 				setBorderPainted(false);
 				setFocusPainted(false);
-
 			}
 		};
 

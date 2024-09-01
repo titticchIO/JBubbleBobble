@@ -108,7 +108,7 @@ public class EnemyManager {
 		return hazards;
 	}
 
-	public long numberOfInvaders() {
+	private long numberOfInvaders() {
 		return enemies.stream().filter(x -> x instanceof Invader).count();
 	}
 

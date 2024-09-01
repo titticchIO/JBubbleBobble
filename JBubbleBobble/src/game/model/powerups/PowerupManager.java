@@ -8,7 +8,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
-
 import game.model.Model;
 
 public class PowerupManager {

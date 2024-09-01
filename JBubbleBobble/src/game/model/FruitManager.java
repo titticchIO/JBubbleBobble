@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class FruitManager {
-	List<Fruit> fruits;
+	private List<Fruit> fruits;
 
 	public FruitManager() {
 		fruits = new CopyOnWriteArrayList<>();

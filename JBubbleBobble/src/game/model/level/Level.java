@@ -172,7 +172,7 @@ public class Level {
 		tiles.add(tile);
 	}
 
-	public void setBubblesSpawnPoints() {
+	private void setBubblesSpawnPoints() {
 		bubblesSpawnPoints = new ArrayList<Float>();
 		int y = lvlData.length - 1;
 
@@ -183,15 +183,7 @@ public class Level {
 		}
 	}
 
-	public boolean checkPlayerEnemyCollision() {
-		return Entity.checkCollision(player, enemyManager.getEnemies()).isPresent();
-	}
-
-	public boolean checkPlayerBubbleCollision() {
-		return Entity.checkCollision(player, bubbleManager.getBubbles()).isPresent();
-	}
-
-	public boolean checkEnemiesBubblesCollision() {
+	private boolean checkEnemiesBubblesCollision() {
 		return Entity.checkCollisions(bubbleManager.getPlayerBubbles(), enemyManager.getEnemies()).isPresent();
 	}
 
@@ -261,7 +253,7 @@ public class Level {
 		}
 	}
 
-	public void checkJump() {
+	private void checkJump() {
 		if (player.isJumping()) {
 			Optional<PlayerBubble> bounceBubble = Entity.checkBottomCollision(player, bubbleManager.getPlayerBubbles());
 			if (HelpMethods.isEntityGrounded(player))
@@ -297,7 +289,7 @@ public class Level {
 		}
 	}
 
-	public void checkLooseLife() {
+	private void checkLooseLife() {
 		// Checks if the player is invulnerable; if not, the player can lose a life.
 		Optional<MovingEntity> hazardHit = Entity.checkCollision(player, enemyManager.getHazards());
 		if (!player.isInvulnerable() && hazardHit.isPresent()) {
@@ -369,12 +361,6 @@ public class Level {
 		bubbleManager.updateBubbles();
 		powerupManager.updatePowerups();
 		checkAllCollisions();
-		System.out.println(enemyManager.isBoss());
-
-//		if (checkPlayerEnemyCollision()) System.out.println("Hittato enemy");
-
-//		if (checkPlayerBubbleCollision()) System.out.println("Hittato bolla");
-
 	}
 
 	public int getSimultaneousKills() {

@@ -13,10 +13,6 @@ public class YellowCandy extends Powerup {
 		super(0, 0, CODE, POINTS, DURATION);
 	}
 
-	public YellowCandy(float x, float y) {
-		super(x, y, CODE, POINTS, DURATION);
-	}
-
 	@Override
 	public void effect() {
 		super.effect();

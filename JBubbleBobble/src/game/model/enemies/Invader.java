@@ -39,7 +39,7 @@ public class Invader extends Enemy {
 		}
 	}
 
-	public void randomizeDirection() {
+	private void randomizeDirection() {
 		if (randomBoolean(2)) {
 			setDirection(Direction.RIGHT);
 		} else {
