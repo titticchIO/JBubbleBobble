@@ -152,11 +152,9 @@ public class MenuPanel extends JPanel {
 
 	public void showLeaderboard() {
 		LeaderboardPanel leaderboardPanel = new LeaderboardPanel();
-		// leaderboardPanel.setBackground(Color.BLACK);
 
 		// Creazione del frame
 		JFrame leaderboardFrame = new JFrame("Leaderboard");
-		// leaderboardFrame.setBackground(Color.BLACK);
 
 		// Aggiungi il pannello al frame
 		leaderboardFrame.add(leaderboardPanel);

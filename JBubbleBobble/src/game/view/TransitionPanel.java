@@ -17,7 +17,7 @@ public class TransitionPanel extends JPanel {
     private Image nextLevelImage;
     private float progress;  // Progresso della transizione da 0.0 a 1.0
     private Timer transitionTimer;
-    private static final int TRANSITION_DURATION = 2000;  // Durata della transizione in millisecondi
+    public static final int TRANSITION_DURATION = 2000;  // Durata della transizione in millisecondi
     private GameFrame gameFrame;
 
     public TransitionPanel(GameFrame gameFrame) {

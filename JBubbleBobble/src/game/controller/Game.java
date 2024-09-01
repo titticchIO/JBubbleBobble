@@ -90,7 +90,7 @@ public class Game implements Runnable {
 		GameState.state = GameState.PLAYING;
 	}
 
-	public void stopGameLoop() {
+	private void stopGameLoop() {
 		running = false;
 		try {
 			gameThread.join(); // Wait for the current thread to finish
@@ -114,7 +114,7 @@ public class Game implements Runnable {
 		gameFrame.showState(Screen.MENU);
 	}
 
-	public void update() {
+	private void update() {
 		switch (GameState.state) {
 		case MENU -> menu.update();
 		case PLAYING -> playing.update();

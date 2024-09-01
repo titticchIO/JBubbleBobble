@@ -21,7 +21,6 @@ import game.model.user.User;
 import game.view.View;
 import game.view.CheatFrame;
 import game.view.GameFrame.Screen;
-import editor.controller.Main;
 import editor.model.LevelManager;
 import editor.view.EditorFrame;
 
@@ -33,10 +32,6 @@ public class ActionListenersManager {
 			View.getInstance().getGameFrame().requestFocus();
 		}; // Imposta l'utente corrente nel Model
 
-	}
-
-	public static ActionListener startGame(Menu menu) {
-		return e -> menu.startGame();
 	}
 
 	public static ActionListener startEditor() {

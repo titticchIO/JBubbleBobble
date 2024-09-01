@@ -8,208 +8,222 @@ import java.awt.Image;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
-
 import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
 import javax.swing.JPanel;
 
-import editor.model.LevelManager;
-
-import editor.view.LevelsPopUpMenu.MenuType;
 import editor.controller.ActionListenersManager;
+import editor.view.LevelsPopUpMenu.MenuType;
 import game.view.ImageLoader;
 import game.view.View;
 
+/**
+ * Singleton class that represents the main frame of the level editor.
+ * It manages the layout and interaction with the editor components.
+ */
 public class EditorFrame extends JFrame {
-	private static EditorFrame instance;
-	private EditorPanel editorPanel;
-	private SpriteSelectionScrollPane selectionPane;
-	private JButton saveLevelButton;
-	private String actualLevelNumber;
-	private JLabel actualLevel;
-	private List<LevelsPopUpMenu> popUps;
 
-	public static EditorFrame getInstance() {
-		if (instance == null)
-			instance = new EditorFrame();
-		return instance;
-	}
+	private static final long serialVersionUID = 1L;
+	
+    // Static fields
+    public static EditorFrame instance;
 
-	@SuppressWarnings("serial")
-	private EditorFrame() {
-		setLayout(new BorderLayout());
-		selectionPane = new SpriteSelectionScrollPane();
-		// selectionPane.setBackground(Color.BLACK);
-		editorPanel = new EditorPanel(this, selectionPane);
-		// editorPanel.setBackground(Color.BLACK);
-		popUps = new ArrayList<LevelsPopUpMenu>();
+    // Non-static fields (grouped by type)
+    private EditorPanel editorPanel;
+    private SpriteSelectionScrollPane selectionPane;
+    private JButton saveLevelButton;
+    private JLabel actualLevel;
+    private String actualLevelNumber;
+    private List<LevelsPopUpMenu> popUps;
 
-		// Creazione del pannello superiore
-		JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		topPanel.setBackground(Color.BLACK);
+    // Static methods
+    /**
+     * Returns the singleton instance of EditorFrame.
+     * Creates a new instance if it doesn't exist.
+     *
+     * @return the instance of EditorFrame
+     */
+    public static EditorFrame getInstance() {
+        if (instance == null)
+            instance = new EditorFrame();
+        return instance;
+    }
 
-		// Pulsanti per creare nuova griglia e aprirne una esistente
-		JButton newGridButton = new JButton(
-				new ImageIcon(ImageLoader.importImg("/editor/new.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH))) {
-			{
-				setContentAreaFilled(false);
-				setPreferredSize(new Dimension(70, 35));
-				setBorderPainted(false);
-				setFocusPainted(false);
-			}
-		};
+    // Constructor
+    /**
+     * Private constructor to create and initialize the editor frame.
+     * Sets up the layout, components, and window listeners.
+     */
+    private EditorFrame() {
+        setLayout(new BorderLayout());
+        selectionPane = new SpriteSelectionScrollPane();
+        editorPanel = new EditorPanel(this, selectionPane);
+        popUps = new ArrayList<>();
 
-		JButton openGridButton = new JButton(new ImageIcon(
-				ImageLoader.importImg("/editor/open.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH))) {
-			{
-				setContentAreaFilled(false);
-				setPreferredSize(new Dimension(70, 35));
-				setBorderPainted(false);
-				setFocusPainted(false);
-			}
-		};
+        // Create top panel with flow layout
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        topPanel.setBackground(Color.BLACK);
 
-		JButton deleteLevelButton = new JButton(new ImageIcon(
-				ImageLoader.importImg("/editor/delete.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH))) {
-			{
-				setContentAreaFilled(false);
-				setPreferredSize(new Dimension(70, 35));
-				setBorderPainted(false);
-				setFocusPainted(false);
-			}
-		};
+        // New grid button
+        JButton newGridButton = new JButton(
+                new ImageIcon(ImageLoader.importImg("/editor/new.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH))); 
+        newGridButton.setContentAreaFilled(false);
+        newGridButton.setPreferredSize(new Dimension(70, 35));
+        newGridButton.setBorderPainted(false);
+        newGridButton.setFocusPainted(false);
 
-		actualLevel = new JLabel(actualLevelNumber);
-		actualLevel.setForeground(Color.YELLOW); // Inizializza JLabel
+        // Open grid button
+        JButton openGridButton = new JButton(
+                new ImageIcon(ImageLoader.importImg("/editor/open.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH)));
+        openGridButton.setContentAreaFilled(false);
+        openGridButton.setPreferredSize(new Dimension(70, 35));
+        openGridButton.setBorderPainted(false);
+        openGridButton.setFocusPainted(false);
 
-		// ActionListener per il pulsante "Nuova Griglia"
-		newGridButton.addActionListener(ActionListenersManager.newGridButton(editorPanel, selectionPane));
+        // Delete level button
+        JButton deleteLevelButton = new JButton(
+                new ImageIcon(ImageLoader.importImg("/editor/delete.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH)));
+        deleteLevelButton.setContentAreaFilled(false);
+        deleteLevelButton.setPreferredSize(new Dimension(70, 35));
+        deleteLevelButton.setBorderPainted(false);
+        deleteLevelButton.setFocusPainted(false);
 
-		// Creazione del bottone con la scritta "Save"
-		saveLevelButton = new JButton(new ImageIcon(
-				ImageLoader.importImg("/editor/save.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH))) {
-			{
-				setContentAreaFilled(false);
-				setPreferredSize(new Dimension(70, 35));
-				setBorderPainted(false);
-				setFocusPainted(false);
-			}
-		};
+        // Initialize JLabel for actual level
+        actualLevel = new JLabel(actualLevelNumber);
+        actualLevel.setForeground(Color.YELLOW);
 
-		LevelsPopUpMenu levelSelectionPopup = new LevelsPopUpMenu(MenuType.OPEN, this);
-		LevelsPopUpMenu saveLevelPopup = new LevelsPopUpMenu(MenuType.SAVE, this);
-		LevelsPopUpMenu deleteLevelPopup = new LevelsPopUpMenu(MenuType.DELETE, this);
+        // ActionListeners for buttons
+        newGridButton.addActionListener(ActionListenersManager.newGridButton(editorPanel, selectionPane));
+        openGridButton.addActionListener(ActionListenersManager.openGridButton(
+                new LevelsPopUpMenu(MenuType.OPEN, this), openGridButton));
+        
+        saveLevelButton = new JButton(
+                new ImageIcon(ImageLoader.importImg("/editor/save.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH)));
+        saveLevelButton.setContentAreaFilled(false);
+        saveLevelButton.setPreferredSize(new Dimension(70, 35));
+        saveLevelButton.setBorderPainted(false);
+        saveLevelButton.setFocusPainted(false);
+        saveLevelButton.addActionListener(ActionListenersManager.saveLevelButton(
+                new LevelsPopUpMenu(MenuType.SAVE, this), saveLevelButton));
+        deleteLevelButton.addActionListener(ActionListenersManager.deleteLevelButton(
+                new LevelsPopUpMenu(MenuType.DELETE, this), deleteLevelButton));
 
-		popUps.add(levelSelectionPopup);
-		popUps.add(saveLevelPopup);
-		popUps.add(deleteLevelPopup);
+        // Add buttons to top panel
+        topPanel.add(newGridButton);
+        topPanel.add(openGridButton);
+        topPanel.add(saveLevelButton);
+        topPanel.add(deleteLevelButton);
+        topPanel.add(actualLevel);
 
-		// Aggiunta dei pulsanti al pannello
-		topPanel.add(newGridButton);
-		topPanel.add(openGridButton);
-		topPanel.add(saveLevelButton);
-		topPanel.add(deleteLevelButton);
-		topPanel.add(actualLevel);
+        // Add components to frame
+        add(topPanel, BorderLayout.NORTH);
+        add(editorPanel, BorderLayout.CENTER);
+        add(selectionPane, BorderLayout.EAST);
 
-		// ActionListener per il pulsante "Apri Griglia"
-		openGridButton.addActionListener(ActionListenersManager.openGridButton(levelSelectionPopup, openGridButton));
-		saveLevelButton.addActionListener(ActionListenersManager.saveLevelButton(saveLevelPopup, saveLevelButton));
-		deleteLevelButton
-				.addActionListener(ActionListenersManager.deleteLevelButton(deleteLevelPopup, deleteLevelButton));
+        // Window listener for frame
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Refocus the game frame and close the editor frame
+                View.getInstance().getGameFrame().requestFocus();
+                dispose();
+            }
 
-		// Aggiunta dei componenti al frame
-		add(topPanel, BorderLayout.NORTH); // Pannello superiore
-		add(editorPanel, BorderLayout.CENTER); // Pannello centrale
-		add(selectionPane, BorderLayout.EAST); // Pannello di selezione
+            @Override
+            public void windowOpened(WindowEvent e) {}
+            @Override
+            public void windowIconified(WindowEvent e) {}
+            @Override
+            public void windowDeiconified(WindowEvent e) {}
+            @Override
+            public void windowDeactivated(WindowEvent e) {}
+            @Override
+            public void windowClosed(WindowEvent e) {}
+            @Override
+            public void windowActivated(WindowEvent e) {}
+        });
 
-		addWindowListener(new WindowListener() {
+        pack();
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setVisible(true);
+    }
 
-			@Override
-			public void windowOpened(WindowEvent e) {
-				// TODO Auto-generated method stub
+    // Getters
+    /**
+     * Returns the editor panel.
+     *
+     * @return the editor panel
+     */
+    public EditorPanel getEditorPanel() {
+        return editorPanel;
+    }
 
-			}
+    /**
+     * Returns the actual level number as a String.
+     *
+     * @return the actual level number
+     */
+    public String getActualLevelNumber() {
+        return actualLevelNumber;
+    }
 
-			@Override
-			public void windowIconified(WindowEvent e) {
-				// TODO Auto-generated method stub
+    /**
+     * Returns the JLabel that displays the current level.
+     *
+     * @return the JLabel for the actual level
+     */
+    public JLabel getActualLevel() {
+        return actualLevel;
+    }
 
-			}
+    /**
+     * Returns the sprite selection pane.
+     *
+     * @return the sprite selection pane
+     */
+    public SpriteSelectionScrollPane getSelectionPane() {
+        return selectionPane;
+    }
 
-			@Override
-			public void windowDeiconified(WindowEvent e) {
-				// TODO Auto-generated method stub
+    /**
+     * Returns the list of LevelsPopUpMenu instances.
+     *
+     * @return the list of LevelsPopUpMenu
+     */
+    public List<LevelsPopUpMenu> getPopUps() {
+        return popUps;
+    }
 
-			}
+    // Setters
+    /**
+     * Sets the editor panel.
+     *
+     * @param editorPanel the new editor panel
+     */
+    public void setEditorPanel(EditorPanel editorPanel) {
+        this.editorPanel = editorPanel;
+    }
 
-			@Override
-			public void windowDeactivated(WindowEvent e) {
-				// TODO Auto-generated method stub
+    /**
+     * Sets the actual level number.
+     *
+     * @param actualLevelNumber the new actual level number
+     */
+    public void setActualLevelNumber(String actualLevelNumber) {
+        this.actualLevelNumber = actualLevelNumber;
+    }
 
-			}
-
-			@Override
-			public void windowClosing(WindowEvent e) {
-				// Riporta il focus sul GameFrame
-				View.getInstance().getGameFrame().requestFocus();
-				// Chiude il frame
-				dispose(); // Chiude il EditorFrame
-
-			}
-
-			@Override
-			public void windowClosed(WindowEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void windowActivated(WindowEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-		pack();
-		setLocationRelativeTo(null);
-		setResizable(false);
-		setVisible(true);
-	}
-
-	public EditorPanel getEditorPanel() {
-		return editorPanel;
-	}
-
-	public void setEditorPanel(EditorPanel editorPanel) {
-		this.editorPanel = editorPanel;
-	}
-
-	public String getActualLevelNumber() {
-		return actualLevelNumber;
-	}
-
-	public void setActualLevelNumber(String actualLevelNumber) {
-		this.actualLevelNumber = actualLevelNumber;
-	}
-
-	public JLabel getActualLevel() {
-		return actualLevel;
-	}
-
-	public void setActualLevel(JLabel actualLevel) {
-		this.actualLevel = actualLevel;
-	}
-
-	public SpriteSelectionScrollPane getSelectionPane() {
-		return selectionPane;
-	}
-
-	public List<LevelsPopUpMenu> getPopUps() {
-		return popUps;
-	}
-
+    /**
+     * Sets the JLabel that displays the current level.
+     *
+     * @param actualLevel the new JLabel for the actual level
+     */
+    public void setActualLevel(JLabel actualLevel) {
+        this.actualLevel = actualLevel;
+    }
 }

@@ -37,14 +37,6 @@ public class UserPanel extends JPanel {
 		}
 		
 		userButton = new JButton(user.getNickname());
-		
-		/*
-		if (onlyView == true) {
-			userButton.setBorderPainted(false); // Remove the button border
-            userButton.setFocusPainted(false); // Remove the focus border
-    		//userButton.setEnabled(false);
-		}
-		*/
 		userButton.setBackground(Color.YELLOW);
 		userButton.setForeground(Color.MAGENTA);
 		Font font=new Font("Arial", Font.BOLD, 12);
