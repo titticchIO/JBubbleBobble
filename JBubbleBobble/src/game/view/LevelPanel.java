@@ -26,14 +26,11 @@ import game.model.powerups.RedParasol;
 import game.model.tiles.Tile;
 
 public class LevelPanel extends JPanel {
-	private static final long serialVersionUID = 1L;
+	public static final long serialVersionUID = 1L;
 	public final static float SCALE = 1.5f;
 	private BufferedImage tilesImage;
 	private GameFrame gameFrame;
 
-//	private MenuPanel menuPanel
-
-//	NON AGGIUNGERE IL PATTERN SINGLETON!!!!!
 
 	public LevelPanel(GameFrame gameFrame) {
 		setPanelSize();
