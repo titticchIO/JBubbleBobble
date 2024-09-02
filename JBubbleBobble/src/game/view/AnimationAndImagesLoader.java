@@ -40,7 +40,7 @@ public class AnimationAndImagesLoader {
 	}
 
 	// Metodo per ottenere un'animazione del player
-	public static ImageIcon getPlayerAnimation(String animationKey) {
+	private static ImageIcon getPlayerAnimation(String animationKey) {
 		return playerAnimations.get(animationKey);
 	}
 
@@ -51,7 +51,7 @@ public class AnimationAndImagesLoader {
 	}
 
 	// Metodo per caricare dinamicamente animazioni di altre entità
-	public static ImageIcon loadEntityAnimation(String relativePath) {
+	private static ImageIcon loadEntityAnimation(String relativePath) {
 		return loadImageIcon(relativePath);
 	}
 

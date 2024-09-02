@@ -1,35 +1,73 @@
 package game.model.bubbles.special_effects;
 
 import static game.model.tiles.Tile.TILE_SIZE;
-
+import static game.model.entities.MovingEntity.Direction.*;
 
 import game.model.Fruit;
 import game.model.Fruit.FruitType;
 import game.model.HelpMethods;
 import game.model.Model;
-import game.model.level.Level;
 import game.model.entities.MovingEntity;
-import static game.model.entities.MovingEntity.Direction.*;
+import game.model.level.Level;
 
+
+/**
+ * The {@code Water} class represents a special effect entity that moves
+ * horizontally across the level and has a limited lifespan. Upon expiration, it
+ * may spawn a fruit.
+ */
 public class Water extends MovingEntity {
 
+	// Static Fields
 	public static final char CODE = '_';
+
+	// Instance Fields
 	private int watersToSpawn;
 	private int lifeSpan;
 	private FruitType fruitType;
 
+	// Constructors
+
+	/**
+	 * Constructs a {@code Water} entity at the specified position with a given
+	 * number of subsequent waters to spawn and initializes its lifespan.
+	 *
+	 * @param x             the initial x-coordinate of the water entity.
+	 * @param y             the initial y-coordinate of the water entity.
+	 * @param watersToSpawn the number of additional water entities to spawn.
+	 */
 	public Water(float x, float y, int watersToSpawn) {
 		super(x, y, CODE);
 		setDirection(RIGHT);
 		this.watersToSpawn = watersToSpawn;
-		lifeSpan = 70;
+		this.lifeSpan = 70;
 	}
 
+	// Getters and Setters
+
+	/**
+	 * Sets the type of fruit that will be spawned when the water expires.
+	 *
+	 * @param fruitType the type of fruit to spawn.
+	 */
+	public void setFruit(FruitType fruitType) {
+		this.fruitType = fruitType;
+	}
+
+	// Other Methods
+
+	/**
+	 * Deletes the water entity from the level.
+	 */
 	private void delete() {
 		Model.getInstance().getCurrentLevel().getBubbleManager().removeWater(this);
-		System.out.println("deleted");
 	}
 
+	/**
+	 * Updates the position of the water entity. It attempts to move left or right
+	 * based on the current direction and spawns additional water entities if
+	 * applicable.
+	 */
 	private void updatePosition() {
 		if (watersToSpawn > 0) {
 			Model.getInstance().getCurrentLevel().getBubbleManager().addWater(new Water(x, y, watersToSpawn - 1));
@@ -55,24 +93,25 @@ public class Water extends MovingEntity {
 			}
 		}
 	}
-	
-	public void setFruit(FruitType fruitType) {
-		this.fruitType = fruitType;
-	}
 
+	/**
+	 * Updates the state of the water entity. This includes decreasing its lifespan,
+	 * checking if it should be deleted or spawn a fruit, and updating its position.
+	 */
 	@Override
 	public void updateEntity() {
 		System.out.println(direction);
 		lifeSpan--;
 		if (lifeSpan <= 0) {
-			if (fruitType != null)
+			if (fruitType != null) {
 				Model.getInstance().getCurrentLevel().getFruitManager().addFruit(new Fruit(x, y, fruitType));
+			}
 			delete();
 		}
-		if (y == Level.GAME_HEIGHT)
+		if (y == Level.GAME_HEIGHT) {
 			setY(-TILE_SIZE);
-		
+		}
+
 		updatePosition();
 	}
-
 }

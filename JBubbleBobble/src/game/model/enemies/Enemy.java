@@ -1,104 +1,163 @@
 package game.model.enemies;
 
 import java.util.Random;
-
 import game.model.Fruit;
 import game.model.Fruit.FruitType;
 import game.model.HelpMethods;
 import game.model.Model;
 import game.model.entities.MovingEntity;
 
+/**
+ * The {@code Enemy} class represents an abstract enemy in the game. It extends
+ * the {@link MovingEntity} class and provides additional functionality such as
+ * changing color, being killed, and dropping fruit.
+ */
 public abstract class Enemy extends MovingEntity {
 
+	// Static Fields
+	public static final int RED_TIME = 10000; // Time in milliseconds before the enemy turns red.
+
+	// Non-static Fields
+	private ColorState colorState; // Current color of the entity.
+	protected float redXSpeed; // Speed when the enemy is in the red state.
+	protected float movementSpeed; // Current movement speed of the enemy.
+	private boolean dead; // Indicates if the enemy is dead.
+	private boolean isPopped; // Indicates if the enemy is popped.
+	protected boolean isStopped; // Indicates if the enemy is stopped.
+
 	/**
-	 * Enum representing possible colors for the entity.
+	 * Enum representing possible colors for the enemy.
 	 */
 	public enum ColorState {
 		NORMAL, RED
 	}
 
-	// Current color of the entity
-	protected ColorState colorState;
-	protected float redXSpeed;
-	protected float movementSpeed;
-	protected boolean dead;
+	// Constructor
 
-
-	public static final int RED_TIME = 10000; // Tempo in millisecondi prima di diventare rosso
-
-	public float getMovementSpeed() {
-		return movementSpeed;
-	}
-
-	public void setMovementSpeed(float speed) {
-		this.movementSpeed = speed;
-	}
-
-	protected boolean isPopped;
-	protected boolean isStopped;
-
+	/**
+	 * Constructs an {@code Enemy} with specified position and character code.
+	 *
+	 * @param x    the x-coordinate of the enemy.
+	 * @param y    the y-coordinate of the enemy.
+	 * @param code the character code representing the enemy.
+	 */
 	public Enemy(float x, float y, char code) {
 		super(x, y, code);
 		redXSpeed = 2.0f;
 		colorState = ColorState.NORMAL;
 		movementSpeed = 1.0f;
-		// initializeColorChangeTimer();
 	}
 
+	/**
+	 * Constructs an {@code Enemy} with specified position, dimensions, and
+	 * character code.
+	 *
+	 * @param x      the x-coordinate of the enemy.
+	 * @param y      the y-coordinate of the enemy.
+	 * @param width  the width of the enemy.
+	 * @param height the height of the enemy.
+	 * @param code   the character code representing the enemy.
+	 */
 	public Enemy(float x, float y, float width, float height, char code) {
 		super(x, y, width, height, code);
 		redXSpeed = 2.0f;
 		colorState = ColorState.NORMAL;
 		movementSpeed = 1.0f;
-		// initializeColorChangeTimer();
 	}
 
-	public boolean isPopped() {
-		return isPopped;
+	// Getters
+
+	/**
+	 * Returns the current movement speed of the enemy.
+	 *
+	 * @return the movement speed of the enemy.
+	 */
+	public float getMovementSpeed() {
+		return movementSpeed;
 	}
 
-	public void pop() {
-		isPopped = true;
-	}
-
-	public boolean randomBoolean(int chances) {
-		return new Random().nextInt(0, chances) == 0;
-	}
-
+	/**
+	 * Returns whether the enemy is dead.
+	 *
+	 * @return {@code true} if the enemy is dead, {@code false} otherwise.
+	 */
 	public boolean isDead() {
 		return dead;
 	}
 
+	/**
+	 * Returns whether the enemy is popped.
+	 *
+	 * @return {@code true} if the enemy is popped, {@code false} otherwise.
+	 */
+	public boolean isPopped() {
+		return isPopped;
+	}
+
+	/**
+	 * Returns whether the enemy is stopped.
+	 *
+	 * @return {@code true} if the enemy is stopped, {@code false} otherwise.
+	 */
 	public boolean isStopped() {
 		return isStopped;
 	}
 
+	/**
+	 * Returns the current color state of the enemy.
+	 *
+	 * @return the color state of the enemy.
+	 */
+	public ColorState getColorState() {
+		return colorState;
+	}
+
+	// Setters
+
+	/**
+	 * Sets the movement speed of the enemy.
+	 *
+	 * @param speed the new movement speed of the enemy.
+	 */
+	public void setMovementSpeed(float speed) {
+		this.movementSpeed = speed;
+	}
+
+	/**
+	 * Sets whether the enemy is stopped.
+	 *
+	 * @param isStopped {@code true} if the enemy is stopped, {@code false}
+	 *                  otherwise.
+	 */
 	public void setStopped(boolean isStopped) {
 		this.isStopped = isStopped;
 	}
 
 	/**
-	 * Sets the color of the entity.
-	 * 
-	 * @param color The new color of the entity.
+	 * Sets the color state of the enemy.
+	 *
+	 * @param colorState the new color state of the enemy.
 	 */
 	public void setColorState(ColorState colorState) {
 		this.colorState = colorState;
-		if (colorState == ColorState.RED) {
+		if (colorState == ColorState.RED)
 			movementSpeed = redXSpeed;
-		}
 	}
 
-	public ColorState getColorState() {
-		return colorState;
-	}
+	// Other Methods
 
+	/**
+	 * Kills the enemy by setting its state to dead and adjusting its speed.
+	 */
 	public void kill() {
 		dead = true;
 		setxSpeed(0);
 		setAirSpeed(0.7f);
 	}
 
+	/**
+	 * Removes the enemy from the game if it is grounded, dropping a random fruit.
+	 */
 	public void removeEnemy() {
 		if (HelpMethods.isEntityGrounded(this)) {
 			Fruit fruit = new Fruit(x, y, switch (new Random().nextInt(5)) {
@@ -110,28 +169,25 @@ public abstract class Enemy extends MovingEntity {
 			});
 			Model.getInstance().getCurrentLevel().getFruitManager().addFruit(fruit);
 			Model.getInstance().getCurrentLevel().getEnemyManager().removeEnemy(this);
-			System.out.println("Estas muerto");
 		}
 	}
-	
+
+	/**
+	 * Returns a random boolean based on a given chance.
+	 *
+	 * @param chances the number of chances to get {@code true}.
+	 * @return {@code true} with a 1 in {@code chances} probability, otherwise
+	 *         {@code false}.
+	 */
+	public boolean randomBoolean(int chances) {
+		return new Random().nextInt(chances) == 0;
+	}
+
+	/**
+	 * Updates the state of the enemy each game tick.
+	 */
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
 	}
-
-	/**
-	 * Inizializza il timer che cambierà il colore del nemico a intervalli
-	 * specificati.
-	 */
-	/*
-	 * public void initializeColorChangeTimer() { Timer timer = new
-	 * Timer("EnemyColorChangeTimer", true);
-	 * 
-	 * // Cambia il colore a rosso dopo RED_TIME millisecondi timer.schedule(new
-	 * TimerTask() {
-	 * 
-	 * @Override public void run() { setColorState(ColorState.RED); } }, RED_TIME);
-	 * }
-	 */
-
 }

@@ -12,9 +12,6 @@ public class CrystalRing extends Powerup {
 		super(0, 0, CODE, POINTS, DURATION);
 	}
 
-	public CrystalRing(float x, float y) {
-		super(x, y, CODE, POINTS, DURATION);
-	}
 
 	@Override
 	public void effect() {

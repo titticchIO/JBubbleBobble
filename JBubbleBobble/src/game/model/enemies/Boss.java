@@ -1,9 +1,6 @@
 package game.model.enemies;
 
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import game.model.HelpMethods;
 import game.model.level.Level;
 import game.model.tiles.Tile;

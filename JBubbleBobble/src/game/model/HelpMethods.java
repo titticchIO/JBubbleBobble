@@ -1,11 +1,8 @@
 package game.model;
 
-import java.util.HashMap;
-
 import game.model.entities.Entity;
 import game.model.entities.MovingEntity;
 import game.model.level.Level;
-import game.model.level.LevelLoader;
 import game.model.tiles.Tile;
 
 public class HelpMethods {
@@ -16,7 +13,7 @@ public class HelpMethods {
 		return false;
 	}
 
-	public static boolean isSolid(float x, float y) {
+	private static boolean isSolid(float x, float y) {
 		char[][] lvlData = Model.getInstance().getCurrentLevel().getLvlData();
 
 		if (x < 0 || x >= Level.GAME_WIDTH) {
@@ -46,28 +43,6 @@ public class HelpMethods {
 
 	public static boolean isEntityInsideWall(float x, float y, float width, float height) {
 		return isSolid(x, y) || isSolid(x + width, y) || isSolid(x, y + height) || isSolid(x + width, y + height);
-	}
-
-	public static float getEntityXPosNextToWall(MovingEntity movingEntity) {
-		float x = movingEntity.getX();
-		float y = movingEntity.getY();
-		float width = movingEntity.getWidth();
-		float height = movingEntity.getHeight();
-		float xSpeed = movingEntity.getxSpeed();
-
-		if (xSpeed > 0) { // Moving right
-			// Stop just before the right side of the entity intersects a solid block
-			int xTilePos = (int) ((x + width) / Tile.TILE_SIZE);
-			float xPosNextToWall = xTilePos * Tile.TILE_SIZE - width - 0.1f + Tile.TILE_SIZE;
-			return xPosNextToWall;
-		} else if (xSpeed < 0) { // Moving left
-			// Stop just before the left side of the entity intersects a solid block
-			int xTilePos = (int) (x / Tile.TILE_SIZE);
-			float xPosNextToWall = (xTilePos + 1) * Tile.TILE_SIZE + 0.1f - Tile.TILE_SIZE;
-			return xPosNextToWall;
-		}
-
-		return x; // If not moving, return current x position
 	}
 
 	public static float getEntityPosUnderRoofOrAboveFloor(MovingEntity movingEntity, float airSpeed) {

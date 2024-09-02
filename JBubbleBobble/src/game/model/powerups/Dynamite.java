@@ -12,9 +12,6 @@ public class Dynamite extends Powerup{
 		super(0, 0, CODE, POINTS, DURATION);
 	}
 
-	public Dynamite(float x, float y) {
-		super(x, y, CODE, POINTS, DURATION);
-	}
 	
 	@Override
 	public void effect() {

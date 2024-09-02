@@ -1,8 +1,6 @@
 package game.model;
 
 import java.util.Random;
-
-import game.model.Fruit.FruitType;
 import game.model.entities.Entity;
 
 
@@ -20,7 +18,7 @@ public class Fruit extends Entity {
 		}
 	}
 
-	int points;
+	private int points;
 
 	public Fruit(float x, float y, FruitType fruitType) {
 		super(x, y, fruitType.code);

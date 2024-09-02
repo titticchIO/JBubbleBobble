@@ -8,8 +8,4 @@ public class OrangeParasol extends Parasol {
 	public OrangeParasol() {
 		super(0, 0, 3);
 	}
-
-	public OrangeParasol(float x, float y) {
-		super(x, y, 3);
-	}
 }

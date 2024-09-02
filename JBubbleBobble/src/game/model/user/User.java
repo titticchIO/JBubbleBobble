@@ -1,7 +1,7 @@
 package game.model.user;
 
 public class User {
-	
+
 	private String nickname;
 	private int highScore;
 	private String avatarPath;
@@ -9,7 +9,7 @@ public class User {
 	private int playedGames;
 	private int gamesWon;
 	private int gamesLost;
-	
+
 	public User(String nickname, int highScore, String avatarPath, int playedGames, int gamesWon, int gamesLost) {
 		this.nickname = nickname;
 		this.highScore = highScore;
@@ -59,8 +59,6 @@ public class User {
 		this.nickname = nickname;
 	}
 
-	
-
 	public int getHighScore() {
 		return highScore;
 	}
@@ -68,26 +66,26 @@ public class User {
 	public void setHighScore(int highScore) {
 		this.highScore = highScore;
 	}
-	
+
 	public int getPoints() {
 		return points;
 	}
-	
+
 	public void addPoints(int pointsAmount) {
 		points += pointsAmount;
 		if (points > highScore) {
 			setHighScore(points);
 			UserMethods.saveUsersData(nickname, highScore, playedGames, gamesWon, gamesLost);
-			
+
 		}
 	}
-	
+
 	public void addLostGame() {
 		gamesLost += 1;
 		playedGames += 1;
 		UserMethods.saveUsersData(nickname, highScore, playedGames, gamesWon, gamesLost);
 	}
-	
+
 	public void addWonGame() {
 		gamesWon += 1;
 		playedGames += 1;

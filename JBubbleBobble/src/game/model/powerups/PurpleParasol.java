@@ -7,8 +7,4 @@ public class PurpleParasol extends Parasol {
 		super(0, 0, 7);
 	}
 
-	public PurpleParasol(float x, float y) {
-		super(x, y, 7);
-	}
-
 }

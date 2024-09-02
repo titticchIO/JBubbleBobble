@@ -1,7 +1,5 @@
 package game.model.entities;
 
-import java.util.Timer;
-import java.util.TimerTask;
 
 import game.model.HelpMethods;
 import game.model.level.Level;
