@@ -9,8 +9,8 @@ import game.model.HelpMethods;
 import game.model.Model;
 import game.model.enemies.Enemy;
 import game.model.entities.MovingEntity;
+import game.model.entities.Player;
 import game.model.level.Level;
-
 
 /**
  * The {@code Water} class represents a special effect entity that moves
@@ -22,7 +22,7 @@ public class Water extends MovingEntity {
 	// Static Fields
 	public static final char CODE = '_';
 	private MovingEntity capturedEntity;
-	
+
 	// Instance Fields
 	private int watersToSpawn;
 	private int lifeSpan;
@@ -63,8 +63,11 @@ public class Water extends MovingEntity {
 	 */
 	private void delete() {
 		Model.getInstance().getCurrentLevel().getBubbleManager().removeWater(this);
-		if (capturedEntity!=null&&capturedEntity instanceof Enemy enemy) {
-			enemy.kill();
+		if (capturedEntity != null) {
+			if (capturedEntity instanceof Enemy enemy)
+				enemy.kill();
+			else if (capturedEntity instanceof Player player)
+				player.setStunned(false);
 		}
 	}
 
@@ -97,18 +100,18 @@ public class Water extends MovingEntity {
 				delete();
 			}
 		}
-		if (capturedEntity!=null) {
-			capturedEntity.setPosition(x, y-3);
+		if (capturedEntity != null) {
+			capturedEntity.setPosition(x, y - 7);
 		}
 	}
-	
+
 	/**
 	 * Updates the state of the water entity. This includes decreasing its lifespan,
 	 * checking if it should be deleted or spawn a fruit, and updating its position.
 	 */
 	@Override
 	public void updateEntity() {
-		
+
 		lifeSpan--;
 		if (lifeSpan <= 0) {
 			if (fruitType != null) {
@@ -119,7 +122,7 @@ public class Water extends MovingEntity {
 		if (y == Level.GAME_HEIGHT) {
 			setY(-TILE_SIZE);
 		}
-		
+
 		updatePosition();
 	}
 

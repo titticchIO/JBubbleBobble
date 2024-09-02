@@ -15,7 +15,7 @@ import java.util.TimerTask;
  * implements the singleton pattern to ensure only one player instance exists in
  * the game.
  */
-public class Player extends MovingEntity implements Jumping{
+public class Player extends MovingEntity implements Jumping {
 
 	// Static Fields
 	public static final char CODE = 'P';
@@ -269,7 +269,7 @@ public class Player extends MovingEntity implements Jumping{
 	public void setCrystalRingActive(boolean crystalRingActive) {
 		this.crystalRingActive = crystalRingActive;
 	}
-	
+
 	public Timer getInvincibilityTimer() {
 		return invincibilityTimer;
 	}
@@ -306,6 +306,14 @@ public class Player extends MovingEntity implements Jumping{
 	 */
 	public void setInvulnerable(boolean isInvulnerable) {
 		this.isInvulnerable = isInvulnerable;
+	}
+	
+	/**
+	 * Sets player stun 
+	 * @param isStunned
+	 */
+	public void setStunned(boolean isStunned) {
+		this.isStunned = isStunned;
 	}
 
 	/**

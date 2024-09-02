@@ -329,9 +329,18 @@ public class Level {
 		if (playerHit.isPresent()) {
 			player.stun(5);
 		}
+		//Player water collision
+		bubbleManager.getWaters().stream().filter(w->w.getCapturedEntity()==null&&HelpMethods.isEntityGrounded(w)).forEach(w->{
+			Optional<Player> playerCapture=Entity.checkCollision(w, player);
+			if (playerCapture.isPresent()){
+				player.stun(30);
+				w.setCapturedEntity(player);
+			}
+		});
+		
 		// Enemy water collision
-		 bubbleManager.getWaters().stream().forEach(w->{
-			 Optional<Enemy> enemyCapture=Entity.checkCollision(w, enemyManager.getEnemies());
+		 bubbleManager.getWaters().stream().filter(w->w.getCapturedEntity()==null).forEach(w->{
+			 Optional<Enemy> enemyCapture=Entity.checkCollision(w, enemyManager.getEnemies().stream().filter(e->!(e instanceof Boss)).toList());
 			 if (enemyCapture.isPresent()) {
 				 enemyCapture.get().setStopped(true);
 				 w.setCapturedEntity(enemyCapture.get());
