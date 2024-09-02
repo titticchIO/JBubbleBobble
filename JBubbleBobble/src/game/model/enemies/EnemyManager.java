@@ -23,7 +23,6 @@ public class EnemyManager {
 	private List<Laser> lasers;
 	private Timer shootLaserTimer;
 	private Timer changeColorTimer;
-	private boolean boss;
 
 	/**
 	 * Constructs an {@code EnemyManager} with empty lists of enemies and lasers.
@@ -128,9 +127,9 @@ public class EnemyManager {
 			shootLaserTimer.schedule(new TimerTask() {
 				@Override
 				public void run() {
-					enemies.stream().forEach( x -> {
-							if (x instanceof Invader invader)
-								invader.shootLaser();
+					enemies.stream().forEach(x -> {
+						if (x instanceof Invader invader)
+							invader.shootLaser();
 					});
 					shootLaserTimer = null;
 				}
@@ -146,14 +145,10 @@ public class EnemyManager {
 				}
 			}, 15000);
 		}
-			
 	}
-
+	
 	public boolean isBoss() {
-		return boss;
+		return enemies.stream().anyMatch(e -> e instanceof Boss);
 	}
 
-	public void setBoss() {
-		boss = enemies.stream().anyMatch(e -> e instanceof Boss);
-	}
 }

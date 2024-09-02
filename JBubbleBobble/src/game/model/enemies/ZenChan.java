@@ -3,9 +3,24 @@ package game.model.enemies;
 import static game.model.HelpMethods.isSolidVerticalLine;
 import static game.model.HelpMethods.isEntityInsideWall;
 
+/**
+ * The {@code ZenChan} class represents an enemy that can move horizontally and
+ * jump, switching direction when hitting a wall. It extends the {@link Enemy}
+ * class.
+ */
 public class ZenChan extends Enemy {
+
+	// Static Fields
 	public static final char CODE = 'Z';
 
+	// Constructors
+
+	/**
+	 * Constructs a {@code ZenChan} enemy with the specified position.
+	 *
+	 * @param x the x-coordinate of the ZenChan.
+	 * @param y the y-coordinate of the ZenChan.
+	 */
 	public ZenChan(float x, float y) {
 		super(x, y, CODE);
 		setDirection(Direction.RIGHT);
@@ -13,6 +28,11 @@ public class ZenChan extends Enemy {
 		setColorState(ColorState.NORMAL);
 	}
 
+	// Private Methods
+
+	/**
+	 * Switches the direction of ZenChan when it encounters a wall.
+	 */
 	private void switchDirection() {
 		if (isEntityInsideWall(this))
 			return;
@@ -29,6 +49,11 @@ public class ZenChan extends Enemy {
 		}
 	}
 
+	// Override Methods
+
+	/**
+	 * Updates the state of ZenChan each game tick.
+	 */
 	@Override
 	public void updateEntity() {
 		updateYPos();

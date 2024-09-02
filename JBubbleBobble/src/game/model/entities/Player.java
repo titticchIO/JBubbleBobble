@@ -16,36 +16,33 @@ import java.util.TimerTask;
  */
 public class Player extends MovingEntity {
 
-	/**
-	 * Enum representing the various states the player can be in.
-	 */
-	public enum State {
-		WALK, JUMP, SHOOT
-	}
-
+	// Static Fields
 	public static final char CODE = 'P';
 	public static final int NUMBER_OF_LIVES = 200; // The total number of lives the player starts with.
 	public static final long INVULNERABILITY_INTERVAL = 5000; // The duration of invulnerability after losing a life.
 	public static final long ATTACK_INTERVAL = 100; // The minimum time interval between bubble shots (in milliseconds).
-
 	private static Player instance; // Singleton instance of the Player class.
 
+	// Non-static Fields
 	private Timer stunTimer;
-
-	private Direction bubbleDirection; // Direction in which the player will shoot bubbles.
-	private State state; // Current state of the player.
-	private int lives; // Current number of lives the player has.
-	private boolean isStunned; // Indicates if the entity is stunned
-	private long attackSpeed; // The speed at which the player can shoot bubbles.
-	private float extraXSpeed; // Extra speed applied to the player's movement.
-	private float previousX; // Previous x-coordinate used for distance tracking.
-	private boolean isJumping; // Indicates whether the player is currently jumping.
-	private boolean isInvulnerable; // Indicates whether the player is invulnerable.
-	private boolean isShooting; // Indicates whether the player is currently shooting.
-	private boolean canShoot; // Indicates whether the player can shoot a bubble.
+	private Direction bubbleDirection;
+	private int lives;
+	private long attackSpeed;
+	private float extraXSpeed;
+	private float previousX;
+	private boolean isStunned;
+	private boolean isJumping;
+	private boolean isInvulnerable;
+	private boolean isShooting;
+	private boolean canShoot;
 	private boolean crystalRingActive;
 	private boolean amethystRingActive;
 	private boolean rubyRingActive;
+
+	// Enum representing the various states the player can be in.
+	public enum State {
+		WALK, JUMP, SHOOT
+	}
 
 	/**
 	 * Returns the singleton instance of the {@code Player} class.
@@ -72,6 +69,8 @@ public class Player extends MovingEntity {
 		return instance;
 	}
 
+	// Constructor
+
 	/**
 	 * Private constructor to enforce singleton pattern.
 	 *
@@ -82,7 +81,6 @@ public class Player extends MovingEntity {
 	 */
 	private Player(float x, float y, float width, float height) {
 		super(x, y, width, height, CODE);
-		state = State.WALK;
 		setBubbleDirection(Direction.RIGHT);
 		lives = NUMBER_OF_LIVES;
 		extraXSpeed = 1;
@@ -90,6 +88,8 @@ public class Player extends MovingEntity {
 		attackSpeed = 2;
 		previousX = x;
 	}
+
+	// Getters
 
 	/**
 	 * Returns the current number of lives the player has.
@@ -101,6 +101,15 @@ public class Player extends MovingEntity {
 	}
 
 	/**
+	 * Returns current bubble direction.
+	 *
+	 * @return current bubble shooting direction.
+	 */
+	public Direction getBubbleDirection() {
+		return bubbleDirection;
+	}
+
+	/**
 	 * Returns whether the player is currently jumping.
 	 *
 	 * @return {@code true} if the player is jumping, {@code false} otherwise.
@@ -109,8 +118,22 @@ public class Player extends MovingEntity {
 		return isJumping;
 	}
 
+	/**
+	 * Returns whether the player is currently stunned.
+	 *
+	 * @return {@code true} if the player is jumping, {@code false} otherwise.
+	 */
 	public boolean isStunned() {
 		return isStunned;
+	}
+
+	/**
+	 * Returns whether the player can shoot.
+	 *
+	 * @return {@code true} if the player can shoot, {@code false} otherwise.
+	 */
+	public boolean isCanShoot() {
+		return canShoot;
 	}
 
 	/**
@@ -122,9 +145,46 @@ public class Player extends MovingEntity {
 		return isShooting;
 	}
 
+	/**
+	 * Returns whether the player is currently under the effect of CrystalRing.
+	 *
+	 * @return {@code true} if the player is under the effect of CrystalRing,
+	 *         {@code false} otherwise.
+	 */
 	public boolean isCrystalRingActive() {
 		return crystalRingActive;
 	}
+
+	/**
+	 * Returns whether the player is currently under the effect of AmethystRing.
+	 *
+	 * @return {@code true} if the player is under the effect of AmethystRing,
+	 *         {@code false} otherwise.
+	 */
+	public boolean isAmethystRingActive() {
+		return amethystRingActive;
+	}
+
+	/**
+	 * Returns whether the player is currently under the effect of RubyRing.
+	 *
+	 * @return {@code true} if the player is under the effect of RubyRing,
+	 *         {@code false} otherwise.
+	 */
+	public boolean isRubyRingActive() {
+		return rubyRingActive;
+	}
+
+	/**
+	 * Returns whether the player is currently invulnerable.
+	 *
+	 * @return {@code true} if the player is invulnerable, {@code false} otherwise.
+	 */
+	public boolean isInvulnerable() {
+		return isInvulnerable;
+	}
+
+	// Setters
 
 	/**
 	 * Sets the player's movement direction and adjusts the bubble shooting
@@ -196,8 +256,64 @@ public class Player extends MovingEntity {
 		this.isShooting = isShooting;
 	}
 
+	/**
+	 * Sets whether the player is affected by CrystalRing power up.
+	 *
+	 * @param crystalRingActive {@code true} if the power up is active,
+	 *                          {@code false} otherwise.
+	 */
 	public void setCrystalRingActive(boolean crystalRingActive) {
 		this.crystalRingActive = crystalRingActive;
+	}
+
+	/**
+	 * Sets whether the player is affected by AmethystRing power up.
+	 *
+	 * @param amethystRingActive {@code true} if the power up is active,
+	 *                           {@code false} otherwise.
+	 */
+	public void setAmethystRingActive(boolean amethystRingActive) {
+		this.amethystRingActive = amethystRingActive;
+	}
+
+	/**
+	 * Sets whether the player is affected by RubyRing power up.
+	 *
+	 * @param rubyRingActive {@code true} if the power up is active, {@code false}
+	 *                       otherwise.
+	 */
+	public void setRubyRingActive(boolean rubyRingActive) {
+		this.rubyRingActive = rubyRingActive;
+	}
+
+	/**
+	 * Sets player invulnerability.
+	 * 
+	 * @param isInvulnerable {@code true} if the player is invulnerable,
+	 *                       {@code false} otherwise.
+	 */
+	public void setInvulnerable(boolean isInvulnerable) {
+		this.isInvulnerable = isInvulnerable;
+	}
+
+	/**
+	 * Sets player capacity to kill enemies by shooting at them.
+	 * 
+	 * @param canShoot {@code true} if the player is able to shoot down enemies,
+	 *                 {@code false} otherwise.
+	 */
+	public void setCanShoot(boolean canShoot) {
+		this.canShoot = canShoot;
+	}
+
+	/**
+	 * Sets shooting bubble direction.
+	 * 
+	 * @param bubbleDirection indicates in which directions bubbles are going to be
+	 *                        shot.
+	 */
+	public void setBubbleDirection(Direction bubbleDirection) {
+		this.bubbleDirection = bubbleDirection;
 	}
 
 	/**
@@ -262,7 +378,6 @@ public class Player extends MovingEntity {
 	 * current direction if not obstructed by a wall, and shooting is temporarily
 	 * disabled after each shot.
 	 */
-
 	public void shootBubble() {
 		// Checks if the player can shoot.
 		if (canShoot) {
@@ -294,6 +409,11 @@ public class Player extends MovingEntity {
 		}
 	}
 
+	/**
+	 * Stuns the player for time specified in the parameter.
+	 * 
+	 * @param stunTime duration of the player stun
+	 */
 	public void stun(int stunTime) {
 		if (stunTimer == null) {
 			System.out.println("stunned");
@@ -319,51 +439,9 @@ public class Player extends MovingEntity {
 	 */
 	@Override
 	public void updateEntity() {
-		if (!isStunned()) {
+		if (!isStunned())
 			updateXPos();
-		}
 		updateYPos();
 		gravity();
 	}
-
-	public boolean isInvulnerable() {
-		return isInvulnerable;
-	}
-
-	public void setInvulnerable(boolean isInvulnerable) {
-		this.isInvulnerable = isInvulnerable;
-	}
-
-	public boolean isCanShoot() {
-		return canShoot;
-	}
-
-	public void setCanShoot(boolean canShoot) {
-		this.canShoot = canShoot;
-	}
-
-	public Direction getBubbleDirection() {
-		return bubbleDirection;
-	}
-
-	public void setBubbleDirection(Direction bubbleDirection) {
-		this.bubbleDirection = bubbleDirection;
-	}
-
-	public boolean isAmethystRingActive() {
-		return amethystRingActive;
-	}
-
-	public void setAmethystRingActive(boolean amethystRingActive) {
-		this.amethystRingActive = amethystRingActive;
-	}
-
-	public boolean isRubyRingActive() {
-		return rubyRingActive;
-	}
-
-	public void setRubyRingActive(boolean rubyRingActive) {
-		this.rubyRingActive = rubyRingActive;
-	}
-
 }

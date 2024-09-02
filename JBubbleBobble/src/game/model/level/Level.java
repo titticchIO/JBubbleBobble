@@ -59,7 +59,6 @@ public class Level {
 		powerupManager = new PowerupManager();
 		fruitManager = new FruitManager();
 		lvlData = LevelLoader.loadLevel(this, levelNumber);
-		enemyManager.setBoss();
 		setBubblesSpawnPoints();
 	}
 
