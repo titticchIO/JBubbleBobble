@@ -81,7 +81,7 @@ public class LevelManager {
      */
     public static void saveLevelFile(int levelNum) {
 
-        String filePath = LEVELS_REL_PATH + "/Level" + levelNum + ".txt";
+        String filePath = LEVELS_REL_PATH + "/Livello" + levelNum + ".txt";
 
         try {
             File file = new File(filePath);
