@@ -2,6 +2,8 @@ package game.controller;
 
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -13,10 +15,18 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import javax.swing.JToggleButton;
 
 import game.controller.gamestates.GameState;
 import game.controller.gamestates.Menu;
 import game.model.Model;
+import game.model.bubbles.Bubble;
+import game.model.bubbles.ExtendBubble;
+import game.model.bubbles.FireBubble;
+import game.model.bubbles.SpecialBubble;
+import game.model.bubbles.ThunderBubble;
+import game.model.bubbles.WaterBubble;
+import game.model.entities.Player;
 import game.model.user.User;
 import game.view.View;
 import game.view.CheatFrame;
@@ -113,9 +123,80 @@ public class ActionListenersManager {
 		return e -> {
 			if (View.getInstance().getCheatFrame() == null) {
 				View.getInstance().setCheatFrame(new CheatFrame());
-				View.getInstance().getCheatFrame().setVisible(true);
+			}
+			View.getInstance().getCheatFrame().setVisible(true);
+			View.getInstance().getGameFrame().requestFocus();
+		};
+	}
+
+//	CHEATS
+//	public static ActionListener enableInvincibility() {
+//		return e -> {
+//			if (GameState.state == GameState.PLAYING) {
+//				Player.getInstance().setInvulnerable(true);
+//				Player.getInstance().getInvincibilityTimer().cancel();
+//			}
+//			View.getInstance().getGameFrame().requestFocus();
+//		};
+//	}
+
+	public static ItemListener enableInvincibility(JToggleButton button) {
+		return new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (GameState.state == GameState.PLAYING) {
+					if (button.isSelected()) {
+						Player.getInstance().setInvulnerable(true);
+						if (Player.getInstance().getInvincibilityTimer() != null) {
+							Player.getInstance().setInvincibilityTimer(null);
+							Player.getInstance().getInvincibilityTimer().cancel();
+						}
+					} else {
+						Player.getInstance().setInvulnerable(false);
+					}
+				}
+				View.getInstance().getGameFrame().requestFocus();
 			}
 		};
 	}
 
+	public static ActionListener skipLevel() {
+		return e -> {
+			if (GameState.state == GameState.PLAYING)
+				try {
+					Model.getInstance().nextLevel();
+				} catch (Exception ex) {
+					Model.getInstance().setWin();
+				}
+			View.getInstance().getGameFrame().requestFocus();
+		};
+	}
+
+	public static ActionListener spawnSpecialBubble(String bubbleType) {
+		return e -> {
+			if (GameState.state == GameState.PLAYING) {
+				switch (bubbleType) {
+				case "extend" -> Model.getInstance().getCurrentLevel().spawnBubble(new ExtendBubble());
+				default ->
+					Model.getInstance().getCurrentLevel().getBubbleManager().createSpecialBubble(switch (bubbleType) {
+					case "water" -> new WaterBubble();
+					case "fire" -> new FireBubble();
+					case "thunder" -> new ThunderBubble();
+					case "special" -> new SpecialBubble();
+					default -> throw new IllegalArgumentException("Unexpected value: " + bubbleType);
+					});
+				}
+			}
+			View.getInstance().getGameFrame().requestFocus();
+		};
+	}
+
+	public static ActionListener spawnRandomPowerup() {
+		return e -> {
+			if (GameState.state == GameState.PLAYING)
+				Model.getInstance().getCurrentLevel().getPowerupManager().createRandomPowerup();
+			View.getInstance().getGameFrame().requestFocus();
+		};
+	}
 }

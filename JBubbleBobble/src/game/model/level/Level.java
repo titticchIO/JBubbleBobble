@@ -275,7 +275,7 @@ public class Level {
 
 	private void checkPlayerBubbleCollisions() {
 		Optional<PlayerBubble> playerPopBubble = Entity.checkTopCollision(player, bubbleManager.getPlayerBubbles());
-		if (playerPopBubble.isPresent()&&HelpMethods.isEntityInsideWall(playerPopBubble.get())) {
+		if (playerPopBubble.isPresent() && HelpMethods.isEntityInsideWall(playerPopBubble.get())) {
 			playerPopBubble.get().popAndKill();
 			powerupManager.increaseNumberOfBubblesPopped();
 		}
@@ -298,23 +298,27 @@ public class Level {
 	}
 
 	public void checkLooseLife() {
-		// Checks if the player is invulnerable; if not, the player can lose a life.
-		Optional<MovingEntity> hazardHit = Entity.checkCollision(player, enemyManager.getHazards());
-		if (!player.isInvulnerable() && hazardHit.isPresent()) {
-			if (hazardHit.get() instanceof Enemy enemy && enemy.isDead())
-				return;
-			player.looseLife();
-			// Activates invulnerability.
-			player.setInvulnerable(true);
+		if (!player.isInvulnerable() && player.getInvincibilityTimer() == null) {
+			// Checks if the player is invulnerable; if not, the player can lose a life.
+			Optional<MovingEntity> hazardHit = Entity.checkCollision(player, enemyManager.getHazards());
+			if (hazardHit.isPresent()) {
+				if (hazardHit.get() instanceof Enemy enemy && enemy.isDead())
+					return;
+				player.looseLife();
+				// Activates invulnerability.
+				player.setInvulnerable(true);
 
-			// Sets a new invulnerability timer.
-			new Timer("Invulnerability").schedule(new TimerTask() {
-				@Override
-				public void run() {
-					// When the timer ends, the player becomes vulnerable again.
-					player.setInvulnerable(false);
-				}
-			}, Player.INVULNERABILITY_INTERVAL); // Sets the timer for the invulnerability interval.
+				// Sets a new invulnerability timer.
+				player.setInvincibilityTimer(new Timer("Invulnerability"));
+				player.getInvincibilityTimer().schedule(new TimerTask() {
+					@Override
+					public void run() {
+						// When the timer ends, the player becomes vulnerable again.
+						player.setInvulnerable(false);
+						player.setInvincibilityTimer(null);
+					}
+				}, Player.INVULNERABILITY_INTERVAL); // Sets the timer for the invulnerability interval.
+			}
 		}
 	}
 
@@ -369,7 +373,6 @@ public class Level {
 		bubbleManager.updateBubbles();
 		powerupManager.updatePowerups();
 		checkAllCollisions();
-		System.out.println(enemyManager.isBoss());
 
 //		if (checkPlayerEnemyCollision()) System.out.println("Hittato enemy");
 

@@ -6,6 +6,7 @@ import java.util.Observer;
 import game.controller.AudioManager;
 import game.controller.gamestates.Menu;
 import game.model.Model;
+import game.model.Paths;
 import game.model.level.Level;
 
 public class View implements Observer {
@@ -71,7 +72,7 @@ public class View implements Observer {
 
 //			AUDIO NOTIFICATIONS:
 			case "bubble" -> AudioManager.getInstance()
-					.play(AnimationAndImagesLoader.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (6).wav"));
+					.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (6).wav"));
 			}
 		}
 

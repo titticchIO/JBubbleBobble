@@ -1,9 +1,13 @@
 package game.model.enemies;
 
 import static game.model.HelpMethods.isSolidVerticalLine;
+
+import game.model.HelpMethods;
+import game.model.Jumping;
+
 import static game.model.HelpMethods.isEntityInsideWall;
 
-public class ZenChan extends Enemy {
+public class ZenChan extends Enemy implements Jumping{
 	public static final char CODE = 'Z';
 
 	public ZenChan(float x, float y) {
@@ -50,6 +54,14 @@ public class ZenChan extends Enemy {
 				if (randomBoolean(600))
 					jump();
 			}
+		}
+	}
+
+	@Override
+	public void jump() {
+		if (!inAir && !HelpMethods.isEntityInsideWall(this)) {
+			inAir = true;
+			airSpeed = jumpSpeed;
 		}
 	}
 

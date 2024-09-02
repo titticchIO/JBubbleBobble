@@ -6,11 +6,11 @@ import game.model.bubbles.special_effects.Water;
 import static game.model.tiles.Tile.TILE_SIZE;
 
 public class WaterBubble extends Bubble {
-	public static final char CODE = '_';
+	public static final char CODE = '/';
 
 	public WaterBubble() {
 		super(0, 0, TILE_SIZE - 1, TILE_SIZE - 1, CODE);
-		rise(-0.3f);
+		rise(-0.2f);
 		lifeSpan *= 10;
 	}
 

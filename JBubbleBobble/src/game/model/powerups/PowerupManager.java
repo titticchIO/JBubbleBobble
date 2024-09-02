@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -27,7 +28,6 @@ public class PowerupManager {
 	private int numberOfBlueCandies;
 	private int numberOfPinkCandies;
 	private Timer spawnTimer;
-	
 
 	public int getNumberOfBubblesPopped() {
 		return numberOfBubblesPopped;
@@ -64,15 +64,15 @@ public class PowerupManager {
 	public void increaseNumberOfThunderBubblesPopped() {
 		numberOfThunderBubblesPopped++;
 	}
-	
+
 	public void increaseNumberOfSpecialBubblesPopped() {
 		numberOfSpecialBubblesPopped++;
 	}
-	
+
 	public void increaseNumberOfExtendBubblesPopped() {
 		numberOfExtendBubblesPopped++;
 	}
-	
+
 	public void increaseNumberOfYellowCandies() {
 		numberOfYellowCandies++;
 	}
@@ -80,16 +80,14 @@ public class PowerupManager {
 	public void increaseNumberOfBlueCandies() {
 		numberOfBlueCandies++;
 	}
-	
+
 	public void increaseNumberOfPinkCandies() {
 		numberOfPinkCandies++;
 	}
-	
+
 	public void increaseDistanceTraveled(float newDistance) {
 		distanceTravelled += newDistance;
 	}
-	
-
 
 	public float getPercentDiff(float a, float b) {
 		return ((a - b) / b) * 100;
@@ -144,7 +142,23 @@ public class PowerupManager {
 				// Gestisci eventuali eccezioni
 			}
 		}
+	}
 
+	public void createRandomPowerup() {
+		Model.getInstance().getCurrentLevel().spawnPowerup(switch (new Random().nextInt(12)) {
+		case 0 -> new AmethystRing();
+		case 1 -> new BlueCandy();
+		case 2 -> new Clock();
+		case 3 -> new CrystalRing();
+		case 4 -> new Dynamite();
+		case 5 -> new OrangeParasol();
+		case 6 -> new PinkCandy();
+		case 7 -> new PurpleParasol();
+		case 8 -> new RedParasol();
+		case 9 -> new RubyRing();
+		case 10 -> new Shoes();
+		default -> new YellowCandy();
+		});
 	}
 
 	public boolean isTherePowerup(int x, int y) {

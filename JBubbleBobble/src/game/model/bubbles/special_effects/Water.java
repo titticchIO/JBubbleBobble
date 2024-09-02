@@ -62,6 +62,7 @@ public class Water extends MovingEntity {
 
 	@Override
 	public void updateEntity() {
+		System.out.println(direction);
 		lifeSpan--;
 		if (lifeSpan <= 0) {
 			if (fruitType != null)

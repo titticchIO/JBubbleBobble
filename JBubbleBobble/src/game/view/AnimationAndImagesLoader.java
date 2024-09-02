@@ -35,7 +35,7 @@ public class AnimationAndImagesLoader {
 
 	// Metodo per caricare un'ImageIcon dato un percorso
 	private static ImageIcon loadImageIcon(String relativePath) {
-		String absolutePath = getAbsolutePath(relativePath);
+		String absolutePath = Paths.getAbsolutePath(relativePath);
 		return new ImageIcon(absolutePath);
 	}
 
@@ -61,14 +61,6 @@ public class AnimationAndImagesLoader {
 		return icon != null ? icon.getImage() : null;
 	}
 
-	public static String getAbsolutePath(String relativePath) {
-		File file = new File("resources/" + relativePath);
-		if (file.exists()) {
-			return file.getAbsolutePath();
-		} else {
-			throw new IllegalArgumentException("File non trovato: " + relativePath);
-		}
-	}
 	
 	public static Image loadBubblePoppingImage() {
 		return loadEntityImage("/bubbles/bubble_pops.gif");

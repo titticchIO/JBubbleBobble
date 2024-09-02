@@ -3,6 +3,7 @@ package game.model.entities;
 import game.model.powerups.AmethystRing;
 import game.model.tiles.Tile;
 import game.model.HelpMethods;
+import game.model.Jumping;
 import game.model.Model;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,7 +15,7 @@ import java.util.TimerTask;
  * implements the singleton pattern to ensure only one player instance exists in
  * the game.
  */
-public class Player extends MovingEntity {
+public class Player extends MovingEntity implements Jumping{
 
 	/**
 	 * Enum representing the various states the player can be in.
@@ -31,6 +32,7 @@ public class Player extends MovingEntity {
 	private static Player instance; // Singleton instance of the Player class.
 
 	private Timer stunTimer;
+	private Timer invincibilityTimer;
 
 	private Direction bubbleDirection; // Direction in which the player will shoot bubbles.
 	private State state; // Current state of the player.
@@ -199,6 +201,14 @@ public class Player extends MovingEntity {
 	public void setCrystalRingActive(boolean crystalRingActive) {
 		this.crystalRingActive = crystalRingActive;
 	}
+	
+	public Timer getInvincibilityTimer() {
+		return invincibilityTimer;
+	}
+
+	public void setInvincibilityTimer(Timer invincibilityTimer) {
+		this.invincibilityTimer = invincibilityTimer;
+	}
 
 	/**
 	 * Increases the player's firing rate by decreasing the time between shots.
@@ -235,6 +245,7 @@ public class Player extends MovingEntity {
 	 */
 	public void looseLife() {
 		lives--;
+		System.out.println("life lost");
 	}
 
 	public void heal() {
