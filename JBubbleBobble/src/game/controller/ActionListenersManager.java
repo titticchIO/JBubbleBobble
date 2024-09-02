@@ -144,8 +144,8 @@ public class ActionListenersManager {
 					if (button.isSelected()) {
 						Player.getInstance().setInvulnerable(true);
 						if (Player.getInstance().getInvincibilityTimer() != null) {
-							Player.getInstance().setInvincibilityTimer(null);
 							Player.getInstance().getInvincibilityTimer().cancel();
+							Player.getInstance().setInvincibilityTimer(null);
 						}
 					} else {
 						Player.getInstance().setInvulnerable(false);

@@ -13,7 +13,6 @@ import game.model.bubbles.special_effects.Bolt;
 import game.model.bubbles.special_effects.FireBall;
 import game.model.bubbles.special_effects.Water;
 import game.model.entities.Entity;
-import game.model.entities.MovingEntity;
 import game.model.entities.Player;
 import game.model.tiles.Tile;
 
@@ -23,9 +22,6 @@ import game.model.tiles.Tile;
  * bolts, and water bubbles.
  */
 public class BubbleManager {
-
-	// Static Fields
-	private static final Random RANDOM = new Random();
 
 	// Instance Fields
 	private List<Bubble> specialBubbles;
@@ -246,21 +242,6 @@ public class BubbleManager {
 	                @Override
 	                public void run() {
 	                    waters.forEach(w -> w.updateEntity());
-	                    Optional<Water> playerWaterHit = Entity.checkCollision(Player.getInstance(), waters);
-	                    if (playerWaterHit.isPresent()) {
-	                        Player.getInstance().setAirSpeed(0);
-	                        Water waterHit = playerWaterHit.get();
-	                        if (HelpMethods.isEntityGrounded(waterHit)) {
-	                            Player.getInstance().setX(switch (waterHit.getDirection()) {
-	                                case LEFT -> Player.getInstance().getX() - Tile.TILE_SIZE;
-	                                case RIGHT -> Player.getInstance().getX() + Tile.TILE_SIZE;
-	                                default -> throw new IllegalArgumentException("Unexpected value: " + waterHit.getDirection());
-	                            });
-	                        } else {
-	                            Player.getInstance().setxSpeed(0);
-	                            Player.getInstance().setY(Player.getInstance().getY() + Tile.TILE_SIZE);
-	                        }
-	                    }
 	                    waterUpdateTimer = null;
 	                }
 	            }, 50);

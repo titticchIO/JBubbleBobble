@@ -15,6 +15,8 @@ import javax.swing.border.Border;
 import editor.controller.ActionListenersManager;
 import game.view.AnimationAndImagesLoader;
 import game.view.ImageLoader;
+import static editor.view.EditorPanel.SCALE;
+import static editor.view.EditorPanel.PANEL_HEIGHT;;
 
 /**
  * A scroll pane that allows users to select various sprites, including blocks, enemies, players, and others.
@@ -22,9 +24,6 @@ import game.view.ImageLoader;
 public class SpriteSelectionScrollPane extends JScrollPane {
 	
 	private static final long serialVersionUID = 1L;
-	
-    public static final int PANEL_HEIGHT = 600; // Example value for panel height
-    public static final float SCALE = 1.0f; // Example value for scale
 
     private List<SelectionButton> blocks;
     private List<SelectionButton> enemies;
@@ -65,6 +64,7 @@ public class SpriteSelectionScrollPane extends JScrollPane {
         addCategory(buttonPanel, "Others", others);
 
         setViewportView(buttonPanel);
+        System.out.println(getSize());
     }
 
     /**
@@ -125,6 +125,7 @@ public class SpriteSelectionScrollPane extends JScrollPane {
     private void setSize() {
         Dimension size = new Dimension((int) (80 * SCALE), PANEL_HEIGHT);
         setPreferredSize(size);
+        setSize(size);
     }
 
     /**

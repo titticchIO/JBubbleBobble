@@ -7,6 +7,7 @@ import game.model.Fruit;
 import game.model.Fruit.FruitType;
 import game.model.HelpMethods;
 import game.model.Model;
+import game.model.enemies.Enemy;
 import game.model.entities.MovingEntity;
 import game.model.level.Level;
 
@@ -20,7 +21,8 @@ public class Water extends MovingEntity {
 
 	// Static Fields
 	public static final char CODE = '_';
-
+	private MovingEntity capturedEntity;
+	
 	// Instance Fields
 	private int watersToSpawn;
 	private int lifeSpan;
@@ -61,6 +63,9 @@ public class Water extends MovingEntity {
 	 */
 	private void delete() {
 		Model.getInstance().getCurrentLevel().getBubbleManager().removeWater(this);
+		if (capturedEntity!=null&&capturedEntity instanceof Enemy enemy) {
+			enemy.kill();
+		}
 	}
 
 	/**
@@ -92,15 +97,18 @@ public class Water extends MovingEntity {
 				delete();
 			}
 		}
+		if (capturedEntity!=null) {
+			capturedEntity.setPosition(x, y-3);
+		}
 	}
-
+	
 	/**
 	 * Updates the state of the water entity. This includes decreasing its lifespan,
 	 * checking if it should be deleted or spawn a fruit, and updating its position.
 	 */
 	@Override
 	public void updateEntity() {
-		System.out.println(direction);
+		
 		lifeSpan--;
 		if (lifeSpan <= 0) {
 			if (fruitType != null) {
@@ -111,7 +119,15 @@ public class Water extends MovingEntity {
 		if (y == Level.GAME_HEIGHT) {
 			setY(-TILE_SIZE);
 		}
-
+		
 		updatePosition();
+	}
+
+	public MovingEntity getCapturedEntity() {
+		return capturedEntity;
+	}
+
+	public void setCapturedEntity(MovingEntity capturedEntity) {
+		this.capturedEntity = capturedEntity;
 	}
 }

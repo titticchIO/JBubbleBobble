@@ -330,13 +330,21 @@ public class Level {
 			player.stun(5);
 		}
 		// Enemy water collision
-		List<Water> torrent = bubbleManager.getWaters().stream().toList();
-		enemyHit = Entity.checkCollisions(torrent, enemyManager.getEnemies());
-		if (enemyHit.isPresent()) {
-			Optional<Water> water = Entity.checkCollision(enemyHit.get(), bubbleManager.getWaters());
-			water.get().setFruit(Fruit.randomFruitType());
-			enemyManager.removeEnemy(enemyHit.get());
-		}
+		 bubbleManager.getWaters().stream().forEach(w->{
+			 Optional<Enemy> enemyCapture=Entity.checkCollision(w, enemyManager.getEnemies());
+			 if (enemyCapture.isPresent()) {
+				 enemyCapture.get().setStopped(true);
+				 w.setCapturedEntity(enemyCapture.get());
+			 }
+		 });
+		
+//		List<Water> torrent = bubbleManager.getWaters().stream().toList();
+//		enemyHit = Entity.checkCollisions(torrent, enemyManager.getEnemies());
+//		if (enemyHit.isPresent()) {
+//			Optional<Water> water = Entity.checkCollision(enemyHit.get(), bubbleManager.getWaters());
+//			water.get().setFruit(Fruit.randomFruitType());
+//			enemyManager.removeEnemy(enemyHit.get());
+//		}
 
 	}
 
