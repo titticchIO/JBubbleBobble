@@ -24,7 +24,7 @@ public class LevelManager {
         level = new char[ROWS][COLS];
         emptyLevel();
     }
-
+    
     /**
      * Sets the current level data.
      *
@@ -52,7 +52,7 @@ public class LevelManager {
      */
     public static void setTile(int y, int x, char tile) {
         if (y >= 0 && y < ROWS && x >= 0 && x < COLS) 
-            level[y][x] = tile;
+            LevelManager.level[y][x] = tile;
         else {
             System.out.println(x + "|" + y);
             throw new IndexOutOfBoundsException("Position out of level bounds");

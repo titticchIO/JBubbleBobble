@@ -47,9 +47,9 @@ public class ActionListenersManager {
 	public static ActionListener startEditor() {
 		return e -> {
 			EditorFrame ef = EditorFrame.getInstance();
+			new LevelManager();
 			if (!ef.isVisible()) {
 				ef.setVisible(true);
-				new LevelManager();
 			} else {
 				ef.toFront(); // Porta l'editor in primo piano
 			}
