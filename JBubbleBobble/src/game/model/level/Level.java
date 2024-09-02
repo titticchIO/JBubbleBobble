@@ -288,7 +288,6 @@ public class Level {
 		}
 	}
 
-
 	public void checkLooseLife() {
 		if (!player.isInvulnerable() && player.getInvincibilityTimer() == null) {
 			// Checks if the player is invulnerable; if not, the player can lose a life.
@@ -329,32 +328,25 @@ public class Level {
 		if (playerHit.isPresent()) {
 			player.stun(5);
 		}
-		//Player water collision
-		bubbleManager.getWaters().stream().filter(w->w.getCapturedEntity()==null&&HelpMethods.isEntityGrounded(w)).forEach(w->{
-			Optional<Player> playerCapture=Entity.checkCollision(w, player);
-			if (playerCapture.isPresent()){
-				player.stun(30);
-				w.setCapturedEntity(player);
+		// Player water collision
+		bubbleManager.getWaters().stream().filter(w -> w.getCapturedEntity() == null && HelpMethods.isEntityGrounded(w))
+				.forEach(w -> {
+					Optional<Player> playerCapture = Entity.checkCollision(w, player);
+					if (playerCapture.isPresent()) {
+						player.stun(30);
+						w.setCapturedEntity(player);
+					}
+				});
+
+		// Enemy water collision
+		bubbleManager.getWaters().stream().filter(w -> w.getCapturedEntity() == null).forEach(w -> {
+			Optional<Enemy> enemyCapture = Entity.checkCollision(w,
+					enemyManager.getEnemies().stream().filter(e -> !(e instanceof Boss)).toList());
+			if (enemyCapture.isPresent()) {
+				enemyCapture.get().setStopped(true);
+				w.setCapturedEntity(enemyCapture.get());
 			}
 		});
-		
-		// Enemy water collision
-		 bubbleManager.getWaters().stream().filter(w->w.getCapturedEntity()==null).forEach(w->{
-			 Optional<Enemy> enemyCapture=Entity.checkCollision(w, enemyManager.getEnemies().stream().filter(e->!(e instanceof Boss)).toList());
-			 if (enemyCapture.isPresent()) {
-				 enemyCapture.get().setStopped(true);
-				 w.setCapturedEntity(enemyCapture.get());
-			 }
-		 });
-		
-//		List<Water> torrent = bubbleManager.getWaters().stream().toList();
-//		enemyHit = Entity.checkCollisions(torrent, enemyManager.getEnemies());
-//		if (enemyHit.isPresent()) {
-//			Optional<Water> water = Entity.checkCollision(enemyHit.get(), bubbleManager.getWaters());
-//			water.get().setFruit(Fruit.randomFruitType());
-//			enemyManager.removeEnemy(enemyHit.get());
-//		}
-
 	}
 
 	private void checkFruitCollisions() {

@@ -26,7 +26,6 @@ public class Water extends MovingEntity {
 	// Instance Fields
 	private int watersToSpawn;
 	private int lifeSpan;
-	private FruitType fruitType;
 
 	// Constructors
 
@@ -46,14 +45,12 @@ public class Water extends MovingEntity {
 	}
 
 	// Getters and Setters
+	public MovingEntity getCapturedEntity() {
+		return capturedEntity;
+	}
 
-	/**
-	 * Sets the type of fruit that will be spawned when the water expires.
-	 *
-	 * @param fruitType the type of fruit to spawn.
-	 */
-	public void setFruit(FruitType fruitType) {
-		this.fruitType = fruitType;
+	public void setCapturedEntity(MovingEntity capturedEntity) {
+		this.capturedEntity = capturedEntity;
 	}
 
 	// Other Methods
@@ -114,9 +111,6 @@ public class Water extends MovingEntity {
 
 		lifeSpan--;
 		if (lifeSpan <= 0) {
-			if (fruitType != null) {
-				Model.getInstance().getCurrentLevel().getFruitManager().addFruit(new Fruit(x, y, fruitType));
-			}
 			delete();
 		}
 		if (y == Level.GAME_HEIGHT) {
@@ -124,13 +118,5 @@ public class Water extends MovingEntity {
 		}
 
 		updatePosition();
-	}
-
-	public MovingEntity getCapturedEntity() {
-		return capturedEntity;
-	}
-
-	public void setCapturedEntity(MovingEntity capturedEntity) {
-		this.capturedEntity = capturedEntity;
 	}
 }
