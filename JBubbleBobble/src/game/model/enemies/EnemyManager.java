@@ -126,7 +126,7 @@ public class EnemyManager {
 				public void run() {
 					enemies.stream().forEach(x -> {
 						if (x instanceof Invader invader)
-							invader.shootLaser();
+							invader.shoot();
 					});
 					shootLaserTimer.cancel();;
 					shootLaserTimer = null;

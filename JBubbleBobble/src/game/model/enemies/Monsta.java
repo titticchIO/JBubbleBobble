@@ -2,6 +2,8 @@ package game.model.enemies;
 
 import static game.model.HelpMethods.isSolidHorizontalLine;
 import static game.model.HelpMethods.isSolidVerticalLine;
+
+import game.model.Bouncing;
 import game.model.HelpMethods;
 
 /**
@@ -9,7 +11,7 @@ import game.model.HelpMethods;
  * bounces off walls and floors while moving. It extends the {@link Enemy} class
  * and includes specific behavior like bouncing.
  */
-public class Monsta extends Enemy {
+public class Monsta extends Enemy implements Bouncing{
 
 	// Static Fields
 	public static final char CODE = 'M';

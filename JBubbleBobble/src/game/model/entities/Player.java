@@ -5,6 +5,8 @@ import game.model.tiles.Tile;
 import game.model.HelpMethods;
 import game.model.Jumping;
 import game.model.Model;
+import game.model.Shooting;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -15,7 +17,7 @@ import java.util.TimerTask;
  * implements the singleton pattern to ensure only one player instance exists in
  * the game.
  */
-public class Player extends MovingEntity implements Jumping {
+public class Player extends MovingEntity implements Jumping, Shooting {
 
 	// Static Fields
 	public static final char CODE = 'P';
@@ -36,8 +38,8 @@ public class Player extends MovingEntity implements Jumping {
 	private float previousX; // Previous x-coordinate used for distance tracking.
 	private boolean isJumping; // Indicates whether the player is currently jumping.
 	private boolean isInvulnerable; // Indicates whether the player is invulnerable.
-	private boolean isShooting; // Indicates whether the player is currently shooting.
 	private boolean canShoot; // Indicates whether the player can shoot a bubble.
+	private boolean specialBubbleActive; // Indicates whether the Special Bubble is affecting the player.
 	private boolean crystalRingActive;
 	private boolean amethystRingActive;
 	private boolean rubyRingActive;
@@ -139,8 +141,8 @@ public class Player extends MovingEntity implements Jumping {
 	 *
 	 * @return {@code true} if the player is shooting, {@code false} otherwise.
 	 */
-	public boolean isShooting() {
-		return isShooting;
+	public boolean getSpecialBubbleActive() {
+		return specialBubbleActive;
 	}
 
 	/**
@@ -250,8 +252,8 @@ public class Player extends MovingEntity implements Jumping {
 	 * @param isShooting {@code true} if the player is shooting, {@code false}
 	 *                   otherwise.
 	 */
-	public void setShooting(boolean isShooting) {
-		this.isShooting = isShooting;
+	public void setSpecialBubbleActive(boolean specialBubbleActive) {
+		this.specialBubbleActive = specialBubbleActive;
 	}
 
 	/**
@@ -396,7 +398,7 @@ public class Player extends MovingEntity implements Jumping {
 	 * current direction if not obstructed by a wall, and shooting is temporarily
 	 * disabled after each shot.
 	 */
-	public void shootBubble() {
+	public void shoot() {
 		// Checks if the player can shoot.
 		if (canShoot) {
 			Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfBubbles();

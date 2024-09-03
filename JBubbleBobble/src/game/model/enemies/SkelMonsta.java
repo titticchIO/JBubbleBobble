@@ -1,5 +1,6 @@
 package game.model.enemies;
 
+import game.model.Bouncing;
 import game.model.level.Level;
 import game.model.tiles.Tile;
 
@@ -8,7 +9,7 @@ import game.model.tiles.Tile;
  * and vertically, changing direction upon hitting the boundaries of the game
  * area. It extends the {@link Enemy} class.
  */
-public class SkelMonsta extends Enemy {
+public class SkelMonsta extends Enemy implements Bouncing{
 
 	// Static Fields
 	public static final char CODE = 'S';

@@ -1,19 +1,14 @@
 package game.model.bubbles;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import game.model.HelpMethods;
 import game.model.Model;
 import game.model.bubbles.special_effects.Bolt;
 import game.model.bubbles.special_effects.FireBall;
 import game.model.bubbles.special_effects.Water;
-import game.model.entities.Entity;
-import game.model.entities.Player;
 import game.model.tiles.Tile;
 
 /**

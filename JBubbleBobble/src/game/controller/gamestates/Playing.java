@@ -90,7 +90,7 @@ public class Playing extends State implements Statemethods {
 			break;
 		case KeyEvent.VK_SPACE:
 			if (!Model.getInstance().getCurrentLevel().getPlayer().isStunned())
-				Model.getInstance().getCurrentLevel().getPlayer().shootBubble();
+				Model.getInstance().getCurrentLevel().getPlayer().shoot();
 		}
 
 	}

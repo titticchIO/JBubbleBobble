@@ -4,13 +4,14 @@ import static game.model.HelpMethods.isEntityInsideWall;
 import static game.model.HelpMethods.isSolidVerticalLine;
 import game.model.HelpMethods;
 import game.model.Model;
+import game.model.Shooting;
 
 /**
  * The {@code Invader} class represents an invader enemy in the game. It extends
  * the {@link Enemy} class and includes behavior specific to invaders, such as
  * switching direction and shooting lasers.
  */
-public class Invader extends Enemy {
+public class Invader extends Enemy implements Shooting{
 
 	// Static Fields
 	public static final char CODE = 'I';
@@ -81,7 +82,7 @@ public class Invader extends Enemy {
 	/**
 	 * Makes the invader shoot a laser with a certain probability.
 	 */
-	public void shootLaser() {
+	public void shoot() {
 		if (randomBoolean(7))
 			Model.getInstance().getCurrentLevel().getEnemyManager().addLaser(new Laser(x + 5, y + height, 6, 20));
 	}

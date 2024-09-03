@@ -35,14 +35,13 @@ public class SpecialBubble extends Bubble {
 	 */
 	@Override
 	public void pop() {
-		Player.getInstance().setShooting(true);
+		Player.getInstance().setSpecialBubbleActive(true);
 		new Timer("SpecialBubble").schedule(new TimerTask() {
 			@Override
 			public void run() {
-				Player.getInstance().setShooting(false);
+				Player.getInstance().setSpecialBubbleActive(false);
 			}
 		}, 10000); // Enables shooting for 10 seconds
-
 		Model.getInstance().getCurrentLevel().getBubbleManager().removeBubble(this);
 	}
 

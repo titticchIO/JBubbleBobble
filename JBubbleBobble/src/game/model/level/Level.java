@@ -173,7 +173,7 @@ public class Level {
 						b.pop();
 					else {
 						setEnemyInBubble(b, e);
-						if (player.isShooting())
+						if (player.getSpecialBubbleActive())
 							b.popAndKill();
 					}
 				}
