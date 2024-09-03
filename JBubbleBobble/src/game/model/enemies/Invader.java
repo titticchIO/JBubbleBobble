@@ -82,6 +82,7 @@ public class Invader extends Enemy implements Shooting{
 	/**
 	 * Makes the invader shoot a laser with a certain probability.
 	 */
+	@Override
 	public void shoot() {
 		if (randomBoolean(7))
 			Model.getInstance().getCurrentLevel().getEnemyManager().addLaser(new Laser(x + 5, y + height, 6, 20));

@@ -57,6 +57,7 @@ public class SkelMonsta extends Enemy implements Bouncing{
 	 * Controls the bouncing movement of the SkelMonsta. Changes direction when it
 	 * hits the game boundaries.
 	 */
+	@Override
 	public void bounce() {
 		// Move Down
 		if (y - 1 <= Tile.TILE_SIZE) {

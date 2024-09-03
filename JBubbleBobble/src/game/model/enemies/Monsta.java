@@ -58,6 +58,7 @@ public class Monsta extends Enemy implements Bouncing{
 	/**
 	 * Handles the bouncing behavior of the monsta when it hits solid surfaces.
 	 */
+	@Override
 	public void bounce() {
 		// GO DOWN
 		if (isSolidHorizontalLine(x, x + width, y - 1)) {

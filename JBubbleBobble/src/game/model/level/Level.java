@@ -303,7 +303,7 @@ public class Level {
 				enemyManager.getEnemies().stream().filter(e -> !e.isDead()).toList());
 		if (enemyHit.isPresent()) {
 			if (enemyHit.get() instanceof Boss boss) {
-				boss.looseLives();
+				boss.looseLife();
 			} else {
 				enemyHit.get().kill();
 				enemyHit.get().updateEntity();
@@ -321,7 +321,7 @@ public class Level {
 				enemyManager.getEnemies().stream().filter(e -> !e.isDead()).toList());
 		if (enemyHit.isPresent()) {
 			if (enemyHit.get() instanceof Boss boss) {
-				boss.looseLives();
+				boss.looseLife();
 			} else
 				enemyHit.get().kill();
 		}

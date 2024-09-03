@@ -6,7 +6,7 @@ import game.model.HelpMethods;
 import game.model.Jumping;
 import game.model.Model;
 import game.model.Shooting;
-
+import game.model.Vulnerable;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -17,7 +17,7 @@ import java.util.TimerTask;
  * implements the singleton pattern to ensure only one player instance exists in
  * the game.
  */
-public class Player extends MovingEntity implements Jumping, Shooting {
+public class Player extends MovingEntity implements Jumping, Shooting, Vulnerable {
 
 	// Static Fields
 	public static final char CODE = 'P';
@@ -303,9 +303,10 @@ public class Player extends MovingEntity implements Jumping, Shooting {
 	public void setInvulnerable(boolean isInvulnerable) {
 		this.isInvulnerable = isInvulnerable;
 	}
-	
+
 	/**
-	 * Sets player stun 
+	 * Sets player stun
+	 * 
 	 * @param isStunned
 	 */
 	public void setStunned(boolean isStunned) {
@@ -366,6 +367,7 @@ public class Player extends MovingEntity implements Jumping, Shooting {
 	/**
 	 * Handles the player's loss of life, decrementing its lives.
 	 */
+	@Override
 	public void looseLife() {
 		Model.getInstance().sendNotification("lifeLost");
 		lives--;
@@ -398,6 +400,7 @@ public class Player extends MovingEntity implements Jumping, Shooting {
 	 * current direction if not obstructed by a wall, and shooting is temporarily
 	 * disabled after each shot.
 	 */
+	@Override
 	public void shoot() {
 		// Checks if the player can shoot.
 		if (canShoot) {

@@ -7,11 +7,12 @@ import java.util.TimerTask;
 import game.model.Fruit;
 import game.model.HelpMethods;
 import game.model.Model;
+import game.model.Vulnerable;
 import game.model.Fruit.FruitType;
 import game.model.level.Level;
 import game.model.tiles.Tile;
 
-public class Boss extends Enemy {
+public class Boss extends Enemy implements Vulnerable {
 
 	public static final char CODE = 'B';
 	private int lives;
@@ -140,7 +141,8 @@ public class Boss extends Enemy {
 		}
 	}
 
-	public void looseLives() {
+	@Override
+	public void looseLife() {
 		if (invulnerabilityTimer == null && !isInvulnerable) {
 			lives--;
 			isInvulnerable = true;
