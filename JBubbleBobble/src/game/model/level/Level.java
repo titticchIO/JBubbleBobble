@@ -167,13 +167,14 @@ public class Level {
 	}
 
 	public void captureEnemies() {
-		bubbleManager.getPlayerBubbles().stream().forEach(b -> {
+		bubbleManager.getPlayerBubbles().stream().filter(b->!b.isPopped()).forEach(b -> {
 			enemyManager.getEnemies().stream().forEach(e -> {
 				if (b.getEnemy() == null && b.hit(e)) {
 					if (e instanceof Boss || e.isDead())
 						b.pop();
 					else {
 						setEnemyInBubble(b, e);
+						b.resetLifeSpan();
 						if (player.getSpecialBubbleActive())
 							b.popAndKill();
 					}

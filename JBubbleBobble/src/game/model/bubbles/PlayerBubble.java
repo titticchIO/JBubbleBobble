@@ -12,7 +12,7 @@ import game.model.enemies.Enemy;
  * time.
  */
 public class PlayerBubble extends Bubble {
-	
+
 	// Static Fields
 	public static final char CODE = '°';
 	private static float extraTravelTime = 1;
@@ -169,6 +169,12 @@ public class PlayerBubble extends Bubble {
 		setTravelTime(travelTime - k);
 	}
 
+	public void resetLifeSpan() {
+		lifeSpan = 5000;
+		if (popTimer != null)
+			popTimer.cancel();
+	}
+
 	/**
 	 * Decreases the remaining horizontal movement time by a specified amount.
 	 * 
@@ -203,8 +209,8 @@ public class PlayerBubble extends Bubble {
 			Model.getInstance().getCurrentLevel().getEnemyManager().addEnemy(enemy);
 			hasEnemy = false;
 		}
-		if (popTimer==null) {
-			popTimer=new Timer("Pop Timer");
+		if (popTimer == null) {
+			popTimer = new Timer("Pop Timer");
 		}
 		popTimer.schedule(new TimerTask() {
 
