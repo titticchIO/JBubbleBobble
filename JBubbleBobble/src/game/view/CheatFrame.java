@@ -17,11 +17,11 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 import game.controller.ActionListenersManager;
+import game.model.FireBubble;
 import game.model.Paths;
-import game.model.bubbles.FireBubble;
-import game.model.bubbles.SpecialBubble;
-import game.model.bubbles.ThunderBubble;
-import game.model.bubbles.WaterBubble;
+import game.model.SpecialBubble;
+import game.model.ThunderBubble;
+import game.model.WaterBubble;
 
 public class CheatFrame extends JFrame {
 

@@ -34,8 +34,8 @@ public class Game implements Runnable {
 	private View view;
 
 	public Game() {
-//		AudioManager.getInstance().play(Paths
-//				.getAbsolutePath("Audio/Sound Tacks/01 Introduction ~ Main Theme (online-audio-converter.com).wav"));
+		AudioManager.getInstance().play(Paths
+				.getAbsolutePath("Audio/Sound Tacks/01 Introduction ~ Main Theme (online-audio-converter.com).wav"));
 		model = Model.getInstance();
 		menu = new Menu(this);
 		win = new Win(this);
@@ -77,6 +77,7 @@ public class Game implements Runnable {
 	}
 
 	public void startGameLoop() {
+		
 		if (gameThread != null && running) {
 			stopGameLoop(); // Ensure the previous thread is stopped
 		}

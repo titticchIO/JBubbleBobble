@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import game.controller.ActionListenersManager;
-import game.model.user.User;
+import game.model.User;
 
 public class UserPanel extends JPanel {
 	

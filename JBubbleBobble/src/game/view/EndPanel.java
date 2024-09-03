@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import game.model.level.Level;
+import game.model.Level;
 
 public class EndPanel extends JPanel {
 

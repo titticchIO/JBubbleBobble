@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 import game.controller.ActionListenersManager;
 import game.controller.Game;
-import game.model.level.Level;
+import game.model.Level;
 
 public class PausePanel extends JPanel {
     

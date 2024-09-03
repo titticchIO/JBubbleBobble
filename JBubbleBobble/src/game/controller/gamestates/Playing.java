@@ -5,12 +5,11 @@ import java.awt.event.MouseEvent;
 
 import game.controller.AudioManager;
 import game.controller.Game;
-
+import game.model.BubbleManager;
+import game.model.Level;
 import game.model.Model;
 import game.model.Model.ModelState;
-import game.model.bubbles.BubbleManager;
-import game.model.entities.MovingEntity.Direction;
-import game.model.level.Level;
+import game.model.MovingEntity.Direction;
 import game.view.AnimationAndImagesLoader;
 import game.view.GameFrame.Screen;
 

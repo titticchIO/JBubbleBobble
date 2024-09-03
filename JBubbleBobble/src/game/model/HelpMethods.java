@@ -1,10 +1,5 @@
 package game.model;
 
-import game.model.entities.Entity;
-import game.model.entities.MovingEntity;
-import game.model.level.Level;
-import game.model.tiles.Tile;
-
 public class HelpMethods {
 
 	public static boolean canMoveHere(float x, float y, float width, float height) {

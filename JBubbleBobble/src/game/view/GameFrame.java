@@ -17,8 +17,8 @@ import game.controller.Game;
 import game.controller.InputManager;
 import game.controller.gamestates.GameState;
 import game.controller.gamestates.Menu;
+import game.model.Level;
 import game.model.Model;
-import game.model.level.Level;
 import game.view.EndPanel.Ending;
 
 public class GameFrame extends JFrame {

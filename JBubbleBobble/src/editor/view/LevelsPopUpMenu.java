@@ -19,7 +19,7 @@ import javax.swing.JPopupMenu;
 import editor.controller.ActionListenersManager;
 import editor.model.LevelManager;
 import editor.model.LevelReader;
-import game.model.level.LevelLoader;
+import game.model.LevelLoader;
 
 /**
  * A popup menu for managing levels in the editor.

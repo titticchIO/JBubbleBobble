@@ -10,20 +10,21 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import game.model.entities.Entity;
-import game.model.entities.MovingEntity.Direction;
-import game.model.entities.Player;
+import game.model.Enemy;
+import game.model.Entity;
 import game.model.HelpMethods;
-import game.model.bubbles.PlayerBubble;
-import game.model.bubbles.WaterBubble;
-import game.model.bubbles.special_effects.Water;
-import game.model.enemies.*;
-import game.model.level.Level;
-import game.model.powerups.OrangeParasol;
-import game.model.powerups.Parasol;
-import game.model.powerups.PurpleParasol;
-import game.model.powerups.RedParasol;
-import game.model.tiles.Tile;
+import game.model.Laser;
+import game.model.Level;
+import game.model.OrangeParasol;
+import game.model.Parasol;
+import game.model.Player;
+import game.model.PlayerBubble;
+import game.model.PurpleParasol;
+import game.model.RedParasol;
+import game.model.Tile;
+import game.model.Water;
+import game.model.WaterBubble;
+import game.model.MovingEntity.Direction;
 
 public class LevelPanel extends JPanel {
 	public static final long serialVersionUID = 1L;
