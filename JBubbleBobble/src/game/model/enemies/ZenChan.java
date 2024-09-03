@@ -3,11 +3,13 @@ package game.model.enemies;
 import static game.model.HelpMethods.isSolidVerticalLine;
 
 import game.model.HelpMethods;
-import game.model.Jumping;
+import game.model.interfaces.ChangeDirection;
+import game.model.interfaces.Gravity;
+import game.model.interfaces.Jumping;
 
 import static game.model.HelpMethods.isEntityInsideWall;
 
-public class ZenChan extends Enemy implements Jumping {
+public class ZenChan extends Enemy implements Gravity, Jumping, ChangeDirection {
 
 	/**
 	 * The {@code ZenChan} class represents an enemy that can move horizontally and
@@ -37,7 +39,8 @@ public class ZenChan extends Enemy implements Jumping {
 	/**
 	 * Switches the direction of ZenChan when it encounters a wall.
 	 */
-	private void switchDirection() {
+	@Override
+	public void changeDirection() {
 		if (isEntityInsideWall(this))
 			return;
 		switch (direction) {
@@ -50,6 +53,20 @@ public class ZenChan extends Enemy implements Jumping {
 				setDirection(Direction.LEFT);
 		}
 		default -> throw new IllegalArgumentException("Unexpected value: " + direction);
+		}
+	}
+	
+	
+	/**
+	 * Applies gravity to the entity, increasing its air speed up to a maximum value
+	 * if the entity is not grounded. This method simulates the effect of gravity on
+	 * the entity when it is in the air.
+	 */
+	@Override
+	public void gravity() {
+		if (!HelpMethods.isEntityGrounded(this) && airSpeed < MAX_FALLING_SPEED) {
+			inAir = true;
+			airSpeed += GRAVITY;
 		}
 	}
 
@@ -67,7 +84,7 @@ public class ZenChan extends Enemy implements Jumping {
 			updateXPos();
 			gravity();
 			if (!isStopped) {
-				switchDirection();
+				changeDirection();
 				move(0.4f * movementSpeed);
 				if (randomBoolean(600))
 					jump();

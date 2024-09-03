@@ -1,7 +1,9 @@
 package game.model.enemies;
 
 import java.util.Random;
+
 import game.model.HelpMethods;
+import game.model.interfaces.ChangeDirection;
 import game.model.level.Level;
 
 /**
@@ -9,7 +11,7 @@ import game.model.level.Level;
  * directions and changes direction upon hitting obstacles. It extends the
  * {@link Enemy} class.
  */
-public class Pulpul extends Enemy {
+public class Pulpul extends Enemy implements ChangeDirection {
 
 	// Static Fields
 	public static final char CODE = 'U';
@@ -54,7 +56,8 @@ public class Pulpul extends Enemy {
 	/**
 	 * Changes the direction of the pulpul when it encounters an obstacle.
 	 */
-	private void changeDirection() {
+	@Override
+	public void changeDirection() {
 		if (randomBoolean(10))
 			randomizeDirection();
 
@@ -130,6 +133,7 @@ public class Pulpul extends Enemy {
 				changeDirection(); // Change direction if it hits an obstacle
 		}
 	}
+
 
 	/**
 	 * Updates the state of the pulpul each game tick.

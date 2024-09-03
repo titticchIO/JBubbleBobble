@@ -7,12 +7,13 @@ import java.util.TimerTask;
 import game.model.Fruit;
 import game.model.HelpMethods;
 import game.model.Model;
-import game.model.Vulnerable;
 import game.model.Fruit.FruitType;
+import game.model.interfaces.ChangeDirection;
+import game.model.interfaces.Vulnerable;
 import game.model.level.Level;
 import game.model.tiles.Tile;
 
-public class Boss extends Enemy implements Vulnerable {
+public class Boss extends Enemy implements Vulnerable, ChangeDirection {
 
 	public static final char CODE = 'B';
 	private int lives;
@@ -35,7 +36,8 @@ public class Boss extends Enemy implements Vulnerable {
 		this.invulnerabilityTimer = invincibilityTimer;
 	}
 
-	private void changeDirection() {
+	@Override
+	public void changeDirection() {
 		if (randomBoolean(10))
 			randomizeDirection();
 

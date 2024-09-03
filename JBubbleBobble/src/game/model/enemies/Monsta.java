@@ -3,15 +3,15 @@ package game.model.enemies;
 import static game.model.HelpMethods.isSolidHorizontalLine;
 import static game.model.HelpMethods.isSolidVerticalLine;
 
-import game.model.Bouncing;
 import game.model.HelpMethods;
+import game.model.interfaces.ChangeDirection;
 
 /**
  * The {@code Monsta} class represents a specific type of enemy in the game that
  * bounces off walls and floors while moving. It extends the {@link Enemy} class
  * and includes specific behavior like bouncing.
  */
-public class Monsta extends Enemy implements Bouncing{
+public class Monsta extends Enemy implements ChangeDirection {
 
 	// Static Fields
 	public static final char CODE = 'M';
@@ -59,7 +59,7 @@ public class Monsta extends Enemy implements Bouncing{
 	 * Handles the bouncing behavior of the monsta when it hits solid surfaces.
 	 */
 	@Override
-	public void bounce() {
+	public void changeDirection() {
 		// GO DOWN
 		if (isSolidHorizontalLine(x, x + width, y - 1)) {
 			setAirSpeed(FLIGHT_SPEED * movementSpeed);
@@ -95,7 +95,7 @@ public class Monsta extends Enemy implements Bouncing{
 		if (isDead()) {
 			removeEnemy();
 		} else if (!isStopped) {
-			bounce();
+			changeDirection();
 			updateXPos();
 		}
 	}

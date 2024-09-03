@@ -2,16 +2,19 @@ package game.model.enemies;
 
 import static game.model.HelpMethods.isEntityInsideWall;
 import static game.model.HelpMethods.isSolidVerticalLine;
+
 import game.model.HelpMethods;
 import game.model.Model;
-import game.model.Shooting;
+import game.model.interfaces.ChangeDirection;
+import game.model.interfaces.Gravity;
+import game.model.interfaces.Shooting;
 
 /**
  * The {@code Invader} class represents an invader enemy in the game. It extends
  * the {@link Enemy} class and includes behavior specific to invaders, such as
  * switching direction and shooting lasers.
  */
-public class Invader extends Enemy implements Shooting{
+public class Invader extends Enemy implements Gravity, Shooting, ChangeDirection {
 
 	// Static Fields
 	public static final char CODE = 'I';
@@ -52,7 +55,8 @@ public class Invader extends Enemy implements Shooting{
 	/**
 	 * Switches the direction of the invader if it encounters a wall.
 	 */
-	public void switchDirection() {
+	@Override
+	public void changeDirection() {
 		if (isEntityInsideWall(this))
 			return;
 
@@ -80,6 +84,19 @@ public class Invader extends Enemy implements Shooting{
 	}
 
 	/**
+	 * Applies gravity to the entity, increasing its air speed up to a maximum value
+	 * if the entity is not grounded. This method simulates the effect of gravity on
+	 * the entity when it is in the air.
+	 */
+	@Override
+	public void gravity() {
+		if (!HelpMethods.isEntityGrounded(this) && airSpeed < MAX_FALLING_SPEED) {
+			inAir = true;
+			airSpeed += GRAVITY;
+		}
+	}
+
+	/**
 	 * Makes the invader shoot a laser with a certain probability.
 	 */
 	@Override
@@ -93,8 +110,8 @@ public class Invader extends Enemy implements Shooting{
 	 */
 	@Override
 	public void updateEntity() {
+		gravity();
 		updateYPos();
-
 		if (isDead()) {
 			removeEnemy();
 		} else {
@@ -107,7 +124,7 @@ public class Invader extends Enemy implements Shooting{
 					randomizeDirection();
 				}
 
-				switchDirection();
+				changeDirection();
 
 				if (!inAir) {
 					updateXPos();
