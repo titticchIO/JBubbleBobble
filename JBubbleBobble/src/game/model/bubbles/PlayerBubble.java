@@ -185,7 +185,7 @@ public class PlayerBubble extends Bubble {
 		}
 		Model.getInstance().getCurrentLevel().getBubbleManager().removePlayerBubble(this);
 	}
-
+	
 	/**
 	 * Pops the bubble, kills the trapped enemy, and awards points to the player.
 	 * Also causes nearby bubbles to pop and kill their trapped enemies.

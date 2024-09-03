@@ -79,6 +79,10 @@ public class View implements Observer {
 			.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (20).wav"));
 			case "lifeLost"->AudioManager.getInstance()
 			.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (3).wav"));
+//			case "bossHit"->AudioManager.getInstance()
+//			.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (1).wav"));
+			case "bossKill"->AudioManager.getInstance()
+			.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (18).wav"));
 			}
 		}
 

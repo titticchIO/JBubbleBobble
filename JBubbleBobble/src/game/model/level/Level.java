@@ -269,7 +269,7 @@ public class Level {
 	}
 
 	public void checkLooseLife() {
-		if (!player.isInvulnerable() && player.getInvincibilityTimer() == null) {
+		if (!player.isInvulnerable() && player.getInvulnerabilityTimer() == null) {
 			// Checks if the player is invulnerable; if not, the player can lose a life.
 			Optional<MovingEntity> hazardHit = Entity.checkCollision(player, enemyManager.getHazards());
 			if (hazardHit.isPresent()) {
@@ -280,13 +280,13 @@ public class Level {
 				player.setInvulnerable(true);
 
 				// Sets a new invulnerability timer.
-				player.setInvincibilityTimer(new Timer("Invulnerability"));
-				player.getInvincibilityTimer().schedule(new TimerTask() {
+				player.setInvulnerabilityTimer(new Timer("Invulnerability"));
+				player.getInvulnerabilityTimer	().schedule(new TimerTask() {
 					@Override
 					public void run() {
 						// When the timer ends, the player becomes vulnerable again.
 						player.setInvulnerable(false);
-						player.setInvincibilityTimer(null);
+						player.setInvulnerabilityTimer(null);
 					}
 				}, Player.INVULNERABILITY_INTERVAL); // Sets the timer for the invulnerability interval.
 			}
@@ -295,28 +295,36 @@ public class Level {
 
 	private void checkSpecialCollisions() {
 		Optional<Enemy> enemyHit;
+
 		// Enemy fire balls collision
 		List<FireBall> burningFireBalls = bubbleManager.getFireBalls().stream()
 				.filter(f -> f.getFireState() == FireState.BURN).toList();
-		enemyHit = Entity.checkCollisions(burningFireBalls, enemyManager.getEnemies());
+		enemyHit = Entity.checkCollisions(burningFireBalls,
+				enemyManager.getEnemies().stream().filter(e -> !e.isDead()).toList());
 		if (enemyHit.isPresent()) {
-			enemyHit.get().kill();
-			enemyHit.get().updateEntity();
+			if (enemyHit.get() instanceof Boss boss) {
+				boss.looseLives();
+			} else {
+				enemyHit.get().kill();
+				enemyHit.get().updateEntity();
+			}
 		}
-		// Player fire balls collisions
+
+		// Player fire balls collision
 		Optional<FireBall> playerHit = Entity.checkCollision(player, burningFireBalls);
 		if (playerHit.isPresent()) {
 			player.stun(5);
 		}
 
-		Optional<Enemy> boltHit = Entity.checkCollisions(bubbleManager.getBolts(),
+		// Enemy bolt collision
+		enemyHit = Entity.checkCollisions(bubbleManager.getBolts(),
 				enemyManager.getEnemies().stream().filter(e -> !e.isDead()).toList());
-		if (boltHit.isPresent()) {
-			boltHit.get().kill();
+		if (enemyHit.isPresent()) {
+			if (enemyHit.get() instanceof Boss boss) {
+				boss.looseLives();
+			} else
+				enemyHit.get().kill();
 		}
-//		Optional<Enemy> enemy = Entity.checkCollision(this,
-//				Model.getInstance().getCurrentLevel().getEnemyManager().getEnemies());
-//		enemy.ifPresent(value -> Model.getInstance().getCurrentLevel().getEnemyManager().removeEnemy(value));
 
 		// Player water collision
 		bubbleManager.getWaters().stream().filter(w -> w.getCapturedEntity() == null && HelpMethods.isEntityGrounded(w))
@@ -331,7 +339,7 @@ public class Level {
 		// Enemy water collision
 		bubbleManager.getWaters().stream().filter(w -> w.getCapturedEntity() == null).forEach(w -> {
 			Optional<Enemy> enemyCapture = Entity.checkCollision(w,
-					enemyManager.getEnemies().stream().filter(e -> !(e instanceof Boss)).toList());
+					enemyManager.getEnemies().stream().filter(e -> !(e.isDead() || e instanceof Boss)).toList());
 			if (enemyCapture.isPresent()) {
 				enemyCapture.get().setStopped(true);
 				w.setCapturedEntity(enemyCapture.get());
@@ -358,7 +366,6 @@ public class Level {
 	}
 
 	public void updateLevel() {
-//		System.out.println("Player lives: " + player.getLives());
 		player.updateEntity();
 		enemyManager.updateEnemies();
 		bubbleManager.updateBubbles();

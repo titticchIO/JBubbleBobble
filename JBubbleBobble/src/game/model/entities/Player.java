@@ -28,7 +28,7 @@ public class Player extends MovingEntity implements Jumping, Shooting {
 
 	// Non-static Fields
 	private Timer stunTimer;
-	private Timer invincibilityTimer;
+	private Timer invulnerabilityTimer;
 
 	private Direction bubbleDirection; // Direction in which the player will shoot bubbles.
 	private int lives; // Current number of lives the player has.
@@ -266,12 +266,12 @@ public class Player extends MovingEntity implements Jumping, Shooting {
 		this.crystalRingActive = crystalRingActive;
 	}
 
-	public Timer getInvincibilityTimer() {
-		return invincibilityTimer;
+	public Timer getInvulnerabilityTimer() {
+		return invulnerabilityTimer;
 	}
 
-	public void setInvincibilityTimer(Timer invincibilityTimer) {
-		this.invincibilityTimer = invincibilityTimer;
+	public void setInvulnerabilityTimer(Timer invincibilityTimer) {
+		this.invulnerabilityTimer = invincibilityTimer;
 	}
 
 	/**
