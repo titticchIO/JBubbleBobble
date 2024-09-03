@@ -118,7 +118,6 @@ public class EnemyManager {
 	public void updateEnemies() {
 		enemies.stream().forEach(Enemy::updateEntity);
 		lasers.stream().forEach(Laser::updateEntity);
-		System.out.println(numberOfInvaders());
 		if (shootLaserTimer == null && numberOfInvaders() != 0) {
 			shootLaserTimer = new Timer("Shoot laser");
 			shootLaserTimer.schedule(new TimerTask() {

@@ -124,17 +124,6 @@ public class ActionListenersManager {
 		};
 	}
 
-//	CHEATS
-//	public static ActionListener enableInvincibility() {
-//		return e -> {
-//			if (GameState.state == GameState.PLAYING) {
-//				Player.getInstance().setInvulnerable(true);
-//				Player.getInstance().getInvincibilityTimer().cancel();
-//			}
-//			View.getInstance().getGameFrame().requestFocus();
-//		};
-//	}
-
 	public static ItemListener enableInvincibility(JToggleButton button) {
 		return new ItemListener() {
 
@@ -143,9 +132,9 @@ public class ActionListenersManager {
 				if (GameState.state == GameState.PLAYING) {
 					if (button.isSelected()) {
 						Player.getInstance().setInvulnerable(true);
-						if (Player.getInstance().getInvincibilityTimer() != null) {
-							Player.getInstance().getInvincibilityTimer().cancel();
-							Player.getInstance().setInvincibilityTimer(null);
+						if (Player.getInstance().getInvulnerabilityTimer() != null) {
+							Player.getInstance().getInvulnerabilityTimer().cancel();
+							Player.getInstance().setInvulnerabilityTimer(null);
 						}
 					} else {
 						Player.getInstance().setInvulnerable(false);
