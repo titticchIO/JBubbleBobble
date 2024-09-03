@@ -152,6 +152,7 @@ public class Level {
 	private void setEnemyInBubble(PlayerBubble b, Enemy e) {
 		b.setEnemy(e);
 		enemyManager.removeEnemy(e);
+		b.setHasEnemy(true);
 	}
 
 	private void setBubblesSpawnPoints() {
@@ -245,8 +246,8 @@ public class Level {
 	}
 
 	private void checkPlayerBubbleCollisions() {
-		Optional<PlayerBubble> playerPopBubble = Entity.checkTopCollision(player, bubbleManager.getPlayerBubbles());
-		if (playerPopBubble.isPresent() && HelpMethods.isEntityInsideWall(playerPopBubble.get())) {
+		Optional<PlayerBubble> playerPopBubble = Entity.checkCollision(player, bubbleManager.getPlayerBubbles());
+		if (playerPopBubble.isPresent() && !HelpMethods.isEntityInsideWall(playerPopBubble.get())) {
 			playerPopBubble.get().popAndKill();
 			powerupManager.increaseNumberOfBubblesPopped();
 		}

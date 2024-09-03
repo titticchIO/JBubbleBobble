@@ -1,5 +1,8 @@
 package game.model.bubbles;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import game.model.Model;
 import game.model.enemies.Enemy;
 
@@ -9,16 +12,18 @@ import game.model.enemies.Enemy;
  * time.
  */
 public class PlayerBubble extends Bubble {
-
+	
 	// Static Fields
 	public static final char CODE = '°';
 	private static float extraTravelTime = 1;
 	private static float extraXSpeed = 1;
-
+	private Timer popTimer;
 	// Instance Fields
 	private Enemy enemy;
+	private boolean hasEnemy;
 	private float timeHorizontalMoving;
 	private float travelTime;
+	private boolean isPopped;
 
 	// Constructors
 
@@ -109,7 +114,7 @@ public class PlayerBubble extends Bubble {
 	 * @return {@code true} if an enemy is trapped, {@code false} otherwise
 	 */
 	public boolean hasEnemy() {
-		return getEnemy() != null;
+		return hasEnemy;
 	}
 
 	/**
@@ -139,6 +144,18 @@ public class PlayerBubble extends Bubble {
 	 */
 	public void setTravelTime(float travelTime) {
 		this.travelTime = travelTime;
+	}
+
+	public boolean isHasEnemy() {
+		return hasEnemy;
+	}
+
+	public void setHasEnemy(boolean hasEnemy) {
+		this.hasEnemy = hasEnemy;
+	}
+
+	public boolean isPopped() {
+		return isPopped;
 	}
 
 	// Other Methods
@@ -179,24 +196,42 @@ public class PlayerBubble extends Bubble {
 	 */
 	@Override
 	public void pop() {
-		if (enemy != null) {
+		isPopped = true;
+		setAirSpeed(0);
+		if (hasEnemy && !enemy.isDead()) {
 			enemy.setPosition(getX(), getY());
 			Model.getInstance().getCurrentLevel().getEnemyManager().addEnemy(enemy);
+			hasEnemy = false;
 		}
-		Model.getInstance().getCurrentLevel().getBubbleManager().removePlayerBubble(this);
+		if (popTimer==null) {
+			popTimer=new Timer("Pop Timer");
+		}
+		popTimer.schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				Model.getInstance().getCurrentLevel().getBubbleManager().removePlayerBubble(PlayerBubble.this);
+				this.cancel();
+			}
+		}, 400);
+
 	}
-	
+
 	/**
 	 * Pops the bubble, kills the trapped enemy, and awards points to the player.
 	 * Also causes nearby bubbles to pop and kill their trapped enemies.
 	 */
 	public void popAndKill() {
-		Model.getInstance().getCurrentLevel().getBubbleManager().removePlayerBubble(this);
-		if (enemy != null) {
+		if (isPopped)
+			return;
+		if (hasEnemy) {
+			System.out.println("kill enemy");
 			enemy.setPosition(getX(), getY());
 			Model.getInstance().getCurrentLevel().getEnemyManager().addEnemy(enemy);
+			hasEnemy = false;
 			enemy.kill();
 		}
+		pop();
 		Model.getInstance().getCurrentUser().addPoints(100);
 		Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles().forEach(pb -> {
 			if (getDistanceFrom(pb) < 7) {
@@ -219,8 +254,10 @@ public class PlayerBubble extends Bubble {
 			decreaseTimeHorizontalMoving(10.0f * extraXSpeed / extraTravelTime); // Decrease horizontal movement time
 		}
 
-		if (lifeSpan <= 500)
+		if (lifeSpan <= 500) {
 			airSpeed = 0;
+			isPopped = true;
+		}
 
 		if (timeHorizontalMoving <= 0)
 			updateYPos();

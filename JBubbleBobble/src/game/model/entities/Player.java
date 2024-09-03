@@ -439,7 +439,6 @@ public class Player extends MovingEntity implements Jumping, Shooting, Vulnerabl
 	 */
 	public void stun(int stunTime) {
 		if (stunTimer == null) {
-			System.out.println("stunned");
 			setxSpeed(0);
 			setAirSpeed(0);
 			isStunned = true;
