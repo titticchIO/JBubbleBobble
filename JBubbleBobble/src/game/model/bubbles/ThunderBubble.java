@@ -35,6 +35,7 @@ public class ThunderBubble extends Bubble {
 	 */
 	@Override
 	public void pop() {
+		Model.getInstance().getCurrentLevel().getBubbleManager().addBolt(new Bolt(x, y));
 		Model.getInstance().getCurrentLevel().getBubbleManager().removeBubble(this);
 	}
 
@@ -45,9 +46,5 @@ public class ThunderBubble extends Bubble {
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		Entity.checkCollision(this, Player.getInstance()).ifPresent(collision -> {
-			Model.getInstance().getCurrentLevel().getBubbleManager().addBolt(new Bolt(x, y));
-			pop();
-		});
 	}
 }

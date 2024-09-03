@@ -308,6 +308,16 @@ public class Level {
 		if (playerHit.isPresent()) {
 			player.stun(5);
 		}
+
+		Optional<Enemy> boltHit = Entity.checkCollisions(bubbleManager.getBolts(),
+				enemyManager.getEnemies().stream().filter(e -> !e.isDead()).toList());
+		if (boltHit.isPresent()) {
+			boltHit.get().kill();
+		}
+//		Optional<Enemy> enemy = Entity.checkCollision(this,
+//				Model.getInstance().getCurrentLevel().getEnemyManager().getEnemies());
+//		enemy.ifPresent(value -> Model.getInstance().getCurrentLevel().getEnemyManager().removeEnemy(value));
+
 		// Player water collision
 		bubbleManager.getWaters().stream().filter(w -> w.getCapturedEntity() == null && HelpMethods.isEntityGrounded(w))
 				.forEach(w -> {

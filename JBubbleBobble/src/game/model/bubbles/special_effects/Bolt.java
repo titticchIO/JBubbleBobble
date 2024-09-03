@@ -58,22 +58,10 @@ public class Bolt extends MovingEntity {
 	}
 
 	/**
-	 * Checks for collisions with enemies. If a collision is detected, the enemy is
-	 * removed from the game.
-	 */
-	public void killEnemy() {
-		Optional<Enemy> enemy = Entity.checkCollision(this,
-				Model.getInstance().getCurrentLevel().getEnemyManager().getEnemies());
-		enemy.ifPresent(value -> Model.getInstance().getCurrentLevel().getEnemyManager().removeEnemy(value));
-	}
-
-	/**
-	 * Updates the bolt's state, including its position and interactions with
-	 * enemies.
+	 * Updates the bolt's position
 	 */
 	@Override
 	public void updateEntity() {
 		updateXPos();
-		killEnemy();
 	}
 }
