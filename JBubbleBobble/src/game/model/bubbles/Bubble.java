@@ -1,7 +1,6 @@
 package game.model.bubbles;
 
 import game.model.HelpMethods;
-import game.model.enemies.Enemy;
 import game.model.entities.MovingEntity;
 import game.model.level.Level;
 import game.model.tiles.Tile;
@@ -80,15 +79,6 @@ public abstract class Bubble extends MovingEntity {
 		setLifeSpan(getLifeSpan() - k);
 	}
 
-	/**
-	 * Checks if the bubble has hit a specified enemy.
-	 *
-	 * @param enemy the enemy to check for collision with.
-	 * @return true if the bubble has hit the enemy, false otherwise.
-	 */
-	public boolean hasHitEnemy(Enemy enemy) {
-		return enemy.hit(this);
-	}
 
 	/**
 	 * Abstract method that defines how the bubble pops. Must be implemented by

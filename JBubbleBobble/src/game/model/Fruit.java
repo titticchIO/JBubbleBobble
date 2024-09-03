@@ -35,6 +35,8 @@ public class Fruit extends Entity {
 	}
 
 	public int getPoints() {
+		
+		
 		return points;
 	}
 
