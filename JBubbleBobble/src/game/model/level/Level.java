@@ -74,25 +74,6 @@ public class Level {
 		return lvlData;
 	}
 
-	public void printMatrix() {
-		// Verifica se la matrice è vuota o null
-		if (lvlData == null || lvlData.length == 0) {
-			System.out.println("lvlData è null!");
-			return;
-		}
-
-		// Itera attraverso le righe della matrice
-		for (char[] row : lvlData) {
-			// Itera attraverso gli elementi di ciascuna riga
-			for (char c : row) {
-				// Stampa l'elemento con uno spazio di separazione
-				System.out.print(c + " ");
-			}
-			// Aggiungi una nuova riga alla fine di ogni riga della matrice
-			System.out.println();
-		}
-	}
-
 	public List<Entity> getEntities() {
 		List<Entity> entities = new ArrayList<Entity>();
 		entities.addAll(bubbleManager.getBubbles());
@@ -196,7 +177,7 @@ public class Level {
 							b.setEnemy(e);
 							enemyManager.removeEnemy(e);
 							if (player.isShooting())
-								b.pop();
+								b.popAndKill();
 						}
 					}));
 	}
