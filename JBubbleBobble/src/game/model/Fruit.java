@@ -3,7 +3,6 @@ package game.model;
 import java.util.Random;
 import game.model.entities.Entity;
 
-
 public class Fruit extends Entity {
 
 	public enum FruitType {
@@ -33,9 +32,8 @@ public class Fruit extends Entity {
 		case 3 -> FruitType.PEAR;
 		default -> FruitType.WATERMELON;
 		};
-}
+	}
 
-	
 	public int getPoints() {
 		return points;
 	}
