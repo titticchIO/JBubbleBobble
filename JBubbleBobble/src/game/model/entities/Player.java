@@ -39,11 +39,6 @@ public class Player extends MovingEntity {
 	private boolean amethystRingActive;
 	private boolean rubyRingActive;
 
-	// Enum representing the various states the player can be in.
-	public enum State {
-		WALK, JUMP, SHOOT
-	}
-
 	/**
 	 * Returns the singleton instance of the {@code Player} class.
 	 *
