@@ -29,7 +29,6 @@ public class Player extends MovingEntity implements Jumping {
 	private Timer invincibilityTimer;
 
 	private Direction bubbleDirection; // Direction in which the player will shoot bubbles.
-	private State state; // Current state of the player.
 	private int lives; // Current number of lives the player has.
 	private boolean isStunned; // Indicates if the entity is stunned
 	private long attackSpeed; // The speed at which the player can shoot bubbles.
@@ -42,11 +41,6 @@ public class Player extends MovingEntity implements Jumping {
 	private boolean crystalRingActive;
 	private boolean amethystRingActive;
 	private boolean rubyRingActive;
-
-	// Enum representing the various states the player can be in.
-	public enum State {
-		WALK, JUMP, SHOOT
-	}
 
 	/**
 	 * Returns the singleton instance of the {@code Player} class.
