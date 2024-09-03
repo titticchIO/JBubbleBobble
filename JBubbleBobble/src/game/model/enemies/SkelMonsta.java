@@ -1,6 +1,10 @@
 package game.model.enemies;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import game.model.Bouncing;
+import game.model.entities.Player;
 import game.model.level.Level;
 import game.model.tiles.Tile;
 
@@ -9,12 +13,12 @@ import game.model.tiles.Tile;
  * and vertically, changing direction upon hitting the boundaries of the game
  * area. It extends the {@link Enemy} class.
  */
-public class SkelMonsta extends Enemy implements Bouncing{
+public class SkelMonsta extends Enemy {
 
 	// Static Fields
 	public static final char CODE = 'S';
 	public static final float FLIGHT_SPEED = 0.4f;
-
+	private boolean isMoving;
 	// Constructors
 
 	/**
@@ -41,49 +45,48 @@ public class SkelMonsta extends Enemy implements Bouncing{
 		initializeSkelMonsta();
 	}
 
+	public boolean isMoving() {
+		return isMoving;
+	}
+
+	public void setMoving(boolean isMoving) {
+		this.isMoving = isMoving;
+	}
+
 	// Private Methods
+
+	private void trackPlayer() {
+		// UPDATE AIRSPEED
+		if (y > Player.getInstance().getY())
+			setAirSpeed(-0.2f);
+		else if (y < Player.getInstance().getY())
+			setAirSpeed(0.2f);
+		else
+			setAirSpeed(0);
+
+		// UPDATE XSPEED
+		if (x > Player.getInstance().getX())
+			setxSpeed(-0.2f);
+		else if (x < Player.getInstance().getX())
+			setxSpeed(0.2f);
+		else
+			setxSpeed(0);
+	}
 
 	/**
 	 * Initializes the common properties of a {@code SkelMonsta}.
 	 */
 	private void initializeSkelMonsta() {
-		setxSpeed(0.3f);
-		setAirSpeed(0.3f);
+		new Timer().schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				setMoving(!isMoving());
+
+			}
+		}, 0, 2500);
 		setDirection(Direction.RIGHT);
 		setColorState(ColorState.NORMAL);
-	}
-
-	/**
-	 * Controls the bouncing movement of the SkelMonsta. Changes direction when it
-	 * hits the game boundaries.
-	 */
-	@Override
-	public void bounce() {
-		// Move Down
-		if (y - 1 <= Tile.TILE_SIZE) {
-			setAirSpeed(FLIGHT_SPEED);
-			if (randomBoolean(10))
-				setY(y + 3);
-			// Move Up
-		} else if (y + height + 1 >= Level.GAME_HEIGHT - Tile.TILE_SIZE) {
-			setAirSpeed(-FLIGHT_SPEED);
-			if (randomBoolean(10))
-				setY(y - 3);
-		}
-
-		// Move Right
-		if (x - 1 <= Tile.TILE_SIZE) {
-			setxSpeed(FLIGHT_SPEED);
-			setDirection(Direction.RIGHT);
-			if (randomBoolean(10))
-				setX(x - 3);
-			// Move Left
-		} else if (x + width + 1 >= Level.GAME_WIDTH - Tile.TILE_SIZE) {
-			setxSpeed(-FLIGHT_SPEED);
-			setDirection(Direction.LEFT);
-			if (randomBoolean(10))
-				setX(x + 3);
-		}
 	}
 
 	// Override Methods
@@ -111,11 +114,12 @@ public class SkelMonsta extends Enemy implements Bouncing{
 	 */
 	@Override
 	public void updateEntity() {
-		updateYPos();
-		if (isDead())
-			removeEnemy();
-		else if (!isStopped) {
-			bounce();
+		if (isDead()) {
+			updateYPos();
+			removeEnemy();}
+		else if (!isStopped && isMoving) {
+			trackPlayer();
+			updateYPos();
 			updateXPos();
 		}
 	}

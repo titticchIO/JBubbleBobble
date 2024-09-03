@@ -105,7 +105,6 @@ public class Boss extends Enemy implements Vulnerable {
 
 	@Override
 	public void updateEntity() {
-		System.out.println("Vite boss: " + lives);
 		if (lives == 0) {
 			kill();
 		}
