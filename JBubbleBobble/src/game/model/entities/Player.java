@@ -3,6 +3,7 @@ package game.model.entities;
 import game.model.powerups.AmethystRing;
 import game.model.tiles.Tile;
 import game.model.HelpMethods;
+import game.model.Jumping;
 import game.model.Model;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,7 +15,7 @@ import java.util.TimerTask;
  * implements the singleton pattern to ensure only one player instance exists in
  * the game.
  */
-public class Player extends MovingEntity {
+public class Player extends MovingEntity implements Jumping {
 
 	// Static Fields
 	public static final char CODE = 'P';
@@ -25,16 +26,19 @@ public class Player extends MovingEntity {
 
 	// Non-static Fields
 	private Timer stunTimer;
-	private Direction bubbleDirection;
-	private int lives;
-	private long attackSpeed;
-	private float extraXSpeed;
-	private float previousX;
-	private boolean isStunned;
-	private boolean isJumping;
-	private boolean isInvulnerable;
-	private boolean isShooting;
-	private boolean canShoot;
+	private Timer invincibilityTimer;
+
+	private Direction bubbleDirection; // Direction in which the player will shoot bubbles.
+	private State state; // Current state of the player.
+	private int lives; // Current number of lives the player has.
+	private boolean isStunned; // Indicates if the entity is stunned
+	private long attackSpeed; // The speed at which the player can shoot bubbles.
+	private float extraXSpeed; // Extra speed applied to the player's movement.
+	private float previousX; // Previous x-coordinate used for distance tracking.
+	private boolean isJumping; // Indicates whether the player is currently jumping.
+	private boolean isInvulnerable; // Indicates whether the player is invulnerable.
+	private boolean isShooting; // Indicates whether the player is currently shooting.
+	private boolean canShoot; // Indicates whether the player can shoot a bubble.
 	private boolean crystalRingActive;
 	private boolean amethystRingActive;
 	private boolean rubyRingActive;
@@ -261,6 +265,14 @@ public class Player extends MovingEntity {
 		this.crystalRingActive = crystalRingActive;
 	}
 
+	public Timer getInvincibilityTimer() {
+		return invincibilityTimer;
+	}
+
+	public void setInvincibilityTimer(Timer invincibilityTimer) {
+		this.invincibilityTimer = invincibilityTimer;
+	}
+
 	/**
 	 * Sets whether the player is affected by AmethystRing power up.
 	 *
@@ -289,6 +301,14 @@ public class Player extends MovingEntity {
 	 */
 	public void setInvulnerable(boolean isInvulnerable) {
 		this.isInvulnerable = isInvulnerable;
+	}
+	
+	/**
+	 * Sets player stun 
+	 * @param isStunned
+	 */
+	public void setStunned(boolean isStunned) {
+		this.isStunned = isStunned;
 	}
 
 	/**
@@ -337,6 +357,7 @@ public class Player extends MovingEntity {
 	public void jump() {
 		inAir = true;
 		airSpeed = jumpSpeed;
+		Model.getInstance().sendNotification("jump");
 		if (amethystRingActive)
 			Model.getInstance().getCurrentUser().addPoints(AmethystRing.POINTS);
 	}
@@ -345,10 +366,13 @@ public class Player extends MovingEntity {
 	 * Handles the player's loss of life, decrementing its lives.
 	 */
 	public void looseLife() {
+		Model.getInstance().sendNotification("lifeLost");
 		lives--;
+		stun(2);
 	}
 
 	public void heal() {
+		Model.getInstance().sendNotification("heal");
 		lives = NUMBER_OF_LIVES;
 	}
 

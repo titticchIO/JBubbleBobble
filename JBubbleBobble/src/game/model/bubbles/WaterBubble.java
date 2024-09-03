@@ -9,10 +9,7 @@ import static game.model.tiles.Tile.TILE_SIZE;
  * popping. The bubble rises slowly and has an extended life span.
  */
 public class WaterBubble extends Bubble {
-
-	// Static Fields
-	public static final char CODE = '_';
-
+	public static final char CODE = '/';
 	// Constructors
 
 	/**
@@ -21,8 +18,9 @@ public class WaterBubble extends Bubble {
 	 */
 	public WaterBubble() {
 		super(0, 0, TILE_SIZE - 1, TILE_SIZE - 1, CODE);
-		rise(-0.3f);
-		this.lifeSpan *= 10;
+		rise(-0.2f);
+		lifeSpan *= 10;
+
 	}
 
 	// Methods

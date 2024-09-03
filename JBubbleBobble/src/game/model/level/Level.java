@@ -74,25 +74,6 @@ public class Level {
 		return lvlData;
 	}
 
-	public void printMatrix() {
-		// Verifica se la matrice è vuota o null
-		if (lvlData == null || lvlData.length == 0) {
-			System.out.println("lvlData è null!");
-			return;
-		}
-
-		// Itera attraverso le righe della matrice
-		for (char[] row : lvlData) {
-			// Itera attraverso gli elementi di ciascuna riga
-			for (char c : row) {
-				// Stampa l'elemento con uno spazio di separazione
-				System.out.print(c + " ");
-			}
-			// Aggiungi una nuova riga alla fine di ogni riga della matrice
-			System.out.println();
-		}
-	}
-
 	public List<Entity> getEntities() {
 		List<Entity> entities = new ArrayList<Entity>();
 		entities.addAll(bubbleManager.getBubbles());
@@ -196,7 +177,7 @@ public class Level {
 							b.setEnemy(e);
 							enemyManager.removeEnemy(e);
 							if (player.isShooting())
-								b.pop();
+								b.popAndKill();
 						}
 					}));
 	}
@@ -266,7 +247,7 @@ public class Level {
 
 	private void checkPlayerBubbleCollisions() {
 		Optional<PlayerBubble> playerPopBubble = Entity.checkTopCollision(player, bubbleManager.getPlayerBubbles());
-		if (playerPopBubble.isPresent()&&HelpMethods.isEntityInsideWall(playerPopBubble.get())) {
+		if (playerPopBubble.isPresent() && HelpMethods.isEntityInsideWall(playerPopBubble.get())) {
 			playerPopBubble.get().popAndKill();
 			powerupManager.increaseNumberOfBubblesPopped();
 		}
@@ -288,24 +269,28 @@ public class Level {
 		}
 	}
 
-	private void checkLooseLife() {
-		// Checks if the player is invulnerable; if not, the player can lose a life.
-		Optional<MovingEntity> hazardHit = Entity.checkCollision(player, enemyManager.getHazards());
-		if (!player.isInvulnerable() && hazardHit.isPresent()) {
-			if (hazardHit.get() instanceof Enemy enemy && enemy.isDead())
-				return;
-			player.looseLife();
-			// Activates invulnerability.
-			player.setInvulnerable(true);
+	public void checkLooseLife() {
+		if (!player.isInvulnerable() && player.getInvincibilityTimer() == null) {
+			// Checks if the player is invulnerable; if not, the player can lose a life.
+			Optional<MovingEntity> hazardHit = Entity.checkCollision(player, enemyManager.getHazards());
+			if (hazardHit.isPresent()) {
+				if (hazardHit.get() instanceof Enemy enemy && enemy.isDead())
+					return;
+				player.looseLife();
+				// Activates invulnerability.
+				player.setInvulnerable(true);
 
-			// Sets a new invulnerability timer.
-			new Timer("Invulnerability").schedule(new TimerTask() {
-				@Override
-				public void run() {
-					// When the timer ends, the player becomes vulnerable again.
-					player.setInvulnerable(false);
-				}
-			}, Player.INVULNERABILITY_INTERVAL); // Sets the timer for the invulnerability interval.
+				// Sets a new invulnerability timer.
+				player.setInvincibilityTimer(new Timer("Invulnerability"));
+				player.getInvincibilityTimer().schedule(new TimerTask() {
+					@Override
+					public void run() {
+						// When the timer ends, the player becomes vulnerable again.
+						player.setInvulnerable(false);
+						player.setInvincibilityTimer(null);
+					}
+				}, Player.INVULNERABILITY_INTERVAL); // Sets the timer for the invulnerability interval.
+			}
 		}
 	}
 
@@ -324,15 +309,25 @@ public class Level {
 		if (playerHit.isPresent()) {
 			player.stun(5);
 		}
-		// Enemy water collision
-		List<Water> torrent = bubbleManager.getWaters().stream().toList();
-		enemyHit = Entity.checkCollisions(torrent, enemyManager.getEnemies());
-		if (enemyHit.isPresent()) {
-			Optional<Water> water = Entity.checkCollision(enemyHit.get(), bubbleManager.getWaters());
-			water.get().setFruit(Fruit.randomFruitType());
-			enemyManager.removeEnemy(enemyHit.get());
-		}
+		// Player water collision
+		bubbleManager.getWaters().stream().filter(w -> w.getCapturedEntity() == null && HelpMethods.isEntityGrounded(w))
+				.forEach(w -> {
+					Optional<Player> playerCapture = Entity.checkCollision(w, player);
+					if (playerCapture.isPresent()) {
+						player.stun(30);
+						w.setCapturedEntity(player);
+					}
+				});
 
+		// Enemy water collision
+		bubbleManager.getWaters().stream().filter(w -> w.getCapturedEntity() == null).forEach(w -> {
+			Optional<Enemy> enemyCapture = Entity.checkCollision(w,
+					enemyManager.getEnemies().stream().filter(e -> !(e instanceof Boss)).toList());
+			if (enemyCapture.isPresent()) {
+				enemyCapture.get().setStopped(true);
+				w.setCapturedEntity(enemyCapture.get());
+			}
+		});
 	}
 
 	private void checkFruitCollisions() {
@@ -360,6 +355,7 @@ public class Level {
 		bubbleManager.updateBubbles();
 		powerupManager.updatePowerups();
 		checkAllCollisions();
+
 	}
 
 	public int getSimultaneousKills() {

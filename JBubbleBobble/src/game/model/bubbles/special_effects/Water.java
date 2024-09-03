@@ -7,9 +7,10 @@ import game.model.Fruit;
 import game.model.Fruit.FruitType;
 import game.model.HelpMethods;
 import game.model.Model;
+import game.model.enemies.Enemy;
 import game.model.entities.MovingEntity;
+import game.model.entities.Player;
 import game.model.level.Level;
-
 
 /**
  * The {@code Water} class represents a special effect entity that moves
@@ -20,11 +21,11 @@ public class Water extends MovingEntity {
 
 	// Static Fields
 	public static final char CODE = '_';
+	private MovingEntity capturedEntity;
 
 	// Instance Fields
 	private int watersToSpawn;
 	private int lifeSpan;
-	private FruitType fruitType;
 
 	// Constructors
 
@@ -44,14 +45,12 @@ public class Water extends MovingEntity {
 	}
 
 	// Getters and Setters
+	public MovingEntity getCapturedEntity() {
+		return capturedEntity;
+	}
 
-	/**
-	 * Sets the type of fruit that will be spawned when the water expires.
-	 *
-	 * @param fruitType the type of fruit to spawn.
-	 */
-	public void setFruit(FruitType fruitType) {
-		this.fruitType = fruitType;
+	public void setCapturedEntity(MovingEntity capturedEntity) {
+		this.capturedEntity = capturedEntity;
 	}
 
 	// Other Methods
@@ -61,6 +60,12 @@ public class Water extends MovingEntity {
 	 */
 	private void delete() {
 		Model.getInstance().getCurrentLevel().getBubbleManager().removeWater(this);
+		if (capturedEntity != null) {
+			if (capturedEntity instanceof Enemy enemy)
+				enemy.kill();
+			else if (capturedEntity instanceof Player player)
+				player.setStunned(false);
+		}
 	}
 
 	/**
@@ -92,6 +97,9 @@ public class Water extends MovingEntity {
 				delete();
 			}
 		}
+		if (capturedEntity != null) {
+			capturedEntity.setPosition(x, y - 7);
+		}
 	}
 
 	/**
@@ -100,11 +108,9 @@ public class Water extends MovingEntity {
 	 */
 	@Override
 	public void updateEntity() {
+
 		lifeSpan--;
 		if (lifeSpan <= 0) {
-			if (fruitType != null) {
-				Model.getInstance().getCurrentLevel().getFruitManager().addFruit(new Fruit(x, y, fruitType));
-			}
 			delete();
 		}
 		if (y == Level.GAME_HEIGHT) {

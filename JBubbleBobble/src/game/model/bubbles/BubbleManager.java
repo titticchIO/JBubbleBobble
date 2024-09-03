@@ -1,14 +1,19 @@
 package game.model.bubbles;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import game.model.HelpMethods;
 import game.model.Model;
 import game.model.bubbles.special_effects.Bolt;
 import game.model.bubbles.special_effects.FireBall;
 import game.model.bubbles.special_effects.Water;
+import game.model.entities.Entity;
+import game.model.entities.Player;
 import game.model.tiles.Tile;
 
 /**
@@ -17,9 +22,6 @@ import game.model.tiles.Tile;
  * bolts, and water bubbles.
  */
 public class BubbleManager {
-
-	// Static Fields
-	private static final Random RANDOM = new Random();
 
 	// Instance Fields
 	private List<Bubble> specialBubbles;
@@ -63,15 +65,22 @@ public class BubbleManager {
 	 * Creates a new special bubble and spawns it in the game.
 	 */
 	public void createSpecialBubble() {
-		Bubble specialBubble;
-		switch (RANDOM.nextInt(4)) {
+
+		Bubble specialBubble = null;
+		switch (new Random().nextInt(4)) {
+
 		case 0 -> specialBubble = new FireBubble();
 		case 1 -> specialBubble = new WaterBubble();
 		case 2 -> specialBubble = new SpecialBubble();
 		case 3 -> specialBubble = new ThunderBubble();
-		default -> specialBubble = new WaterBubble(); // Fallback
 		}
-		Model.getInstance().getCurrentLevel().spawnBubble(specialBubble);
+		if (specialBubble != null)
+			Model.getInstance().getCurrentLevel().spawnBubble(specialBubble);
+	}
+
+	public void createSpecialBubble(Bubble specialBubble) {
+		if (specialBubble != null)
+			Model.getInstance().getCurrentLevel().spawnBubble(specialBubble);
 	}
 
 	/**
@@ -221,41 +230,36 @@ public class BubbleManager {
 	 * Updates all bubbles managed by this BubbleManager, including special bubbles,
 	 * player bubbles, fireballs, bolts, and water bubbles.
 	 */
-	public void updateBubbles() {
-		specialBubbles.forEach(Bubble::updateEntity);
-		playerBubbles.forEach(PlayerBubble::updateEntity);
-		fireBalls.forEach(FireBall::updateEntity);
-		bolts.forEach(Bolt::updateEntity);
+	  public void updateBubbles() {
+	        specialBubbles.forEach(Bubble::updateEntity);
+	        playerBubbles.forEach(PlayerBubble::updateEntity);
+	        fireBalls.forEach(FireBall::updateEntity);
+	        bolts.forEach(Bolt::updateEntity);
 
-		if (waterUpdateTimer == null && !waters.isEmpty()) {
-			waterUpdateTimer = new Timer("Water Update");
-			waterUpdateTimer.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					waters.forEach(Water::updateEntity);
-					waterUpdateTimer = null;
-				}
-			}, 50);
-		}
+	        if (waterUpdateTimer == null && !waters.isEmpty()) {
+	            waterUpdateTimer = new Timer("Water Update");
+	            waterUpdateTimer.schedule(new TimerTask() {
+	                @Override
+	                public void run() {
+	                    waters.forEach(w -> w.updateEntity());
+	                    waterUpdateTimer.cancel();
+	                    waterUpdateTimer = null;
+	                }
+	            }, 50);
+	        }
 
-		if (spawnSpecialBubbleTimer == null && !Model.getInstance().getCurrentLevel().getEnemyManager().isBoss()) {
-			spawnSpecialBubbleTimer = new Timer("Spawn Special Bubble");
-			spawnSpecialBubbleTimer.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					createSpecialBubble();
-					spawnSpecialBubbleTimer = null;
-				}
-			}, 2000);
-		} else if (spawnSpecialBubbleTimer == null) {
-			spawnSpecialBubbleTimer = new Timer("Spawn Special Bubble");
-			spawnSpecialBubbleTimer.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					createSpecialBubble();
-					spawnSpecialBubbleTimer = null;
-				}
-			}, 4000);
-		}
+	        if (spawnSpecialBubbleTimer == null) {
+	            spawnSpecialBubbleTimer = new Timer("Spawn Special Bubble");
+	            long nextBubbleInterval = Model.getInstance().getCurrentLevel().getEnemyManager().isBoss() ? 3000 : 20000;
+	            spawnSpecialBubbleTimer.schedule(new TimerTask() {
+					
+					@Override
+					public void run() {
+						createSpecialBubble();
+						spawnSpecialBubbleTimer.cancel();
+	                    spawnSpecialBubbleTimer = null;
+					}
+				}, nextBubbleInterval);
+	        }
+	    }
 	}
-}

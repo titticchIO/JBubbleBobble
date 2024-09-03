@@ -70,19 +70,19 @@ public class Playing extends State implements Statemethods {
 			GameState.state = GameState.PAUSE;
 			game.getGameFrame().showState(Screen.PAUSE);
 		}
-		
+
 		switch (e.getKeyCode()) {
-		case KeyEvent.VK_W:
+		case KeyEvent.VK_W, KeyEvent.VK_UP:
 			if (!Model.getInstance().getCurrentLevel().getPlayer().isStunned())
 				Model.getInstance().getCurrentLevel().getPlayer().setJumping(true);
 			break;
-		case KeyEvent.VK_A:
+		case KeyEvent.VK_A, KeyEvent.VK_LEFT:
 			if (!Model.getInstance().getCurrentLevel().getPlayer().isStunned()) {
 				Model.getInstance().getCurrentLevel().getPlayer().setDirection(Direction.LEFT);
 				Model.getInstance().getCurrentLevel().getPlayer().move(0.7f);
 			}
 			break;
-		case KeyEvent.VK_D:
+		case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
 			if (!Model.getInstance().getCurrentLevel().getPlayer().isStunned()) {
 				Model.getInstance().getCurrentLevel().getPlayer().setDirection(Direction.RIGHT);
 				Model.getInstance().getCurrentLevel().getPlayer().move(0.7f);
@@ -98,14 +98,14 @@ public class Playing extends State implements Statemethods {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		switch (e.getKeyCode()) {
-		case KeyEvent.VK_W:
+		case KeyEvent.VK_W, KeyEvent.VK_UP:
 			Model.getInstance().getCurrentLevel().getPlayer().setJumping(false);
 			break;
-		case KeyEvent.VK_A:
+		case KeyEvent.VK_A, KeyEvent.VK_LEFT:
 			if (Model.getInstance().getCurrentLevel().getPlayer().getxSpeed() <= 0)
 				Model.getInstance().getCurrentLevel().getPlayer().stop();
 			break;
-		case KeyEvent.VK_D:
+		case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
 			if (Model.getInstance().getCurrentLevel().getPlayer().getxSpeed() >= 0)
 				Model.getInstance().getCurrentLevel().getPlayer().stop();
 			break;

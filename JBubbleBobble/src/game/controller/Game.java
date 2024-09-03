@@ -4,6 +4,7 @@ import game.view.*;
 import game.view.GameFrame.Screen;
 import game.controller.gamestates.Playing;
 import game.model.Model;
+import game.model.Paths;
 import game.controller.gamestates.State;
 import game.controller.gamestates.Win;
 
@@ -32,10 +33,8 @@ public class Game implements Runnable {
 	private Model model;
 	private View view;
 
-	
-
 	public Game() {
-//		AudioManager.getInstance().play(AnimationLoader
+//		AudioManager.getInstance().play(Paths
 //				.getAbsolutePath("Audio/Sound Tacks/01 Introduction ~ Main Theme (online-audio-converter.com).wav"));
 		model = Model.getInstance();
 		menu = new Menu(this);
@@ -56,7 +55,7 @@ public class Game implements Runnable {
 	public Menu getMenu() {
 		return menu;
 	}
-	
+
 	public Pause getPause() {
 		return pause;
 	}

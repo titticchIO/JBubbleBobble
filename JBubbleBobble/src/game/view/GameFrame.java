@@ -84,7 +84,6 @@ public class GameFrame extends JFrame {
 		addKeyListener(playerController);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
-
 		layoutPanel.add(menuPanel, Screen.MENU.name());
 		layoutPanel.add(gamePanel, Screen.GAME.name());
 		layoutPanel.add(winPanel, Screen.WIN.name());

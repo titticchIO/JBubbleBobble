@@ -6,6 +6,6 @@ public class OrangeParasol extends Parasol {
 	public static final int SPAWN_CONDITION = 2;
 
 	public OrangeParasol() {
-		super(0, 0, 3);
+		super(0, 0, 1);
 	}
 }

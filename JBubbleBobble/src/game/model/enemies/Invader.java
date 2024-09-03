@@ -82,7 +82,7 @@ public class Invader extends Enemy {
 	 * Makes the invader shoot a laser with a certain probability.
 	 */
 	public void shootLaser() {
-		if (randomBoolean(10))
+		if (randomBoolean(7))
 			Model.getInstance().getCurrentLevel().getEnemyManager().addLaser(new Laser(x + 5, y + height, 6, 20));
 	}
 

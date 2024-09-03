@@ -1,15 +1,16 @@
 package game.model;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Paths {
 
-    // Mappa per associare ogni lettera a un percorso
-    private static final Map<Character, String> pathsMap = new HashMap<>();
+	// Mappa per associare ogni lettera a un percorso
+	private static final Map<Character, String> pathsMap = new HashMap<>();
 
-    static {
-        // Aggiungi altri percorsi per le altre lettere...
+	static {
+		// Aggiungi altri percorsi per le altre lettere...
 //      BLOCKS:
 		pathsMap.put('1', "/blocks/normal_blocks/block_1");
 		pathsMap.put('2', "/blocks/normal_blocks/block_2");
@@ -36,13 +37,13 @@ public class Paths {
 		pathsMap.put('-', "/bubbles/fire_bubble");
 		pathsMap.put('+', "/bubbles/thunder_bubble");
 		pathsMap.put('/', "/bubbles/water_bubble");
+		pathsMap.put('%', "/bubbles/special_bubble");
 		pathsMap.put('(', "/bubbles/e_bubble");
 		pathsMap.put(')', "/bubbles/ex_bubble");
 		pathsMap.put('[', "/bubbles/ext_bubble");
 		pathsMap.put(']', "/bubbles/exte_bubble");
 		pathsMap.put('{', "/bubbles/exten_bubble");
 		pathsMap.put('}', "/bubbles/extend_bubble");
-		pathsMap.put('%', "/bubbles/special_bubble");
 
 //    		FRUITS:
 		pathsMap.put('~', "/fruits/banana");
@@ -68,11 +69,20 @@ public class Paths {
 		pathsMap.put('#', "/bubbles/special_effects/fire_ball");
 		pathsMap.put('?', "/bubbles/special_effects/bolt");
 		pathsMap.put('_', "/bubbles/special_effects/water_horizontal");
-		pathsMap.put('|', "/bubbles/special_effects/water_vertical");       
-    }
+		pathsMap.put('|', "/bubbles/special_effects/water_vertical");
+	}
 
-    // Metodo per ottenere il percorso associato a una lettera
-    public static String getPath(Character letter) {
-        return pathsMap.get(letter);
-    }
+	// Metodo per ottenere il percorso associato a una lettera
+	public static String getPath(Character letter) {
+		return pathsMap.get(letter);
+	}
+
+	public static String getAbsolutePath(String relativePath) {
+		File file = new File("resources/" + relativePath);
+		if (file.exists()) {
+			return file.getAbsolutePath();
+		} else {
+			throw new IllegalArgumentException("File non trovato: " + relativePath);
+		}
+	}
 }

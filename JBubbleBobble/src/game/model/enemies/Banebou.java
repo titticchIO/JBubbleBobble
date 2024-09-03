@@ -1,6 +1,7 @@
 package game.model.enemies;
 
 import game.model.HelpMethods;
+import game.model.Jumping;
 
 /**
  * Represents a type of enemy called {@code Banebou}. The {@code Banebou} class
@@ -13,7 +14,7 @@ import game.model.HelpMethods;
  * jumping actions.
  */
 
-public class Banebou extends Enemy {
+public class Banebou extends Enemy implements Jumping {
 	public static final char CODE = 'N';
 
 	/**
@@ -96,5 +97,14 @@ public class Banebou extends Enemy {
 			}
 
 		}
+	}
+
+	@Override
+	public void jump() {
+		if (!inAir && !HelpMethods.isEntityInsideWall(this)) {
+			inAir = true;
+			airSpeed = jumpSpeed;
+		}
+
 	}
 }

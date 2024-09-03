@@ -220,17 +220,6 @@ public abstract class MovingEntity extends Entity {
 		setY(y + delta); // Aggiorna y con il delta calcolato
 	}
 
-	/**
-	 * Makes the entity jump, setting it into the air with a negative vertical
-	 * speed. This method ensures the entity can only jump if it is grounded and not
-	 * inside a wall.
-	 */
-	public void jump() {
-		if (!inAir && !HelpMethods.isEntityInsideWall(this)) {
-			inAir = true;
-			airSpeed = jumpSpeed;
-		}
-	}
 
 	/**
 	 * Resets the in-air state and air speed of the entity. This is typically called

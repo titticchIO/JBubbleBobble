@@ -20,6 +20,7 @@ public abstract class Parasol extends Powerup {
 			Model.getInstance().nextLevel();}
 			catch (Exception e) {
 				Model.getInstance().setWin();
+				break;
 			}
 		}
 
