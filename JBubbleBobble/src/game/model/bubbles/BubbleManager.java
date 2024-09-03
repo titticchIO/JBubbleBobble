@@ -242,6 +242,7 @@ public class BubbleManager {
 	                @Override
 	                public void run() {
 	                    waters.forEach(w -> w.updateEntity());
+	                    waterUpdateTimer.cancel();
 	                    waterUpdateTimer = null;
 	                }
 	            }, 50);
@@ -255,6 +256,7 @@ public class BubbleManager {
 					@Override
 					public void run() {
 						createSpecialBubble();
+						spawnSpecialBubbleTimer.cancel();
 	                    spawnSpecialBubbleTimer = null;
 					}
 				}, nextBubbleInterval);

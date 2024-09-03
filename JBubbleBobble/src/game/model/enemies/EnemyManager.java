@@ -114,14 +114,11 @@ public class EnemyManager {
 	/**
 	 * Updates all managed enemies and lasers by invoking their respective update
 	 * methods.
-	 * 
-	 * <p>
-	 * This method should be called regularly, such as once per game frame, to
-	 * ensure that the state of all enemies and lasers is kept current.
 	 */
 	public void updateEnemies() {
 		enemies.stream().forEach(Enemy::updateEntity);
 		lasers.stream().forEach(Laser::updateEntity);
+		System.out.println(numberOfInvaders());
 		if (shootLaserTimer == null && numberOfInvaders() != 0) {
 			shootLaserTimer = new Timer("Shoot laser");
 			shootLaserTimer.schedule(new TimerTask() {
@@ -131,6 +128,7 @@ public class EnemyManager {
 						if (x instanceof Invader invader)
 							invader.shootLaser();
 					});
+					shootLaserTimer.cancel();;
 					shootLaserTimer = null;
 				}
 			}, 500);
@@ -141,6 +139,7 @@ public class EnemyManager {
 				@Override
 				public void run() {
 					enemies.stream().forEach(x -> x.setColorState(ColorState.RED));
+					changeColorTimer.cancel();
 					changeColorTimer = null;
 				}
 			}, 15000);
