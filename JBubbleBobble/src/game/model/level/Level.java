@@ -2,12 +2,10 @@ package game.model.level;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import game.model.bubbles.BubbleManager;
 import game.model.bubbles.ExtendBubble;
 import game.model.bubbles.FireBubble;
@@ -17,7 +15,6 @@ import game.model.bubbles.ThunderBubble;
 import game.model.bubbles.WaterBubble;
 import game.model.bubbles.special_effects.FireBall;
 import game.model.bubbles.special_effects.FireBall.FireState;
-import game.model.bubbles.special_effects.Water;
 import game.model.Fruit;
 import game.model.FruitManager;
 import game.model.HelpMethods;
@@ -151,6 +148,11 @@ public class Level {
 	public void addTile(Tile tile) {
 		tiles.add(tile);
 	}
+	
+	private void setEnemyInBubble(PlayerBubble b, Enemy e) {
+		b.setEnemy(e);
+		enemyManager.removeEnemy(e);
+	}
 
 	private void setBubblesSpawnPoints() {
 		bubblesSpawnPoints = new ArrayList<Float>();
@@ -163,23 +165,20 @@ public class Level {
 		}
 	}
 
-	private boolean checkEnemiesBubblesCollision() {
-		return Entity.checkCollisions(bubbleManager.getPlayerBubbles(), enemyManager.getEnemies()).isPresent();
-	}
-
 	public void captureEnemies() {
-		if (checkEnemiesBubblesCollision())
-			bubbleManager.getPlayerBubbles().stream()
-					.forEach(b -> enemyManager.getEnemies().stream().filter(b::hasHitEnemy).forEach(e -> {
-						if (e instanceof Boss) {
-							b.pop();
-						} else if (!b.hasEnemy() && !e.isDead()) {
-							b.setEnemy(e);
-							enemyManager.removeEnemy(e);
-							if (player.isShooting())
-								b.popAndKill();
-						}
-					}));
+		bubbleManager.getPlayerBubbles().stream().forEach(b -> {
+			enemyManager.getEnemies().stream().forEach(e -> {
+				if (b.getEnemy() == null && b.hit(e)) {
+					if (e instanceof Boss || e.isDead())
+						b.pop();
+					else {
+						setEnemyInBubble(b, e);
+						if (player.isShooting())
+							b.popAndKill();
+					}
+				}
+			});
+		});
 	}
 
 	public void killEnemies() {
