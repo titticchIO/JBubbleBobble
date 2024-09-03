@@ -3,10 +3,12 @@ package game.model.entities;
 import game.model.powerups.AmethystRing;
 import game.model.tiles.Tile;
 import game.model.HelpMethods;
-import game.model.Jumping;
 import game.model.Model;
-import game.model.Shooting;
-import game.model.Vulnerable;
+import game.model.interfaces.Gravity;
+import game.model.interfaces.Jumping;
+import game.model.interfaces.Shooting;
+import game.model.interfaces.Vulnerable;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -17,7 +19,7 @@ import java.util.TimerTask;
  * implements the singleton pattern to ensure only one player instance exists in
  * the game.
  */
-public class Player extends MovingEntity implements Jumping, Shooting, Vulnerable {
+public class Player extends MovingEntity implements Gravity, Jumping, Shooting, Vulnerable {
 
 	// Static Fields
 	public static final char CODE = 'P';
@@ -352,6 +354,20 @@ public class Player extends MovingEntity implements Jumping, Shooting, Vulnerabl
 	}
 
 	/**
+	 * Applies gravity to the entity, increasing its air speed up to a maximum value
+	 * if the entity is not grounded. This method simulates the effect of gravity on
+	 * the entity when it is in the air.
+	 */
+	@Override
+	public void gravity() {
+		if (!HelpMethods.isEntityGrounded(this) && airSpeed < MAX_FALLING_SPEED) {
+			inAir = true;
+			airSpeed += GRAVITY;
+		}
+	}
+	
+	
+	/**
 	 * Makes the player jump, setting them into the air with a negative vertical
 	 * speed. Also increments the number of jumps in the power-up manager.
 	 */
@@ -462,9 +478,9 @@ public class Player extends MovingEntity implements Jumping, Shooting, Vulnerabl
 	 */
 	@Override
 	public void updateEntity() {
+		gravity();
 		if (!isStunned())
 			updateXPos();
 		updateYPos();
-		gravity();
 	}
 }

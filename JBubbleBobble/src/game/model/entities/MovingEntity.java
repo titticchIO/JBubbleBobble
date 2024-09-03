@@ -20,7 +20,9 @@ public abstract class MovingEntity extends Entity {
 	}
 
 	// Maximum falling speed
+	public static final float GRAVITY = 0.02f;
 	public static final float MAX_FALLING_SPEED = 2;
+	
 
 	// Direction of movement
 	protected Direction direction;
@@ -34,8 +36,6 @@ public abstract class MovingEntity extends Entity {
 	// Speed at which the entity jumps
 	protected float jumpSpeed;
 
-	// Gravity force applied to the entity
-	protected float gravity;
 
 	// Speed applied after a collision to prevent sticking
 	protected float fallSpeedAfterCollision;
@@ -55,7 +55,6 @@ public abstract class MovingEntity extends Entity {
 	public MovingEntity(float x, float y, char code) {
 		super(x, y, code);
 		direction = Direction.STATIC;
-		gravity = 0.02f;
 		jumpSpeed = -2.0f;
 		fallSpeedAfterCollision = 0.3f;
 	}
@@ -74,7 +73,6 @@ public abstract class MovingEntity extends Entity {
 	public MovingEntity(float x, float y, float width, float height, char code) {
 		super(x, y, width, height, code);
 		direction = Direction.STATIC;
-		gravity = 0.02f;
 		jumpSpeed = -2.0f;
 		fallSpeedAfterCollision = 0.3f;
 	}
@@ -230,17 +228,7 @@ public abstract class MovingEntity extends Entity {
 		airSpeed = 0.0f;
 	}
 
-	/**
-	 * Applies gravity to the entity, increasing its air speed up to a maximum value
-	 * if the entity is not grounded. This method simulates the effect of gravity on
-	 * the entity when it is in the air.
-	 */
-	public void gravity() {
-		if (!HelpMethods.isEntityGrounded(this) && airSpeed < MAX_FALLING_SPEED) {
-			inAir = true;
-			airSpeed += gravity;
-		}
-	}
+	
 
 	/**
 	 * Stops the entity's movement by setting its direction to {@code STATIC} and
@@ -274,6 +262,5 @@ public abstract class MovingEntity extends Entity {
 	public void updateEntity() {
 		updateXPos();
 		updateYPos();
-		gravity();
 	}
 }

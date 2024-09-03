@@ -1,7 +1,9 @@
 package game.model.enemies;
 
 import game.model.HelpMethods;
-import game.model.Jumping;
+import game.model.interfaces.ChangeDirection;
+import game.model.interfaces.Gravity;
+import game.model.interfaces.Jumping;
 
 /**
  * Represents a type of enemy called {@code Banebou}. The {@code Banebou} class
@@ -14,7 +16,7 @@ import game.model.Jumping;
  * jumping actions.
  */
 
-public class Banebou extends Enemy implements Jumping {
+public class Banebou extends Enemy implements Gravity, Jumping, ChangeDirection {
 	public static final char CODE = 'N';
 
 	/**
@@ -57,18 +59,44 @@ public class Banebou extends Enemy implements Jumping {
 	 * The interval for changing direction is randomly set between 8000 and 10000
 	 * milliseconds.
 	 */
-	private void changeDirection() {
-		switch (direction) {
-		case LEFT:
-			setDirection(Direction.RIGHT);
-			setxSpeed(0.7f * movementSpeed);
-			break;
-		case RIGHT:
-			setDirection(Direction.LEFT);
-			setxSpeed(-0.7f * movementSpeed);
-			break;
-		default:
-			break;
+	@Override
+	public void changeDirection() {
+		if ((!HelpMethods.canMoveHere(x + xSpeed, y, width, height) || randomBoolean(1000))
+				&& !HelpMethods.isEntityInsideWall(this)) {
+			switch (direction) {
+			case LEFT:
+				setDirection(Direction.RIGHT);
+				setxSpeed(0.7f * movementSpeed);
+				break;
+			case RIGHT:
+				setDirection(Direction.LEFT);
+				setxSpeed(-0.7f * movementSpeed);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	@Override
+	public void jump() {
+		if (!inAir && !HelpMethods.isEntityInsideWall(this)) {
+			inAir = true;
+			airSpeed = jumpSpeed;
+		}
+
+	}
+
+	/**
+	 * Applies gravity to the entity, increasing its air speed up to a maximum value
+	 * if the entity is not grounded. This method simulates the effect of gravity on
+	 * the entity when it is in the air.
+	 */
+	@Override
+	public void gravity() {
+		if (!HelpMethods.isEntityGrounded(this) && airSpeed < MAX_FALLING_SPEED) {
+			inAir = true;
+			airSpeed += GRAVITY;
 		}
 	}
 
@@ -87,24 +115,14 @@ public class Banebou extends Enemy implements Jumping {
 		if (isDead()) {
 			removeEnemy();
 		} else {
-			updateXPos();
 			gravity();
+			updateXPos();
 			if (!isStopped) {
-				if ((!HelpMethods.canMoveHere(x + xSpeed, y, width, height) || randomBoolean(1000))
-						&& !HelpMethods.isEntityInsideWall(this))
-					changeDirection();
+				changeDirection();
 				jump();
 			}
 
 		}
 	}
 
-	@Override
-	public void jump() {
-		if (!inAir && !HelpMethods.isEntityInsideWall(this)) {
-			inAir = true;
-			airSpeed = jumpSpeed;
-		}
-
-	}
 }

@@ -3,7 +3,6 @@ package game.model.enemies;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import game.model.Bouncing;
 import game.model.entities.Player;
 import game.model.level.Level;
 import game.model.tiles.Tile;
