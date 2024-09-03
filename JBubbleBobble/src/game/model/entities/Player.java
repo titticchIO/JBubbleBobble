@@ -362,6 +362,7 @@ public class Player extends MovingEntity implements Jumping {
 	public void jump() {
 		inAir = true;
 		airSpeed = jumpSpeed;
+		Model.getInstance().sendNotification("jump");
 		if (amethystRingActive)
 			Model.getInstance().getCurrentUser().addPoints(AmethystRing.POINTS);
 	}
@@ -370,11 +371,13 @@ public class Player extends MovingEntity implements Jumping {
 	 * Handles the player's loss of life, decrementing its lives.
 	 */
 	public void looseLife() {
+		Model.getInstance().sendNotification("lifeLost");
 		lives--;
-		System.out.println("life lost");
+		stun(2);
 	}
 
 	public void heal() {
+		Model.getInstance().sendNotification("heal");
 		lives = NUMBER_OF_LIVES;
 	}
 
