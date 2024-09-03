@@ -17,7 +17,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import game.model.Model;
-import game.model.User;
+import game.model.user.User;
 
 public class LeaderboardPanel extends JPanel {
 

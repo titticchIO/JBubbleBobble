@@ -9,8 +9,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import game.model.Level;
 import game.model.Model;
+import game.model.level.Level;
 
 public class TransitionPanel extends JPanel {
     private Image currentLevelImage;

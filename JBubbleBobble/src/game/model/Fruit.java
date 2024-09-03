@@ -1,6 +1,7 @@
 package game.model;
 
 import java.util.Random;
+import game.model.entities.Entity;
 
 
 public class Fruit extends Entity {

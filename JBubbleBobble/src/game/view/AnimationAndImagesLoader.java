@@ -3,8 +3,8 @@ package game.view;
 import javax.swing.ImageIcon;
 
 import game.model.Paths;
-import game.model.Enemy.ColorState;
-import game.model.MovingEntity.Direction;
+import game.model.enemies.Enemy.ColorState;
+import game.model.entities.MovingEntity.Direction;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;

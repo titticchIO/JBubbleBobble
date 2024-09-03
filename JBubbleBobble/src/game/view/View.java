@@ -5,9 +5,9 @@ import java.util.Observer;
 
 import game.controller.AudioManager;
 import game.controller.gamestates.Menu;
-import game.model.Level;
 import game.model.Model;
 import game.model.Paths;
+import game.model.level.Level;
 
 public class View implements Observer {
 	private static View instance;

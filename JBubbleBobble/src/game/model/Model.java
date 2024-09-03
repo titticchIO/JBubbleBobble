@@ -8,6 +8,13 @@ import java.util.Map.Entry;
 import java.util.Observable;
 
 import editor.model.LevelReader;
+import game.model.entities.Player;
+import game.model.level.Level;
+
+import game.model.tiles.Tile;
+
+import game.model.user.User;
+import game.model.user.UserMethods;
 
 public class Model extends Observable {
 

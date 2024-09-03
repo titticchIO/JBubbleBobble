@@ -13,10 +13,10 @@ import javax.swing.*;
 
 import game.controller.ActionListenersManager;
 import game.controller.gamestates.Menu;
-import game.model.Level;
 import game.model.Model;
-import game.model.User;
-import game.model.UserMethods;
+import game.model.level.Level;
+import game.model.user.User;
+import game.model.user.UserMethods;
 
 public class MenuPanel extends JPanel {
 
