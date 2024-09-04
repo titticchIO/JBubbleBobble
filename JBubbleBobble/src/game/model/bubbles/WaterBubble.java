@@ -19,7 +19,7 @@ public class WaterBubble extends Bubble {
 	public WaterBubble() {
 		super(0, 0, TILE_SIZE - 1, TILE_SIZE - 1, CODE);
 		rise(-0.2f);
-		lifeSpan *= 10;
+		lifeSpan = 20000;
 
 	}
 
@@ -32,7 +32,8 @@ public class WaterBubble extends Bubble {
 	@Override
 	public void pop() {
 		Model.getInstance().getCurrentLevel().getBubbleManager().removeBubble(this);
-		Model.getInstance().getCurrentLevel().getBubbleManager()
-				.addWater(new Water(roundPosition(x), roundPosition(y), 7));
+		if (lifeSpan != 0)
+			Model.getInstance().getCurrentLevel().getBubbleManager()
+					.addWater(new Water(roundPosition(x), roundPosition(y), 7));
 	}
 }

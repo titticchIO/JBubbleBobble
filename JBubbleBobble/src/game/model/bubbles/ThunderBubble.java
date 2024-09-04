@@ -24,7 +24,7 @@ public class ThunderBubble extends Bubble {
 	public ThunderBubble() {
 		super(0, 0, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1, CODE);
 		rise(-0.2f);
-		lifeSpan *= 10;
+		lifeSpan = 20000;
 
 	}
 
@@ -35,8 +35,9 @@ public class ThunderBubble extends Bubble {
 	 */
 	@Override
 	public void pop() {
-		Model.getInstance().getCurrentLevel().getBubbleManager().addBolt(new Bolt(x, y));
 		Model.getInstance().getCurrentLevel().getBubbleManager().removeBubble(this);
+		if (lifeSpan != 0)
+			Model.getInstance().getCurrentLevel().getBubbleManager().addBolt(new Bolt(x, y));
 	}
 
 	/**

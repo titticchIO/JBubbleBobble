@@ -22,7 +22,7 @@ public class FireBubble extends Bubble {
 	public FireBubble() {
 		super(0, 0, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1, CODE);
 		rise(-0.3f);
-		lifeSpan *= 10;
+		lifeSpan = 20000;
 	}
 
 	// Other Methods
@@ -33,6 +33,7 @@ public class FireBubble extends Bubble {
 	@Override
 	public void pop() {
 		Model.getInstance().getCurrentLevel().getBubbleManager().removeBubble(this);
-		Model.getInstance().getCurrentLevel().getBubbleManager().addFireBall(new FireBall(x, y));
+		if (lifeSpan!=0)
+			Model.getInstance().getCurrentLevel().getBubbleManager().addFireBall(new FireBall(x, y));
 	}
 }

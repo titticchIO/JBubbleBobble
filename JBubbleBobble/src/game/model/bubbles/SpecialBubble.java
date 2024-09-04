@@ -24,7 +24,7 @@ public class SpecialBubble extends Bubble {
 	public SpecialBubble() {
 		super(0, 0, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1, CODE);
 		rise(-0.1f);
-		this.lifeSpan *= 10;
+		lifeSpan = 20000;
 	}
 
 	// Overridden Methods
@@ -35,14 +35,16 @@ public class SpecialBubble extends Bubble {
 	 */
 	@Override
 	public void pop() {
-		Player.getInstance().setSpecialBubbleActive(true);
-		new Timer("SpecialBubble").schedule(new TimerTask() {
-			@Override
-			public void run() {
-				Player.getInstance().setSpecialBubbleActive(false);
-			}
-		}, 10000); // Enables shooting for 10 seconds
 		Model.getInstance().getCurrentLevel().getBubbleManager().removeBubble(this);
+		if (lifeSpan != 0) {
+			Player.getInstance().setSpecialBubbleActive(true);
+			new Timer("SpecialBubble").schedule(new TimerTask() {
+				@Override
+				public void run() {
+					Player.getInstance().setSpecialBubbleActive(false);
+				}
+			}, 10000);
+		} // Enables shooting for 10 seconds
 	}
 
 	/**
