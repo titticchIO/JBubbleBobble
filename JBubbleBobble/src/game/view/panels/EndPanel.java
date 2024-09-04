@@ -1,4 +1,4 @@
-package game.view;
+package game.view.panels;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import game.model.level.Level;
+import game.view.AnimationAndImagesLoader;
+import game.view.ImageLoader;
 
 public class EndPanel extends JPanel {
 

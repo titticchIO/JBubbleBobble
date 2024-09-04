@@ -1,4 +1,4 @@
-package game.view;
+package game.view.panels;
 
 import java.awt.*;
 import java.awt.event.WindowEvent;
@@ -17,6 +17,8 @@ import game.model.Model;
 import game.model.level.Level;
 import game.model.user.User;
 import game.model.user.UserMethods;
+import game.view.ImageLoader;
+import game.view.View;
 
 public class MenuPanel extends JPanel {
 

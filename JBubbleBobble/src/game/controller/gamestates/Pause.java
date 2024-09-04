@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import game.controller.Game;
-import game.view.GameFrame.Screen;
+import game.view.frames.GameFrame.Screen;
 
 public class Pause extends State implements Statemethods{
 

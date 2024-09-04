@@ -1,4 +1,4 @@
-package game.view;
+package game.view.panels;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -11,6 +11,7 @@ import javax.swing.Timer;
 
 import game.model.Model;
 import game.model.level.Level;
+import game.view.frames.GameFrame;
 
 public class TransitionPanel extends JPanel {
     private Image currentLevelImage;

@@ -8,6 +8,11 @@ import game.controller.gamestates.Menu;
 import game.model.Model;
 import game.model.Paths;
 import game.model.level.Level;
+import game.view.frames.CheatFrame;
+import game.view.frames.GameFrame;
+import game.view.panels.LevelPanel;
+import game.view.panels.MenuPanel;
+import game.view.panels.TransitionPanel;
 
 public class View implements Observer {
 	private static View instance;
@@ -79,8 +84,8 @@ public class View implements Observer {
 			.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (20).wav"));
 			case "lifeLost"->AudioManager.getInstance()
 			.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (3).wav"));
-//			case "bossHit"->AudioManager.getInstance()
-//			.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (1).wav"));
+			case "bossHit"->AudioManager.getInstance()
+			.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (1).wav"));
 			case "bossKill"->AudioManager.getInstance()
 			.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (18).wav"));
 			}
