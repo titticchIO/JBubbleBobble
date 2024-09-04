@@ -5,9 +5,9 @@ import java.awt.event.MouseEvent;
 
 import game.controller.Controller;
 
-public class Win extends State implements Statemethods {
+public class End extends State implements Statemethods {
 
-	public Win(Controller game) {
+	public End(Controller game) {
 		super(game);
 	}
 

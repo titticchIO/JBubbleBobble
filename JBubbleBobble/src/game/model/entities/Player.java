@@ -22,7 +22,7 @@ public class Player extends MovingEntity implements Gravity, Jumping, Shooting, 
 
 	// Static Fields
 	public static final char CODE = 'P';
-	public static final int NUMBER_OF_LIVES = 200; // The total number of lives the player starts with.
+	public static final int NUMBER_OF_LIVES = 1; // The total number of lives the player starts with.
 	public static final long INVULNERABILITY_INTERVAL = 5000; // The duration of invulnerability after losing a life.
 	public static final long ATTACK_INTERVAL = 100; // The minimum time interval between bubble shots (in milliseconds).
 	private static Player instance; // Singleton instance of the Player class.
@@ -364,8 +364,7 @@ public class Player extends MovingEntity implements Gravity, Jumping, Shooting, 
 			airSpeed += GRAVITY;
 		}
 	}
-	
-	
+
 	/**
 	 * Makes the player jump, setting them into the air with a negative vertical
 	 * speed. Also increments the number of jumps in the power-up manager.
@@ -422,12 +421,14 @@ public class Player extends MovingEntity implements Gravity, Jumping, Shooting, 
 			Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfBubbles();
 			if (bubbleDirection == Direction.RIGHT
 					&& !HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
-				Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x + Tile.TILE_SIZE, y, 2, -0.3f);
+				Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x + Tile.TILE_SIZE, y, 2,
+						-0.3f);
 				if (rubyRingActive)
 					Model.getInstance().getCurrentUser().addPoints(50);
 			} else if (bubbleDirection == Direction.LEFT
 					&& !HelpMethods.isEntityInsideWall(x - Tile.TILE_SIZE, y, width, height)) {
-				Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x - Tile.TILE_SIZE, y, -2, -0.3f);
+				Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x - Tile.TILE_SIZE, y, -2,
+						-0.3f);
 				if (rubyRingActive)
 					Model.getInstance().getCurrentUser().addPoints(50);
 			}

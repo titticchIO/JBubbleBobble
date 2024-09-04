@@ -177,7 +177,7 @@ public class PowerupManager {
 	}
 
 	public void updatePowerups() {
-		if (spawnTimer == null) {
+		if (spawnTimer == null && powerups.size() < 4) {
 			spawnTimer = new Timer("Powerup Update");
 
 			spawnTimer.schedule(new TimerTask() {
