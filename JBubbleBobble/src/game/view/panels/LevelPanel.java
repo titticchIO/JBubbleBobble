@@ -36,7 +36,6 @@ public class LevelPanel extends JPanel {
 	private BufferedImage tilesImage;
 	private GameFrame gameFrame;
 
-
 	public LevelPanel(GameFrame gameFrame) {
 		setPanelSize();
 		this.gameFrame = gameFrame;
@@ -86,8 +85,12 @@ public class LevelPanel extends JPanel {
 		if (player.isStunned())
 			playerImg = player.getDirection() == Direction.LEFT ? AnimationAndImagesLoader.getPlayerImage("stun_left")
 					: AnimationAndImagesLoader.getPlayerImage("stun_right");
-		else {
-			playerImg = player.getDirection() == Direction.STATIC ? AnimationAndImagesLoader.getImage(Player.CODE, "static")
+		else if (!player.canShoot()) {
+			playerImg = player.getBubbleDirection() == Direction.LEFT ? AnimationAndImagesLoader.getPlayerImage("bubble_left")
+					: AnimationAndImagesLoader.getPlayerImage("bubble_right");
+		} else {
+			playerImg = player.getDirection() == Direction.STATIC
+					? AnimationAndImagesLoader.getImage(Player.CODE, "static")
 					: AnimationAndImagesLoader.getPlayerImage("walk_" + player.getDirection().name().toLowerCase());
 		}
 		g.drawImage(playerImg, (int) player.getX(), (int) player.getY(), (int) player.getWidth() + 1,
@@ -100,7 +103,8 @@ public class LevelPanel extends JPanel {
 			enemyImage = AnimationAndImagesLoader.loadDeadEnemyImage(enemy.getCode());
 //			enemyImage= prendi l'immagine del nemico morto;
 		} else {
-			enemyImage = AnimationAndImagesLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(), enemy.getColorState());
+			enemyImage = AnimationAndImagesLoader.loadEnemyImage(enemy.getCode(), enemy.getDirection(),
+					enemy.getColorState());
 		}
 		g.drawImage(enemyImage, (int) enemy.getX(), (int) enemy.getY(), (int) enemy.getWidth() + 1,
 				(int) enemy.getHeight() + 1, null);
@@ -124,7 +128,8 @@ public class LevelPanel extends JPanel {
 			}
 		}
 		case WaterBubble waterBubble -> AnimationAndImagesLoader.loadEntityImage("/bubbles/water_bubble.gif");
-		case Water water -> HelpMethods.isEntityGrounded(water) ? AnimationAndImagesLoader.getImage('_') : AnimationAndImagesLoader.getImage('|');
+		case Water water -> HelpMethods.isEntityGrounded(water) ? AnimationAndImagesLoader.getImage('_')
+				: AnimationAndImagesLoader.getImage('|');
 		default -> AnimationAndImagesLoader.getImage(entity.getCode());
 		};
 		if (entity instanceof Tile) {

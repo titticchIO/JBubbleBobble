@@ -17,11 +17,6 @@ public class Loss extends State implements Statemethods {
     }
 
     @Override
-    public void repaint() {
-        // Loss-specific repaint logic (if any)
-    }
-
-    @Override
     public void mouseClicked(MouseEvent e) {
         // Handle mouse click if necessary
     }

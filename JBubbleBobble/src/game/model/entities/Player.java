@@ -133,7 +133,7 @@ public class Player extends MovingEntity implements Gravity, Jumping, Shooting, 
 	 *
 	 * @return {@code true} if the player can shoot, {@code false} otherwise.
 	 */
-	public boolean isCanShoot() {
+	public boolean canShoot() {
 		return canShoot;
 	}
 

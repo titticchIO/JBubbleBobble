@@ -8,19 +8,13 @@ import game.view.frames.GameFrame.Screen;
 
 public class Pause extends State implements Statemethods{
 
-	public Pause(Controller game) {
-		super(game);
+	public Pause(Controller controller) {
+		super(controller);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void repaint() {
 		// TODO Auto-generated method stub
 		
 	}

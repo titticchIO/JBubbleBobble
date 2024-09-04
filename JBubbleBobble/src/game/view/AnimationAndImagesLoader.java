@@ -22,7 +22,9 @@ public class AnimationAndImagesLoader {
 	private static final String PLAYER_WALK_RIGHT = "player/right_walk.gif";
 	private static final String PLAYER_STUN_LEFT = "player/stun_left.gif";
 	private static final String PLAYER_STUN_RIGHT = "player/stun_right.gif";
-	// Aggiungi altri percorsi delle animazioni del player qui
+	private static final String PLAYER_BUBBLE_LEFT = "player/bubble_left.gif";
+	private static final String PLAYER_BUBBLE_RIGHT = "player/bubble_right.gif";
+	
 
 	static {
 		// Carica le animazioni del player staticamente
@@ -30,7 +32,8 @@ public class AnimationAndImagesLoader {
 		playerAnimations.put("walk_right", loadImageIcon(PLAYER_WALK_RIGHT));
 		playerAnimations.put("stun_left", loadImageIcon(PLAYER_STUN_LEFT));
 		playerAnimations.put("stun_right", loadImageIcon(PLAYER_STUN_RIGHT));
-		// Carica altre animazioni del player
+		playerAnimations.put("bubble_left", loadImageIcon(PLAYER_BUBBLE_LEFT));
+		playerAnimations.put("bubble_right", loadImageIcon(PLAYER_BUBBLE_RIGHT));
 	}
 
 	// Metodo per caricare un'ImageIcon dato un percorso
