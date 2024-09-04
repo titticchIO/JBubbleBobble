@@ -1,7 +1,8 @@
 package game.controller;
 
 import game.view.*;
-import game.view.GameFrame.Screen;
+import game.view.frames.GameFrame;
+import game.view.frames.GameFrame.Screen;
 import game.controller.gamestates.Playing;
 import game.model.Model;
 import game.model.Paths;

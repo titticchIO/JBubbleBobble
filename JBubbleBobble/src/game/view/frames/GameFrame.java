@@ -1,4 +1,4 @@
-package game.view;
+package game.view.frames;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -19,7 +19,13 @@ import game.controller.gamestates.GameState;
 import game.controller.gamestates.Menu;
 import game.model.Model;
 import game.model.level.Level;
-import game.view.EndPanel.Ending;
+import game.view.View;
+import game.view.panels.EndPanel;
+import game.view.panels.LevelPanel;
+import game.view.panels.MenuPanel;
+import game.view.panels.PausePanel;
+import game.view.panels.TransitionPanel;
+import game.view.panels.EndPanel.Ending;
 
 public class GameFrame extends JFrame {
 

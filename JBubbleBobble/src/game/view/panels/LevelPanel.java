@@ -1,4 +1,4 @@
-package game.view;
+package game.view.panels;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -24,6 +24,11 @@ import game.model.powerups.Parasol;
 import game.model.powerups.PurpleParasol;
 import game.model.powerups.RedParasol;
 import game.model.tiles.Tile;
+import game.view.AnimationAndImagesLoader;
+import game.view.ImageLoader;
+import game.view.View;
+import game.view.frames.GameFrame;
+import game.view.frames.GameFrame.Screen;
 
 public class LevelPanel extends JPanel {
 	public static final long serialVersionUID = 1L;

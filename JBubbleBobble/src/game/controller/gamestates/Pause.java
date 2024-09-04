@@ -3,12 +3,12 @@ package game.controller.gamestates;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import game.controller.Controller;
-import game.view.GameFrame.Screen;
+import game.controller.Game;
+import game.view.frames.GameFrame.Screen;
 
 public class Pause extends State implements Statemethods{
 
-	public Pause(Controller game) {
+	public Pause(Game game) {
 		super(game);
 		// TODO Auto-generated constructor stub
 	}

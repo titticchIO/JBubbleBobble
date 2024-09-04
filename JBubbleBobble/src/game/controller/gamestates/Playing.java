@@ -12,7 +12,7 @@ import game.model.bubbles.BubbleManager;
 import game.model.entities.MovingEntity.Direction;
 import game.model.level.Level;
 import game.view.AnimationAndImagesLoader;
-import game.view.GameFrame.Screen;
+import game.view.frames.GameFrame.Screen;
 
 public class Playing extends State implements Statemethods {
 

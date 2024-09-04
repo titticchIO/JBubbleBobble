@@ -1,4 +1,4 @@
-package game.view;
+package game.view.panels;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import game.controller.ActionListenersManager;
 import game.controller.Controller;
 import game.model.level.Level;
+import game.view.ImageLoader;
 
 public class PausePanel extends JPanel {
     

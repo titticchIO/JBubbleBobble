@@ -1,4 +1,4 @@
-package game.view;
+package game.view.frames;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,6 +22,10 @@ import game.model.bubbles.FireBubble;
 import game.model.bubbles.SpecialBubble;
 import game.model.bubbles.ThunderBubble;
 import game.model.bubbles.WaterBubble;
+import game.view.AnimationAndImagesLoader;
+import game.view.CheatButton;
+import game.view.ImageLoader;
+import game.view.View;
 
 public class CheatFrame extends JFrame {
 

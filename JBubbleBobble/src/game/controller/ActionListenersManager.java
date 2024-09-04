@@ -29,8 +29,8 @@ import game.model.bubbles.WaterBubble;
 import game.model.entities.Player;
 import game.model.user.User;
 import game.view.View;
-import game.view.CheatFrame;
-import game.view.GameFrame.Screen;
+import game.view.frames.CheatFrame;
+import game.view.frames.GameFrame.Screen;
 import editor.model.LevelManager;
 import editor.view.EditorFrame;
 
