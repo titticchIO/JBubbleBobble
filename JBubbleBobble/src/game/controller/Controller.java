@@ -17,7 +17,7 @@ import game.controller.gamestates.Loss;
 import game.controller.gamestates.Menu;
 import game.controller.gamestates.Pause;
 
-public class Game implements Runnable {
+public class Controller implements Runnable {
 	private Thread gameThread;
 	private boolean running;
 	private final float GAME_SPEED = 1.0f;
@@ -34,7 +34,7 @@ public class Game implements Runnable {
 	private Model model;
 	private View view;
 
-	public Game() {
+	public Controller() {
 //		AudioManager.getInstance().play(Paths
 //				.getAbsolutePath("Audio/Sound Tacks/01 Introduction ~ Main Theme (online-audio-converter.com).wav"));
 		model = Model.getInstance();

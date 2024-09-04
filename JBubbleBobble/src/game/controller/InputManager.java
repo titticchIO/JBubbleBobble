@@ -6,12 +6,12 @@ import java.awt.event.KeyListener;
 import game.controller.gamestates.GameState;
 
 public class InputManager implements KeyListener {
-	private Game game;
+	private Controller game;
 
 	/**
 	 * @param game
 	 */
-	public InputManager(Game game) {
+	public InputManager(Controller game) {
 		this.game = game;
 	}
 

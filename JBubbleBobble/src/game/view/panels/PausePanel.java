@@ -13,7 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import game.controller.ActionListenersManager;
-import game.controller.Game;
+import game.controller.Controller;
 import game.model.level.Level;
 import game.view.ImageLoader;
 
@@ -21,9 +21,9 @@ public class PausePanel extends JPanel {
     
     private BufferedImage levelImage;
     private LevelPanel levelPanel;
-    private Game game;
+    private Controller game;
 
-    public PausePanel(LevelPanel levelPanel, Game game) {
+    public PausePanel(LevelPanel levelPanel, Controller game) {
         this.levelPanel = levelPanel;
         this.game = game;
 

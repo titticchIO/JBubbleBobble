@@ -1,18 +1,18 @@
 package game.controller.gamestates;
 
-import game.controller.Game;
+import game.controller.Controller;
 
 public class State {
 	
 	
 	
-	protected Game game;
+	protected Controller game;
 
-	public State(Game game) {
+	public State(Controller game) {
 		this.game = game;
 	}
 
-	public Game getGame() {
+	public Controller getGame() {
 		return game;
 	}
 

@@ -3,11 +3,11 @@ package game.controller.gamestates;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import game.controller.Game;
+import game.controller.Controller;
 
 public class Win extends State implements Statemethods {
 
-    public Win(Game game) {
+    public Win(Controller game) {
         super(game);
     }
 
