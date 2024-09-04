@@ -6,7 +6,7 @@ import game.model.entities.Player;
 public class AmethystRing extends Powerup {
 	public static final char CODE = '=';
 	public static final int SPAWN_CONDITION = 2;
-	public static final int POINTS = 500;
+	public static final int POINTS = 1000;
 	public static final long DURATION = 8000;
 
 	public AmethystRing() {

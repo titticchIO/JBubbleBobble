@@ -1,4 +1,4 @@
-package game.model.powerups;
+	package game.model.powerups;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -72,16 +72,6 @@ public abstract class Powerup extends Entity {
 	// Other Methods
 
 	/**
-	 * Checks if the player collides with this power-up.
-	 *
-	 * @return {@code true} if the player collides with the power-up, {@code false}
-	 *         otherwise.
-	 */
-	private boolean checkPlayerCollision() {
-		return Entity.checkCollision(Player.getInstance(), this).isPresent();
-	}
-
-	/**
 	 * Applies the effect of the power-up to the player.
 	 */
 	public void effect() {
@@ -101,7 +91,7 @@ public abstract class Powerup extends Entity {
 	 * effects if necessary.
 	 */
 	public void updatePowerup() {
-		if (checkPlayerCollision()) {
+		if (Entity.checkCollision(Player.getInstance(), this).isPresent()) {
 			Model.getInstance().getCurrentUser().addPoints(points);
 
 			switch (this.getClass().getSimpleName()) {

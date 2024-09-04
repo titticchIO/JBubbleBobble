@@ -377,7 +377,7 @@ public class Player extends MovingEntity implements Gravity, Jumping, Shooting, 
 		airSpeed = jumpSpeed;
 		Model.getInstance().sendNotification("jump");
 		if (amethystRingActive)
-			Model.getInstance().getCurrentUser().addPoints(AmethystRing.POINTS);
+			Model.getInstance().getCurrentUser().addPoints(100);
 	}
 
 	/**
@@ -425,12 +425,12 @@ public class Player extends MovingEntity implements Gravity, Jumping, Shooting, 
 					&& !HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
 				Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x + Tile.TILE_SIZE, y, 2);
 				if (rubyRingActive)
-					Model.getInstance().getCurrentUser().addPoints(100);
+					Model.getInstance().getCurrentUser().addPoints(50);
 			} else if (bubbleDirection == Direction.LEFT
 					&& !HelpMethods.isEntityInsideWall(x - Tile.TILE_SIZE, y, width, height)) {
 				Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x - Tile.TILE_SIZE, y, -2);
 				if (rubyRingActive)
-					Model.getInstance().getCurrentUser().addPoints(100);
+					Model.getInstance().getCurrentUser().addPoints(50);
 			}
 
 			Model.getInstance().sendNotification("bubble");

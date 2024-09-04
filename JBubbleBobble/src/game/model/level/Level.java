@@ -55,6 +55,7 @@ public class Level {
 		bubbleManager = new BubbleManager();
 		powerupManager = new PowerupManager();
 		fruitManager = new FruitManager();
+		bubblesSpawnPoints = new ArrayList<Float>();
 		lvlData = LevelLoader.loadLevel(this, levelNumber);
 		setBubblesSpawnPoints();
 	}
@@ -155,7 +156,6 @@ public class Level {
 	}
 
 	private void setBubblesSpawnPoints() {
-		bubblesSpawnPoints = new ArrayList<Float>();
 		int y = lvlData.length - 1;
 
 		for (int x = 0; x < lvlData[0].length; x++) {
