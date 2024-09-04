@@ -85,7 +85,7 @@ public class LevelPanel extends JPanel {
 		if (player.isStunned())
 			playerImg = player.getDirection() == Direction.LEFT ? AnimationAndImagesLoader.getPlayerImage("stun_left")
 					: AnimationAndImagesLoader.getPlayerImage("stun_right");
-		else if (!player.isCanShoot()) {
+		else if (!player.canShoot()) {
 			playerImg = player.getBubbleDirection() == Direction.LEFT ? AnimationAndImagesLoader.getPlayerImage("bubble_left")
 					: AnimationAndImagesLoader.getPlayerImage("bubble_right");
 		} else {
