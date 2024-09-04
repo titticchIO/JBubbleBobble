@@ -20,12 +20,6 @@ public class Pause extends State implements Statemethods{
 	}
 
 	@Override
-	public void repaint() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		

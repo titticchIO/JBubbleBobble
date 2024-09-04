@@ -6,8 +6,6 @@ import java.awt.event.MouseEvent;
 public interface Statemethods {
 	public void update();
 
-	public void repaint();
-
 	public void mouseClicked(MouseEvent e);
 
 	public void mousePressed(MouseEvent e);
