@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import game.controller.Game;
+import game.controller.Controller;
 import game.controller.InputManager;
 import game.controller.gamestates.GameState;
 import game.controller.gamestates.Menu;
@@ -39,7 +39,7 @@ public class GameFrame extends JFrame {
 	private JLabel scoreLabel;
 	private JLabel highScoreLabel;
 
-	public GameFrame(Game game, InputManager playerController, Menu menu) {
+	public GameFrame(Controller game, InputManager playerController, Menu menu) {
 		layoutPanel = new JPanel(new CardLayout());
 		layoutPanel.setSize(new Dimension((int) (Level.GAME_WIDTH * LevelPanel.SCALE),
 				(int) (Level.GAME_HEIGHT * LevelPanel.SCALE)));

@@ -1,7 +1,7 @@
 package game.controller;
 
-public class Main {
+public class JBubbleBobble {
 	public static void main(String[] args) {
-		new Game();
+		new Controller();
 	}
 }
