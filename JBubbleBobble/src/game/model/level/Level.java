@@ -153,6 +153,7 @@ public class Level {
 	private void setEnemyInBubble(PlayerBubble b, Enemy e) {
 		b.setEnemy(e);
 		enemyManager.removeEnemy(e);
+		b.setHasEnemy(true);
 	}
 
 	private void setBubblesSpawnPoints() {
@@ -166,13 +167,14 @@ public class Level {
 	}
 
 	public void captureEnemies() {
-		bubbleManager.getPlayerBubbles().stream().forEach(b -> {
+		bubbleManager.getPlayerBubbles().stream().filter(b->!b.isPopped()).forEach(b -> {
 			enemyManager.getEnemies().stream().forEach(e -> {
 				if (b.getEnemy() == null && b.hit(e)) {
 					if (e instanceof Boss || e.isDead())
 						b.pop();
 					else {
 						setEnemyInBubble(b, e);
+						b.resetLifeSpan();
 						if (player.getSpecialBubbleActive())
 							b.popAndKill();
 					}
@@ -245,8 +247,8 @@ public class Level {
 	}
 
 	private void checkPlayerBubbleCollisions() {
-		Optional<PlayerBubble> playerPopBubble = Entity.checkTopCollision(player, bubbleManager.getPlayerBubbles());
-		if (playerPopBubble.isPresent() && HelpMethods.isEntityInsideWall(playerPopBubble.get())) {
+		Optional<PlayerBubble> playerPopBubble = Entity.checkCollision(player, bubbleManager.getPlayerBubbles());
+		if (playerPopBubble.isPresent() && !HelpMethods.isEntityInsideWall(playerPopBubble.get())) {
 			playerPopBubble.get().popAndKill();
 			powerupManager.increaseNumberOfBubblesPopped();
 		}

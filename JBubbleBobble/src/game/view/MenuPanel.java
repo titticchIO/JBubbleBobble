@@ -256,8 +256,8 @@ public class MenuPanel extends JPanel {
 	    avatarPreviewLabel.setBounds(145, 150, 100, 100);
 
 	    // Imposta avatar di default all'inizio
-	    String defaultAvatarPath = "/usersicons/default.png";
-	    BufferedImage defaultAvatar = ImageLoader.importImg(defaultAvatarPath);
+	    String defaultAvatarPath = "resources/usersicons/default.png";
+	    BufferedImage defaultAvatar = ImageLoader.importImg("/usersicons/default.png");
 	    ImageIcon defaultAvatarIcon = new ImageIcon(defaultAvatar.getScaledInstance(100, 100, Image.SCALE_SMOOTH));
 	    avatarPreviewLabel.setIcon(defaultAvatarIcon);
 	    avatarPreviewLabel.putClientProperty("avatarPath", defaultAvatarPath);

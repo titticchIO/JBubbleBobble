@@ -455,7 +455,6 @@ public class Player extends MovingEntity implements Gravity, Jumping, Shooting, 
 	 */
 	public void stun(int stunTime) {
 		if (stunTimer == null) {
-			System.out.println("stunned");
 			setxSpeed(0);
 			setAirSpeed(0);
 			isStunned = true;

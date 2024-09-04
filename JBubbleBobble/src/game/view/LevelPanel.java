@@ -110,7 +110,7 @@ public class LevelPanel extends JPanel {
 		case RedParasol redParasol -> AnimationAndImagesLoader.getImage(Parasol.CODE, "red");
 		case PurpleParasol purpleParasol -> AnimationAndImagesLoader.getImage(Parasol.CODE, "purple");
 		case PlayerBubble playerBubble -> {
-			if (playerBubble.getLifeSpan() <= 500) {
+			if (playerBubble.isPopped()) {
 				yield AnimationAndImagesLoader.loadBubblePoppingImage();
 			} else if (playerBubble.hasEnemy()) {
 				yield AnimationAndImagesLoader.loadBubbleEnemyImage(playerBubble.getEnemy().getCode());
