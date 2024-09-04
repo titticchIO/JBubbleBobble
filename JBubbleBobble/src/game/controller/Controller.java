@@ -5,6 +5,11 @@ import game.view.frames.GameFrame;
 import game.view.frames.GameFrame.Screen;
 import game.controller.gamestates.Playing;
 import game.model.Model;
+import game.model.Paths;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 import game.controller.gamestates.End;
 import game.controller.gamestates.GameState;
 import game.controller.gamestates.Menu;
@@ -27,8 +32,16 @@ public class Controller implements Runnable {
 	private View view;
 
 	public Controller() {
-//		AudioManager.getInstance().play(Paths
-//				.getAbsolutePath("Audio/Sound Tacks/01 Introduction ~ Main Theme (online-audio-converter.com).wav"));
+		AudioManager.getInstance().play(Paths
+				.getAbsolutePath("Audio/Sound Tacks/01 Introduction ~ Main Theme (online-audio-converter.com).wav"));
+		new Timer().schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				AudioManager.getInstance().play(Paths
+						.getAbsolutePath("Audio/Sound Tacks/01 Introduction ~ Main Theme (online-audio-converter.com).wav"));
+			}
+		}, 109000);
 		model = Model.getInstance();
 		menu = new Menu(this);
 		end = new End(this);
