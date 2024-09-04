@@ -122,7 +122,7 @@ public class MenuPanel extends JPanel {
 				setPreferredSize(new Dimension(100, 20));
 				setSize(new Dimension(100, 20));
 				setIcon(new ImageIcon(
-						ImageLoader.importImg("/menu/new_user.png").getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+						ImageLoader.importImg("/menu/new_user_test.png").getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
 //				setBackground(Color.YELLOW);
 				setForeground(Color.MAGENTA);
 				setFocusPainted(false);
