@@ -35,6 +35,7 @@ public class Level {
 	public final static int NUM_VERTICAL_TILES = 24;
 	public final static int GAME_WIDTH = NUM_HORIZONTAL_TILES * Tile.TILE_SIZE;
 	public final static int GAME_HEIGHT = NUM_VERTICAL_TILES * Tile.TILE_SIZE;
+	private static int simultaneousKills;
 
 	private Player player;
 	private List<Tile> tiles;
@@ -46,7 +47,6 @@ public class Level {
 	private float[] playerSpawnPoint;
 	private List<Float> bubblesSpawnPoints;
 	private int levelNumber;
-	private int simultaneousKills;
 
 	public Level(int levelNumber) {
 		this.levelNumber = levelNumber;
@@ -149,9 +149,10 @@ public class Level {
 	public void addTile(Tile tile) {
 		tiles.add(tile);
 	}
-	
+
 	private void setEnemyInBubble(PlayerBubble b, Enemy e) {
-		b.setEnemy(e);
+		System.out.println("ememy in bubble");
+ 		b.setEnemy(e);
 		enemyManager.removeEnemy(e);
 		b.setHasEnemy(true);
 	}
@@ -167,32 +168,23 @@ public class Level {
 	}
 
 	public void captureEnemies() {
-		bubbleManager.getPlayerBubbles().stream().filter(b->!b.isPopped()).forEach(b -> {
-			enemyManager.getEnemies().stream().forEach(e -> {
-				if (b.getEnemy() == null && b.hit(e)) {
-					if (e instanceof Boss || e.isDead())
-						b.pop();
-					else {
-						setEnemyInBubble(b, e);
-						b.resetLifeSpan();
-						if (player.getSpecialBubbleActive())
-							b.popAndKill();
-					}
-				}
-			});
-		});
-	}
-
-	public void killEnemies() {
-		Optional<PlayerBubble> bubbleWithEnemy = Entity.checkCollision(player, bubbleManager.getPlayerBubbles());
-		if (bubbleWithEnemy.isPresent() && bubbleWithEnemy.get().hasEnemy())
-			bubbleManager.getPlayerBubbles().stream().filter(PlayerBubble::hasEnemy).forEach(b -> {
-				if (b.hit(player)) {
-					if (b.getEnemy() != null)
-						setSimultaneousKills(getSimultaneousKills() + 1);
-					b.popAndKill();
-				}
-			});
+		List<PlayerBubble> playerBubbles = bubbleManager.getPlayerBubbles().stream()
+				.filter(b -> !b.isPopped() && !b.hasEnemy()).toList();
+		List<Enemy> enemies = enemyManager.getEnemies().stream().filter(e -> !(e instanceof Boss) && !e.isDead())
+				.toList();
+		Optional<Entity[]> enemyCapture = Entity.checkCollisions(playerBubbles, enemies);
+		if (enemyCapture.isPresent()) {
+			PlayerBubble bubble=(PlayerBubble) enemyCapture.get()[0];
+			Enemy enemy=(Enemy) enemyCapture.get()[1];
+			if (enemy instanceof Boss)
+				bubble.pop();
+			else if (!enemy.isDead()){
+				bubble.resetLifeSpan();
+				setEnemyInBubble(bubble, enemy);
+				if (player.getSpecialBubbleActive())
+					bubble.popAndKill();
+			}
+		};
 	}
 
 	public void spawnPowerup(Powerup powerup) {
@@ -283,7 +275,7 @@ public class Level {
 
 				// Sets a new invulnerability timer.
 				player.setInvulnerabilityTimer(new Timer("Invulnerability"));
-				player.getInvulnerabilityTimer	().schedule(new TimerTask() {
+				player.getInvulnerabilityTimer().schedule(new TimerTask() {
 					@Override
 					public void run() {
 						// When the timer ends, the player becomes vulnerable again.
@@ -301,14 +293,15 @@ public class Level {
 		// Enemy fire balls collision
 		List<FireBall> burningFireBalls = bubbleManager.getFireBalls().stream()
 				.filter(f -> f.getFireState() == FireState.BURN).toList();
-		enemyHit = Entity.checkCollisions(burningFireBalls,
+		Optional<Entity[]> enemyFireHit = Entity.checkCollisions(burningFireBalls,
 				enemyManager.getEnemies().stream().filter(e -> !e.isDead()).toList());
-		if (enemyHit.isPresent()) {
-			if (enemyHit.get() instanceof Boss boss) {
+		if (enemyFireHit.isPresent()) {
+			if (enemyFireHit.get()[1] instanceof Boss boss) {
 				boss.looseLife();
 			} else {
-				enemyHit.get().kill();
-				enemyHit.get().updateEntity();
+				Enemy enemy=(Enemy) enemyFireHit.get()[1];
+				enemy.kill();
+				enemy.updateEntity();
 			}
 		}
 
@@ -319,13 +312,16 @@ public class Level {
 		}
 
 		// Enemy bolt collision
-		enemyHit = Entity.checkCollisions(bubbleManager.getBolts(),
+		Optional<Entity[]> enemyBoltHit = Entity.checkCollisions(bubbleManager.getBolts(),
 				enemyManager.getEnemies().stream().filter(e -> !e.isDead()).toList());
-		if (enemyHit.isPresent()) {
-			if (enemyHit.get() instanceof Boss boss) {
+
+		if (enemyBoltHit.isPresent()) {
+			if (enemyBoltHit.get()[1] instanceof Boss boss) {
 				boss.looseLife();
-			} else
-				enemyHit.get().kill();
+			} else {
+				Enemy enemy = (Enemy) enemyBoltHit.get()[1];
+				enemy.kill();
+			}
 		}
 
 		// Player water collision
@@ -362,7 +358,6 @@ public class Level {
 		checkLooseLife();
 		checkPlayerBubbleCollisions();
 		captureEnemies();
-		killEnemies();
 		checkSpecialCollisions();
 		checkFruitCollisions();
 	}
@@ -376,12 +371,12 @@ public class Level {
 
 	}
 
-	public int getSimultaneousKills() {
+	public static int getSimultaneousKills() {
 		return simultaneousKills;
 	}
 
-	public void setSimultaneousKills(int simultaneousKills) {
-		this.simultaneousKills = simultaneousKills;
+	public static void setSimultaneousKills(int simultaneousKills) {
+		Level.simultaneousKills = simultaneousKills;
 	}
 
 }

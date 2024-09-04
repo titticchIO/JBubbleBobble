@@ -9,6 +9,7 @@ import game.model.Model;
 import game.model.bubbles.special_effects.Bolt;
 import game.model.bubbles.special_effects.FireBall;
 import game.model.bubbles.special_effects.Water;
+import game.model.level.Level;
 import game.model.tiles.Tile;
 
 /**
@@ -51,8 +52,8 @@ public class BubbleManager {
 	 * @param xSpeed the speed of the bubble in the x-direction.
 	 */
 	public void createPlayerBubble(float x, float y, float xSpeed, float airSpeed) {
-		PlayerBubble newBubble = new PlayerBubble.Builder(x, y, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1).xSpeed(xSpeed).airSpeed(airSpeed)
-				.build();
+		PlayerBubble newBubble = new PlayerBubble.Builder(x, y, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1).xSpeed(xSpeed)
+				.airSpeed(airSpeed).build();
 		playerBubbles.add(newBubble);
 	}
 
@@ -83,9 +84,10 @@ public class BubbleManager {
 	 * killed simultaneously.
 	 */
 	public void createExtendBubble() {
-		if (Model.getInstance().getCurrentLevel().getSimultaneousKills() > 1) {
+		if (Level.getSimultaneousKills() > 0) {
+			System.out.println("spawn");
 			Model.getInstance().getCurrentLevel().spawnBubble(new ExtendBubble());
-			Model.getInstance().getCurrentLevel().setSimultaneousKills(0);
+			Level.setSimultaneousKills(0);
 		}
 	}
 
@@ -225,36 +227,37 @@ public class BubbleManager {
 	 * Updates all bubbles managed by this BubbleManager, including special bubbles,
 	 * player bubbles, fireballs, bolts, and water bubbles.
 	 */
-	  public void updateBubbles() {
-	        specialBubbles.forEach(Bubble::updateEntity);
-	        playerBubbles.forEach(PlayerBubble::updateEntity);
-	        fireBalls.forEach(FireBall::updateEntity);
-	        bolts.forEach(Bolt::updateEntity);
+	public void updateBubbles() {
+		createExtendBubble();
+		specialBubbles.forEach(Bubble::updateEntity);
+		playerBubbles.forEach(PlayerBubble::updateEntity);
+		fireBalls.forEach(FireBall::updateEntity);
+		bolts.forEach(Bolt::updateEntity);
 
-	        if (waterUpdateTimer == null && !waters.isEmpty()) {
-	            waterUpdateTimer = new Timer("Water Update");
-	            waterUpdateTimer.schedule(new TimerTask() {
-	                @Override
-	                public void run() {
-	                    waters.forEach(w -> w.updateEntity());
-	                    waterUpdateTimer.cancel();
-	                    waterUpdateTimer = null;
-	                }
-	            }, 50);
-	        }
+		if (waterUpdateTimer == null && !waters.isEmpty()) {
+			waterUpdateTimer = new Timer("Water Update");
+			waterUpdateTimer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					waters.forEach(w -> w.updateEntity());
+					waterUpdateTimer.cancel();
+					waterUpdateTimer = null;
+				}
+			}, 50);
+		}
 
-	        if (spawnSpecialBubbleTimer == null) {
-	            spawnSpecialBubbleTimer = new Timer("Spawn Special Bubble");
-	            long nextBubbleInterval = Model.getInstance().getCurrentLevel().getEnemyManager().isBoss() ? 3000 : 20000;
-	            spawnSpecialBubbleTimer.schedule(new TimerTask() {
-					
-					@Override
-					public void run() {
-						createSpecialBubble();
-						spawnSpecialBubbleTimer.cancel();
-	                    spawnSpecialBubbleTimer = null;
-					}
-				}, nextBubbleInterval);
-	        }
-	    }
+		if (spawnSpecialBubbleTimer == null) {
+			spawnSpecialBubbleTimer = new Timer("Spawn Special Bubble");
+			long nextBubbleInterval = Model.getInstance().getCurrentLevel().getEnemyManager().isBoss() ? 3000 : 20000;
+			spawnSpecialBubbleTimer.schedule(new TimerTask() {
+
+				@Override
+				public void run() {
+					createSpecialBubble();
+					spawnSpecialBubbleTimer.cancel();
+					spawnSpecialBubbleTimer = null;
+				}
+			}, nextBubbleInterval);
+		}
 	}
+}

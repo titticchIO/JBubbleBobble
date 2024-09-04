@@ -79,13 +79,15 @@ public abstract class Entity {
 	 * @param entity The entity to check for collision.
 	 * @param list   The list of entities to check against.
 	 * @return An {@code Optional} containing the first entity in the list that
-	 *         collides with the given entity, or {@code Optional.empty()} if no 
+	 *         collides with the given entity, or {@code Optional.empty()} if no
 	 *         collision is detected.
 	 */
-	public static <T extends Entity, U extends Entity> Optional<U> checkCollisions(List<T> list1, List<U> list2) {
-		return list1.stream().flatMap(x -> list2.stream().filter(x::hit)).findFirst();
+	public static <T extends Entity, U extends Entity> Optional<Entity[]> checkCollisions(List<T> list1,
+			List<U> list2) {
+		return list1.stream().flatMap(t -> list2.stream().filter(u -> t.hit(u)).map(u -> new Entity[] { t, u }))
+				.findFirst();
 	}
-	
+
 	/**
 	 * Rounds the position to the nearest tile size.
 	 * 
@@ -95,7 +97,6 @@ public abstract class Entity {
 	public static float roundPosition(float position) {
 		return (int) (position / TILE_SIZE) * TILE_SIZE;
 	}
-
 
 	// Position and dimensions of the entity
 	protected float x, y;

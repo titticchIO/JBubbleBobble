@@ -23,7 +23,7 @@ public class ExtendBubble extends Bubble {
 	public ExtendBubble() {
 		super(0, 0, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1, CODES[codesIndex]);
 		rise(-0.3f);
-		lifeSpan *= 10;
+		lifeSpan = 20000;
 	}
 
 	// Static Methods
