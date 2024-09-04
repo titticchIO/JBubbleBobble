@@ -1,6 +1,7 @@
 package game.model.powerups;
 
 import game.model.Model;
+import game.model.bubbles.PlayerBubble;
 
 public class Clock extends Powerup {
 	public static final char CODE = '*';
@@ -21,6 +22,8 @@ public class Clock extends Powerup {
 	@Override
 	public void resetToNormal() {
 		Model.getInstance().getCurrentLevel().getEnemyManager().getEnemies().stream().forEach(x -> x.setStopped(false));
+		Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles().stream()
+				.filter(PlayerBubble::hasEnemy).forEach(b -> b.getEnemy().setStopped(false));
 	}
 
 }

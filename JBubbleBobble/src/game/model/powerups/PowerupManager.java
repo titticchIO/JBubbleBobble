@@ -187,7 +187,7 @@ public class PowerupManager {
 					createPowerup();
 					spawnTimer = null;
 				}
-			}, 30000);
+			}, 10000);
 		}
 
 		for (Powerup powerup : powerups) {

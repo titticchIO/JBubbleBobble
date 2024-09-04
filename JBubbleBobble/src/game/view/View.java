@@ -74,8 +74,8 @@ public class View implements Observer {
 			case "points" -> gameFrame.updateScoreAndHighscore(); // Update score display
 
 //			AUDIO NOTIFICATIONS:
-//			case "bubble" -> AudioManager.getInstance()
-//					.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (6).wav"));
+			case "bubble" -> AudioManager.getInstance()
+					.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (6).wav"));
 			case "jump"->AudioManager.getInstance()
 			.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (4).wav"));
 			case "heal"->AudioManager.getInstance()
