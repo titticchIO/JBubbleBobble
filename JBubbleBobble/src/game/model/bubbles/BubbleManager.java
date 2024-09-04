@@ -50,8 +50,8 @@ public class BubbleManager {
 	 * @param y      the y-coordinate of the bubble.
 	 * @param xSpeed the speed of the bubble in the x-direction.
 	 */
-	public void createPlayerBubble(float x, float y, float xSpeed) {
-		PlayerBubble newBubble = new PlayerBubble.Builder(x, y, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1).xSpeed(xSpeed)
+	public void createPlayerBubble(float x, float y, float xSpeed, float airSpeed) {
+		PlayerBubble newBubble = new PlayerBubble.Builder(x, y, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1).xSpeed(xSpeed).airSpeed(airSpeed)
 				.build();
 		playerBubbles.add(newBubble);
 	}

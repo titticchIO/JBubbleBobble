@@ -15,14 +15,13 @@ public class PlayerBubble extends Bubble {
 
 	// Static Fields
 	public static final char CODE = '°';
-	private static float extraTravelTime = 1;
+	private static float extraTimeHorizontalMoving = 1;
 	private static float extraXSpeed = 1;
 	private Timer popTimer;
 	// Instance Fields
 	private Enemy enemy;
 	private boolean hasEnemy;
 	private float timeHorizontalMoving;
-	private float travelTime;
 	private boolean isPopped;
 
 	// Constructors
@@ -37,16 +36,15 @@ public class PlayerBubble extends Bubble {
 	 * @param xSpeed     the horizontal speed of the bubble
 	 * @param airSpeed   the vertical speed of the bubble
 	 * @param lifeSpan   the life span of the bubble
-	 * @param travelTime the time before the bubble starts rising
+	 * @param timeHorizontalMoving the time before the bubble starts rising
 	 */
 	private PlayerBubble(float x, float y, float width, float height, float xSpeed, float airSpeed, float lifeSpan,
-			float travelTime) {
+			float timeHorizontalMoving) {
 		super(x, y, width, height, CODE);
 		this.xSpeed = xSpeed * extraXSpeed;
 		this.airSpeed = airSpeed;
-		this.lifeSpan = 5000;
-		this.travelTime = travelTime * extraTravelTime;
-		this.timeHorizontalMoving = 500;
+		this.lifeSpan = lifeSpan;
+		this.timeHorizontalMoving = timeHorizontalMoving * extraTimeHorizontalMoving;
 	}
 
 	// Static Methods
@@ -57,7 +55,7 @@ public class PlayerBubble extends Bubble {
 	 * @return the extra travel time multiplier
 	 */
 	public static float getExtraTravelTime() {
-		return extraTravelTime;
+		return extraTimeHorizontalMoving;
 	}
 
 	/**
@@ -66,7 +64,7 @@ public class PlayerBubble extends Bubble {
 	 * @param extraTravelTime the new extra travel time multiplier
 	 */
 	public static void setExtraTravelTime(float extraTravelTime) {
-		PlayerBubble.extraTravelTime = extraTravelTime;
+		PlayerBubble.extraTimeHorizontalMoving = extraTravelTime;
 	}
 
 	/**
@@ -137,14 +135,6 @@ public class PlayerBubble extends Bubble {
 		this.timeHorizontalMoving = timeHorizontalMoving;
 	}
 
-	/**
-	 * Sets the remaining time before this bubble starts rising.
-	 *
-	 * @param travelTime the new travel time
-	 */
-	public void setTravelTime(float travelTime) {
-		this.travelTime = travelTime;
-	}
 
 	public boolean isHasEnemy() {
 		return hasEnemy;
@@ -159,15 +149,6 @@ public class PlayerBubble extends Bubble {
 	}
 
 	// Other Methods
-
-	/**
-	 * Decreases the remaining travel time by a specified amount.
-	 * 
-	 * @param k the amount by which to decrease the travel time
-	 */
-	private void decreaseTravelTime(float k) {
-		setTravelTime(travelTime - k);
-	}
 
 	public void resetLifeSpan() {
 		lifeSpan = 5000;
@@ -193,7 +174,6 @@ public class PlayerBubble extends Bubble {
 	protected void rise(float airSpeed) {
 		setAirSpeed(airSpeed);
 		setxSpeed(0);
-		decreaseTravelTime(1);
 	}
 
 	/**
@@ -257,7 +237,7 @@ public class PlayerBubble extends Bubble {
 			pop();
 		} else {
 			decreaseLifeSpan(10.0f); // Decrease the bubble's life span
-			decreaseTimeHorizontalMoving(10.0f * extraXSpeed / extraTravelTime); // Decrease horizontal movement time
+			decreaseTimeHorizontalMoving(10.0f * extraXSpeed / extraTimeHorizontalMoving); // Decrease horizontal movement time
 		}
 
 		if (lifeSpan <= 500) {
@@ -269,11 +249,6 @@ public class PlayerBubble extends Bubble {
 			updateYPos();
 		else
 			updateXPos();
-
-		if (travelTime > 0)
-			decreaseTravelTime(1 * extraXSpeed);
-		else if (travelTime <= 0)
-			rise(-0.5f);
 	}
 
 	// Builder Class
@@ -285,8 +260,8 @@ public class PlayerBubble extends Bubble {
 	public static class Builder {
 		private float x, y, width, height;
 		private float xSpeed, airSpeed;
-		private float lifeSpan = 10000;
-		private float travelTime = 100;
+		private float lifeSpan;
+		private float timeHorizontalMoving;
 
 		/**
 		 * Constructs a Builder with the required parameters for a {@code PlayerBubble}.
@@ -301,6 +276,8 @@ public class PlayerBubble extends Bubble {
 			this.y = y;
 			this.width = width;
 			this.height = height;
+			this.lifeSpan = 8000;
+			this.timeHorizontalMoving = 600;
 		}
 
 		/**
@@ -342,8 +319,8 @@ public class PlayerBubble extends Bubble {
 		 * @param travelTime the travel time before rising
 		 * @return the Builder instance
 		 */
-		public Builder travelTime(float travelTime) {
-			this.travelTime = travelTime;
+		public Builder timeHorizontalMoving(float timeHorizontalMoving) {
+			this.timeHorizontalMoving = timeHorizontalMoving;
 			return this;
 		}
 
@@ -354,7 +331,7 @@ public class PlayerBubble extends Bubble {
 		 * @return a new {@code PlayerBubble} instance
 		 */
 		public PlayerBubble build() {
-			return new PlayerBubble(x, y, width, height, xSpeed, airSpeed, lifeSpan, travelTime);
+			return new PlayerBubble(x, y, width, height, xSpeed, airSpeed, lifeSpan, timeHorizontalMoving);
 		}
 	}
 }
