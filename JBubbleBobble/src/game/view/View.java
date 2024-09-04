@@ -3,7 +3,6 @@ package game.view;
 import java.util.Observable;
 import java.util.Observer;
 
-import game.controller.AudioManager;
 import game.controller.gamestates.Menu;
 import game.model.Model;
 import game.model.Paths;

@@ -120,9 +120,10 @@ public class MenuPanel extends JPanel {
 		JButton newUserButton = new JButton() {
 			{
 				setPreferredSize(new Dimension(100, 20));
+				setSize(new Dimension(100, 20));
 				setIcon(new ImageIcon(
-						ImageLoader.importImg("/menu/newUser.png").getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
-				setBackground(Color.YELLOW);
+						ImageLoader.importImg("/menu/new_user.png").getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+//				setBackground(Color.YELLOW);
 				setForeground(Color.MAGENTA);
 				setFocusPainted(false);
 				setContentAreaFilled(true);

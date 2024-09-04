@@ -5,15 +5,8 @@ import game.view.frames.GameFrame;
 import game.view.frames.GameFrame.Screen;
 import game.controller.gamestates.Playing;
 import game.model.Model;
-import game.model.Paths;
-import game.controller.gamestates.State;
-import game.controller.gamestates.Win;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import game.controller.gamestates.End;
 import game.controller.gamestates.GameState;
-import game.controller.gamestates.Loss;
 import game.controller.gamestates.Menu;
 import game.controller.gamestates.Pause;
 
@@ -27,8 +20,7 @@ public class Controller implements Runnable {
 
 	private Playing playing;
 	private Menu menu;
-	private Win win;
-	private Loss loss;
+	private End end;
 	private Pause pause;
 
 	private Model model;
@@ -39,8 +31,7 @@ public class Controller implements Runnable {
 //				.getAbsolutePath("Audio/Sound Tacks/01 Introduction ~ Main Theme (online-audio-converter.com).wav"));
 		model = Model.getInstance();
 		menu = new Menu(this);
-		win = new Win(this);
-		loss = new Loss(this);
+		end = new End(this);
 		pause = new Pause(this);
 		gameFrame = new GameFrame(this, new InputManager(this), menu);
 		view = View.getInstance(gameFrame);
@@ -65,12 +56,8 @@ public class Controller implements Runnable {
 		this.pause = pause;
 	}
 
-	public Win getWin() {
-		return win;
-	}
-
-	public Loss getLoss() {
-		return loss;
+	public End getEnd() {
+		return end;
 	}
 
 	public GameFrame getGameFrame() {
@@ -118,8 +105,7 @@ public class Controller implements Runnable {
 		switch (GameState.state) {
 		case MENU -> menu.update();
 		case PLAYING -> playing.update();
-		case WIN -> win.update();
-		case LOSS -> loss.update();
+		case WIN, LOSS -> end.update();
 		case PAUSE -> pause.update();
 		}
 	}

@@ -1,4 +1,4 @@
-package game.controller;
+package game.view;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;

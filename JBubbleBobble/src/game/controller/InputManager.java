@@ -25,8 +25,7 @@ public class InputManager implements KeyListener {
 		switch (GameState.state) {
 		case MENU -> game.getMenu().keyPressed(e);
 		case PLAYING -> game.getPlaying().keyPressed(e);
-		case WIN -> game.getWin().keyPressed(e);
-		case LOSS-> game.getLoss().keyPressed(e);
+		case WIN, LOSS -> game.getEnd().keyPressed(e);
 		case PAUSE -> game.getPause().keyPressed(e);
 		}
 	}
