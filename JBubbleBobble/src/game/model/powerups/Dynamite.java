@@ -4,7 +4,7 @@ import game.model.Model;
 
 public class Dynamite extends Powerup{
 	public static final char CODE = '^';
-	public static final int SPAWN_CONDITION = 3;
+	public static final int SPAWN_CONDITION = 1;
 	public static final int POINTS = 200;
 	public static final long DURATION = 1;
 
