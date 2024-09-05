@@ -121,7 +121,6 @@ public class Banebou extends Enemy implements Gravity, Jumping, ChangeDirection 
 				changeDirection();
 				jump();
 			}
-
 		}
 	}
 

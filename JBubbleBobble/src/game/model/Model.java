@@ -94,7 +94,7 @@ public class Model extends Observable {
 		currentLevel = levels.getFirst();
 		if (Player.getInstance() == null) {
 			currentLevel.addPlayer(Player.getInstance(currentLevel.getPlayerSpawnPoint()[0],
-					currentLevel.getPlayerSpawnPoint()[1], Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1));
+					currentLevel.getPlayerSpawnPoint()[1], Tile.TILE_SIZE - 2, Tile.TILE_SIZE - 1));
 		} else {
 			currentLevel.addPlayer(Player.getInstance());
 			Player.getInstance().setPosition(currentLevel.getPlayerSpawnPoint()[0],
