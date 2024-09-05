@@ -35,8 +35,8 @@ public class BubbleManager {
 	 * Constructs a new BubbleManager, initializing the lists for different types of
 	 * bubbles.
 	 */
-	public BubbleManager() {
-		bubbleFactory = new BubbleFactory();
+	public BubbleManager(List<Float> bubbleSpawnPoints) {
+		bubbleFactory = new BubbleFactory(bubbleSpawnPoints);
 		specialBubbles = new CopyOnWriteArrayList<>();
 		playerBubbles = new CopyOnWriteArrayList<>();
 		fireBalls = new CopyOnWriteArrayList<>();
@@ -62,15 +62,15 @@ public class BubbleManager {
 	 * Creates a new special bubble and spawns it in the game.
 	 */
 	public void createSpecialBubble() {
-		Bubble newBubble=bubbleFactory.createSpecialBubble();
-		if (newBubble!=null)
+		Bubble newBubble = bubbleFactory.createSpecialBubble();
+		if (newBubble != null)
 			specialBubbles.add(newBubble);
 
 	}
 
 	public void createSpecialBubble(Bubble specialBubble) {
-		Bubble newBubble=bubbleFactory.createSpecialBubble(specialBubble);
-		if (newBubble!=null)
+		Bubble newBubble = bubbleFactory.createSpecialBubble(specialBubble);
+		if (newBubble != null)
 			specialBubbles.add(newBubble);
 	}
 
@@ -80,7 +80,9 @@ public class BubbleManager {
 	 */
 	public void createExtendBubble() {
 		if (Level.getSimultaneousKills() > 0) {
-			Model.getInstance().getCurrentLevel().spawnBubble(new ExtendBubble());
+			ExtendBubble newExtendBubble = bubbleFactory.createExtendBubble();
+			if (newExtendBubble != null)
+				specialBubbles.add(newExtendBubble);
 			Level.setSimultaneousKills(0);
 		}
 	}

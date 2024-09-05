@@ -27,6 +27,7 @@ import game.model.bubbles.SpecialBubble;
 import game.model.bubbles.ThunderBubble;
 import game.model.bubbles.WaterBubble;
 import game.model.entities.Player;
+import game.model.level.Level;
 import game.model.user.User;
 import game.view.View;
 import game.view.frames.CheatFrame;
@@ -162,7 +163,7 @@ public class ActionListenersManager {
 		return e -> {
 			if (GameState.state == GameState.PLAYING) {
 				switch (bubbleType) {
-				case "extend" -> Model.getInstance().getCurrentLevel().spawnBubble(new ExtendBubble());
+				case "extend"-> Level.setSimultaneousKills(1);
 				default ->
 					Model.getInstance().getCurrentLevel().getBubbleManager().createSpecialBubble(switch (bubbleType) {
 					case "water" -> new WaterBubble();

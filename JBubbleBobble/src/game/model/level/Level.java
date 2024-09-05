@@ -52,12 +52,12 @@ public class Level {
 		this.levelNumber = levelNumber;
 		tiles = new ArrayList<Tile>();
 		enemyManager = new EnemyManager();
-		bubbleManager = new BubbleManager();
-		powerupManager = new PowerupManager();
-		fruitManager = new FruitManager();
-		bubblesSpawnPoints = new ArrayList<Float>();
 		lvlData = LevelLoader.loadLevel(this, levelNumber);
 		setBubblesSpawnPoints();
+		bubbleManager = new BubbleManager(bubblesSpawnPoints);
+		powerupManager = new PowerupManager();
+		fruitManager = new FruitManager();
+		
 	}
 
 	public int getLevelNumber() {
@@ -157,8 +157,8 @@ public class Level {
 	}
 
 	private void setBubblesSpawnPoints() {
+		bubblesSpawnPoints = new ArrayList<Float>();
 		int y = lvlData.length - 1;
-
 		for (int x = 0; x < lvlData[0].length; x++) {
 			if (lvlData[y][x] == ' ')
 				bubblesSpawnPoints.add((float) x * Tile.TILE_SIZE);
