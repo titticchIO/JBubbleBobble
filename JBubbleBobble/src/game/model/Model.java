@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Observable;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import editor.model.LevelReader;
@@ -22,7 +24,9 @@ public class Model extends Observable {
 	public enum ModelState {
 		PLAY, WIN, LOSS
 	}
-	
+
+	private Timer nextLevelTimer;
+
 	private List<Level> levels;
 	private Iterator<Level> levelIterator;
 	private Level currentLevel;
@@ -54,7 +58,7 @@ public class Model extends Observable {
 	}
 
 	private Model() {
-		
+
 		users = new ArrayList<>();
 		loadUsers();
 		// setCurrentUser(users.getFirst());
@@ -65,8 +69,8 @@ public class Model extends Observable {
 
 	// Reset the Model to its initial state
 	public void resetModel() {
-		levels=null;
-		levelIterator=null;
+		levels = null;
+		levelIterator = null;
 		setChanged();
 		notifyObservers(currentLevel); // Notify observers of the reset
 	}
@@ -74,8 +78,6 @@ public class Model extends Observable {
 	public Level getCurrentLevel() {
 		return currentLevel;
 	}
-	
-	
 
 	public List<Level> getLevels() {
 		return levels;
@@ -84,7 +86,7 @@ public class Model extends Observable {
 	// Load levels from external source
 	public void loadLevels() {
 		levels = new ArrayList<>();
-		levelIterator=levels.iterator();
+		levelIterator = levels.iterator();
 		currentUser.setPoints(0); // Reset score
 		LevelReader.getLevels().forEach(s -> {
 			levels.add(new Level(Integer.parseInt(s)));
@@ -114,15 +116,14 @@ public class Model extends Observable {
 		currentLevel.addPlayer(Player.getInstance());
 		setChanged();
 		notifyObservers("next");
+
 	}
-	
+
 	public void nextLevelTransition() {
 		toUpdate = false;
 		setChanged();
 		notifyObservers("transition");
 	}
-
-
 
 	public void setWin() {
 		modelState = ModelState.WIN;
@@ -130,9 +131,9 @@ public class Model extends Observable {
 	}
 
 	public void updateModel() {
-		if(toUpdate) {
-		currentLevel.updateLevel(); // Update the current level logic
-		updatePoints(); // Update points based on the current state
+		if (toUpdate) {
+			currentLevel.updateLevel(); // Update the current level logic
+			updatePoints(); // Update points based on the current state
 		}
 		if (currentLevel.getPlayer().getLives() == 0) {
 			modelState = ModelState.LOSS; // Set game state to LOSS if player is out of lives
@@ -140,8 +141,21 @@ public class Model extends Observable {
 		} else if (currentLevel.getEnemyManager().getEnemies().isEmpty()
 				&& currentLevel.getBubbleManager().getPlayerBubbles().stream().allMatch(b -> !b.hasEnemy())) {
 			if (levelIterator.hasNext()) {
-				nextLevel(); // Proceed to the next level if all enemies are cleared
-			} else {
+				if (nextLevelTimer == null) {
+					nextLevelTimer = new Timer();
+					nextLevelTimer.schedule(new TimerTask() {
+
+						@Override
+						public void run() {
+							nextLevel(); // Proceed to the next level if all enemies are cleared
+							nextLevelTimer.cancel();
+							nextLevelTimer=null;
+						}
+					}, 5000);
+
+				}
+
+							} else {
 				setWin();
 			}
 		}
@@ -225,12 +239,12 @@ public class Model extends Observable {
 		setChanged();
 		notifyObservers();
 	}
-	
+
 	public void sendNotification(Object arg) {
 		setChanged();
 		notifyObservers(arg);
 	}
-	
+
 	public void sendNotification() {
 		setChanged();
 		notifyObservers();
