@@ -1,6 +1,8 @@
 package game.view.panels;
 
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
@@ -10,6 +12,8 @@ import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 
 import game.controller.ActionListenersManager;
 import game.controller.gamestates.Menu;
@@ -19,6 +23,7 @@ import game.model.user.User;
 import game.model.user.UserMethods;
 import game.view.ImageLoader;
 import game.view.View;
+import game.view.frames.GameFrame;
 
 public class MenuPanel extends JPanel {
 
@@ -76,6 +81,24 @@ public class MenuPanel extends JPanel {
 
 		userSelectionPopUp = new JPopupMenu();
 		updateUserSelectionPopUp();
+		userSelectionPopUp.addPopupMenuListener(new PopupMenuListener() {
+			
+			@Override
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+				
+			}
+			
+			@Override
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+				View.getInstance().getGameFrame().requestFocus();
+				
+			}
+			
+			@Override
+			public void popupMenuCanceled(PopupMenuEvent e) {
+
+			}
+		});
 
 		JButton userSelectionButton = new JButton() {
 			{
