@@ -21,7 +21,7 @@ public abstract class MovingEntity extends Entity {
 
 	// Maximum falling speed
 	public static final float GRAVITY = 0.02f;
-	public static final float MAX_FALLING_SPEED = 2;
+	public static final float MAX_FALLING_SPEED = 1.6f;
 	
 
 	// Direction of movement
