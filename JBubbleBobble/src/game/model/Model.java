@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Observable;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import editor.model.LevelReader;
 import game.model.entities.Player;
@@ -53,7 +54,7 @@ public class Model extends Observable {
 	}
 
 	private Model() {
-		levels = new ArrayList<>();
+		
 		users = new ArrayList<>();
 		loadUsers();
 		// setCurrentUser(users.getFirst());
@@ -64,17 +65,8 @@ public class Model extends Observable {
 
 	// Reset the Model to its initial state
 	public void resetModel() {
-		levels = new ArrayList<>(); // Clear levels list
-		currentLevel = null; // Reset current level
-		loadLevels(); // Reload levels
-		levelIterator = levels.iterator(); // Reset iterator
-		if (levelIterator.hasNext()) {
-			currentLevel = levelIterator.next();
-		}
-		currentUser.setPoints(0); // Reset score
-		modelState = ModelState.PLAY; // Reset game state to play
-		Player.getInstance().setLives(Player.NUMBER_OF_LIVES);
-		Player.getInstance().stop();
+		levels=null;
+		levelIterator=null;
 		setChanged();
 		notifyObservers(currentLevel); // Notify observers of the reset
 	}
@@ -82,9 +74,19 @@ public class Model extends Observable {
 	public Level getCurrentLevel() {
 		return currentLevel;
 	}
+	
+	
+
+	public List<Level> getLevels() {
+		return levels;
+	}
 
 	// Load levels from external source
 	public void loadLevels() {
+		levels = new ArrayList<>();
+		levelIterator=levels.iterator();
+		currentUser.setPoints(0); // Reset score
+		System.out.println("loading levels");
 		LevelReader.getLevels().forEach(s -> {
 			levels.add(new Level(Integer.parseInt(s)));
 		});
@@ -97,7 +99,8 @@ public class Model extends Observable {
 			Player.getInstance().setPosition(currentLevel.getPlayerSpawnPoint()[0],
 					currentLevel.getPlayerSpawnPoint()[1]);
 		}
-
+		Player.getInstance().setLives(Player.NUMBER_OF_LIVES);
+		Player.getInstance().stop();
 		levelIterator = levels.iterator();
 		levelIterator.next();
 		modelState = ModelState.PLAY;

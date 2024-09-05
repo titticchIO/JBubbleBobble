@@ -47,7 +47,7 @@ public class Pause extends State implements Statemethods{
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			GameState.state = GameState.PLAYING;
-			game.getGameFrame().showState(Screen.GAME);
+			controller.getGameFrame().showState(Screen.GAME);
 		}
 		
 	}

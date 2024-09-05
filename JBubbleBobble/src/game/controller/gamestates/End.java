@@ -38,7 +38,7 @@ public class End extends State implements Statemethods {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		game.resetGame(); // Use the resetGame method from the Game class
+		controller.resetGame(); // Use the resetGame method from the Game class
 	}
 
 	@Override

@@ -100,16 +100,17 @@ public class ActionListenersManager {
 		};
 	}
 
-	public static ActionListener resumeGame(Controller game) {
+	public static ActionListener resumeGame(Controller controller) {
 		return e -> {
 			GameState.state = GameState.PLAYING;
-			game.getGameFrame().showState(Screen.GAME);
+			controller.getGameFrame().showState(Screen.GAME);
 		};
 	}
 
-	public static ActionListener backToMenu(Controller game) {
+	public static ActionListener backToMenu(Controller controller) {
 		return e -> {
-			game.resetGame();
+			controller.stopGameLoop();
+			controller.resetGame();
 		};
 
 	}

@@ -16,8 +16,8 @@ import game.view.frames.GameFrame.Screen;
 
 public class Playing extends State implements Statemethods {
 
-	public Playing(Controller game) {
-		super(game);
+	public Playing(Controller controller) {
+		super(controller);
 
 	}
 
@@ -26,12 +26,14 @@ public class Playing extends State implements Statemethods {
 		Model.getInstance().updateModel();
 		if (Model.getInstance().getModelState() == ModelState.LOSS) {
 			GameState.state = GameState.LOSS;
-			game.getGameFrame().showState(Screen.LOSS);
+			controller.getGameFrame().showState(Screen.LOSS);
+			controller.stopGameLoop();
 		}
 
 		if (Model.getInstance().getModelState() == ModelState.WIN) {
 			GameState.state = GameState.WIN;
-			game.getGameFrame().showState(Screen.WIN);
+			controller.getGameFrame().showState(Screen.WIN);
+			controller.stopGameLoop();
 		}
 	}
 
@@ -59,7 +61,7 @@ public class Playing extends State implements Statemethods {
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			GameState.state = GameState.PAUSE;
-			game.getGameFrame().showState(Screen.PAUSE);
+			controller.getGameFrame().showState(Screen.PAUSE);
 		}
 
 		switch (e.getKeyCode()) {

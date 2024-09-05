@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 
 import editor.controller.ActionListenersManager;
 import editor.view.LevelsPopUpMenu.MenuType;
+import game.model.Model;
 import game.view.ImageLoader;
 import game.view.View;
 
@@ -163,10 +164,12 @@ public class EditorFrame extends JFrame {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                // Request focus back to the GameFrame
+                Model.getInstance().resetModel();
+            	// Request focus back to the GameFrame
                 View.getInstance().getGameFrame().requestFocus();
                 // Dispose the EditorFrame
                 dispose();
+                
             }
 
             @Override

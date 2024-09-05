@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import game.controller.Controller;
+import game.model.Model;
 
 public class Menu extends State implements Statemethods {
 
@@ -45,7 +46,18 @@ public class Menu extends State implements Statemethods {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_P) {
-			game.startGameLoop();
+			controller.startGameLoop();
+		} else if (e.getKeyCode() == KeyEvent.VK_B) {
+			
+			System.out.println(Model.getInstance().getLevels().size());
+			
+			char[][] lvlData = Model.getInstance().getCurrentLevel().getLvlData();
+			for (char[] row : lvlData) {
+				for (char c : row) {
+					System.out.print(c);
+				}
+				System.out.println();
+			}
 		}
 
 	}
@@ -56,7 +68,7 @@ public class Menu extends State implements Statemethods {
 	}
 
 	public void startGame() {
-		game.startGameLoop();
+		controller.startGameLoop();
 	}
 
 }

@@ -6,14 +6,14 @@ public class State {
 	
 	
 	
-	protected Controller game;
+	protected Controller controller;
 
-	public State(Controller game) {
-		this.game = game;
+	public State(Controller controller) {
+		this.controller = controller;
 	}
 
 	public Controller getGame() {
-		return game;
+		return controller;
 	}
 
 }

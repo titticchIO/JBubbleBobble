@@ -22,7 +22,7 @@ public class Player extends MovingEntity implements Gravity, Jumping, Shooting, 
 
 	// Static Fields
 	public static final char CODE = 'P';
-	public static final int NUMBER_OF_LIVES = 3; // The total number of lives the player starts with.
+	public static final int NUMBER_OF_LIVES = 1; // The total number of lives the player starts with.
 	public static final long INVULNERABILITY_INTERVAL = 5000; // The duration of invulnerability after losing a life.
 	public static final long ATTACK_INTERVAL = 100; // The minimum time interval between bubble shots (in milliseconds).
 	private static Player instance; // Singleton instance of the Player class.

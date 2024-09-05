@@ -107,8 +107,9 @@ public class Boss extends Enemy implements Vulnerable, ChangeDirection {
 
 	@Override
 	public void updateEntity() {
-		if (lives == 0) {
+		if (lives == 0&&!isDead()) {
 			kill();
+			Model.getInstance().sendNotification("bossKill");
 		}
 		updateYPos();
 		if (isDead()) {

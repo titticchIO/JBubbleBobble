@@ -167,7 +167,7 @@ public class LevelsPopUpMenu extends JPopupMenu {
             g.dispose();
 
             // Specify the path and filename for the image
-            File outputFile = new File("resources/levelsimg/Level" + levelNumber + ".png");
+            File outputFile = new File("resources/levelsimg/Livello" + levelNumber + ".png");
             ImageIO.write(image, "png", outputFile);
 
             System.out.println("Level image saved as: " + outputFile.getAbsolutePath());
