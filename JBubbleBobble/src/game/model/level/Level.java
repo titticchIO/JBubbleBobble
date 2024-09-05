@@ -188,10 +188,10 @@ public class Level {
 
 	private void checkJump() {
 		if (player.isJumping()) {
-			Optional<PlayerBubble> bounceBubble = Entity.checkBottomCollision(player, bubbleManager.getPlayerBubbles());
+			Optional<PlayerBubble> bounceBubble = Entity.checkBottomCollision(player, bubbleManager.getPlayerBubbles().stream().filter(x->!x.isPopped()&&!x.hasEnemy()).toList());
 			if (HelpMethods.isEntityGrounded(player))
 				player.jump();
-			if (bounceBubble.isPresent() && bounceBubble.get().getEnemy() == null) {
+			if (bounceBubble.isPresent()) {
 				player.jump();
 				powerupManager.getPowerupFactory().increaseNumberOfJumpsOnBubbles();
 				bounceBubble.get().pop();
@@ -224,7 +224,7 @@ public class Level {
 	}
 
 	public void checkLooseLife() {
-		if (!player.isInvulnerable() && player.getInvulnerabilityTimer() == null) {
+		if (!player.isInvulnerable()) {
 			// Checks if the player is invulnerable; if not, the player can lose a life.
 			Optional<MovingEntity> hazardHit = Entity.checkCollision(player, enemyManager.getHazards());
 			if (hazardHit.isPresent()) {

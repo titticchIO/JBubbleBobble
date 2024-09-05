@@ -209,7 +209,8 @@ public class Player extends MovingEntity implements Gravity, Jumping, Shooting, 
 	public void setX(float x) {
 		// Updates distance traveled according to the difference between x and
 		// previousX.
-		Model.getInstance().getCurrentLevel().getPowerupManager().getPowerupFactory().increaseDistanceTraveled(Math.abs(x - previousX));
+		Model.getInstance().getCurrentLevel().getPowerupManager().getPowerupFactory()
+				.increaseDistanceTraveled(Math.abs(x - previousX));
 		if (crystalRingActive && previousX != x)
 			Model.getInstance().getCurrentUser().addPoints(1);
 
@@ -303,6 +304,8 @@ public class Player extends MovingEntity implements Gravity, Jumping, Shooting, 
 	 */
 	public void setInvulnerable(boolean isInvulnerable) {
 		this.isInvulnerable = isInvulnerable;
+		if (invulnerabilityTimer != null)
+			invulnerabilityTimer.cancel();
 	}
 
 	/**
@@ -452,7 +455,7 @@ public class Player extends MovingEntity implements Gravity, Jumping, Shooting, 
 	 * @param stunTime duration of the player stun
 	 */
 	public void stun(int stunTime) {
-		if (stunTimer == null) {
+		if (!isStunned) {
 			setxSpeed(0);
 			setAirSpeed(0);
 			isStunned = true;

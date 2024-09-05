@@ -100,7 +100,7 @@ public class LevelsPopUpMenu extends JPopupMenu {
             char[][] levelData = LevelLoader.readLevelFile(levelNumber);
             if (levelData != null) {
                 editorFrame.getContentPane().remove(editorFrame.getEditorPanel());
-                EditorPanel newEditorPanel = new EditorPanel(editorFrame, editorFrame.getSelectionPane());
+                EditorPanel newEditorPanel = new EditorPanel(editorFrame, editorFrame.getEditorPanel().getSelectionPane());
                 LevelManager.setLevel(levelData);
                 newEditorPanel.loadLevel(levelData);
                 editorFrame.setEditorPanel(newEditorPanel);

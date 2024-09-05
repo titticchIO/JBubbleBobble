@@ -30,8 +30,8 @@ public class EditorPanel extends JPanel {
 
     // Instance fields
     private Sprite[][] sprites;
-    private SpriteSelectionScrollPane selPane;
-    private boolean isMousePressed;
+    private SpriteSelectionScrollPane selectionPane;
+	private boolean isMousePressed;
 
     /**
      * Constructor that initializes the editor panel with a grid of sprites.
@@ -40,7 +40,7 @@ public class EditorPanel extends JPanel {
      * @param selPane the sprite selection scroll pane
      */
     public EditorPanel(EditorFrame ef, SpriteSelectionScrollPane selPane) {
-        this.selPane = selPane;
+        this.selectionPane = selPane;
         this.sprites = new Sprite[ROWS][COLS];
         this.isMousePressed = false;
 
@@ -146,6 +146,10 @@ public class EditorPanel extends JPanel {
     public Sprite[][] getSprites() {
         return sprites;
     }
+    
+    public SpriteSelectionScrollPane getSelectionPane() {
+		return selectionPane;
+	}
 
     /**
      * Updates the sprite at a specific position with the selected sprite image.
@@ -155,7 +159,7 @@ public class EditorPanel extends JPanel {
      * @param y      the y-coordinate of the sprite in the grid
      */
     private void updateSprite(Sprite sprite, int x, int y) {
-        SelectionButton button = selPane.getCurrentButton();
+        SelectionButton button = selectionPane.getCurrentButton();
         if (button.getCode() != ' ')
             sprite.updateSpriteImg(button.getImg());
         else

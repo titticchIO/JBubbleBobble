@@ -35,9 +35,6 @@ public class EditorFrame extends JFrame {
     /** Panel that shows and allows editing of the level */
     private EditorPanel editorPanel;
 
-    /** Panel that displays the available sprites */
-    private SpriteSelectionScrollPane selectionPane;
-
     /** Button to save the current level */
     private JButton saveLevelButton;
 
@@ -69,7 +66,7 @@ public class EditorFrame extends JFrame {
         setLayout(new BorderLayout());
         
         // Initialize fields inside the constructor
-        selectionPane = new SpriteSelectionScrollPane();
+        SpriteSelectionScrollPane selectionPane = new SpriteSelectionScrollPane();
         editorPanel = new EditorPanel(this, selectionPane);
         popUps = new ArrayList<>();
 
@@ -240,15 +237,6 @@ public class EditorFrame extends JFrame {
      */
     public void setActualLevel(JLabel actualLevel) {
         this.actualLevel = actualLevel;
-    }
-
-    /**
-     * Returns the panel showing the available sprites.
-     * 
-     * @return the sprite selection panel
-     */
-    public SpriteSelectionScrollPane getSelectionPane() {
-        return selectionPane;
     }
 
     /**
