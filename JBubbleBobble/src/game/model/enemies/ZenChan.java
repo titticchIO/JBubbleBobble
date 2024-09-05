@@ -30,7 +30,7 @@ public class ZenChan extends Enemy implements Gravity, Jumping, ChangeDirection 
 	public ZenChan(float x, float y) {
 		super(x, y, CODE);
 		setDirection(Direction.RIGHT);
-		setJumpSpeed(-1.5f);
+		setJumpSpeed(-2.5f);
 		setColorState(ColorState.NORMAL);
 	}
 
@@ -85,8 +85,8 @@ public class ZenChan extends Enemy implements Gravity, Jumping, ChangeDirection 
 			gravity();
 			if (!isStopped) {
 				changeDirection();
-				move(0.4f * movementSpeed);
-				if (randomBoolean(600))
+				move(0.3f * movementSpeed);
+				if (randomBoolean(500))
 					jump();
 			}
 		}

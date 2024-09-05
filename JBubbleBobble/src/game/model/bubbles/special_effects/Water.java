@@ -76,8 +76,10 @@ public class Water extends MovingEntity {
 		if (capturedEntity != null) {
 			if (capturedEntity instanceof Enemy enemy)
 				enemy.kill();
-			else if (capturedEntity instanceof Player player)
+			else if (capturedEntity instanceof Player player) {
 				player.setStunned(false);
+				player.setInvulnerable(false);
+			}
 		}
 	}
 

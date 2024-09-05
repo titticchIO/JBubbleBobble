@@ -83,6 +83,7 @@ public class EditorFrame extends JFrame {
             newGridButton.setPreferredSize(new Dimension(70, 35));
             newGridButton.setBorderPainted(false);
             newGridButton.setFocusPainted(false);
+            newGridButton.addActionListener(ActionListenersManager.newGridButton(editorPanel, selectionPane));
         }
 
         JButton openGridButton = new JButton(
@@ -106,7 +107,6 @@ public class EditorFrame extends JFrame {
         actualLevel = new JLabel(actualLevelNumber);
         actualLevel.setForeground(Color.YELLOW);
 
-        newGridButton.addActionListener(ActionListenersManager.newGridButton(editorPanel, selectionPane));
 
         saveLevelButton = new JButton(
             new ImageIcon(ImageLoader.importImg("/editor/save.png").getScaledInstance(70, 35, Image.SCALE_SMOOTH)));

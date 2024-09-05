@@ -31,7 +31,8 @@ public class ActionListenersManager {
             // Action to create a new grid
             LevelManager.emptyLevel(); // Assuming this empties the current level
             ef.getEditorPanel().reset();
-            ef.setActualLevel(new JLabel("")); // Update the label
+            ef.setActualLevelNumber("");
+            ef.getActualLevel().setText("Level " + ef.getActualLevelNumber());
             ef.getEditorPanel().repaint(); // Repaint the frame
             ef.revalidate(); // Refresh the layout of the frame
             ef.repaint(); // Repaint the frame

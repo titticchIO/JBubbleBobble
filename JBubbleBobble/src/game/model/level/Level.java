@@ -289,6 +289,7 @@ public class Level {
 				.forEach(w -> {
 					Optional<Player> playerCapture = Entity.checkCollision(w, player);
 					if (playerCapture.isPresent()) {
+						player.setInvulnerable(true);
 						player.stun(30);
 						w.setCapturedEntity(player);
 					}
