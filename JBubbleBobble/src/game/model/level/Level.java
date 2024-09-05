@@ -194,6 +194,7 @@ public class Level {
 			if (bounceBubble.isPresent() && bounceBubble.get().getEnemy() == null) {
 				player.jump();
 				powerupManager.getPowerupFactory().increaseNumberOfJumpsOnBubbles();
+				bounceBubble.get().pop();
 			}
 		}
 	}
