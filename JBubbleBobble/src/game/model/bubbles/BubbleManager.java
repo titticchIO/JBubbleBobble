@@ -20,20 +20,22 @@ import game.model.tiles.Tile;
 public class BubbleManager {
 
 	// Instance Fields
-	private BubbleFactory bubbleFactory;
-	private List<Bubble> specialBubbles;
-	private List<PlayerBubble> playerBubbles;
-	private List<FireBall> fireBalls;
-	private List<Bolt> bolts;
-	private List<Water> waters;
-	private Timer spawnSpecialBubbleTimer;
-	private Timer waterUpdateTimer;
+	private BubbleFactory bubbleFactory; // Factory to create different types of bubbles.
+	private List<Bubble> specialBubbles; // List of special bubbles in the game.
+	private List<PlayerBubble> playerBubbles; // List of player bubbles in the game.
+	private List<FireBall> fireBalls; // List of fireballs in the game.
+	private List<Bolt> bolts; // List of bolts in the game.
+	private List<Water> waters; // List of water bubbles in the game.
+	private Timer spawnSpecialBubbleTimer; // Timer for spawning special bubbles.
+	private Timer waterUpdateTimer; // Timer for updating waters.
 
 	// Constructor
 
 	/**
-	 * Constructs a new BubbleManager, initializing the lists for different types of
-	 * bubbles.
+	 * Constructs a new {@code BubbleManager}, initializing the lists for different
+	 * types of bubbles and the bubble factory.
+	 *
+	 * @param bubbleSpawnPoints List of spawn points where bubbles can be created.
 	 */
 	public BubbleManager(List<Float> bubbleSpawnPoints) {
 		bubbleFactory = new BubbleFactory(bubbleSpawnPoints);
@@ -47,19 +49,20 @@ public class BubbleManager {
 	// Methods for Creating Bubbles
 
 	/**
-	 * Creates a new player bubble and adds it to the player bubbles list.
+	 * Creates a new player bubble and adds it to the list of player bubbles.
 	 *
 	 * @param x      the x-coordinate of the bubble.
 	 * @param y      the y-coordinate of the bubble.
 	 * @param xSpeed the speed of the bubble in the x-direction.
 	 */
-	public void createPlayerBubble(float x, float y, float xSpeed, float airSpeed) {
+	public void createPlayerBubble(float x, float y, float xSpeed) {
 		PlayerBubble newBubble = bubbleFactory.createPlayerBubble(x, y, xSpeed);
 		playerBubbles.add(newBubble);
 	}
 
 	/**
-	 * Creates a new special bubble and spawns it in the game.
+	 * Creates a new special bubble using the bubble factory and adds it to the list
+	 * of special bubbles.
 	 */
 	public void createSpecialBubble() {
 		Bubble newBubble = bubbleFactory.createSpecialBubble();
@@ -68,6 +71,12 @@ public class BubbleManager {
 
 	}
 
+	/**
+	 * Creates a special bubble from an existing bubble and adds it to the list of
+	 * special bubbles.
+	 *
+	 * @param specialBubble The bubble to be turned into a special bubble.
+	 */
 	public void createSpecialBubble(Bubble specialBubble) {
 		Bubble newBubble = bubbleFactory.createSpecialBubble(specialBubble);
 		if (newBubble != null)
@@ -75,8 +84,8 @@ public class BubbleManager {
 	}
 
 	/**
-	 * Creates and spawns an extend bubble in the game if multiple enemies are
-	 * killed simultaneously.
+	 * Creates and spawns an extend bubble when multiple enemies are killed
+	 * simultaneously.
 	 */
 	public void createExtendBubble() {
 		if (Level.getSimultaneousKills() > 0) {
@@ -92,7 +101,7 @@ public class BubbleManager {
 	/**
 	 * Adds a bubble to the list of special bubbles.
 	 *
-	 * @param bubble the bubble to add.
+	 * @param bubble the bubble to be added.
 	 */
 	public void addBubble(Bubble bubble) {
 		specialBubbles.add(bubble);
@@ -220,8 +229,10 @@ public class BubbleManager {
 	// Other Methods
 
 	/**
-	 * Updates all bubbles managed by this BubbleManager, including special bubbles,
-	 * player bubbles, fireballs, bolts, and water bubbles.
+	 * Updates all bubbles managed by this {@code BubbleManager}, including
+	 * special bubbles, player bubbles, fireballs, bolts, and water bubbles.
+	 * This method also handles the scheduling of special bubble spawns and
+	 * water bubble updates using timers.
 	 */
 	public void updateBubbles() {
 		createExtendBubble();
