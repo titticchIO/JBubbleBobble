@@ -37,7 +37,7 @@ public class Playing extends State implements Statemethods {
 					cancel();
 
 				}
-			}, 50);
+			}, 100);
 		}
 
 		if (Model.getInstance().getModelState() == ModelState.WIN) {
