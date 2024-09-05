@@ -20,6 +20,7 @@ import game.model.tiles.Tile;
 public class BubbleManager {
 
 	// Instance Fields
+	private BubbleFactory bubbleFactory;
 	private List<Bubble> specialBubbles;
 	private List<PlayerBubble> playerBubbles;
 	private List<FireBall> fireBalls;
@@ -35,6 +36,7 @@ public class BubbleManager {
 	 * bubbles.
 	 */
 	public BubbleManager() {
+		bubbleFactory = new BubbleFactory();
 		specialBubbles = new CopyOnWriteArrayList<>();
 		playerBubbles = new CopyOnWriteArrayList<>();
 		fireBalls = new CopyOnWriteArrayList<>();
@@ -52,8 +54,7 @@ public class BubbleManager {
 	 * @param xSpeed the speed of the bubble in the x-direction.
 	 */
 	public void createPlayerBubble(float x, float y, float xSpeed, float airSpeed) {
-		PlayerBubble newBubble = new PlayerBubble.Builder(x, y, Tile.TILE_SIZE - 1, Tile.TILE_SIZE - 1).xSpeed(xSpeed)
-				.airSpeed(airSpeed).build();
+		PlayerBubble newBubble = bubbleFactory.createPlayerBubble(x, y, xSpeed);
 		playerBubbles.add(newBubble);
 	}
 
@@ -61,22 +62,16 @@ public class BubbleManager {
 	 * Creates a new special bubble and spawns it in the game.
 	 */
 	public void createSpecialBubble() {
+		Bubble newBubble=bubbleFactory.createSpecialBubble();
+		if (newBubble!=null)
+			specialBubbles.add(newBubble);
 
-		Bubble specialBubble = null;
-		switch (new Random().nextInt(4)) {
-
-		case 0 -> specialBubble = new FireBubble();
-		case 1 -> specialBubble = new WaterBubble();
-		case 2 -> specialBubble = new SpecialBubble();
-		case 3 -> specialBubble = new ThunderBubble();
-		}
-		if (specialBubble != null)
-			Model.getInstance().getCurrentLevel().spawnBubble(specialBubble);
 	}
 
 	public void createSpecialBubble(Bubble specialBubble) {
-		if (specialBubble != null)
-			Model.getInstance().getCurrentLevel().spawnBubble(specialBubble);
+		Bubble newBubble=bubbleFactory.createSpecialBubble(specialBubble);
+		if (newBubble!=null)
+			specialBubbles.add(newBubble);
 	}
 
 	/**

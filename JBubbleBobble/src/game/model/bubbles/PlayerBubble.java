@@ -37,16 +37,13 @@ public class PlayerBubble extends Bubble {
 	 * @param height               the height of the bubble
 	 * @param xSpeed               the horizontal speed of the bubble
 	 * @param airSpeed             the vertical speed of the bubble
-	 * @param lifeSpan             the life span of the bubble
-	 * @param timeHorizontalMoving the time before the bubble starts rising
 	 */
-	private PlayerBubble(float x, float y, float width, float height, float xSpeed, float airSpeed, float lifeSpan,
-			float timeHorizontalMoving) {
+	public PlayerBubble(float x, float y, float width, float height, float xSpeed, float airSpeed) {
 		super(x, y, width, height, CODE);
 		this.xSpeed = xSpeed * extraXSpeed;
 		this.airSpeed = airSpeed;
-		this.lifeSpan = lifeSpan;
-		this.timeHorizontalMoving = timeHorizontalMoving * extraTimeHorizontalMoving;
+		lifeSpan = 8000;
+		timeHorizontalMoving = 600;
 	}
 
 	// Static Methods
@@ -253,89 +250,5 @@ public class PlayerBubble extends Bubble {
 			updateYPos();
 		else
 			updateXPos();
-	}
-
-	// Builder Class
-
-	/**
-	 * Builder class for constructing a {@code PlayerBubble} with specific
-	 * properties.
-	 */
-	public static class Builder {
-		private float x, y, width, height;
-		private float xSpeed, airSpeed;
-		private float lifeSpan;
-		private float timeHorizontalMoving;
-
-		/**
-		 * Constructs a Builder with the required parameters for a {@code PlayerBubble}.
-		 * 
-		 * @param x      the x-coordinate of the bubble
-		 * @param y      the y-coordinate of the bubble
-		 * @param width  the width of the bubble
-		 * @param height the height of the bubble
-		 */
-		public Builder(float x, float y, float width, float height) {
-			this.x = x;
-			this.y = y;
-			this.width = width;
-			this.height = height;
-			this.lifeSpan = 8000;
-			this.timeHorizontalMoving = 600;
-		}
-
-		/**
-		 * Sets the horizontal speed of the bubble.
-		 * 
-		 * @param xSpeed the horizontal speed of the bubble
-		 * @return the Builder instance
-		 */
-		public Builder xSpeed(float xSpeed) {
-			this.xSpeed = xSpeed;
-			return this;
-		}
-
-		/**
-		 * Sets the vertical (air) speed of the bubble.
-		 * 
-		 * @param airSpeed the vertical speed of the bubble
-		 * @return the Builder instance
-		 */
-		public Builder airSpeed(float airSpeed) {
-			this.airSpeed = airSpeed;
-			return this;
-		}
-
-		/**
-		 * Sets the life span of the bubble.
-		 * 
-		 * @param lifeSpan the life span of the bubble
-		 * @return the Builder instance
-		 */
-		public Builder lifeSpan(float lifeSpan) {
-			this.lifeSpan = lifeSpan;
-			return this;
-		}
-
-		/**
-		 * Sets the travel time before the bubble starts rising.
-		 * 
-		 * @param travelTime the travel time before rising
-		 * @return the Builder instance
-		 */
-		public Builder timeHorizontalMoving(float timeHorizontalMoving) {
-			this.timeHorizontalMoving = timeHorizontalMoving;
-			return this;
-		}
-
-		/**
-		 * Builds and returns a {@code PlayerBubble} instance with the specified
-		 * properties.
-		 * 
-		 * @return a new {@code PlayerBubble} instance
-		 */
-		public PlayerBubble build() {
-			return new PlayerBubble(x, y, width, height, xSpeed, airSpeed, lifeSpan, timeHorizontalMoving);
-		}
 	}
 }
