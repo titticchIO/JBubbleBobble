@@ -86,7 +86,6 @@ public class Model extends Observable {
 		levels = new ArrayList<>();
 		levelIterator=levels.iterator();
 		currentUser.setPoints(0); // Reset score
-		System.out.println("loading levels");
 		LevelReader.getLevels().forEach(s -> {
 			levels.add(new Level(Integer.parseInt(s)));
 		});

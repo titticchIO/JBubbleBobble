@@ -2,6 +2,8 @@ package game.controller.gamestates;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import game.controller.Controller;
 
@@ -27,7 +29,15 @@ public class Playing extends State implements Statemethods {
 		if (Model.getInstance().getModelState() == ModelState.LOSS) {
 			GameState.state = GameState.LOSS;
 			controller.getGameFrame().showState(Screen.LOSS);
-			controller.stopGameLoop();
+			new Timer("stop game loop").schedule(new TimerTask() {
+
+				@Override
+				public void run() {
+					controller.stopGameLoop();
+					cancel();
+
+				}
+			}, 50);
 		}
 
 		if (Model.getInstance().getModelState() == ModelState.WIN) {
@@ -84,6 +94,9 @@ public class Playing extends State implements Statemethods {
 		case KeyEvent.VK_SPACE:
 			if (!Model.getInstance().getCurrentLevel().getPlayer().isStunned())
 				Model.getInstance().getCurrentLevel().getPlayer().shoot();
+			break;
+		case KeyEvent.VK_T:
+			System.out.println(GameState.state);
 		}
 
 	}

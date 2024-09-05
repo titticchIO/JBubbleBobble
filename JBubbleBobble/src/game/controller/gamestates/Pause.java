@@ -49,6 +49,7 @@ public class Pause extends State implements Statemethods{
 			GameState.state = GameState.PLAYING;
 			controller.getGameFrame().showState(Screen.GAME);
 		}
+		System.out.println(GameState.state);
 		
 	}
 

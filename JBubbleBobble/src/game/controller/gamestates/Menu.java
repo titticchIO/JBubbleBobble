@@ -47,19 +47,8 @@ public class Menu extends State implements Statemethods {
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_P) {
 			controller.startGameLoop();
-		} else if (e.getKeyCode() == KeyEvent.VK_B) {
-			
-			System.out.println(Model.getInstance().getLevels().size());
-			
-			char[][] lvlData = Model.getInstance().getCurrentLevel().getLvlData();
-			for (char[] row : lvlData) {
-				for (char c : row) {
-					System.out.print(c);
-				}
-				System.out.println();
-			}
 		}
-
+		System.out.println(GameState.state);
 	}
 
 	@Override
