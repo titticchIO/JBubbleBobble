@@ -85,7 +85,6 @@ public class BubbleManager {
 	 */
 	public void createExtendBubble() {
 		if (Level.getSimultaneousKills() > 0) {
-			System.out.println("spawn");
 			Model.getInstance().getCurrentLevel().spawnBubble(new ExtendBubble());
 			Level.setSimultaneousKills(0);
 		}

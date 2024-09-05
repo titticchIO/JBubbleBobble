@@ -30,7 +30,6 @@ import game.view.View;
 public class CheatFrame extends JFrame {
 
 	public CheatFrame() {
-		System.out.println(View.getInstance().getGameFrame().getY());
 		setBounds(200, 106, 64, 640);
 		setResizable(false);
 		addButtons();

@@ -48,7 +48,6 @@ public class Menu extends State implements Statemethods {
 		if (e.getKeyCode() == KeyEvent.VK_P) {
 			controller.startGameLoop();
 		}
-		System.out.println(GameState.state);
 	}
 
 	@Override

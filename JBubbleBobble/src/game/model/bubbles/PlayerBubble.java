@@ -192,7 +192,6 @@ public class PlayerBubble extends Bubble {
 		}
 		if (popTimer == null) {
 			popTimer = new Timer("Pop Timer");
-			System.out.println("pop");
 			popTimer.schedule(new TimerTask() {
 
 				@Override
@@ -226,7 +225,6 @@ public class PlayerBubble extends Bubble {
 		Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles().forEach(pb -> {
 			if (getDistanceFrom(pb) < 7) {
 				pb.popAndKill();
-				System.out.println("recursion");
 				Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfBubblesPopped();
 			}
 		});

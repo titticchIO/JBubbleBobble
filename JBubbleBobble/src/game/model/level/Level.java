@@ -151,7 +151,6 @@ public class Level {
 	}
 
 	private void setEnemyInBubble(PlayerBubble b, Enemy e) {
-		System.out.println("ememy in bubble");
  		b.setEnemy(e);
 		enemyManager.removeEnemy(e);
 		b.setHasEnemy(true);

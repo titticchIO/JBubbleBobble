@@ -113,10 +113,17 @@ public class GameFrame extends JFrame {
 	}
 
 	public void showState(Screen screen) {
-		if (screen == Screen.PAUSE) pausePanel.drawBackground();
+		StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+
+		// Il primo elemento [0] è "getStackTrace", il secondo [1] è "mioMetodo",
+		// quindi l'elemento che ti interessa è [2], il chiamante.
+		System.out.println("Metodo chiamato da: " + stackTraceElements[2]);
+		if (screen == Screen.PAUSE)
+			pausePanel.drawBackground();
 		((CardLayout) layoutPanel.getLayout()).show(layoutPanel, screen.name());
 		layoutPanel.revalidate();
 		layoutPanel.repaint();
+		System.out.println("Showing " + screen.toString());
 	}
 
 	@Override

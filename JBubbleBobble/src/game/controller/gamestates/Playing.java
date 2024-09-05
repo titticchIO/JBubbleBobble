@@ -94,9 +94,6 @@ public class Playing extends State implements Statemethods {
 		case KeyEvent.VK_SPACE:
 			if (!Model.getInstance().getCurrentLevel().getPlayer().isStunned())
 				Model.getInstance().getCurrentLevel().getPlayer().shoot();
-			break;
-		case KeyEvent.VK_T:
-			System.out.println(GameState.state);
 		}
 
 	}

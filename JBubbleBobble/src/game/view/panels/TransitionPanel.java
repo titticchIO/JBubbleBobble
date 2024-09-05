@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import game.controller.gamestates.GameState;
 import game.model.Model;
 import game.model.level.Level;
 import game.view.frames.GameFrame;
@@ -61,7 +62,8 @@ public class TransitionPanel extends JPanel {
                 if (progress >= 1.0f) {
                     transitionTimer.stop();
                     // Passa allo stato di gioco successivo
-                    gameFrame.showState(GameFrame.Screen.GAME);
+                    if (GameState.state==GameState.PLAYING)
+                    	gameFrame.showState(GameFrame.Screen.GAME);
                     Model.getInstance().setToUpdate(true);
                 }
 

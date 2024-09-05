@@ -134,7 +134,6 @@ public class PowerupManager {
 				// Crea una nuova istanza della classe di power-up
 				Powerup powerupInstance = powerupClass.getDeclaredConstructor().newInstance();
 				// Logica per spawnare il power-up nel gioco
-				System.out.println(numberOfExtendBubblesPopped);
 				Model.getInstance().getCurrentLevel().spawnPowerup(powerupInstance);
 			} catch (Exception e) {
 				e.printStackTrace();
