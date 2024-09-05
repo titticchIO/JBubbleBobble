@@ -1,6 +1,7 @@
 package game.model.powerups;
 
 import game.model.Model;
+import game.model.enemies.Enemy;
 
 public class Dynamite extends Powerup{
 	public static final char CODE = '^';
@@ -16,7 +17,7 @@ public class Dynamite extends Powerup{
 	@Override
 	public void effect() {
 		setX(-200);
-		Model.getInstance().getCurrentLevel().getEnemyManager().removeAllEnemies();	
+		Model.getInstance().getCurrentLevel().getEnemyManager().getEnemies().stream().forEach(Enemy::kill);	
 	}
 	
 }
