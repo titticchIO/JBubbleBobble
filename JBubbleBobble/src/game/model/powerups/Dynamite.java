@@ -18,10 +18,5 @@ public class Dynamite extends Powerup{
 		setX(-200);
 		Model.getInstance().getCurrentLevel().getEnemyManager().removeAllEnemies();	
 	}
-
-	@Override
-	public void resetToNormal() {
-		
-	}
 	
 }

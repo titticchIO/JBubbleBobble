@@ -22,8 +22,8 @@ public class AmethystRing extends Powerup {
 
 	@Override
 	public void resetToNormal() {
-		Player.getInstance().setAmethystRingActive(false);
 		super.resetToNormal();
+		Player.getInstance().setAmethystRingActive(false);
 	}
 
 }

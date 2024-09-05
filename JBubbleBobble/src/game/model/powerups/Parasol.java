@@ -28,8 +28,4 @@ public abstract class Parasol extends Powerup {
 
 	}
 
-	@Override
-	public void resetToNormal() {
-	}
-
 }

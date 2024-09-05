@@ -22,6 +22,7 @@ public class Shoes extends Powerup {
 
 	@Override
 	public void resetToNormal() {
+		super.resetToNormal();
 		Model.getInstance().getCurrentLevel().getPlayer().setExtraXSpeed(1);
 	}
 }

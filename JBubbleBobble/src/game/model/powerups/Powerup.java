@@ -95,10 +95,10 @@ public abstract class Powerup extends Entity {
 			Model.getInstance().getCurrentUser().addPoints(points);
 
 			switch (this.getClass().getSimpleName()) {
-			case "PinkCandy" -> Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfPinkCandies();
-			case "BlueCandy" -> Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfBlueCandies();
+			case "PinkCandy" -> Model.getInstance().getCurrentLevel().getPowerupManager().getPowerupFactory().increaseNumberOfPinkCandies();
+			case "BlueCandy" -> Model.getInstance().getCurrentLevel().getPowerupManager().getPowerupFactory().increaseNumberOfBlueCandies();
 			case "YellowCandy" ->
-				Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfYellowCandies();
+				Model.getInstance().getCurrentLevel().getPowerupManager().getPowerupFactory().increaseNumberOfYellowCandies();
 			}
 
 			effect();

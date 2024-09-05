@@ -23,6 +23,7 @@ public class CrystalRing extends Powerup {
 
 	@Override
 	public void resetToNormal() {
+		super.resetToNormal();
 		Model.getInstance().getCurrentLevel().getPlayer().setCrystalRingActive(false);
 	}
 

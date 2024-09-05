@@ -22,6 +22,7 @@ public class RubyRing extends Powerup {
 
 	@Override
 	public void resetToNormal() {
+		super.resetToNormal();
 		Model.getInstance().getCurrentLevel().getPlayer().setRubyRingActive(false);
 	}
 

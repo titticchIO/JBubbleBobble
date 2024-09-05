@@ -4,7 +4,7 @@ import game.model.entities.Player;
 
 public class YellowCandy extends Powerup {
 	public static final char CODE = '$';
-	public static final int SPAWN_CONDITION = 20;
+	public static final int SPAWN_CONDITION = 3;
 	public static final int POINTS = 100;
 	public static final int INCREASED_FIRING_RATE_AMOUNT = 1;
 	public static final long DURATION = 10000;
@@ -21,8 +21,8 @@ public class YellowCandy extends Powerup {
 
 	@Override
 	public void resetToNormal() {
-		Player.getInstance().decreaseFiringRate(INCREASED_FIRING_RATE_AMOUNT);
 		super.resetToNormal();
+		Player.getInstance().decreaseFiringRate(INCREASED_FIRING_RATE_AMOUNT);
 	}
 
 }

@@ -222,7 +222,7 @@ public class PlayerBubble extends Bubble {
 		Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles().forEach(pb -> {
 			if (getDistanceFrom(pb) < 7) {
 				pb.popAndKill();
-				Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfBubblesPopped();
+				Model.getInstance().getCurrentLevel().getPowerupManager().getPowerupFactory().increaseNumberOfBubblesPopped();
 			}
 		});
 	}

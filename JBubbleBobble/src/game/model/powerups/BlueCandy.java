@@ -21,7 +21,7 @@ public class BlueCandy extends Powerup {
 
 	@Override
 	public void resetToNormal() {
-		PlayerBubble.setExtraXSpeed(1);
 		super.resetToNormal();
+		PlayerBubble.setExtraXSpeed(1);
 	}
 }

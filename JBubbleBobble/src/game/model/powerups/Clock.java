@@ -21,6 +21,7 @@ public class Clock extends Powerup {
 
 	@Override
 	public void resetToNormal() {
+		super.resetToNormal();
 		Model.getInstance().getCurrentLevel().getEnemyManager().getEnemies().stream().forEach(x -> x.setStopped(false));
 		Model.getInstance().getCurrentLevel().getBubbleManager().getPlayerBubbles().stream()
 				.filter(PlayerBubble::hasEnemy).forEach(b -> b.getEnemy().setStopped(false));

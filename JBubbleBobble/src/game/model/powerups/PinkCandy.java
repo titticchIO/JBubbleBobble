@@ -21,7 +21,7 @@ public class PinkCandy extends Powerup {
 
 	@Override
 	public void resetToNormal() {
-		PlayerBubble.setExtraTravelTime(1);
 		super.resetToNormal();
+		PlayerBubble.setExtraTravelTime(1);
 	}
 }

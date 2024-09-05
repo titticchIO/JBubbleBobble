@@ -209,7 +209,7 @@ public class Player extends MovingEntity implements Gravity, Jumping, Shooting, 
 	public void setX(float x) {
 		// Updates distance traveled according to the difference between x and
 		// previousX.
-		Model.getInstance().getCurrentLevel().getPowerupManager().increaseDistanceTraveled(Math.abs(x - previousX));
+		Model.getInstance().getCurrentLevel().getPowerupManager().getPowerupFactory().increaseDistanceTraveled(Math.abs(x - previousX));
 		if (crystalRingActive && previousX != x)
 			Model.getInstance().getCurrentUser().addPoints(1);
 
@@ -418,7 +418,7 @@ public class Player extends MovingEntity implements Gravity, Jumping, Shooting, 
 	public void shoot() {
 		// Checks if the player can shoot.
 		if (canShoot) {
-			Model.getInstance().getCurrentLevel().getPowerupManager().increaseNumberOfBubbles();
+			Model.getInstance().getCurrentLevel().getPowerupManager().getPowerupFactory().increaseNumberOfBubbles();
 			if (bubbleDirection == Direction.RIGHT
 					&& !HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
 				Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x + Tile.TILE_SIZE, y, 2);

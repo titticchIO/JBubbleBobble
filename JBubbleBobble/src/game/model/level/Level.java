@@ -26,7 +26,6 @@ import game.model.enemies.EnemyManager;
 import game.model.entities.Entity;
 import game.model.entities.MovingEntity;
 import game.model.entities.Player;
-import game.model.powerups.Powerup;
 import game.model.powerups.PowerupManager;
 import game.model.tiles.Tile;
 
@@ -55,9 +54,9 @@ public class Level {
 		lvlData = LevelLoader.loadLevel(this, levelNumber);
 		setBubblesSpawnPoints();
 		bubbleManager = new BubbleManager(bubblesSpawnPoints);
-		powerupManager = new PowerupManager();
+		powerupManager = new PowerupManager(lvlData);
 		fruitManager = new FruitManager();
-		
+
 	}
 
 	public int getLevelNumber() {
@@ -151,7 +150,7 @@ public class Level {
 	}
 
 	private void setEnemyInBubble(PlayerBubble b, Enemy e) {
- 		b.setEnemy(e);
+		b.setEnemy(e);
 		enemyManager.removeEnemy(e);
 		b.setHasEnemy(true);
 	}
@@ -173,47 +172,18 @@ public class Level {
 				.toList();
 		Optional<Entity[]> enemyCapture = Entity.checkCollisions(playerBubbles, enemies);
 		if (enemyCapture.isPresent()) {
-			PlayerBubble bubble=(PlayerBubble) enemyCapture.get()[0];
-			Enemy enemy=(Enemy) enemyCapture.get()[1];
+			PlayerBubble bubble = (PlayerBubble) enemyCapture.get()[0];
+			Enemy enemy = (Enemy) enemyCapture.get()[1];
 			if (enemy instanceof Boss)
 				bubble.pop();
-			else if (!enemy.isDead()){
+			else if (!enemy.isDead()) {
 				bubble.resetLifeSpan();
 				setEnemyInBubble(bubble, enemy);
 				if (player.getSpecialBubbleActive())
 					bubble.popAndKill();
 			}
-		};
-	}
-
-	public void spawnPowerup(Powerup powerup) {
-		Random random = new Random();
-		int x = random.nextInt(1, NUM_HORIZONTAL_TILES - 1);
-		int y = random.nextInt(1, NUM_VERTICAL_TILES - 1);
-		final int MAX_ATTEMPTS = (NUM_HORIZONTAL_TILES - 2) * (NUM_VERTICAL_TILES - 2);
-
-		for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
-			// Verifica se la posizione è valida per generare il powerup
-			if (lvlData[y][x] == ' ' && Character.isDigit(lvlData[y + 1][x])
-					&& !powerupManager.isTherePowerup(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE)) {
-				powerup.setPosition(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE);
-				powerupManager.addPowerup(powerup);
-				return;
-			}
-
-			// Passa al prossimo tile orizzontalmente
-			x++;
-			if (x >= NUM_HORIZONTAL_TILES - 1) {
-				x = 1;
-				y++;
-
-				// Se y ha superato il limite, ricomincia dall'alto
-				if (y >= NUM_VERTICAL_TILES - 1) {
-					y = 1;
-				}
-			}
 		}
-
+		;
 	}
 
 	private void checkJump() {
@@ -223,7 +193,7 @@ public class Level {
 				player.jump();
 			if (bounceBubble.isPresent() && bounceBubble.get().getEnemy() == null) {
 				player.jump();
-				powerupManager.increaseNumberOfJumpsOnBubbles();
+				powerupManager.getPowerupFactory().increaseNumberOfJumpsOnBubbles();
 			}
 		}
 	}
@@ -232,22 +202,22 @@ public class Level {
 		Optional<PlayerBubble> playerPopBubble = Entity.checkCollision(player, bubbleManager.getPlayerBubbles());
 		if (playerPopBubble.isPresent() && !HelpMethods.isEntityInsideWall(playerPopBubble.get())) {
 			playerPopBubble.get().popAndKill();
-			powerupManager.increaseNumberOfBubblesPopped();
+			powerupManager.getPowerupFactory().increaseNumberOfBubblesPopped();
 		}
 		Optional<Bubble> specialPopBubble = Entity.checkCollision(player, bubbleManager.getBubbles());
 		if (specialPopBubble.isPresent()) {
 			specialPopBubble.get().pop();
 			if (specialPopBubble.get() instanceof FireBubble)
-				powerupManager.increaseNumberOfFireBubblesPopped();
+				powerupManager.getPowerupFactory().increaseNumberOfFireBubblesPopped();
 			else if (specialPopBubble.get() instanceof WaterBubble)
-				powerupManager.increaseNumberOfWaterBubblesPopped();
+				powerupManager.getPowerupFactory().increaseNumberOfWaterBubblesPopped();
 			else if (specialPopBubble.get() instanceof ThunderBubble)
-				powerupManager.increaseNumberOfThunderBubblesPopped();
+				powerupManager.getPowerupFactory().increaseNumberOfThunderBubblesPopped();
 			else if (specialPopBubble.get() instanceof SpecialBubble)
-				powerupManager.increaseNumberOfSpecialBubblesPopped();
+				powerupManager.getPowerupFactory().increaseNumberOfSpecialBubblesPopped();
 			else if (specialPopBubble.get() instanceof ExtendBubble) {
 				ExtendBubble.incrementCodesIndex();
-				powerupManager.increaseNumberOfExtendBubblesPopped();
+				powerupManager.getPowerupFactory().increaseNumberOfExtendBubblesPopped();
 			}
 		}
 	}
@@ -289,7 +259,7 @@ public class Level {
 			if (enemyFireHit.get()[1] instanceof Boss boss) {
 				boss.looseLife();
 			} else {
-				Enemy enemy=(Enemy) enemyFireHit.get()[1];
+				Enemy enemy = (Enemy) enemyFireHit.get()[1];
 				enemy.kill();
 				enemy.updateEntity();
 			}
