@@ -540,7 +540,6 @@ public class Level {
 		player.updateEntity();
 		enemyManager.updateEnemies();
 		bubbleManager.updateBubbles();
-		powerupManager.updatePowerups();
 		checkAllCollisions();
 
 	}

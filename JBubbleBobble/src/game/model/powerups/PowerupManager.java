@@ -62,18 +62,4 @@ public class PowerupManager {
 		powerups.remove(powerup);
 	}
 
-	public void updatePowerups() {
-//		if (spawnTimer == null && powerups.size() < 4) {
-//			spawnTimer = new Timer("Powerup Update");
-//
-//			spawnTimer.schedule(new TimerTask() {
-//
-//				@Override
-//				public void run() {
-//					createPowerup();
-//					spawnTimer = null;
-//				}
-//			}, 1000);
-	}
-
 }
