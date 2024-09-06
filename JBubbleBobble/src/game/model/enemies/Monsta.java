@@ -91,10 +91,11 @@ public class Monsta extends Enemy implements ChangeDirection {
 	 */
 	@Override
 	public void updateEntity() {
-		updateYPos();
 		if (isDead()) {
+			updateYPos();
 			removeEnemy();
 		} else if (!isStopped) {
+			updateYPos();
 			changeDirection();
 			updateXPos();
 		}

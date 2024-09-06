@@ -77,12 +77,13 @@ public class ZenChan extends Enemy implements Gravity, Jumping, ChangeDirection 
 	 */
 	@Override
 	public void updateEntity() {
-		updateYPos();
 		if (isDead()) {
+			updateYPos();
 			removeEnemy();
 		} else {
 			if (!isStopped) {
 				gravity();
+				updateYPos();
 				updateXPos();
 				changeDirection();
 				move(0.3f * movementSpeed);

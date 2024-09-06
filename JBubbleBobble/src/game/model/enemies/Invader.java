@@ -110,7 +110,6 @@ public class Invader extends Enemy implements Gravity, Shooting, ChangeDirection
 	 */
 	@Override
 	public void updateEntity() {
-		gravity();
 		updateYPos();
 		if (isDead()) {
 			removeEnemy();

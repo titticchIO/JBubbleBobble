@@ -111,11 +111,12 @@ public class Boss extends Enemy implements Vulnerable, ChangeDirection {
 			kill();
 			Model.getInstance().sendNotification("bossKill");
 		}
-		updateYPos();
 		if (isDead()) {
+			updateYPos();
 			removeEnemy();
 		} else {
 			if (!isStopped) {
+				updateYPos();
 				if (randomBoolean(200))
 					randomizeDirection();
 				// Aggiornamento della posizione basato sulla direzione corrente

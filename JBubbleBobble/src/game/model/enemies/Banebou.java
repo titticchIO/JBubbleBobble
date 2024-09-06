@@ -111,13 +111,14 @@ public class Banebou extends Enemy implements Gravity, Jumping, ChangeDirection 
 	 */
 	@Override
 	public void updateEntity() {
-		updateYPos();
 		if (isDead()) {
 			removeEnemy();
+			updateYPos();
 		} else {
 			gravity();
-			updateXPos();
 			if (!isStopped) {
+				updateXPos();
+				updateYPos();
 				changeDirection();
 				jump();
 			}

@@ -26,6 +26,7 @@ import game.model.enemies.EnemyManager;
 import game.model.entities.Entity;
 import game.model.entities.MovingEntity;
 import game.model.entities.Player;
+import game.model.powerups.Powerup;
 import game.model.powerups.PowerupManager;
 import game.model.tiles.Tile;
 
@@ -483,6 +484,28 @@ public class Level {
 		});
 	}
 
+	private void checkPowerupCollisions() {
+		Optional<Powerup> powerupHit=Entity.checkCollision(player, powerupManager.getPowerups());
+		if (powerupHit.isPresent()) {
+			Powerup powerup=powerupHit.get();
+			switch (powerup.getClass().getSimpleName()) {
+			case "PinkCandy" -> Model.getInstance().getCurrentLevel().getPowerupManager().getPowerupFactory().increaseNumberOfPinkCandies();
+			case "BlueCandy" -> Model.getInstance().getCurrentLevel().getPowerupManager().getPowerupFactory().increaseNumberOfBlueCandies();
+			case "YellowCandy" ->
+				Model.getInstance().getCurrentLevel().getPowerupManager().getPowerupFactory().increaseNumberOfYellowCandies();
+			}
+			powerup.effect();
+			
+			new Timer().schedule(new TimerTask() {
+				@Override
+				public void run() {
+					powerup.resetToNormal();
+				}
+			}, powerup.getDuration());
+			
+		}
+	}
+	
 	/**
 	 * Checks for collisions between the player and fruits.
 	 */
@@ -505,6 +528,7 @@ public class Level {
 		checkPlayerBubbleCollisions();
 		captureEnemies();
 		checkSpecialCollisions();
+		checkPowerupCollisions();
 		checkFruitCollisions();
 	}
 

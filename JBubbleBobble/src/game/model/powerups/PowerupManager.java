@@ -14,6 +14,16 @@ public class PowerupManager {
 	public PowerupManager(char[][] lvlData) {
 		powerups = new CopyOnWriteArrayList<>();
 		powerupFactory = new PowerupFactory(lvlData);
+		spawnTimer = new Timer();
+		spawnTimer.schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				if (powerups.size() <= 4)
+					createPowerup();
+
+			}
+		}, 1000, 1000);
 	}
 
 	public List<Powerup> getPowerups() {
@@ -53,25 +63,17 @@ public class PowerupManager {
 	}
 
 	public void updatePowerups() {
-		if (spawnTimer == null && powerups.size() < 4) {
-			spawnTimer = new Timer("Powerup Update");
-
-			spawnTimer.schedule(new TimerTask() {
-
-				@Override
-				public void run() {
-					createPowerup();
-					spawnTimer = null;
-				}
-			}, 30000);
-		}
-
-		for (Powerup powerup : powerups) {
-			powerup.updatePowerup();
-			if (powerup.isToRemove()) {
-				powerups.remove(powerup);
-			}
-		}
+//		if (spawnTimer == null && powerups.size() < 4) {
+//			spawnTimer = new Timer("Powerup Update");
+//
+//			spawnTimer.schedule(new TimerTask() {
+//
+//				@Override
+//				public void run() {
+//					createPowerup();
+//					spawnTimer = null;
+//				}
+//			}, 1000);
 	}
 
 }

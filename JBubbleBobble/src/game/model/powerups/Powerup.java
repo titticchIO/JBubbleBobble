@@ -55,7 +55,7 @@ public abstract class Powerup extends Entity {
 	 *
 	 * @return the duration of the power-up's effect.
 	 */
-	public float getDuration() {
+	public long getDuration() {
 		return duration;
 	}
 
@@ -84,31 +84,5 @@ public abstract class Powerup extends Entity {
 	 */
 	public void resetToNormal() {
 		toRemove = true;
-	}
-
-	/**
-	 * Updates the state of the power-up, checking for collisions and applying
-	 * effects if necessary.
-	 */
-	public void updatePowerup() {
-		if (Entity.checkCollision(Player.getInstance(), this).isPresent()) {
-			Model.getInstance().getCurrentUser().addPoints(points);
-
-			switch (this.getClass().getSimpleName()) {
-			case "PinkCandy" -> Model.getInstance().getCurrentLevel().getPowerupManager().getPowerupFactory().increaseNumberOfPinkCandies();
-			case "BlueCandy" -> Model.getInstance().getCurrentLevel().getPowerupManager().getPowerupFactory().increaseNumberOfBlueCandies();
-			case "YellowCandy" ->
-				Model.getInstance().getCurrentLevel().getPowerupManager().getPowerupFactory().increaseNumberOfYellowCandies();
-			}
-
-			effect();
-
-			new Timer().schedule(new TimerTask() {
-				@Override
-				public void run() {
-					resetToNormal();
-				}
-			}, duration);
-		}
 	}
 }

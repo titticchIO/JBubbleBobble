@@ -134,18 +134,18 @@ public class Pulpul extends Enemy implements ChangeDirection {
 		}
 	}
 
-
 	/**
 	 * Updates the state of the pulpul each game tick.
 	 */
 	@Override
 	public void updateEntity() {
-		updateYPos();
-		if (isDead())
+		if (isDead()) {
+			updateYPos();
 			removeEnemy();
-		else if (!isStopped) {
+		} else if (!isStopped) {
 			if (randomBoolean(200))
 				randomizeDirection();
+			updateYPos();
 			updateXPos(); // Update position based on current direction
 		}
 	}

@@ -1,6 +1,7 @@
 package game.model.entities;
 
 import game.model.HelpMethods;
+import game.model.enemies.Invader;
 import game.model.level.Level;
 import game.model.tiles.Tile;
 
@@ -22,7 +23,6 @@ public abstract class MovingEntity extends Entity {
 	// Maximum falling speed
 	public static final float GRAVITY = 0.02f;
 	public static final float MAX_FALLING_SPEED = 1.6f;
-	
 
 	// Direction of movement
 	protected Direction direction;
@@ -35,7 +35,6 @@ public abstract class MovingEntity extends Entity {
 
 	// Speed at which the entity jumps
 	protected float jumpSpeed;
-
 
 	// Speed applied after a collision to prevent sticking
 	protected float fallSpeedAfterCollision;
@@ -218,7 +217,6 @@ public abstract class MovingEntity extends Entity {
 		setY(y + delta); // Aggiorna y con il delta calcolato
 	}
 
-
 	/**
 	 * Resets the in-air state and air speed of the entity. This is typically called
 	 * after the entity lands on the ground.
@@ -227,8 +225,6 @@ public abstract class MovingEntity extends Entity {
 		inAir = false;
 		airSpeed = 0.0f;
 	}
-
-	
 
 	/**
 	 * Stops the entity's movement by setting its direction to {@code STATIC} and
