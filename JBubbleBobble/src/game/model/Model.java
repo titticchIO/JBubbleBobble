@@ -19,46 +19,49 @@ import game.model.tiles.Tile;
 import game.model.user.User;
 import game.model.user.UserMethods;
 
+/**
+ * The Model class represents the core game model and follows the Singleton
+ * pattern. It handles game states, level progression, user management, and
+ * notifications to observers. This class is used to manage the game's state,
+ * update levels, switch between levels, and store user data.
+ * 
+ * It extends Observable, allowing it to notify the observers of state changes.
+ */
 public class Model extends Observable {
-
+	/**
+	 * Enum representing the possible states of the game.
+	 */
 	public enum ModelState {
 		PLAY, WIN, LOSS
 	}
 
-	private Timer nextLevelTimer;
+	private static Model instance;
 
-	private List<Level> levels;
+	private Timer nextLevelTimer; // timer to delay the start of the next level
+	private List<Level> levels; // the list of levels loaded in the model
 	private Iterator<Level> levelIterator;
 	private Level currentLevel;
 	private List<User> users;
 	private User currentUser;
 	private boolean toUpdate = true;
+	private ModelState modelState; // describes the current state of the Model
 
-	/*
-	 * private long score; private long highScore;
+	/**
+	 * Returns the singleton instance of the Model.
+	 * 
+	 * @return The singleton instance of the Model.
 	 */
-
-	public boolean isToUpdate() {
-		return toUpdate;
-	}
-
-	public void setToUpdate(boolean toUpdate) {
-		this.toUpdate = toUpdate;
-	}
-
-	private static Model instance;
-
-	private ModelState modelState;
-
-	// Singleton pattern for getting Model instance
 	public static Model getInstance() {
 		if (instance == null)
 			instance = new Model();
 		return instance;
 	}
 
+	/**
+	 * Private constructor for Model to implement Singleton pattern. Initializes the
+	 * users and sets the game state to PLAY.
+	 */
 	private Model() {
-
 		users = new ArrayList<>();
 		loadUsers();
 		// setCurrentUser(users.getFirst());
@@ -67,7 +70,10 @@ public class Model extends Observable {
 		notifyObservers();
 	}
 
-	// Reset the Model to its initial state
+	/**
+	 * Resets the model to its initial state by clearing levels and notifying
+	 * observers.
+	 */
 	public void resetModel() {
 		levels = null;
 		levelIterator = null;
@@ -75,15 +81,130 @@ public class Model extends Observable {
 		notifyObservers(currentLevel); // Notify observers of the reset
 	}
 
+	/**
+	 * Retrieves the current level.
+	 * 
+	 * @return The current level.
+	 */
 	public Level getCurrentLevel() {
 		return currentLevel;
 	}
 
+	/**
+	 * Retrieves the list of levels.
+	 * 
+	 * @return The list of levels.
+	 */
 	public List<Level> getLevels() {
 		return levels;
 	}
 
-	// Load levels from external source
+	/**
+	 * Retrieves the current state of the game.
+	 * 
+	 * @return The current ModelState (PLAY, WIN, LOSS).
+	 */
+	public ModelState getModelState() {
+		return modelState;
+	}
+
+	/**
+	 * Retrieves the list of users.
+	 * 
+	 * @return The list of users.
+	 */
+	public List<User> getUsers() {
+		return users;
+	}
+
+	/**
+	 * Retrieves the current user.
+	 * 
+	 * @return The current user.
+	 */
+	public User getCurrentUser() {
+		return currentUser;
+	}
+
+	/**
+	 * Retrieves a user by their nickname.
+	 * 
+	 * @param selectedNickname The nickname of the user to retrieve.
+	 * @return The user with the specified nickname, or null if not found.
+	 */
+	public User getUserByNickname(String selectedNickname) {
+		for (User user : users) { // 'users' è la lista di utenti
+			if (user.getNickname().equals(selectedNickname)) {
+				return user;
+			}
+		}
+		return null;
+	}
+
+	public boolean isToUpdate() {
+		return toUpdate;
+	}
+
+	/**
+	 * Sets the game state to WIN and updates the user's won games counter.
+	 */
+	public void setWin() {
+		modelState = ModelState.WIN;
+		currentUser.addWonGame();// Set game state to WIN if no more levels
+	}
+
+	/**
+	 * Sets the game state to the specified state.
+	 * 
+	 * @param state The state to set (PLAY, WIN, LOSS).
+	 */
+	public void setModelState(ModelState state) {
+		this.modelState = state;
+	}
+
+	/**
+	 * Sets the current user to the specified user.
+	 * 
+	 * @param currentUser The user to set as the current user.
+	 */
+	public void setCurrentUser(User currentUser) {
+		this.currentUser = currentUser;
+		UserMethods.saveLastUser(currentUser);
+	}
+
+	public void setToUpdate(boolean toUpdate) {
+		this.toUpdate = toUpdate;
+	}
+
+	/**
+	 * Sets the current user by the user's nickname.
+	 * 
+	 * @param selectedNickname The nickname of the user to set as current.
+	 */
+	public void setCurrentUserByNickname(String selectedNickname) {
+		for (User user : users) { // 'users' è la lista di utenti
+			if (user.getNickname().equals(selectedNickname)) {
+				currentUser = user;
+				break; // Uscire dal ciclo una volta trovato l'utente
+			}
+		}
+	}
+
+	/**
+	 * Adds a new user to the list of users and notifies observers.
+	 * 
+	 * @param user The user to add.
+	 */
+	public void addUser(User user) {
+		users.add(user);
+		setChanged();
+		notifyObservers();
+	}
+
+	/**
+	 * Loads the levels from the {@code LevelReader} and initializes the player.
+	 * Resets the player's position and lives.
+	 */
 	public void loadLevels() {
 		levels = new ArrayList<>();
 		levelIterator = levels.iterator();
@@ -109,6 +230,10 @@ public class Model extends Observable {
 		notifyObservers();
 	}
 
+	/**
+	 * Proceeds to the next level by transitioning to it and updating the player's
+	 * position. Notifies observers of the transition.
+	 */
 	public void nextLevel() {
 		nextLevelTransition();
 		currentLevel = levelIterator.next();
@@ -121,17 +246,20 @@ public class Model extends Observable {
 
 	}
 
+	/**
+	 * Handles the transition to the next level by pausing updates and notifying
+	 * observers.
+	 */
 	public void nextLevelTransition() {
 		toUpdate = false;
 		setChanged();
 		notifyObservers("transition");
 	}
 
-	public void setWin() {
-		modelState = ModelState.WIN;
-		currentUser.addWonGame();// Set game state to WIN if no more levels
-	}
-
+	/**
+	 * Updates the model, advancing the current level and checking for game win/loss
+	 * conditions. Notifies observers of the state changes.
+	 */
 	public void updateModel() {
 		if (toUpdate) {
 			currentLevel.updateLevel(); // Update the current level logic
@@ -151,13 +279,13 @@ public class Model extends Observable {
 						public void run() {
 							nextLevel(); // Proceed to the next level if all enemies are cleared
 							nextLevelTimer.cancel();
-							nextLevelTimer=null;
+							nextLevelTimer = null;
 						}
 					}, 5000);
 
 				}
 
-							} else {
+			} else {
 				setWin();
 			}
 		}
@@ -172,20 +300,9 @@ public class Model extends Observable {
 		}
 	}
 
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public User getCurrentUser() {
-		return currentUser;
-	}
-
-	public void setCurrentUser(User currentUser) {
-		this.currentUser = currentUser;
-		UserMethods.saveLastUser(currentUser);
-
-	}
-
+	/**
+	 * Loads users from the user data file and initializes the users list.
+	 */
 	private void loadUsers() {
 		HashMap<String, List<Integer>> mappaUtenti = UserMethods.getUsersData();
 
@@ -210,45 +327,14 @@ public class Model extends Observable {
 		}
 	}
 
-	public void setCurrentUserByNickname(String selectedNickname) {
-		for (User user : users) { // 'users' è la lista di utenti
-			if (user.getNickname().equals(selectedNickname)) {
-				currentUser = user;
-				break; // Uscire dal ciclo una volta trovato l'utente
-			}
-		}
-	}
-
-	public User getUserByNickname(String selectedNickname) {
-		for (User user : users) { // 'users' è la lista di utenti
-			if (user.getNickname().equals(selectedNickname)) {
-				return user;
-			}
-		}
-		return null;
-	}
-
-	public ModelState getModelState() {
-		return modelState;
-	}
-
-	public void setModelState(ModelState state) {
-		this.modelState = state;
-	}
-
-	public void addUser(User user) {
-		users.add(user);
-		setChanged();
-		notifyObservers();
-	}
-
+	/**
+	 * Sends a notification to observers with the specified argument.
+	 * 
+	 * @param arg The argument to pass to the observers.
+	 */
 	public void sendNotification(Object arg) {
 		setChanged();
 		notifyObservers(arg);
 	}
 
-	public void sendNotification() {
-		setChanged();
-		notifyObservers();
-	}
 }
