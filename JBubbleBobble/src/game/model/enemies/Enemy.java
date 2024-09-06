@@ -22,7 +22,6 @@ public abstract class Enemy extends MovingEntity {
 	protected float redXSpeed; // Speed when the enemy is in the red state.
 	protected float movementSpeed; // Current movement speed of the enemy.
 	private boolean dead; // Indicates if the enemy is dead.
-	private boolean isPopped; // Indicates if the enemy is popped.
 	protected boolean isStopped; // Indicates if the enemy is stopped.
 
 	/**
@@ -83,15 +82,6 @@ public abstract class Enemy extends MovingEntity {
 	 */
 	public boolean isDead() {
 		return dead;
-	}
-
-	/**
-	 * Returns whether the enemy is popped.
-	 *
-	 * @return {@code true} if the enemy is popped, {@code false} otherwise.
-	 */
-	public boolean isPopped() {
-		return isPopped;
 	}
 
 	/**
