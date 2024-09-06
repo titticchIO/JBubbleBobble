@@ -61,7 +61,7 @@ public class LevelLoader {
 						case MONSTA -> new Monsta(x * TILE_SIZE, y * TILE_SIZE);
 						case BANEBOU -> new Banebou(x * TILE_SIZE, y * TILE_SIZE);
 						case PULPUL -> new Pulpul(x * TILE_SIZE, y * TILE_SIZE);
-						case INVADER -> new Invader(x * TILE_SIZE, y * TILE_SIZE);
+						case INVADER -> new Invader(x * TILE_SIZE, y * TILE_SIZE-1);
 						case SKELMONSTA -> new SkelMonsta(x * TILE_SIZE, y * TILE_SIZE);
 						case BOSS -> new Boss(x * TILE_SIZE, y * TILE_SIZE);
 						default -> throw new IllegalArgumentException("Unexpected value: " + c);

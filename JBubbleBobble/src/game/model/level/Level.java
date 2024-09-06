@@ -370,7 +370,7 @@ public class Level {
 	 */
 	private void checkPlayerBubbleCollisions() {
 		Optional<PlayerBubble> playerPopBubble = Entity.checkCollision(player, bubbleManager.getPlayerBubbles());
-		if (playerPopBubble.isPresent() && !HelpMethods.isEntityInsideWall(playerPopBubble.get())) {
+		if (playerPopBubble.isPresent()) {
 			playerPopBubble.get().popAndKill();
 			powerupManager.getPowerupFactory().increaseNumberOfBubblesPopped();
 		}

@@ -66,11 +66,11 @@ public class Banebou extends Enemy implements Gravity, Jumping, ChangeDirection 
 			switch (direction) {
 			case LEFT:
 				setDirection(Direction.RIGHT);
-				setxSpeed(0.7f * movementSpeed);
+				setxSpeed(0.5f * movementSpeed);
 				break;
 			case RIGHT:
 				setDirection(Direction.LEFT);
-				setxSpeed(-0.7f * movementSpeed);
+				setxSpeed(-0.5f * movementSpeed);
 				break;
 			default:
 				break;
