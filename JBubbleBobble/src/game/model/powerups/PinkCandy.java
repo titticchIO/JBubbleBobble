@@ -2,6 +2,9 @@ package game.model.powerups;
 
 import game.model.bubbles.PlayerBubble;
 
+/**
+ * The {@code PinkCandy} makes the {@code PlayerBubble} travel further
+ */
 public class PinkCandy extends Powerup {
 	public static final char CODE = '!';
 	public static final int SPAWN_CONDITION = 30;
@@ -13,12 +16,18 @@ public class PinkCandy extends Powerup {
 		super(0, 0, CODE, POINTS, DURATION);
 	}
 
+	/**
+	 * Increases the travel time of the playerBubbles, making them travel further
+	 */
 	@Override
 	public void effect() {
 		super.effect();
 		PlayerBubble.setExtraTravelTime(INCREASED_TRAVEL_TIME_AMOUNT);
 	}
 
+	/**
+	 * Resets the travel time of the playerBubbles back to normal
+	 */
 	@Override
 	public void resetToNormal() {
 		super.resetToNormal();

@@ -19,6 +19,7 @@ import javax.swing.JToggleButton;
 
 import game.controller.gamestates.GameState;
 import game.controller.gamestates.Menu;
+import game.controller.gamestates.Playing;
 import game.model.Model;
 import game.model.bubbles.Bubble;
 import game.model.bubbles.ExtendBubble;
@@ -35,16 +36,30 @@ import game.view.frames.GameFrame.Screen;
 import editor.model.LevelManager;
 import editor.view.EditorFrame;
 
+/**
+ * {@code ActionListenersManager} contains all the game's ActionListeners,
+ * obtainable through static methods
+ */
 public class ActionListenersManager {
-
+	/**
+	 * Sets the current user in the {@code Model}
+	 * 
+	 * @param user the user to be set
+	 * @return the ActionListener to perform the action
+	 */
 	public static ActionListener setCurrentUser(User user) {
 		return e -> {
 			Model.getInstance().setCurrentUser(user);
 			View.getInstance().getGameFrame().requestFocus();
-		}; // Imposta l'utente corrente nel Model
+		};
 
 	}
 
+	/**
+	 * Opens the EditorFrame
+	 * 
+	 * @return the ActionListener to perform the action
+	 */
 	public static ActionListener startEditor() {
 		return e -> {
 			EditorFrame ef = EditorFrame.getInstance();
@@ -57,14 +72,33 @@ public class ActionListenersManager {
 		};
 	}
 
+	/**
+	 * Opens the Leaderboard
+	 * 
+	 * @return the ActionListener to perform the action
+	 */
 	public static ActionListener showLeaderboard() {
 		return e -> View.getInstance().getMenuPanel().showLeaderboard();
 	}
 
+	/**
+	 * Opens the JPopupMenu to select the user
+	 * 
+	 * @param userSelectionPopUp  the JPopupMenu to select the user
+	 * @param userSelectionButton
+	 * @return the ActionListener to perform the action
+	 */
 	public static ActionListener showUserSelection(JPopupMenu userSelectionPopUp, JButton userSelectionButton) {
 		return e -> userSelectionPopUp.show(userSelectionButton, 0, userSelectionButton.getHeight());
 	}
 
+	/**
+	 * Updates the JPopupMenu to select the user
+	 * 
+	 * @param user               user to be set
+	 * @param userSelectionPopUp the JPopupMenu to select the user
+	 * @return the ActionListener to perform the action
+	 */
 	public static ActionListener updateUserSelection(User user, JPopupMenu userSelectionPopUp) {
 		return e -> {
 			Model.getInstance().setCurrentUser(user); // Aggiorna il Model con l'utente selezionato
@@ -74,10 +108,22 @@ public class ActionListenersManager {
 		};
 	}
 
+	/**
+	 * Shows the UI to create a new User
+	 * 
+	 * @return the ActionListener to perform the action
+	 */
 	public static ActionListener showNewUserDialog() {
 		return e -> View.getInstance().getMenuPanel().showNewUserDialog();
 	}
 
+	/**
+	 * Used to select the Avatar of a User
+	 * 
+	 * @param avatarPreviewLabel
+	 * @param chooseAvatarButton
+	 * @return the ActionListener to perform the action
+	 */
 	public static ActionListener chooseAvatar(JLabel avatarPreviewLabel, JButton chooseAvatarButton) {
 		return e -> {
 			JFileChooser fileChooser = new JFileChooser();
@@ -101,6 +147,12 @@ public class ActionListenersManager {
 		};
 	}
 
+	/**
+	 * Sets the GameState to PLAYING
+	 * 
+	 * @param controller
+	 * @return the ActionListener to perform the action
+	 */
 	public static ActionListener resumeGame(Controller controller) {
 		return e -> {
 			GameState.state = GameState.PLAYING;
@@ -108,6 +160,12 @@ public class ActionListenersManager {
 		};
 	}
 
+	/**
+	 * Resets the game to go back to the menu
+	 * 
+	 * @param controller
+	 * @return the ActionListener to perform the action
+	 */
 	public static ActionListener backToMenu(Controller controller) {
 		return e -> {
 			controller.stopGameLoop();
@@ -116,6 +174,11 @@ public class ActionListenersManager {
 
 	}
 
+	/**
+	 * Opens the JFrame to activate the cheats
+	 * 
+	 * @return the ActionListener to perform the action
+	 */
 	public static ActionListener enableCheats() {
 		return e -> {
 			if (View.getInstance().getCheatFrame() == null) {
@@ -126,6 +189,12 @@ public class ActionListenersManager {
 		};
 	}
 
+	/**
+	 * Makes the {@code Player} invulnerable
+	 * 
+	 * @param button
+	 * @return the ActionListener to perform the action
+	 */
 	public static ItemListener enableInvincibility(JToggleButton button) {
 		return new ItemListener() {
 
@@ -147,6 +216,11 @@ public class ActionListenersManager {
 		};
 	}
 
+	/**
+	 * Skips a level
+	 * 
+	 * @return the ActionListener to perform the action
+	 */
 	public static ActionListener skipLevel() {
 		return e -> {
 			if (GameState.state == GameState.PLAYING)
@@ -159,11 +233,17 @@ public class ActionListenersManager {
 		};
 	}
 
+	/**
+	 * Spawns a specified special {@code Bubble}
+	 * 
+	 * @param bubbleType indicates the type of bubble to be spawned
+	 * @return the ActionListener to perform the action
+	 */
 	public static ActionListener spawnSpecialBubble(String bubbleType) {
 		return e -> {
 			if (GameState.state == GameState.PLAYING) {
 				switch (bubbleType) {
-				case "extend"-> Level.setSimultaneousKills(1);
+				case "extend" -> Level.setSimultaneousKills(1);
 				default ->
 					Model.getInstance().getCurrentLevel().getBubbleManager().createSpecialBubble(switch (bubbleType) {
 					case "water" -> new WaterBubble();
@@ -178,6 +258,11 @@ public class ActionListenersManager {
 		};
 	}
 
+	/**
+	 * Spawns a random {@code Powerup}
+	 * 
+	 * @return the ActionListener to perform the action
+	 */
 	public static ActionListener spawnRandomPowerup() {
 		return e -> {
 			if (GameState.state == GameState.PLAYING)
