@@ -80,7 +80,7 @@ public class Controller implements Runnable {
 			stopGameLoop(); // Ensure the previous thread is stopped
 		}
 		Model.getInstance().loadLevels();
-		gameFrame.getLevelPanel().renderTilesOnce();
+		gameFrame.getLevelPanel().renderTilesOnce(gameFrame);
 		gameFrame.showState(Screen.GAME);
 		running = true;
 		gameThread = new Thread(this);
@@ -103,7 +103,7 @@ public class Controller implements Runnable {
 
 		// Reset the view (if needed, additional UI elements like score can be reset
 		// here)
-		View.getInstance().getLevelPanel().renderTilesOnce();
+		View.getInstance().getLevelPanel().renderTilesOnce(gameFrame);
 
 		// Set the game state back to the menu
 		GameState.state = GameState.MENU;
