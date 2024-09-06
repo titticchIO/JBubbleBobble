@@ -29,11 +29,32 @@ import game.model.entities.Player;
 import game.model.powerups.PowerupManager;
 import game.model.tiles.Tile;
 
+/**
+ * The Level class represents a game level, containing information about the
+ * level's layout, enemies, bubbles, power-ups, and player interactions. It also
+ * handles collision detection and updating of game entities during the level's
+ * progression.
+ */
 public class Level {
+	/**
+	 * The number of horizontal tiles in the level.
+	 */
 	public final static int NUM_HORIZONTAL_TILES = 30;
+	/**
+	 * The number of vertical tiles in the level.
+	 */
 	public final static int NUM_VERTICAL_TILES = 24;
+	/**
+	 * The width of the level.
+	 */
 	public final static int GAME_WIDTH = NUM_HORIZONTAL_TILES * Tile.TILE_SIZE;
+	/**
+	 * The height of the level.
+	 */
 	public final static int GAME_HEIGHT = NUM_VERTICAL_TILES * Tile.TILE_SIZE;
+	/**
+	 * The number of enemies killed simultaneously during the level.
+	 */
 	private static int simultaneousKills;
 
 	private Player player;
@@ -42,11 +63,17 @@ public class Level {
 	private BubbleManager bubbleManager;
 	private PowerupManager powerupManager;
 	private FruitManager fruitManager;
-	private char[][] lvlData;
+	private char[][] lvlData; // the char matrix used to locate the tiles
 	private float[] playerSpawnPoint;
-	private List<Float> bubblesSpawnPoints;
+	private List<Float> bubblesSpawnPoints; // the valid locations for special bubbles to spawn
 	private int levelNumber;
 
+	/**
+	 * Constructs a new Level object with the specified level number. Initializes
+	 * the level's tiles, enemies, bubbles, power-ups, and fruits.
+	 *
+	 * @param levelNumber The number representing the current level.
+	 */
 	public Level(int levelNumber) {
 		this.levelNumber = levelNumber;
 		tiles = new ArrayList<Tile>();
@@ -59,18 +86,39 @@ public class Level {
 
 	}
 
+	/**
+	 * Returns the number of the current level.
+	 *
+	 * @return The level number.
+	 */
 	public int getLevelNumber() {
 		return levelNumber;
 	}
 
+	/**
+	 * Sets the number of the current level.
+	 *
+	 * @param levelNumber The new level number.
+	 */
 	public void setLevelNumber(int levelNumber) {
 		this.levelNumber = levelNumber;
 	}
 
+	/**
+	 * Returns the level data represented as a 2D character array.
+	 *
+	 * @return The level data.
+	 */
 	public char[][] getLvlData() {
 		return lvlData;
 	}
 
+	/**
+	 * Returns a list of all entities currently present in the level, including
+	 * bubbles, power-ups, and fruit.
+	 *
+	 * @return A list of entities in the level.
+	 */
 	public List<Entity> getEntities() {
 		List<Entity> entities = new ArrayList<Entity>();
 		entities.addAll(bubbleManager.getBubbles());
@@ -85,86 +133,197 @@ public class Level {
 		return entities;
 	}
 
+	/**
+	 * Returns the power-up manager for the level.
+	 *
+	 * @return The PowerupManager for the level.
+	 */
 	public PowerupManager getPowerupManager() {
 		return powerupManager;
 	}
 
+	/**
+	 * Returns the fruit manager for the level.
+	 *
+	 * @return The FruitManager for the level.
+	 */
 	public FruitManager getFruitManager() {
 		return fruitManager;
 	}
 
+	/**
+	 * Returns the player entity in the level.
+	 *
+	 * @return The player entity.
+	 */
 	public Player getPlayer() {
 		return player;
 	}
 
+	/**
+	 * Sets the player entity for the level.
+	 *
+	 * @param player The player entity to set.
+	 */
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
 
-	public EnemyManager getEnemyManager() {
-		return enemyManager;
-	}
-
-	public List<Float> getBubblesSpawnPoints() {
-		return bubblesSpawnPoints;
-	}
-
-	public void setEnemyManager(EnemyManager eManager) {
-		this.enemyManager = eManager;
-	}
-
-	public BubbleManager getBubbleManager() {
-		return bubbleManager;
-	}
-
-	public void setBubbleManager(BubbleManager bManager) {
-		this.bubbleManager = bManager;
-	}
-
-	public List<Tile> getTiles() {
-		return tiles;
-	}
-
-	public void setTiles(List<Tile> tiles) {
-		this.tiles = tiles;
-	}
-
+	/**
+	 * Adds the player entity to the level.
+	 *
+	 * @param player The player entity to add.
+	 */
 	public void addPlayer(Player player) {
 		this.player = player;
 	}
 
+	/**
+	 * Sets the player's spawn point in the level.
+	 *
+	 * @param x The x-coordinate of the spawn point.
+	 * @param y The y-coordinate of the spawn point.
+	 */
 	public void setPlayerSpawnPoint(float x, float y) {
 		playerSpawnPoint = new float[] { x, y };
 	}
 
+	/**
+	 * Returns the player's spawn point in the level.
+	 *
+	 * @return An array containing the x and y coordinates of the spawn point.
+	 */
 	public float[] getPlayerSpawnPoint() {
 		return playerSpawnPoint;
 	}
 
+	/**
+	 * Returns the enemy manager for the level.
+	 *
+	 * @return The EnemyManager for the level.
+	 */
+	public EnemyManager getEnemyManager() {
+		return enemyManager;
+	}
+
+	/**
+	 * Sets the enemy manager for the level.
+	 *
+	 * @param eManager The EnemyManager to set.
+	 */
+	public void setEnemyManager(EnemyManager eManager) {
+		this.enemyManager = eManager;
+	}
+
+	/**
+	 * Adds an enemy to the level.
+	 *
+	 * @param enemy The enemy to add.
+	 */
 	public void addEnemy(Enemy enemy) {
 		enemyManager.addEnemy(enemy);
 	}
 
-	public void addTile(Tile tile) {
-		tiles.add(tile);
-	}
-
+	/**
+	 * Sets the enemy inside a player bubble and removes it from the enemy manager.
+	 *
+	 * @param b The player bubble to set the enemy in.
+	 * @param e The enemy to set inside the bubble.
+	 */
 	private void setEnemyInBubble(PlayerBubble b, Enemy e) {
 		b.setEnemy(e);
 		enemyManager.removeEnemy(e);
 		b.setHasEnemy(true);
 	}
 
+	/**
+	 * Returns the number of simultaneous kills in the current level.
+	 *
+	 * @return the number of simultaneous kills
+	 */
+	public static int getSimultaneousKills() {
+		return simultaneousKills;
+	}
+
+	/**
+	 * Sets the number of simultaneous kills in the current level.
+	 *
+	 * @param simultaneousKills the number of simultaneous kills to set
+	 */
+	public static void setSimultaneousKills(int simultaneousKills) {
+		Level.simultaneousKills = simultaneousKills;
+	}
+
+	/**
+	 * Returns the bubble manager for the level.
+	 *
+	 * @return The BubbleManager for the level.
+	 */
+	public BubbleManager getBubbleManager() {
+		return bubbleManager;
+	}
+
+	/**
+	 * Sets the bubble manager for the level.
+	 *
+	 * @param bManager The BubbleManager to set.
+	 */
+	public void setBubbleManager(BubbleManager bManager) {
+		this.bubbleManager = bManager;
+	}
+
+	/**
+	 * Returns the bubble spawn points in the level.
+	 *
+	 * @return the bubble spawn points in the level.
+	 */
+	public List<Float> getBubblesSpawnPoints() {
+		return bubblesSpawnPoints;
+	}
+
+	/**
+	 * Sets the spawn points for bubbles in the level based on level data.
+	 */
 	private void setBubblesSpawnPoints() {
 		bubblesSpawnPoints = new ArrayList<Float>();
 		int y = lvlData.length - 1;
 		for (int x = 0; x < lvlData[0].length; x++) {
 			if (lvlData[y][x] == ' ')
 				bubblesSpawnPoints.add((float) x * Tile.TILE_SIZE);
-
 		}
 	}
 
+	/**
+	 * Returns the list of tiles in the level.
+	 *
+	 * @return A list of tiles in the level.
+	 */
+	public List<Tile> getTiles() {
+		return tiles;
+	}
+
+	/**
+	 * Sets the tiles for the level.
+	 *
+	 * @param tiles The list of tiles to set.
+	 */
+	public void setTiles(List<Tile> tiles) {
+		this.tiles = tiles;
+	}
+
+	/**
+	 * Adds a tile to the level.
+	 *
+	 * @param tile The tile to add.
+	 */
+	public void addTile(Tile tile) {
+		tiles.add(tile);
+	}
+
+	/**
+	 * Captures enemies inside player bubbles by checking for collisions between
+	 * bubbles and enemies.
+	 */
 	public void captureEnemies() {
 		List<PlayerBubble> playerBubbles = bubbleManager.getPlayerBubbles().stream()
 				.filter(b -> !b.isPopped() && !b.hasEnemy()).toList();
@@ -186,9 +345,14 @@ public class Level {
 		;
 	}
 
+	/**
+	 * Checks if the player is jumping and handles collisions with bubbles for
+	 * jumping.
+	 */
 	private void checkJump() {
 		if (player.isJumping()) {
-			Optional<PlayerBubble> bounceBubble = Entity.checkBottomCollision(player, bubbleManager.getPlayerBubbles().stream().filter(x->!x.isPopped()&&!x.hasEnemy()).toList());
+			Optional<PlayerBubble> bounceBubble = Entity.checkBottomCollision(player,
+					bubbleManager.getPlayerBubbles().stream().filter(x -> !x.isPopped() && !x.hasEnemy()).toList());
 			if (HelpMethods.isEntityGrounded(player))
 				player.jump();
 			if (bounceBubble.isPresent()) {
@@ -199,6 +363,10 @@ public class Level {
 		}
 	}
 
+	/**
+	 * Checks for collisions between the player and bubbles, and handles their
+	 * popping.
+	 */
 	private void checkPlayerBubbleCollisions() {
 		Optional<PlayerBubble> playerPopBubble = Entity.checkCollision(player, bubbleManager.getPlayerBubbles());
 		if (playerPopBubble.isPresent() && !HelpMethods.isEntityInsideWall(playerPopBubble.get())) {
@@ -223,6 +391,11 @@ public class Level {
 		}
 	}
 
+	/**
+	 * Checks if the player has collided with a hazard and if so, reduces the
+	 * player's lives. If the player is invulnerable, they will not lose a life. If
+	 * the player hits a hazard, they will become invulnerable for a set interval.
+	 */
 	public void checkLooseLife() {
 		if (!player.isInvulnerable()) {
 			// Checks if the player is invulnerable; if not, the player can lose a life.
@@ -248,6 +421,9 @@ public class Level {
 		}
 	}
 
+	/**
+	 * Checks for collisions involving special bubbles and the player or enemies.F
+	 */
 	private void checkSpecialCollisions() {
 		Optional<Enemy> enemyHit;
 
@@ -307,6 +483,9 @@ public class Level {
 		});
 	}
 
+	/**
+	 * Checks for collisions between the player and fruits.
+	 */
 	private void checkFruitCollisions() {
 		Optional<Fruit> fruitHit = Entity.checkCollision(player, fruitManager.getFruits());
 		if (fruitHit.isPresent()) {
@@ -315,6 +494,11 @@ public class Level {
 		}
 	}
 
+	/**
+	 * Checks for and resolves all types of collisions in the level. Specifically it
+	 * checks for jumps, hazards, bubble interactions, special bubble interactions,
+	 * and fruit collection.
+	 */
 	private void checkAllCollisions() {
 		checkJump();
 		checkLooseLife();
@@ -324,6 +508,10 @@ public class Level {
 		checkFruitCollisions();
 	}
 
+	/**
+	 * Updates the state of the entire level, including the player, enemies,
+	 * bubbles, powerups, and collisions.
+	 */
 	public void updateLevel() {
 		player.updateEntity();
 		enemyManager.updateEnemies();
@@ -331,14 +519,6 @@ public class Level {
 		powerupManager.updatePowerups();
 		checkAllCollisions();
 
-	}
-
-	public static int getSimultaneousKills() {
-		return simultaneousKills;
-	}
-
-	public static void setSimultaneousKills(int simultaneousKills) {
-		Level.simultaneousKills = simultaneousKills;
 	}
 
 }

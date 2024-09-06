@@ -1,10 +1,6 @@
 package game.model.bubbles.special_effects;
 
-import java.util.Optional;
-
 import game.model.Model;
-import game.model.enemies.Enemy;
-import game.model.entities.Entity;
 import game.model.entities.MovingEntity;
 import game.model.entities.Player;
 import game.model.level.Level;
