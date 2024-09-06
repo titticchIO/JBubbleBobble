@@ -172,12 +172,4 @@ public abstract class Enemy extends MovingEntity {
 	public boolean randomBoolean(int chances) {
 		return new Random().nextInt(chances) == 0;
 	}
-
-	/**
-	 * Updates the state of the enemy each game tick.
-	 */
-	@Override
-	public void updateEntity() {
-		super.updateEntity();
-	}
 }
