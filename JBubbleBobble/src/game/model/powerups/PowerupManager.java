@@ -23,7 +23,7 @@ public class PowerupManager {
 					createPowerup();
 
 			}
-		}, 1000, 1000);
+		}, 30000, 30000);
 	}
 
 	public List<Powerup> getPowerups() {
