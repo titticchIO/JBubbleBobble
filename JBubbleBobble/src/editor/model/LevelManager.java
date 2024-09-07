@@ -130,25 +130,4 @@ public class LevelManager {
             System.err.println("Error deleting file:" + filePath + "|" + e.getMessage());
         }
     }
-
-    /**
-     * Sets the outer walls of the level to the specified tile.
-     *
-     * @param tile The character representing the wall tile.
-     */
-    public void setWalls(char tile) {
-        try {
-            for (int x = 0; x < COLS; x++) {
-                level[0][x] = tile;
-                level[ROWS - 1][x] = tile;
-            }
-
-            for (int y = 0; y < ROWS; y++) {
-                level[y][0] = tile;
-                level[y][COLS - 1] = tile;
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.err.println("Error setting walls: " + e.getMessage());
-        }
-    }
 }
