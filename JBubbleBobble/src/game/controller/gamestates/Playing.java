@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import game.controller.ActionListenersManager;
 import game.controller.Controller;
 
 import game.model.Model;
@@ -80,7 +81,6 @@ public class Playing extends State implements Statemethods {
 			GameState.state = GameState.PAUSE;
 			controller.getGameFrame().showState(Screen.PAUSE);
 		}
-
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_W, KeyEvent.VK_UP:
 			if (!Model.getInstance().getCurrentLevel().getPlayer().isStunned())
@@ -101,8 +101,12 @@ public class Playing extends State implements Statemethods {
 		case KeyEvent.VK_SPACE:
 			if (!Model.getInstance().getCurrentLevel().getPlayer().isStunned())
 				Model.getInstance().getCurrentLevel().getPlayer().shoot();
+			break;
+		case KeyEvent.VK_N:
+			ActionListenersManager.enableCheats().actionPerformed(null);
+			System.out.println("enable cheats");
 		}
-
+		
 	}
 
 	/**

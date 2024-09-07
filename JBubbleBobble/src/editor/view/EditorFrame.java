@@ -64,7 +64,6 @@ public class EditorFrame extends JFrame {
 	 */
 	private EditorFrame() {
 		setLayout(new BorderLayout());
-
 		// Initialize fields inside the constructor
 		SpriteSelectionScrollPane selectionPane = new SpriteSelectionScrollPane();
 		editorPanel = new EditorPanel(this, selectionPane);
