@@ -1,11 +1,7 @@
-	package game.model.powerups;
-
-import java.util.Timer;
-import java.util.TimerTask;
+package game.model.powerups;
 
 import game.model.Model;
 import game.model.entities.Entity;
-import game.model.entities.Player;
 
 /**
  * The {@code Powerup} class represents a power-up entity in the game. This

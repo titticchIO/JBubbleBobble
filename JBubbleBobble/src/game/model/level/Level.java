@@ -3,7 +3,6 @@ package game.model.level;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import game.model.bubbles.BubbleManager;
@@ -426,8 +425,6 @@ public class Level {
 	 * Checks for collisions involving special bubbles and the player or enemies.F
 	 */
 	private void checkSpecialCollisions() {
-		Optional<Enemy> enemyHit;
-
 		// Enemy fire balls collision
 		List<FireBall> burningFireBalls = bubbleManager.getFireBalls().stream()
 				.filter(f -> f.getFireState() == FireState.BURN).toList();

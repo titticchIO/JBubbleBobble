@@ -18,11 +18,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JToggleButton;
 
 import game.controller.gamestates.GameState;
-import game.controller.gamestates.Menu;
-import game.controller.gamestates.Playing;
 import game.model.Model;
-import game.model.bubbles.Bubble;
-import game.model.bubbles.ExtendBubble;
 import game.model.bubbles.FireBubble;
 import game.model.bubbles.SpecialBubble;
 import game.model.bubbles.ThunderBubble;

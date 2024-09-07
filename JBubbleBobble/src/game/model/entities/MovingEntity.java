@@ -1,7 +1,6 @@
 package game.model.entities;
 
 import game.model.HelpMethods;
-import game.model.enemies.Invader;
 import game.model.level.Level;
 import game.model.tiles.Tile;
 

@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import editor.model.LevelReader;
 import game.model.entities.Player;

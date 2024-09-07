@@ -1,7 +1,6 @@
 package game.model.bubbles;
 
 import java.util.List;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -10,7 +9,6 @@ import game.model.bubbles.special_effects.Bolt;
 import game.model.bubbles.special_effects.FireBall;
 import game.model.bubbles.special_effects.Water;
 import game.model.level.Level;
-import game.model.tiles.Tile;
 
 /**
  * The {@code BubbleManager} class manages the creation, updating, and removal

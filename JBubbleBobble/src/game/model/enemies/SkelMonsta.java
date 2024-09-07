@@ -4,8 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import game.model.entities.Player;
-import game.model.level.Level;
-import game.model.tiles.Tile;
+
 
 /**
  * The {@code SkelMonsta} class represents an enemy that can move horizontally

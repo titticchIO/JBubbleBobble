@@ -9,11 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import javax.swing.*;
-import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
 
 import game.controller.ActionListenersManager;
-import game.controller.gamestates.Menu;
 import game.model.Model;
 import game.model.level.Level;
 import game.model.user.User;
@@ -22,12 +19,13 @@ import game.view.ImageLoader;
 import game.view.View;
 
 /**
- * The {@code MenuPanel} class is responsible for rendering the main menu of the game
- * and handling user interactions such as selecting a user, starting the editor,
- * and viewing the leaderboard.
+ * The {@code MenuPanel} class is responsible for rendering the main menu of the
+ * game and handling user interactions such as selecting a user, starting the
+ * editor, and viewing the leaderboard.
  */
 public class MenuPanel extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 	private BufferedImage menuImage;
 	private UserPanel currentUserPanel;
 	private JPopupMenu userSelectionPopUp;
@@ -57,31 +55,25 @@ public class MenuPanel extends JPanel {
 	private void initMenu() {
 		setLayout(null);
 
-		JButton editorButton = new JButton() {
-			{
-				setBounds(610, 20, 100, 50);
-				addActionListener(ActionListenersManager.startEditor());
-				ImageIcon editorButtonImageIcon = new ImageIcon(
-						ImageLoader.importImg("/menu/editor.png").getScaledInstance(100, 50, Image.SCALE_SMOOTH));
-				setIcon(editorButtonImageIcon);
-				setContentAreaFilled(false);
-				setBorderPainted(false);
-				setFocusPainted(false);
-			}
-		};
+		JButton editorButton = new JButton();
+		editorButton.setBounds(610, 20, 100, 50);
+		editorButton.addActionListener(ActionListenersManager.startEditor());
+		ImageIcon editorButtonImageIcon = new ImageIcon(
+				ImageLoader.importImg("/menu/editor.png").getScaledInstance(100, 50, Image.SCALE_SMOOTH));
+		editorButton.setIcon(editorButtonImageIcon);
+		editorButton.setContentAreaFilled(false);
+		editorButton.setBorderPainted(false);
+		editorButton.setFocusPainted(false);
 
-		JButton leaderboardButton = new JButton() {
-			{
-				setBounds(610, 70, 100, 50);
-				addActionListener(ActionListenersManager.showLeaderboard());
-				ImageIcon editorButtonImageIcon = new ImageIcon(
-						ImageLoader.importImg("/menu/leaderboard.png").getScaledInstance(100, 50, Image.SCALE_SMOOTH));
-				setIcon(editorButtonImageIcon);
-				setContentAreaFilled(false);
-				setBorderPainted(false);
-				setFocusPainted(false);
-			}
-		};
+		JButton leaderboardButton = new JButton();
+		leaderboardButton.setBounds(610, 70, 100, 50);
+		leaderboardButton.addActionListener(ActionListenersManager.showLeaderboard());
+		ImageIcon leaderboardButtonImageIcon = new ImageIcon(
+				ImageLoader.importImg("/menu/leaderboard.png").getScaledInstance(100, 50, Image.SCALE_SMOOTH));
+		leaderboardButton.setIcon(leaderboardButtonImageIcon);
+		leaderboardButton.setContentAreaFilled(false);
+		leaderboardButton.setBorderPainted(false);
+		leaderboardButton.setFocusPainted(false);
 
 		String lastUserNickname = UserMethods.getLastUser("resources/last_user.txt");
 		User lastUser = Model.getInstance().getUserByNickname(lastUserNickname);
@@ -92,28 +84,23 @@ public class MenuPanel extends JPanel {
 		userSelectionPopUp = new JPopupMenu();
 		updateUserSelectionPopUp();
 
-		JButton userSelectionButton = new JButton() {
-			{
-				setBounds(10, 140, 100, 50);
-				addActionListener(ActionListenersManager.showUserSelection(userSelectionPopUp, this));
-				ImageIcon editorButtonImageIcon = new ImageIcon(ImageLoader.importImg("/menu/userSelection.png")
-						.getScaledInstance(100, 50, Image.SCALE_SMOOTH));
-				setIcon(editorButtonImageIcon);
-				setContentAreaFilled(false);
-				setBorderPainted(false);
-				setFocusPainted(false);
-			}
-		};
+		JButton userSelectionButton = new JButton();
+		userSelectionButton.setBounds(10, 140, 100, 50);
+		userSelectionButton
+				.addActionListener(ActionListenersManager.showUserSelection(userSelectionPopUp, userSelectionButton));
+		ImageIcon userSelectionButtonImageIcon = new ImageIcon(
+				ImageLoader.importImg("/menu/userSelection.png").getScaledInstance(100, 50, Image.SCALE_SMOOTH));
+		userSelectionButton.setIcon(userSelectionButtonImageIcon);
+		userSelectionButton.setContentAreaFilled(false);
+		userSelectionButton.setBorderPainted(false);
+		userSelectionButton.setFocusPainted(false);
 
-		JButton cheatButton = new JButton() {
-			{
-				setBounds(337, 450, 40, 37);
-				setContentAreaFilled(false);
-				setBorderPainted(false);
-				setFocusPainted(false);
-				addActionListener(ActionListenersManager.enableCheats());
-			}
-		};
+		JButton cheatButton = new JButton();
+		cheatButton.setBounds(337, 450, 40, 37);
+		cheatButton.setContentAreaFilled(false);
+		cheatButton.setBorderPainted(false);
+		cheatButton.setFocusPainted(false);
+		cheatButton.addActionListener(ActionListenersManager.enableCheats());
 
 		add(editorButton);
 		add(leaderboardButton);
@@ -135,18 +122,15 @@ public class MenuPanel extends JPanel {
 					.addActionListener(ActionListenersManager.updateUserSelection(user, userSelectionPopUp));
 		});
 
-		JButton newUserButton = new JButton() {
-			{
-				setPreferredSize(new Dimension(100, 20));
-				setSize(new Dimension(100, 20));
-				setIcon(new ImageIcon(ImageLoader.importImg("/menu/new_user.png").getScaledInstance(100, 100,
-						Image.SCALE_SMOOTH)));
-				setForeground(Color.MAGENTA);
-				setFocusPainted(false);
-				setContentAreaFilled(true);
-				addActionListener(ActionListenersManager.showNewUserDialog());
-			}
-		};
+		JButton newUserButton = new JButton();
+		newUserButton.setPreferredSize(new Dimension(100, 20));
+		newUserButton.setSize(new Dimension(100, 20));
+		newUserButton.setIcon(new ImageIcon(
+				ImageLoader.importImg("/menu/new_user.png").getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+		setForeground(Color.MAGENTA);
+		newUserButton.setFocusPainted(false);
+		newUserButton.setContentAreaFilled(true);
+		newUserButton.addActionListener(ActionListenersManager.showNewUserDialog());
 
 		userPanelContainer.add(newUserButton);
 		userSelectionPopUp.add(new JScrollPane(userPanelContainer));
@@ -161,13 +145,11 @@ public class MenuPanel extends JPanel {
 		if (currentUserPanel != null) {
 			remove(currentUserPanel);
 		}
-		currentUserPanel = new UserPanel(user) {
-			{
-				setBounds(10, 20, 100, 120);
-				getUserButton().setBorderPainted(false);
-				getUserButton().setFocusPainted(false);
-			}
-		};
+		currentUserPanel = new UserPanel(user);
+		currentUserPanel.setBounds(10, 20, 100, 120);
+		currentUserPanel.getUserButton().setBorderPainted(false);
+		currentUserPanel.getUserButton().setFocusPainted(false);
+
 		add(currentUserPanel);
 		revalidate();
 		repaint();
@@ -178,69 +160,42 @@ public class MenuPanel extends JPanel {
 	 */
 	public void showLeaderboard() {
 		LeaderboardPanel leaderboardPanel = new LeaderboardPanel();
-
-		// Creazione del frame
 		JFrame leaderboardFrame = new JFrame("Leaderboard");
-
-		// Aggiungi il pannello al frame
 		leaderboardFrame.add(leaderboardPanel);
-
-		// Ottieni le dimensioni preferite del pannello leaderboard (che include il
-		// JScrollPane)
 		Dimension preferredSize = leaderboardPanel.getPreferredSize();
-
-		// Imposta la dimensione del frame in base alla dimensione preferita del
-		// pannello leaderboard
-		leaderboardFrame.setSize(preferredSize.width, preferredSize.height); // Aggiungi un margine
-
-		// Centra il frame rispetto alla finestra principale
+		leaderboardFrame.setSize(preferredSize.width, preferredSize.height);
 		leaderboardFrame.setLocationRelativeTo(null);
 
 		leaderboardFrame.addWindowListener(new WindowListener() {
 
 			@Override
 			public void windowOpened(WindowEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void windowIconified(WindowEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void windowDeiconified(WindowEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void windowDeactivated(WindowEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void windowClosing(WindowEvent e) {
-				// Riporta il focus sul GameFrame
 				View.getInstance().getGameFrame().requestFocus();
-				// Chiude il frame
-				leaderboardFrame.dispose(); // Chiude il EditorFrame
-
+				leaderboardFrame.dispose();
 			}
 
 			@Override
 			public void windowClosed(WindowEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void windowActivated(WindowEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 		});
 
@@ -268,47 +223,35 @@ public class MenuPanel extends JPanel {
 		JFrame newUserFrame = new JFrame("Crea Nuovo Utente");
 		newUserFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		newUserFrame.addWindowListener(new WindowListener() {
-			
+
 			@Override
 			public void windowOpened(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
-			
+
 			@Override
 			public void windowIconified(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
-			
+
 			@Override
 			public void windowDeiconified(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
-			
+
 			@Override
 			public void windowDeactivated(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
-			
+
 			@Override
 			public void windowClosing(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
-			
+
 			@Override
 			public void windowClosed(WindowEvent e) {
 				View.getInstance().getGameFrame().requestFocus();
-				
+
 			}
-			
+
 			@Override
 			public void windowActivated(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
 		});
 		newUserFrame.setSize(400, 400);
@@ -339,39 +282,32 @@ public class MenuPanel extends JPanel {
 		newUserFrame.add(avatarPreviewLabel);
 
 		JButton chooseAvatarButton = new JButton(new ImageIcon(
-				ImageLoader.importImg("/menu/avatar.png").getScaledInstance(150, 30, Image.SCALE_SMOOTH))) {
-			{
-				setContentAreaFilled(false);
-				setBounds(120, 90, 150, 30);
-				setBorderPainted(false);
-				setFocusPainted(false);
-			}
-		};
+				ImageLoader.importImg("/menu/avatar.png").getScaledInstance(150, 30, Image.SCALE_SMOOTH)));
 		chooseAvatarButton
 				.addActionListener(ActionListenersManager.chooseAvatar(avatarPreviewLabel, chooseAvatarButton));
 		newUserFrame.add(chooseAvatarButton);
+		chooseAvatarButton.setContentAreaFilled(false);
+		chooseAvatarButton.setBounds(120, 90, 150, 30);
+		chooseAvatarButton.setBorderPainted(false);
+		chooseAvatarButton.setFocusPainted(false);
 
 		JButton okButton = new JButton(
-				new ImageIcon(ImageLoader.importImg("/menu/ok.png").getScaledInstance(80, 30, Image.SCALE_SMOOTH))) {
-			{
-				setContentAreaFilled(false);
-				setBounds(100, 300, 80, 30);
-				setBorderPainted(false);
-				setFocusPainted(false);
-			}
-		};
+				new ImageIcon(ImageLoader.importImg("/menu/ok.png").getScaledInstance(80, 30, Image.SCALE_SMOOTH)));
+		okButton.setContentAreaFilled(false);
+		okButton.setBounds(100, 300, 80, 30);
+		okButton.setBorderPainted(false);
+		okButton.setFocusPainted(false);
+		
 		newUserFrame.add(okButton);
 
 		JButton cancelButton = new JButton(new ImageIcon(
-				ImageLoader.importImg("/menu/cancel.png").getScaledInstance(80, 30, Image.SCALE_SMOOTH))) {
-			{
-				setContentAreaFilled(false);
-				setBounds(220, 300, 80, 30);
-				addActionListener(e -> newUserFrame.dispose());
-				setBorderPainted(false);
-				setFocusPainted(false);
-			}
-		};
+				ImageLoader.importImg("/menu/cancel.png").getScaledInstance(80, 30, Image.SCALE_SMOOTH)));
+		cancelButton.setContentAreaFilled(false);
+		cancelButton.setBounds(220, 300, 80, 30);
+		cancelButton.addActionListener(e -> newUserFrame.dispose());
+		cancelButton.setBorderPainted(false);
+		cancelButton.setFocusPainted(false);
+		
 		newUserFrame.add(cancelButton);
 
 		okButton.addActionListener(e -> {
@@ -385,7 +321,7 @@ public class MenuPanel extends JPanel {
 				try {
 					Files.copy(Paths.get(selectedAvatarPath), Paths.get(avatarPath));
 				} catch (IOException ex) {
-					System.err.println("Errore durante la copia del file: " + ex.getMessage());
+					System.err.println("Error copying files: " + ex.getMessage());
 				}
 				User newUser = new User(nickname, 0, avatarPath, 0, 0, 0);
 				Model.getInstance().addUser(newUser);
@@ -396,7 +332,7 @@ public class MenuPanel extends JPanel {
 				updateUserSelectionPopUp();
 				newUserFrame.dispose();
 			} else {
-				JOptionPane.showMessageDialog(newUserFrame, "The nickname is required!", "Errore",
+				JOptionPane.showMessageDialog(newUserFrame, "The nickname is required!", "Error",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		});

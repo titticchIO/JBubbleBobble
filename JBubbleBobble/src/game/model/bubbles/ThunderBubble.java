@@ -3,8 +3,7 @@ package game.model.bubbles;
 import game.model.Model;
 import game.model.tiles.Tile;
 import game.model.bubbles.special_effects.Bolt;
-import game.model.entities.Entity;
-import game.model.entities.Player;
+
 
 /**
  * The {@code ThunderBubble} class represents a bubble that spawns a lightning
