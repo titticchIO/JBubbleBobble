@@ -3,7 +3,6 @@ package editor.controller;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 
 import editor.model.LevelManager;
 import editor.view.EditorFrame;

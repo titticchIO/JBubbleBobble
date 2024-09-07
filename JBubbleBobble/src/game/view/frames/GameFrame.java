@@ -15,8 +15,6 @@ import javax.swing.JPanel;
 
 import game.controller.Controller;
 import game.controller.InputManager;
-import game.controller.gamestates.GameState;
-import game.controller.gamestates.Menu;
 import game.model.Model;
 import game.model.level.Level;
 import game.view.View;
