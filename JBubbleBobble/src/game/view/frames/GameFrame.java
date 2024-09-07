@@ -59,7 +59,7 @@ public class GameFrame extends JFrame {
      * @param playerController the {@code InputManager} that handles player input.
      * @param menu             the {@code Menu} object representing the game's main menu state.
      */
-	public GameFrame(Controller controller, InputManager playerController, Menu menu) {
+	public GameFrame(Controller controller, InputManager playerController) {
 		layoutPanel = new JPanel(new CardLayout());
 		layoutPanel.setSize(new Dimension((int) (Level.GAME_WIDTH * LevelPanel.SCALE),
 				(int) (Level.GAME_HEIGHT * LevelPanel.SCALE)));
@@ -100,7 +100,7 @@ public class GameFrame extends JFrame {
 		gamePanel.add(levelPanel, BorderLayout.CENTER);
 
 		// Initialize other panels for different game states
-		menuPanel = new MenuPanel(menu);
+		menuPanel = new MenuPanel();
 		winPanel = new EndPanel(Ending.WIN);
 		lossPanel = new EndPanel(Ending.LOSS);
 		pausePanel = new PausePanel(levelPanel, controller);

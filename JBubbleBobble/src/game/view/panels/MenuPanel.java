@@ -28,7 +28,6 @@ import game.view.View;
  */
 public class MenuPanel extends JPanel {
 
-	private Menu menu;
 	private BufferedImage menuImage;
 	private UserPanel currentUserPanel;
 	private JPopupMenu userSelectionPopUp;
@@ -38,8 +37,7 @@ public class MenuPanel extends JPanel {
 	 * 
 	 * @param menu the Menu object that represents the game menu state
 	 */
-	public MenuPanel(Menu menu) {
-		this.menu = menu;
+	public MenuPanel() {
 		setSize(new Dimension((int) (Level.GAME_WIDTH * LevelPanel.SCALE),
 				(int) (Level.GAME_HEIGHT * LevelPanel.SCALE)));
 		loadImage(); // Load the image once
@@ -93,24 +91,6 @@ public class MenuPanel extends JPanel {
 
 		userSelectionPopUp = new JPopupMenu();
 		updateUserSelectionPopUp();
-		userSelectionPopUp.addPopupMenuListener(new PopupMenuListener() {
-
-			@Override
-			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-
-			}
-
-			@Override
-			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-				View.getInstance().getGameFrame().requestFocus();
-
-			}
-
-			@Override
-			public void popupMenuCanceled(PopupMenuEvent e) {
-
-			}
-		});
 
 		JButton userSelectionButton = new JButton() {
 			{
@@ -159,7 +139,7 @@ public class MenuPanel extends JPanel {
 			{
 				setPreferredSize(new Dimension(100, 20));
 				setSize(new Dimension(100, 20));
-				setIcon(new ImageIcon(ImageLoader.importImg("/menu/new_user_test.png").getScaledInstance(100, 100,
+				setIcon(new ImageIcon(ImageLoader.importImg("/menu/new_user.png").getScaledInstance(100, 100,
 						Image.SCALE_SMOOTH)));
 				setForeground(Color.MAGENTA);
 				setFocusPainted(false);
@@ -287,6 +267,50 @@ public class MenuPanel extends JPanel {
 	public void showNewUserDialog() {
 		JFrame newUserFrame = new JFrame("Crea Nuovo Utente");
 		newUserFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		newUserFrame.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				View.getInstance().getGameFrame().requestFocus();
+				
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		newUserFrame.setSize(400, 400);
 		newUserFrame.setResizable(false);
 		newUserFrame.setLayout(null);

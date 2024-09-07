@@ -32,19 +32,19 @@ public class Controller implements Runnable {
 	private View view;
 
 	public Controller() {
-		new Timer("Music Timer").schedule(new TimerTask() {
-
-			@Override
-			public void run() {
-				AudioManager.getInstance().play(Paths
-						.getAbsolutePath("Audio/Sound Tacks/01 Introduction ~ Main Theme (online-audio-converter.com).wav"));
-			}
-		},0, 107000);
+//		new Timer("Music Timer").schedule(new TimerTask() {
+//
+//			@Override
+//			public void run() {
+//				AudioManager.getInstance().play(Paths
+//						.getAbsolutePath("Audio/Sound Tacks/01 Introduction ~ Main Theme (online-audio-converter.com).wav"));
+//			}
+//		},0, 107000);
 		model = Model.getInstance();
 		menu = new Menu(this);
 		end = new End(this);
 		pause = new Pause(this);
-		gameFrame = new GameFrame(this, new InputManager(this), menu);
+		gameFrame = new GameFrame(this, new InputManager(this));
 		view = View.getInstance(gameFrame);
 		model.addObserver(view);
 		playing = new Playing(this);

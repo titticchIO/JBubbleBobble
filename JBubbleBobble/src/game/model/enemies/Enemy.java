@@ -15,7 +15,7 @@ import game.model.entities.MovingEntity;
 public abstract class Enemy extends MovingEntity {
 
 	// Static Fields
-	public static final int RED_TIME = 10000; // Time in milliseconds before the enemy turns red.
+	public static final int RED_TIME = 15000; // Time in milliseconds before the enemy turns red.
 
 	// Non-static Fields
 	private ColorState colorState; // Current color of the entity.

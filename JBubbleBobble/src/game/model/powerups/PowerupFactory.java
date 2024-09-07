@@ -6,12 +6,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
-
-import game.model.Model;
 import game.model.tiles.Tile;
 import static game.model.level.Level.NUM_HORIZONTAL_TILES;
 import static game.model.level.Level.NUM_VERTICAL_TILES;;;
 
+/**
+ * The {@code PowerupFactory} is responsible for generating power-ups in the
+ * game. It tracks various game metrics and based on these metrics, determines
+ * the types of power-ups to spawn. The factory is also responsible for
+ * determining the appropriate spawn position for power-ups on the game level.
+ */
 public class PowerupFactory {
 	private float distanceTravelled;
 	private int numberOfJumpsOnBubbles;
@@ -28,57 +32,125 @@ public class PowerupFactory {
 
 	private char[][] lvlData;
 
+	/**
+	 * Constructs a new PowerupFactory with the specified level data.
+	 *
+	 * @param lvlData The level data array representing the game map.
+	 */
 	public PowerupFactory(char[][] lvlData) {
 		this.lvlData = lvlData;
 	}
+	// Getter and setter methods for various game metrics
 
+	/**
+	 * Gets the total distance traveled by the player.
+	 *
+	 * @return the distance traveled.
+	 */
 	public float getDistanceTravelled() {
 		return distanceTravelled;
 	}
 
+	/**
+	 * Gets the number of jumps on bubbles by the player.
+	 *
+	 * @return the number of jumps on bubbles.
+	 */
 	public int getNumberOfJumpsOnBubbles() {
 		return numberOfJumpsOnBubbles;
 	}
 
+	/**
+	 * Gets the total number of bubbles created by the player.
+	 *
+	 * @return the number of bubbles.
+	 */
 	public int getNumberOfBubbles() {
 		return numberOfBubbles;
 	}
 
+	/**
+	 * Gets the number of bubbles popped by the player.
+	 *
+	 * @return the number of bubbles popped.
+	 */
 	public int getNumberOfBubblesPopped() {
 		return numberOfBubblesPopped;
 	}
 
+	/**
+	 * Gets the number of fire bubbles popped by the player.
+	 *
+	 * @return the number of fire bubbles popped.
+	 */
 	public int getNumberOfFireBubblesPopped() {
 		return numberOfFireBubblesPopped;
 	}
 
+	/**
+	 * Gets the number of water bubbles popped by the player.
+	 *
+	 * @return the number of water bubbles popped.
+	 */
 	public int getNumberOfWaterBubblesPopped() {
 		return numberOfWaterBubblesPopped;
 	}
 
+	/**
+	 * Gets the number of thunder bubbles popped by the player.
+	 *
+	 * @return the number of thunder bubbles popped.
+	 */
 	public int getNumberOfThunderBubblesPopped() {
 		return numberOfThunderBubblesPopped;
 	}
 
+	/**
+	 * Gets the number of special bubbles popped by the player.
+	 *
+	 * @return the number of special bubbles popped.
+	 */
 	public int getNumberOfSpecialBubblesPopped() {
 		return numberOfSpecialBubblesPopped;
 	}
 
+	/**
+	 * Gets the number of extend bubbles popped by the player.
+	 *
+	 * @return the number of extend bubbles popped.
+	 */
 	public int getNumberOfExtendBubblesPopped() {
 		return numberOfExtendBubblesPopped;
 	}
 
+	/**
+	 * Gets the number of yellow candies collected by the player.
+	 *
+	 * @return the number of yellow candies collected.
+	 */
 	public int getNumberOfYellowCandies() {
 		return numberOfYellowCandies;
 	}
 
+	/**
+	 * Gets the number of blue candies collected by the player.
+	 *
+	 * @return the number of blue candies collected.
+	 */
 	public int getNumberOfBlueCandies() {
 		return numberOfBlueCandies;
 	}
 
+	/**
+	 * Gets the number of pink candies collected by the player.
+	 *
+	 * @return the number of pink candies collected.
+	 */
 	public int getNumberOfPinkCandies() {
 		return numberOfPinkCandies;
 	}
+
+	// Setter methods to update various game metrics
 
 	public void setDistanceTravelled(float distanceTravelled) {
 		this.distanceTravelled = distanceTravelled;
@@ -128,6 +200,8 @@ public class PowerupFactory {
 		this.numberOfPinkCandies = numberOfPinkCandies;
 	}
 
+	// Methods to increment various game metrics
+
 	public void increaseNumberOfJumpsOnBubbles() {
 		numberOfJumpsOnBubbles++;
 	}
@@ -176,19 +250,25 @@ public class PowerupFactory {
 		distanceTravelled += newDistance;
 	}
 
+	/**
+	 * Calculates the percentage difference between two values.
+	 *
+	 * @param a the first value.
+	 * @param b the second value.
+	 * @return the percentage difference between the two values.
+	 */
 	public float getPercentDiff(float a, float b) {
 		return ((a - b) / b) * 100;
 	}
 
 	/**
-	 * Retrieves the completion percentages for various powerup conditions. The
-	 * percentages are calculated based on the difference between the current values
-	 * and the minimum conditions required for each powerup. Only positive
-	 * percentage differences are included in the returned map.
+	 * Retrieves the completion percentages for various power-up conditions. These
+	 * percentages are based on the difference between the current game metrics and
+	 * the spawn conditions for each power-up. Only positive percentage differences
+	 * are included.
 	 *
-	 * @return a map where the key is the powerup class and the value is the
-	 *         percentage difference, only including entries with positive
-	 *         percentages.
+	 * @return results a map where the key is the power-up class and the value is
+	 *         the percentage completion of that power-up's spawn condition.
 	 */
 	public HashMap<Class<? extends Powerup>, Float> getPowerupsConditionCompletions() {
 		HashMap<Class<? extends Powerup>, Float> results = new HashMap<>();
@@ -227,26 +307,26 @@ public class PowerupFactory {
 		}
 	}
 
+	/**
+	 * Creates a power-up based on the current game metrics. This method selects the
+	 * top two power-ups with the highest spawn condition completion and creates the
+	 * first available power-up.
+	 *
+	 * @param powerupManager the power-up manager that handles power-up
+	 *                       interactions.
+	 * @return the created power-up or null if no power-up could be created.
+	 */
 	public Powerup createPowerup(PowerupManager powerupManager) {
-		// Ottieni le condizioni di completamento dei power-up
 		HashMap<Class<? extends Powerup>, Float> powerupsConditions = getPowerupsConditionCompletions();
-		powerupsConditions.values().stream().filter(x -> x <= 0).forEach(n -> System.out.println(n));
 
-		// Usa lo stream per trovare le 2 classi con i valori float maggiori
+		// Use stream to find the top 2 power-ups
 		List<Class<? extends Powerup>> powerupsToSpawn = powerupsConditions.entrySet().stream()
-				// Ordina le entry per valore in ordine decrescente
-				.sorted(Map.Entry.<Class<? extends Powerup>, Float>comparingByValue(Comparator.reverseOrder()))
-				// Limita lo stream ai primi 2
-				.limit(2)
-				// Mappa le entry alle loro chiavi (le classi di power-up)
-				.map(Map.Entry::getKey)
-				// Colleziona in una lista
-				.collect(Collectors.toList());
+				.sorted(Map.Entry.<Class<? extends Powerup>, Float>comparingByValue(Comparator.reverseOrder())).limit(2)
+				.map(Map.Entry::getKey).collect(Collectors.toList());
 
+		// Creates the 2 powerups
 		for (Class<? extends Powerup> powerupClass : powerupsToSpawn) {
-			// Logica per creare il power-up (ad esempio instanziare le classi)
 			try {
-				// Crea una nuova istanza della classe di power-up
 				Powerup powerupInstance = powerupClass.getDeclaredConstructor().newInstance();
 				setPowerupPosition(powerupInstance, powerupManager);
 				return powerupInstance;
@@ -257,6 +337,13 @@ public class PowerupFactory {
 		return null;
 	}
 
+	/**
+	 * Creates a random power-up and sets its position in the game.
+	 *
+	 * @param powerupManager the power-up manager that handles power-up
+	 *                       interactions.
+	 * @return the created random power-up.
+	 */
 	public Powerup createRandomPowerup(PowerupManager powerupManager) {
 		Powerup randomPowerup = switch (new Random().nextInt(12)) {
 		case 0 -> new AmethystRing();
@@ -276,6 +363,13 @@ public class PowerupFactory {
 		return randomPowerup;
 	}
 
+	/**
+	 * Sets the position of the specified power-up in the game level on top of a
+	 * random tile.
+	 *
+	 * @param powerup        the power-up to position.
+	 * @param powerupManager the manager handling power-up interactions.
+	 */
 	public void setPowerupPosition(Powerup powerup, PowerupManager powerupManager) {
 		Random random = new Random();
 		int x = random.nextInt(1, NUM_HORIZONTAL_TILES - 1);
@@ -283,25 +377,21 @@ public class PowerupFactory {
 		final int MAX_ATTEMPTS = (NUM_HORIZONTAL_TILES - 2) * (NUM_VERTICAL_TILES - 2);
 
 		for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
-			// Verifica se la posizione è valida per generare il powerup
+			// check the current position
 			if (lvlData[y][x] == ' ' && Character.isDigit(lvlData[y + 1][x])
 					&& !powerupManager.isTherePowerup(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE)) {
 				powerup.setPosition(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE);
 				return;
 			}
-
-			// Passa al prossimo tile orizzontalmente
+			// If it is invalid go on
 			x++;
 			if (x >= NUM_HORIZONTAL_TILES - 1) {
 				x = 1;
 				y++;
-
-				// Se y ha superato il limite, ricomincia dall'alto
 				if (y >= NUM_VERTICAL_TILES - 1) {
 					y = 1;
 				}
 			}
 		}
-
 	}
 }
