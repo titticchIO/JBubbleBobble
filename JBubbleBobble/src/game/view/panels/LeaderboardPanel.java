@@ -19,8 +19,36 @@ import javax.swing.table.DefaultTableModel;
 import game.model.Model;
 import game.model.user.User;
 
+/**
+ * The {@code LeaderboardPanel} class is responsible for displaying a leaderboard
+ * of users in a graphical user interface. It extends {@link JPanel} and contains
+ * a table with information about the users' scores, games played, games won, and games lost.
+ * The leaderboard data is displayed in descending order based on the users' high scores.
+ *
+ * <p>This panel is designed to be non-editable, with custom styling applied to the table headers
+ * and the table itself. The panel uses a {@link BorderLayout} and is set to a preferred
+ * size of 550x300 pixels.
+ *
+ * <p>The table contains the following columns:
+ * <ul>
+ *     <li>Player - The nickname of the user</li>
+ *     <li>HighScore - The highest score achieved by the user</li>
+ *     <li>Played Games - The number of games the user has played</li>
+ *     <li>Games Won - The number of games the user has won</li>
+ *     <li>Games Lost - The number of games the user has lost</li>
+ * </ul>
+ *
+ * <p>The class also contains an inner static class {@link HeaderRenderer} which
+ * customizes the rendering of the table header.
+ */
 public class LeaderboardPanel extends JPanel {
+	private static final long serialVersionUID = 1L;
 
+	 /**
+     * Constructs a new {@code LeaderboardPanel} that initializes the leaderboard table,
+     * retrieves and displays user data sorted by high score in descending order,
+     * and applies custom styling to the table and its header.
+     */
     public LeaderboardPanel() {
         // Usa BorderLayout per il pannello principale
         setLayout(new BorderLayout());
@@ -46,7 +74,9 @@ public class LeaderboardPanel extends JPanel {
 
         // Creazione della tabella per la leaderboard con un DefaultTableModel non modificabile
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
-            @Override
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public boolean isCellEditable(int row, int column) {
                 return false; // Rende tutte le celle non modificabili
             }
@@ -69,16 +99,31 @@ public class LeaderboardPanel extends JPanel {
         
     }
 
+    /**
+     * Overrides the {@code paintComponent} method to allow for custom painting
+     * of the component, such as drawing backgrounds or additional graphics.
+     *
+     * @param g the {@code Graphics} object to protect
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         // Eventuale codice per disegnare uno sfondo o altri elementi grafici
     }
 
-    // Renderer personalizzato per l'intestazione della tabella
+    /**
+     * A custom renderer for the table header that centers the text,
+     * sets the background color to black, and applies an orange border.
+     */
     private static class HeaderRenderer implements TableCellRenderer {
         private final DefaultTableCellRenderer renderer;
 
+        /**
+         * Constructs a new {@code HeaderRenderer} with a reference to the table
+         * and applies the custom styling for the header cells.
+         *
+         * @param table the {@link JTable} whose header will be customized
+         */
         public HeaderRenderer(JTable table) {
             this.renderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
             this.renderer.setHorizontalAlignment(JLabel.CENTER);

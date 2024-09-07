@@ -5,16 +5,19 @@ import game.view.frames.GameFrame;
 import game.view.frames.GameFrame.Screen;
 import game.controller.gamestates.Playing;
 import game.model.Model;
-import game.model.Paths;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 import game.controller.gamestates.End;
 import game.controller.gamestates.GameState;
 import game.controller.gamestates.Menu;
 import game.controller.gamestates.Pause;
 
+/**
+ * The Controller class {@code Controller} is responsible for managing the game
+ * loop and state transitions. It handles the game's main logic, including
+ * updating the game state, rendering, and managing different game states. This
+ * class implements the Runnable interface to allow the game loop to run on a
+ * separate thread.
+ */
 public class Controller implements Runnable {
 	private Thread gameThread;
 	private boolean running;
@@ -31,15 +34,11 @@ public class Controller implements Runnable {
 	private Model model;
 	private View view;
 
+	/**
+	 * Constructs a new Controller instance. Initializes game states, view, model,
+	 * and game frame. Displays the menu screen by default.
+	 */
 	public Controller() {
-//		new Timer("Music Timer").schedule(new TimerTask() {
-//
-//			@Override
-//			public void run() {
-//				AudioManager.getInstance().play(Paths
-//						.getAbsolutePath("Audio/Sound Tacks/01 Introduction ~ Main Theme (online-audio-converter.com).wav"));
-//			}
-//		},0, 107000);
 		model = Model.getInstance();
 		menu = new Menu(this);
 		end = new End(this);
@@ -51,33 +50,67 @@ public class Controller implements Runnable {
 		gameFrame.showState(Screen.MENU);
 	}
 
+	/**
+	 * Gets the Playing game state.
+	 *
+	 * @return the Playing game state
+	 */
 	public Playing getPlaying() {
 		return playing;
 	}
 
+	/**
+	 * Gets the Menu game state.
+	 *
+	 * @return the Menu game state
+	 */
 	public Menu getMenu() {
 		return menu;
 	}
 
+	/**
+	 * Gets the Pause game state.
+	 *
+	 * @return the Pause game state
+	 */
 	public Pause getPause() {
 		return pause;
 	}
 
+	/**
+	 * Sets the Pause game state.
+	 *
+	 * @param pause the Pause game state to set
+	 */
 	public void setPause(Pause pause) {
 		this.pause = pause;
 	}
 
+	/**
+	 * Gets the End game state.
+	 *
+	 * @return the End game state
+	 */
 	public End getEnd() {
 		return end;
 	}
 
+	/**
+	 * Gets the GameFrame associated with this Controller.
+	 *
+	 * @return the GameFrame
+	 */
 	public GameFrame getGameFrame() {
 		return gameFrame;
 	}
 
+	/**
+	 * Starts the game loop. Initializes and starts the game thread, and transitions
+	 * to the game screen.
+	 */
 	public void startGameLoop() {
 		if (gameThread != null && running) {
-			stopGameLoop(); // Ensure the previous thread is stopped
+			stopGameLoop();
 		}
 		Model.getInstance().loadLevels();
 		gameFrame.getLevelPanel().renderTilesOnce(gameFrame);
@@ -88,30 +121,32 @@ public class Controller implements Runnable {
 		GameState.state = GameState.PLAYING;
 	}
 
+	/**
+	 * Stops the game loop and waits for the game thread to finish execution.
+	 */
 	public void stopGameLoop() {
 		running = false;
 		try {
-			gameThread.join(); // Wait for the current thread to finish
+			gameThread.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Resets the game to its initial state. Reloads the model and transitions to
+	 * the menu screen.
+	 */
 	public void resetGame() {
-		// Reset the model to its initial state
 		Model.getInstance().resetModel();
-
-		// Reset the view (if needed, additional UI elements like score can be reset
-		// here)
 		View.getInstance().getLevelPanel().renderTilesOnce(gameFrame);
-
-		// Set the game state back to the menu
 		GameState.state = GameState.MENU;
-
-		// Display the menu screen
 		gameFrame.showState(Screen.MENU);
 	}
 
+	/**
+	 * Updates the current game state based on the GameState.
+	 */
 	private void update() {
 		switch (GameState.state) {
 		case MENU -> menu.update();
@@ -121,6 +156,10 @@ public class Controller implements Runnable {
 		}
 	}
 
+	/**
+	 * The main game loop executed on a separate thread. Handles the timing of
+	 * updates and rendering.
+	 */
 	@Override
 	public void run() {
 		double timePerFrame = 1000000000.0 / FPS_SET;
@@ -155,7 +194,7 @@ public class Controller implements Runnable {
 
 			if (System.currentTimeMillis() - lastCheck >= 1000) {
 				lastCheck = System.currentTimeMillis();
-//				System.out.println("FPS: " + frames + " | UPS: " + updates);
+				System.out.println("FPS: " + frames + " | UPS: " + updates);
 				frames = 0;
 				updates = 0;
 			}
