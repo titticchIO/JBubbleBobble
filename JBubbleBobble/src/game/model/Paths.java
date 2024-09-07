@@ -4,14 +4,33 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The {@code Paths} class is responsible for managing and providing file paths
+ * based on specific characters. It includes mappings between characters and
+ * their respective file paths for different game elements such as blocks,
+ * entities, bubbles, fruits, power-ups, and effects. Additionally, the class
+ * can resolve absolute paths for resources.
+ */
 public class Paths {
 
-	// Mappa per associare ogni lettera a un percorso
+	/**
+	 * A map that associates each character with a corresponding file path. This map
+	 * contains paths for various game components including:
+	 * <ul>
+	 * <li>Blocks</li>
+	 * <li>Entities</li>
+	 * <li>Bubbles</li>
+	 * <li>Fruits</li>
+	 * <li>Power-ups</li>
+	 * <li>Special effects</li>
+	 * </ul>
+	 */
 	private static final Map<Character, String> pathsMap = new HashMap<>();
 
 	static {
-		// Aggiungi altri percorsi per le altre lettere...
-//      BLOCKS:
+		// Initialize the paths for different characters and components
+
+		// BLOCKS:
 		pathsMap.put('1', "/blocks/normal_blocks/block_1");
 		pathsMap.put('2', "/blocks/normal_blocks/block_2");
 		pathsMap.put('3', "/blocks/normal_blocks/block_3");
@@ -22,7 +41,7 @@ public class Paths {
 		pathsMap.put('8', "/blocks/normal_blocks/block_8");
 		pathsMap.put('9', "/blocks/normal_blocks/block_9");
 
-//    		ENTITIES:
+		// ENTITIES:
 		pathsMap.put('P', "/player/");
 		pathsMap.put('B', "/enemies/boss/");
 		pathsMap.put('Z', "/enemies/zenchan/");
@@ -32,7 +51,7 @@ public class Paths {
 		pathsMap.put('U', "/enemies/pulpul/");
 		pathsMap.put('S', "/enemies/skelmonsta/");
 
-//    		BUBBLES:
+		// BUBBLES:
 		pathsMap.put('°', "/bubbles/player_bubble");
 		pathsMap.put('-', "/bubbles/fire_bubble");
 		pathsMap.put('+', "/bubbles/thunder_bubble");
@@ -45,14 +64,14 @@ public class Paths {
 		pathsMap.put('{', "/bubbles/exten_bubble");
 		pathsMap.put('}', "/bubbles/extend_bubble");
 
-//    		FRUITS:
+		// FRUITS:
 		pathsMap.put('~', "/fruits/banana");
 		pathsMap.put(';', "/fruits/peach");
 		pathsMap.put('<', "/fruits/watermelon");
 		pathsMap.put('>', "/fruits/pear");
 		pathsMap.put(':', "/fruits/orange");
 
-//    		POWERUPS:
+		// POWER-UPS:
 		pathsMap.put('!', "/powerups/pink_candy");
 		pathsMap.put('£', "/powerups/blue_candy");
 		pathsMap.put('$', "/powerups/yellow_candy");
@@ -64,7 +83,7 @@ public class Paths {
 		pathsMap.put('=', "/powerups/amethyst_ring");
 		pathsMap.put('.', "/powerups/ruby_ring");
 
-//    		EFFECTS:
+		// EFFECTS:
 		pathsMap.put('"', "/enemies/invader/red");
 		pathsMap.put('#', "/bubbles/special_effects/fire_ball");
 		pathsMap.put('?', "/bubbles/special_effects/bolt");
@@ -72,11 +91,24 @@ public class Paths {
 		pathsMap.put('|', "/bubbles/special_effects/water_vertical");
 	}
 
-	// Metodo per ottenere il percorso associato a una lettera
+	 /**
+     * Retrieves the file path associated with a given character.
+     *
+     * @param letter the character representing a specific game element
+     * @return the file path corresponding to the given character,
+     *         or {@code null} if the character is not mapped
+     */
 	public static String getPath(Character letter) {
 		return pathsMap.get(letter);
 	}
 
+	 /**
+     * Returns the absolute path for a given relative resource path.
+     *
+     * @param relativePath the relative path to the resource
+     * @return the absolute path of the resource file
+     * @throws IllegalArgumentException if the file does not exist
+     */
 	public static String getAbsolutePath(String relativePath) {
 		File file = new File("resources/" + relativePath);
 		if (file.exists()) {
