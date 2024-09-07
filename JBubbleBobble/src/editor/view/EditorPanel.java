@@ -134,7 +134,6 @@ public class EditorPanel extends JPanel {
         for (Sprite[] row : sprites)
             for (Sprite sprite : row)
                 sprite.updateSpriteImg(null);
-        
         repaint(); // Repaint the panel to reflect the changes
     }
 

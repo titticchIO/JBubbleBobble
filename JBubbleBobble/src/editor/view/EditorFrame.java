@@ -161,7 +161,8 @@ public class EditorFrame extends JFrame {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                Model.getInstance().resetModel();
+            	resetEditor();
+            	Model.getInstance().resetModel();
             	// Request focus back to the GameFrame
                 View.getInstance().getGameFrame().requestFocus();
                 // Dispose the EditorFrame
@@ -246,5 +247,11 @@ public class EditorFrame extends JFrame {
      */
     public List<LevelsPopUpMenu> getPopUps() {
         return popUps;
+    }
+    
+    public void resetEditor() {
+    	editorPanel.reset();
+    	actualLevelNumber="";
+    	actualLevel.setText(actualLevelNumber);
     }
 }
