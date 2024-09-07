@@ -425,14 +425,13 @@ public class Player extends MovingEntity implements Gravity, Jumping, Shooting, 
 			if (bubbleDirection == Direction.RIGHT
 					&& !HelpMethods.isEntityInsideWall(x + Tile.TILE_SIZE, y, width, height)) {
 				Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x + Tile.TILE_SIZE, y, 2);
-				if (rubyRingActive)
-					Model.getInstance().getCurrentUser().addPoints(50);
 			} else if (bubbleDirection == Direction.LEFT
 					&& !HelpMethods.isEntityInsideWall(x - Tile.TILE_SIZE, y, width, height)) {
 				Model.getInstance().getCurrentLevel().getBubbleManager().createPlayerBubble(x - Tile.TILE_SIZE, y, -2);
-				if (rubyRingActive)
-					Model.getInstance().getCurrentUser().addPoints(50);
 			}
+			
+			if (rubyRingActive)
+				Model.getInstance().getCurrentUser().addPoints(50);
 
 			Model.getInstance().sendNotification("bubble");
 			// Disables shooting until the end of the waiting time.

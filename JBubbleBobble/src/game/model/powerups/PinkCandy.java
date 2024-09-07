@@ -12,6 +12,9 @@ public class PinkCandy extends Powerup {
 	public static final long DURATION = 10000;
 	public static final float INCREASED_TRAVEL_TIME_AMOUNT = 2;
 
+	/**
+	 * Constructor for PinkCandy
+	 */
 	public PinkCandy() {
 		super(0, 0, CODE, POINTS, DURATION);
 	}

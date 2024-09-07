@@ -13,6 +13,12 @@ import game.model.interfaces.Vulnerable;
 import game.model.level.Level;
 import game.model.tiles.Tile;
 
+/**
+ * The {@code Boss} class represents a powerful enemy in the game with multiple
+ * lives and the ability to change directions randomly. It implements both
+ * Vulnerable and ChangeDirection interfaces to handle interactions with the
+ * player and movement behavior.
+ */
 public class Boss extends Enemy implements Vulnerable, ChangeDirection {
 
 	public static final char CODE = 'B';
@@ -20,6 +26,13 @@ public class Boss extends Enemy implements Vulnerable, ChangeDirection {
 	private Timer invulnerabilityTimer;
 	private boolean isInvulnerable;
 
+	/**
+	 * Constructs a new Boss instance at the specified x and y coordinates with
+	 * default attributes.
+	 * 
+	 * @param x The initial x-coordinate of the Boss.
+	 * @param y The initial y-coordinate of the Boss.
+	 */
 	public Boss(float x, float y) {
 		super(x, y, 2 * Tile.TILE_SIZE, 2 * Tile.TILE_SIZE, CODE);
 		setxSpeed(0.3f);
@@ -28,14 +41,28 @@ public class Boss extends Enemy implements Vulnerable, ChangeDirection {
 		lives = 3;
 	}
 
+	/**
+	 * Gets the invulnerability timer associated with the Boss.
+	 * 
+	 * @return The invulnerability timer.
+	 */
 	public Timer getInvulnerabilityTimer() {
 		return invulnerabilityTimer;
 	}
 
+	/**
+	 * Sets the invulnerability timer for the Boss.
+	 * 
+	 * @param invincibilityTimer The Timer to set for invulnerability.
+	 */
 	public void setInvulnerabilityTimer(Timer invincibilityTimer) {
 		this.invulnerabilityTimer = invincibilityTimer;
 	}
 
+	/**
+	 * Randomly changes the direction of the Boss based on current movement state.
+	 * The Boss may switch between moving left, right, up, or down.
+	 */
 	@Override
 	public void changeDirection() {
 		if (randomBoolean(10))
@@ -55,6 +82,10 @@ public class Boss extends Enemy implements Vulnerable, ChangeDirection {
 		}
 	}
 
+	/**
+	 * Randomizes the movement direction of the Boss, choosing between up, down,
+	 * left, and right.
+	 */
 	private void randomizeDirection() {
 		int randomInt = new Random().nextInt(4);
 		switch (randomInt) {
@@ -79,16 +110,24 @@ public class Boss extends Enemy implements Vulnerable, ChangeDirection {
 		}
 	}
 
+	/**
+	 * Updates the x-coordinate of the Boss based on the current xSpeed and checks
+	 * for collisions with tiles.
+	 */
 	@Override
 	public void updateXPos() {
 		if (HelpMethods.canMoveHere(x + xSpeed, y, width, height)) {
 			setX(x + xSpeed);
 		} else {
-			// Cambia direzione se incontra un ostacolo
 			changeDirection();
 		}
 	}
 
+	/**
+	 * Updates the y-coordinate of the Boss based on the current airSpeed and checks
+	 * for collisions. If the Boss moves off the top or bottom of the level, its
+	 * position is wrapped around.
+	 */
 	@Override
 	public void updateYPos() {
 		if (y > Level.GAME_HEIGHT + 1) {
@@ -99,7 +138,6 @@ public class Boss extends Enemy implements Vulnerable, ChangeDirection {
 			if (HelpMethods.canMoveHere(x, y + airSpeed, width, height)) {
 				setY(y + airSpeed);
 			} else {
-				// Cambia direzione se incontra un ostacolo
 				changeDirection();
 			}
 		}
@@ -107,7 +145,7 @@ public class Boss extends Enemy implements Vulnerable, ChangeDirection {
 
 	@Override
 	public void updateEntity() {
-		if (lives == 0&&!isDead()) {
+		if (lives == 0 && !isDead()) {
 			kill();
 			Model.getInstance().sendNotification("bossKill");
 		}
@@ -132,14 +170,10 @@ public class Boss extends Enemy implements Vulnerable, ChangeDirection {
 	@Override
 	public void removeEnemy() {
 		if (HelpMethods.isEntityGrounded(this)) {
-			Fruit fruit = new Fruit(x, y + Tile.TILE_SIZE, switch (new Random().nextInt(5)) {
-			case 0 -> FruitType.BANANA;
-			case 1 -> FruitType.ORANGE;
-			case 2 -> FruitType.PEACH;
-			case 3 -> FruitType.PEAR;
-			default -> FruitType.WATERMELON;
-			});
-			Model.getInstance().getCurrentLevel().getFruitManager().addFruit(fruit);
+			Fruit orange1 = new Fruit(x, y + Tile.TILE_SIZE, FruitType.ORANGE);
+			Fruit orange2 = new Fruit(x + Tile.TILE_SIZE, y + Tile.TILE_SIZE, FruitType.ORANGE);
+			Model.getInstance().getCurrentLevel().getFruitManager().addFruit(orange1);
+			Model.getInstance().getCurrentLevel().getFruitManager().addFruit(orange2);
 			Model.getInstance().getCurrentLevel().getEnemyManager().removeEnemy(this);
 		}
 	}
