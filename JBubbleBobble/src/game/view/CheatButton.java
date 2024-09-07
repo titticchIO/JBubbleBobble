@@ -11,6 +11,8 @@ import javax.swing.JButton;
  */
 public class CheatButton extends JButton {
 
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Constructor for the CheatButton
 	 * 
