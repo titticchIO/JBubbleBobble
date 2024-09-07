@@ -90,6 +90,6 @@ public class CheatFrame extends JFrame {
 		buttonsPanel.add(
 				new CheatButton(AnimationAndImagesLoader.getImage('!'), ActionListenersManager.spawnRandomPowerup()));
 
-		buttonsPanel.add(buttonsPanel);
+		add(buttonsPanel);
 	}
 }

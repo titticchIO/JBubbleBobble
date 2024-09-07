@@ -28,7 +28,7 @@ public class Banebou extends Enemy implements Gravity, Jumping, ChangeDirection 
 	 */
 	public Banebou(float x, float y) {
 		super(x, y, CODE);
-		setxSpeed(0.7f);
+		setxSpeed(0.5f);
 		setJumpSpeed(-1.5f);
 		setDirection(Direction.RIGHT);
 		setColorState(ColorState.NORMAL);
