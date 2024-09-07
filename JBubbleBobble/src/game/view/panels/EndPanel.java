@@ -16,6 +16,9 @@ import game.view.ImageLoader;
  * image depending on the result of it.
  */
 public class EndPanel extends JPanel {
+
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * The different outcomes of the game
 	 */
