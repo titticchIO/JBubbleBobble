@@ -5,40 +5,50 @@ import java.awt.event.KeyListener;
 
 import game.controller.gamestates.GameState;
 
+/**
+ * The {@code InputManager} redirects the key inputs to the proper {@code State}
+ * according to the current {@code GameState}
+ */
 public class InputManager implements KeyListener {
-	private Controller game;
+
+	private Controller controller;
 
 	/**
-	 * @param game
+	 * Constructor fot the InputManager
+	 * 
+	 * @param controller
 	 */
-	public InputManager(Controller game) {
-		this.game = game;
+	public InputManager(Controller controller) {
+		this.controller = controller;
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 	}
 
+	/**
+	 * Sends the KeyEvent to the correct {@code State}
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		switch (GameState.state) {
-		case MENU -> game.getMenu().keyPressed(e);
-		case PLAYING -> game.getPlaying().keyPressed(e);
-		case WIN, LOSS -> game.getEnd().keyPressed(e);
-		case PAUSE -> game.getPause().keyPressed(e);
+		case MENU -> controller.getMenu().keyPressed(e);
+		case PLAYING -> controller.getPlaying().keyPressed(e);
+		case WIN, LOSS -> controller.getEnd().keyPressed(e);
+		case PAUSE -> controller.getPause().keyPressed(e);
 		}
 	}
 
+	/**
+	 * Sends the KeyEvent to the correct {@code State}
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		switch (GameState.state) {
-		case MENU:
-			game.getMenu().keyReleased(e);
-			break;
-		case PLAYING:
-			game.getPlaying().keyReleased(e);
-			break;
+		case MENU -> controller.getMenu().keyReleased(e);
+		case PLAYING -> controller.getPlaying().keyReleased(e);
+		case LOSS, WIN -> controller.getEnd().keyReleased(e);
+		case PAUSE -> controller.getPause().keyReleased(e);
 		}
 	}
 

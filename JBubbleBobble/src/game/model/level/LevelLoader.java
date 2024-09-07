@@ -9,8 +9,15 @@ import game.model.tiles.Tile;
 
 import static game.model.tiles.Tile.TILE_SIZE;;
 
+/**
+ * The LevelLoader class is responsible for loading level data from files and
+ * creating objects such as tiles and enemies based on the level's layout. It
+ * reads level files and converts the data into game objects that populate the
+ * game level.
+ */
 public class LevelLoader {
 
+	// Character codes representing different entities in the level file
 	private final static char PLAYER = 'P';
 	private final static char ZEN_CHAN = 'Z';
 	private final static char MONSTA = 'M';
@@ -20,6 +27,13 @@ public class LevelLoader {
 	private final static char INVADER = 'I';
 	private final static char BOSS = 'B';
 
+	/**
+	 * Reads the level file for the specified level number and returns a 2D
+	 * character array representing the layout of the level.
+	 * 
+	 * @param levelNum The number of the level to be loaded.
+	 * @return A 2D character array representing the level's layout.
+	 */
 	public static char[][] readLevelFile(int levelNum) {
 
 		char[][] matrice = new char[Level.NUM_VERTICAL_TILES][Level.NUM_HORIZONTAL_TILES];
@@ -33,20 +47,29 @@ public class LevelLoader {
 				i++;
 			}
 		} catch (IOException e) {
-			System.err.println("ERRORE: LIVELLO NON TROVATO");
+			System.err.println("ERROR: LEVEL FILE NOT FOUND");
 		}
 
 		return matrice;
 	}
 
-	// crea gli oggetti nel level in base alla matrice
+	/**
+	 * Loads a level from the specified level file and creates the necessary objects
+	 * (tiles, player spawn point, enemies) based on the level layout. The layout is
+	 * determined by reading a level file and parsing the characters to create
+	 * appropriate objects.
+	 * 
+	 * @param level    The Level object to populate with game entities.
+	 * @param levelNum The number of the level to be loaded.
+	 * @return A 2D character array representing the level's layout.
+	 */
 
 	public static char[][] loadLevel(Level level, int levelNum) {
-		char[][] matrice = readLevelFile(levelNum);
+		char[][] matrix = readLevelFile(levelNum);
 		int x = 0;
 		int y = 0;
-		for (char[] linea : matrice) {
-			for (char c : linea) {
+		for (char[] row : matrix) {
+			for (char c : row) {
 				if (!(c == ' '))
 					switch (c) {
 					case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ->
@@ -61,7 +84,7 @@ public class LevelLoader {
 						case MONSTA -> new Monsta(x * TILE_SIZE, y * TILE_SIZE);
 						case BANEBOU -> new Banebou(x * TILE_SIZE, y * TILE_SIZE);
 						case PULPUL -> new Pulpul(x * TILE_SIZE, y * TILE_SIZE);
-						case INVADER -> new Invader(x * TILE_SIZE, y * TILE_SIZE-1);
+						case INVADER -> new Invader(x * TILE_SIZE, y * TILE_SIZE - 1);
 						case SKELMONSTA -> new SkelMonsta(x * TILE_SIZE, y * TILE_SIZE);
 						case BOSS -> new Boss(x * TILE_SIZE, y * TILE_SIZE);
 						default -> throw new IllegalArgumentException("Unexpected value: " + c);
@@ -76,7 +99,7 @@ public class LevelLoader {
 			y++;
 		}
 
-		return matrice;
+		return matrix;
 	}
 
 }

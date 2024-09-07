@@ -51,6 +51,15 @@ public class Boss extends Enemy implements Vulnerable, ChangeDirection {
 	}
 
 	/**
+	 * Gets the remaining lives of the Boss.
+	 * 
+	 * @return The number of lives the Boss has.
+	 */
+	public int getLives() {
+		return lives;
+	}
+
+	/**
 	 * Sets the invulnerability timer for the Boss.
 	 * 
 	 * @param invincibilityTimer The Timer to set for invulnerability.
@@ -143,6 +152,26 @@ public class Boss extends Enemy implements Vulnerable, ChangeDirection {
 		}
 	}
 
+	/**
+	 * Removes the Boss from the game. Upon removal, the Boss drops two fruits if it
+	 * is grounded.
+	 */
+	@Override
+	public void removeEnemy() {
+		if (HelpMethods.isEntityGrounded(this)) {
+			Fruit orange1 = new Fruit(x, y + Tile.TILE_SIZE, FruitType.ORANGE);
+			Fruit orange2 = new Fruit(x + Tile.TILE_SIZE, y + Tile.TILE_SIZE, FruitType.ORANGE);
+			Model.getInstance().getCurrentLevel().getFruitManager().addFruit(orange1);
+			Model.getInstance().getCurrentLevel().getFruitManager().addFruit(orange2);
+			Model.getInstance().getCurrentLevel().getEnemyManager().removeEnemy(this);
+		}
+	}
+
+	/**
+	 * Updates the Boss's state, including its movement, life count, and whether it
+	 * is dead or alive. When the Boss dies, it drops fruits and removes itself from
+	 * the level.
+	 */
 	@Override
 	public void updateEntity() {
 		if (lives == 0 && !isDead()) {
@@ -157,27 +186,15 @@ public class Boss extends Enemy implements Vulnerable, ChangeDirection {
 				updateYPos();
 				if (randomBoolean(200))
 					randomizeDirection();
-				// Aggiornamento della posizione basato sulla direzione corrente
 				updateXPos();
 			}
 		}
 	}
 
-	public int getLives() {
-		return lives;
-	}
-
-	@Override
-	public void removeEnemy() {
-		if (HelpMethods.isEntityGrounded(this)) {
-			Fruit orange1 = new Fruit(x, y + Tile.TILE_SIZE, FruitType.ORANGE);
-			Fruit orange2 = new Fruit(x + Tile.TILE_SIZE, y + Tile.TILE_SIZE, FruitType.ORANGE);
-			Model.getInstance().getCurrentLevel().getFruitManager().addFruit(orange1);
-			Model.getInstance().getCurrentLevel().getFruitManager().addFruit(orange2);
-			Model.getInstance().getCurrentLevel().getEnemyManager().removeEnemy(this);
-		}
-	}
-
+	/**
+	 * Reduces the Boss's life count by one if it is not currently invulnerable, and
+	 * triggers invulnerability for a short duration.
+	 */
 	@Override
 	public void looseLife() {
 		if (invulnerabilityTimer == null && !isInvulnerable) {
