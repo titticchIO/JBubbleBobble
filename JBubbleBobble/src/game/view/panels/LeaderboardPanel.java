@@ -71,14 +71,14 @@ public class LeaderboardPanel extends JPanel {
                 user.getGamesLost()
             })
             .toArray(Object[][]::new);
-
-        // Creazione della tabella per la leaderboard con un DefaultTableModel non modificabile
+        
+        //Creation of the table for the leaderboard
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Rende tutte le celle non modificabili
+                return false;
             }
         };
         JTable table = new JTable(model);
@@ -86,29 +86,15 @@ public class LeaderboardPanel extends JPanel {
         table.setBackground(Color.BLACK);
         table.setForeground(Color.YELLOW);
 
-        // Personalizza l'intestazione della tabella
+        // Custom table header
         JTableHeader header = table.getTableHeader();
         header.setDefaultRenderer(new HeaderRenderer(table));
 
-        // Creazione dello scrollPane e aggiunta della tabella
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Imposta la dimensione preferita del pannello
         setPreferredSize(new Dimension(550, 300));
         
-    }
-
-    /**
-     * Overrides the {@code paintComponent} method to allow for custom painting
-     * of the component, such as drawing backgrounds or additional graphics.
-     *
-     * @param g the {@code Graphics} object to protect
-     */
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        // Eventuale codice per disegnare uno sfondo o altri elementi grafici
     }
 
     /**
@@ -134,7 +120,6 @@ public class LeaderboardPanel extends JPanel {
             Component component = renderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             component.setBackground(Color.BLACK);
             component.setForeground(Color.WHITE);
-            // Imposta il bordo arancione per le celle dell'intestazione
             MatteBorder border = new MatteBorder(1, 1, 1, 1, Color.RED);
             ((JLabel) component).setBorder(border);
             return component;

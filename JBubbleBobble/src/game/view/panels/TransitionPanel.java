@@ -42,7 +42,6 @@ public class TransitionPanel extends JPanel {
 	 */
 	public TransitionPanel(GameFrame gameFrame) {
 		this.gameFrame = gameFrame;
-		this.progress = 0f;
 
 		Dimension size = new Dimension((int) (Level.GAME_WIDTH * LevelPanel.SCALE),
 				(int) (Level.GAME_HEIGHT * LevelPanel.SCALE));

@@ -12,7 +12,6 @@ game.model.entities
 game.model.interfaces
 game.model.level
 game.model.powerups
-game.model.tiles
 game.model.user
 game.view
 game.view.frames

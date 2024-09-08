@@ -219,6 +219,7 @@ public class Model extends Observable {
 		}
 		Player.getInstance().setLives(Player.NUMBER_OF_LIVES);
 		Player.getInstance().stop();
+		Player.getInstance().setAirSpeed(0);
 		levelIterator = levels.iterator();
 		levelIterator.next();
 		modelState = ModelState.PLAY;
@@ -235,6 +236,8 @@ public class Model extends Observable {
 		currentLevel = levelIterator.next();
 		Player.getInstance().setPosition(currentLevel.getPlayerSpawnPoint()[0], currentLevel.getPlayerSpawnPoint()[1]);
 		Player.getInstance().setStunned(false);
+		Player.getInstance().stop();
+		Player.getInstance().setAirSpeed(0);
 		currentLevel.addPlayer(Player.getInstance());
 		setChanged();
 		notifyObservers("next");
