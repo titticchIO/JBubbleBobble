@@ -480,7 +480,9 @@ public class Level {
 			}
 		});
 	}
-
+	/**
+	 * Checks for collisions involving powerups and the player.
+	 */
 	private void checkPowerupCollisions() {
 		Optional<Powerup> powerupHit=Entity.checkCollision(player, powerupManager.getPowerups());
 		if (powerupHit.isPresent()) {

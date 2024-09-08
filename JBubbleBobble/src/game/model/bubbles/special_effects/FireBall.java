@@ -15,9 +15,15 @@ import game.model.entities.MovingEntity;
 public class FireBall extends MovingEntity {
 
 	// Static Fields
+	/**
+	 * the code if the FireBall class
+	 */
 	public static final char CODE = '#';
 
 	// Instance Fields
+	/**
+	 * the current state of the fireball
+	 */
 	public FireState fireState;
 
 	/**

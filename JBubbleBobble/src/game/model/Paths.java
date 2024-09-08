@@ -32,14 +32,14 @@ public class Paths {
 
 		// BLOCKS:
 		pathsMap.put('1', "/blocks/normal_blocks/block_1");
-		pathsMap.put('2', "/blocks/normal_blocks/block_2");
+		pathsMap.put('2', "/blocks/normal_blocks/block_80");
 		pathsMap.put('3', "/blocks/normal_blocks/block_3");
-		pathsMap.put('4', "/blocks/normal_blocks/block_4");
-		pathsMap.put('5', "/blocks/normal_blocks/block_5");
+		pathsMap.put('4', "/blocks/normal_blocks/block_10");
+		pathsMap.put('5', "/blocks/normal_blocks/block_68");
 		pathsMap.put('6', "/blocks/normal_blocks/block_6");
-		pathsMap.put('7', "/blocks/normal_blocks/block_7");
-		pathsMap.put('8', "/blocks/normal_blocks/block_8");
-		pathsMap.put('9', "/blocks/normal_blocks/block_9");
+		pathsMap.put('7', "/blocks/normal_blocks/block_25");
+		pathsMap.put('8', "/blocks/normal_blocks/block_31");
+		pathsMap.put('9', "/blocks/normal_blocks/block_48");
 
 		// ENTITIES:
 		pathsMap.put('P', "/player/");

@@ -5,7 +5,6 @@ import java.util.TimerTask;
 
 import game.model.entities.Player;
 
-
 /**
  * The {@code SkelMonsta} class represents an enemy that can move horizontally
  * and vertically, changing direction upon hitting the boundaries of the game
@@ -63,11 +62,13 @@ public class SkelMonsta extends Enemy {
 			setAirSpeed(0);
 
 		// UPDATE XSPEED
-		if (x > Player.getInstance().getX())
+		if (x > Player.getInstance().getX()) {
 			setxSpeed(-0.2f);
-		else if (x < Player.getInstance().getX())
+			setDirection(Direction.LEFT);
+		} else if (x < Player.getInstance().getX()) {
 			setxSpeed(0.2f);
-		else
+			setDirection(Direction.RIGHT);
+		} else
 			setxSpeed(0);
 	}
 
@@ -114,8 +115,8 @@ public class SkelMonsta extends Enemy {
 	public void updateEntity() {
 		if (isDead()) {
 			updateYPos();
-			removeEnemy();}
-		else if (!isStopped && isMoving) {
+			removeEnemy();
+		} else if (!isStopped && isMoving) {
 			trackPlayer();
 			updateYPos();
 			updateXPos();
