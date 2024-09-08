@@ -102,9 +102,8 @@ public class Playing extends State implements Statemethods {
 			if (!Model.getInstance().getCurrentLevel().getPlayer().isStunned())
 				Model.getInstance().getCurrentLevel().getPlayer().shoot();
 			break;
-		case KeyEvent.VK_N:
+		case KeyEvent.VK_CONTROL:
 			ActionListenersManager.enableCheats().actionPerformed(null);
-			System.out.println("enable cheats");
 		}
 		
 	}

@@ -114,16 +114,17 @@ public class EnemyManager {
 	public void updateEnemies() {
 		enemies.stream().forEach(Enemy::updateEntity);
 		lasers.stream().forEach(Laser::updateEntity);
-		if (shootLaserTimer == null && numberOfInvaders() != 0) {
+		// Filter the list of enemies to only include Invaders
+		List<Invader> invaders = enemies.stream().filter(e -> e instanceof Invader invader && !invader.isDead())
+				.map(e -> (Invader) e).toList();
+		if (shootLaserTimer == null && invaders.size() != 0) {
 			shootLaserTimer = new Timer("Shoot laser");
 			shootLaserTimer.schedule(new TimerTask() {
 				@Override
 				public void run() {
-					enemies.stream().forEach(x -> {
-						if (x instanceof Invader invader)
-							invader.shoot();
-					});
-					shootLaserTimer.cancel();;
+					invaders.forEach(Invader::shoot);
+					shootLaserTimer.cancel();
+					;
 					shootLaserTimer = null;
 				}
 			}, 500);
@@ -140,7 +141,7 @@ public class EnemyManager {
 			}, 15000);
 		}
 	}
-	
+
 	public boolean isBoss() {
 		return enemies.stream().anyMatch(e -> e instanceof Boss);
 	}
