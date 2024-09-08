@@ -3,8 +3,8 @@ package game.model.bubbles;
 import java.util.Timer;
 import java.util.TimerTask;
 import game.model.Model;
+import game.model.Tile;
 import game.model.entities.Player;
-import game.model.tiles.Tile;
 
 /**
  * The {@code SpecialBubble} class represents a bubble that, when popped, grants

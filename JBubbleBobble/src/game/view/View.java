@@ -4,7 +4,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import game.model.Model;
-import game.model.Paths;
 import game.model.level.Level;
 import game.view.frames.CheatFrame;
 import game.view.frames.GameFrame;

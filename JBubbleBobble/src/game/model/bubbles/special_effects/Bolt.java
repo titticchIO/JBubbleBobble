@@ -1,10 +1,10 @@
 package game.model.bubbles.special_effects;
 
 import game.model.Model;
+import game.model.Tile;
 import game.model.entities.MovingEntity;
 import game.model.entities.Player;
 import game.model.level.Level;
-import game.model.tiles.Tile;
 
 /**
  * The {@code Bolt} class represents a bolt that moves horizontally across

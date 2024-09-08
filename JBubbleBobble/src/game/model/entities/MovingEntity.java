@@ -1,8 +1,8 @@
 package game.model.entities;
 
 import game.model.HelpMethods;
+import game.model.Tile;
 import game.model.level.Level;
-import game.model.tiles.Tile;
 
 /**
  * The {@code MovingEntity} class represents an entity in the game that can

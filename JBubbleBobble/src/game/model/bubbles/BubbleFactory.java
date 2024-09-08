@@ -2,8 +2,9 @@ package game.model.bubbles;
 
 import java.util.List;
 import java.util.Random;
+
+import game.model.Tile;
 import game.model.level.Level;
-import game.model.tiles.Tile;
 
 /**
  * Factory class responsible for creating different types of bubbles in the

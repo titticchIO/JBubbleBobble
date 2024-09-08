@@ -1,6 +1,6 @@
 package game.model.bubbles.special_effects;
 
-import static game.model.tiles.Tile.TILE_SIZE;
+import static game.model.Tile.TILE_SIZE;
 import static game.model.entities.MovingEntity.Direction.*;
 import game.model.HelpMethods;
 import game.model.Model;

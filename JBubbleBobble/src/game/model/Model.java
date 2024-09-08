@@ -12,9 +12,6 @@ import java.util.TimerTask;
 import editor.model.LevelReader;
 import game.model.entities.Player;
 import game.model.level.Level;
-
-import game.model.tiles.Tile;
-
 import game.model.user.User;
 import game.model.user.UserMethods;
 

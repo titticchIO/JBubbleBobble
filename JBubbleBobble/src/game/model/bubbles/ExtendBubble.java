@@ -1,8 +1,8 @@
 package game.model.bubbles;
 
 import game.model.Model;
+import game.model.Tile;
 import game.model.entities.Player;
-import game.model.tiles.Tile;
 
 /**
  * The {@code ExtendBubble} class represents a specialized bubble that can

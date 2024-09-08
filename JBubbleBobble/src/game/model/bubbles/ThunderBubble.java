@@ -1,7 +1,7 @@
 package game.model.bubbles;
 
 import game.model.Model;
-import game.model.tiles.Tile;
+import game.model.Tile;
 import game.model.bubbles.special_effects.Bolt;
 
 

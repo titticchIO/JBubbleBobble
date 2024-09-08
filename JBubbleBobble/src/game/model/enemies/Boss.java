@@ -7,11 +7,11 @@ import java.util.TimerTask;
 import game.model.Fruit;
 import game.model.HelpMethods;
 import game.model.Model;
+import game.model.Tile;
 import game.model.Fruit.FruitType;
 import game.model.interfaces.ChangeDirection;
 import game.model.interfaces.Vulnerable;
 import game.model.level.Level;
-import game.model.tiles.Tile;
 
 /**
  * The {@code Boss} class represents a powerful enemy in the game with multiple

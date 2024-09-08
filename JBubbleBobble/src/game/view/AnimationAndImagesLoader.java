@@ -2,7 +2,6 @@ package game.view;
 
 import javax.swing.ImageIcon;
 
-import game.model.Paths;
 import game.model.enemies.Enemy.ColorState;
 import game.model.entities.MovingEntity.Direction;
 

@@ -3,7 +3,6 @@ package game.model;
 import game.model.entities.Entity;
 import game.model.entities.MovingEntity;
 import game.model.level.Level;
-import game.model.tiles.Tile;
 
 /**
  * The {@code HelpMethods} class provides utility methods related to level

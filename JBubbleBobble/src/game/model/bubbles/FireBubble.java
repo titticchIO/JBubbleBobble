@@ -1,8 +1,8 @@
 package game.model.bubbles;
 
 import game.model.Model;
+import game.model.Tile;
 import game.model.bubbles.special_effects.FireBall;
-import game.model.tiles.Tile;
 
 /**
  * The {@code FireBubble} class represents a bubble that, when popped, releases

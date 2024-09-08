@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
-import game.model.tiles.Tile;
+
+import game.model.Tile;
+
 import static game.model.level.Level.NUM_HORIZONTAL_TILES;
 import static game.model.level.Level.NUM_VERTICAL_TILES;;;
 

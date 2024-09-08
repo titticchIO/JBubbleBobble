@@ -1,13 +1,13 @@
 package game.model.level;
 
+import static game.model.Tile.TILE_SIZE;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import game.model.enemies.*;
-import game.model.tiles.Tile;
-
-import static game.model.tiles.Tile.TILE_SIZE;;
+import game.model.Tile;
+import game.model.enemies.*;;
 
 /**
  * The LevelLoader class is responsible for loading level data from files and

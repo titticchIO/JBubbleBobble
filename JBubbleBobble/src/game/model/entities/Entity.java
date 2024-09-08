@@ -1,6 +1,7 @@
 package game.model.entities;
 
-import static game.model.tiles.Tile.TILE_SIZE;
+import static game.model.Tile.TILE_SIZE;
+
 import java.util.List;
 import java.util.Optional;
 

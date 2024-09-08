@@ -1,6 +1,7 @@
 package game.model.bubbles.special_effects;
 
-import static game.model.tiles.Tile.TILE_SIZE;
+import static game.model.Tile.TILE_SIZE;
+
 import java.util.Timer;
 import java.util.TimerTask;
 import game.model.HelpMethods;

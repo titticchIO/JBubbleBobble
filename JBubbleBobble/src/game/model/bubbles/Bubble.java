@@ -1,9 +1,9 @@
 	package game.model.bubbles;
 
 import game.model.HelpMethods;
+import game.model.Tile;
 import game.model.entities.MovingEntity;
 import game.model.level.Level;
-import game.model.tiles.Tile;
 
 /**
  * The {@code Bubble} class represents an abstract bubble entity that can move

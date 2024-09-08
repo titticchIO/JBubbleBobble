@@ -1,8 +1,9 @@
 package game.model.bubbles;
 
+import static game.model.Tile.TILE_SIZE;
+
 import game.model.Model;
 import game.model.bubbles.special_effects.Water;
-import static game.model.tiles.Tile.TILE_SIZE;
 
 /**
  * The {@code WaterBubble} class represents a bubble that creates water upon

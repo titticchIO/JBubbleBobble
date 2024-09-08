@@ -1,8 +1,8 @@
 package game.model.entities;
 
-import game.model.tiles.Tile;
 import game.model.HelpMethods;
 import game.model.Model;
+import game.model.Tile;
 import game.model.interfaces.Gravity;
 import game.model.interfaces.Jumping;
 import game.model.interfaces.Shooting;

@@ -1,4 +1,4 @@
-package game.model.tiles;
+package game.model;
 
 import game.model.entities.Entity;
 

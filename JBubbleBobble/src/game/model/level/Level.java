@@ -18,6 +18,7 @@ import game.model.Fruit;
 import game.model.FruitManager;
 import game.model.HelpMethods;
 import game.model.Model;
+import game.model.Tile;
 import game.model.bubbles.Bubble;
 import game.model.enemies.Boss;
 import game.model.enemies.Enemy;
@@ -27,7 +28,6 @@ import game.model.entities.MovingEntity;
 import game.model.entities.Player;
 import game.model.powerups.Powerup;
 import game.model.powerups.PowerupManager;
-import game.model.tiles.Tile;
 
 /**
  * The Level class represents a game level, containing information about the
