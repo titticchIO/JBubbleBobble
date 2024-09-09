@@ -25,7 +25,7 @@ public class Dynamite extends Powerup {
 	@Override
 	public void effect() {
 		setX(-200);
-		Model.getInstance().getCurrentLevel().getEnemyManager().getEnemies().stream().forEach(Enemy::kill);
+		Model.getInstance().getCurrentLevel().getEnemyManager().getEnemies().forEach(Enemy::kill);
 	}
 
 }

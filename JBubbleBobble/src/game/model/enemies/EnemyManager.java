@@ -112,8 +112,8 @@ public class EnemyManager {
 	 * methods.
 	 */
 	public void updateEnemies() {
-		enemies.stream().forEach(Enemy::updateEntity);
-		lasers.stream().forEach(Laser::updateEntity);
+		enemies.forEach(Enemy::updateEntity);
+		lasers.forEach(Laser::updateEntity);
 		// Filter the list of enemies to only include Invaders
 		List<Invader> invaders = enemies.stream().filter(e -> e instanceof Invader invader && !invader.isDead())
 				.map(e -> (Invader) e).toList();
@@ -134,7 +134,7 @@ public class EnemyManager {
 			changeColorTimer.schedule(new TimerTask() {
 				@Override
 				public void run() {
-					enemies.stream().forEach(x -> x.setColorState(ColorState.RED));
+					enemies.forEach(x -> x.setColorState(ColorState.RED));
 					changeColorTimer.cancel();
 					changeColorTimer = null;
 				}
