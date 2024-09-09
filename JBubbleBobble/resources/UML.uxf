@@ -1,0 +1,3076 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <help_text>// Uncomment the following line to change the fontsize and font:
+// fontsize=14
+// fontfamily=SansSerif //possible: SansSerif,Serif,Monospaced
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// Welcome to UMLet!
+//
+// Double-click on elements to add them to the diagram, or to copy them
+// Edit elements by modifying the text in this panel
+// Hold Ctrl to select multiple elements
+// Use Ctrl+mouse to select via lasso
+//
+// Use +/- or Ctrl+mouse wheel to zoom
+// Drag a whole relation at its central square icon
+//
+// Press Ctrl+C to copy the whole diagram to the system clipboard (then just paste it to, eg, Word)
+// Edit the files in the "palettes" directory to create your own element palettes
+//
+// Select "Custom Elements &gt; New..." to create new element types
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// This text will be stored with each diagram;  use it for notes.
+DAJEROMADAJE</help_text>
+  <zoom_level>6</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4686</x>
+      <y>3618</y>
+      <w>528</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>editor.controller::ActionListenersManager
+--
++newGridButton(EditorPanel editorPanel, SpriteSelectionScrollPane selectionPane): ActionListener &lt;&lt;static&gt;&gt;
++openGridButton(LevelsPopUpMenu levelSelectionPopup, JButton openGridButton): ActionListener &lt;&lt;static&gt;&gt;
++saveLevelButton(LevelsPopUpMenu saveLevelPopup, JButton saveLevelButton): ActionListener &lt;&lt;static&gt;&gt;
++deleteLevelButton(LevelsPopUpMenu deleteLevelPopup, JButton deleteLevelButton): ActionListener &lt;&lt;static&gt;&gt;
++levelHandlers(LevelsPopUpMenu levelsPopUpMenu, String level, MenuType menuType, EditorFrame editorFrame): ActionListener &lt;&lt;static&gt;&gt;
++handleSaveLevel(LevelsPopUpMenu lvlPopMen, int newLevelNumber, EditorFrame editorFrame): ActionListener &lt;&lt;static&gt;&gt;
++addSelectionButton(SpriteSelectionScrollPane spriteSelectionScrollPane, SelectionButton b): ActionListener &lt;&lt;static&gt;&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4860</x>
+      <y>3414</y>
+      <w>210</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>editor.model::LevelManager
+--
++LEVELS_REL_PATH = "resources/levels": String &lt;&lt;static&gt;&gt;
++ROWS = 24: int &lt;&lt;static&gt;&gt;
++COLS = 30: int &lt;&lt;static&gt;&gt;
+-level: char[][] &lt;&lt;static&gt;&gt;
+--
++LevelManager(): ctor
++setLevel(char[][] levelData): void &lt;&lt;static&gt;&gt;
++emptyLevel(): void &lt;&lt;static&gt;&gt;
++setTile(int y, int x, char tile): void &lt;&lt;static&gt;&gt;
+-matriceToString(): String &lt;&lt;static&gt;&gt;
++saveLevelFile(int levelNum): void &lt;&lt;static&gt;&gt;
++deleteLevelFile(int levelNum): void &lt;&lt;static&gt;&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5076</x>
+      <y>3414</y>
+      <w>138</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>editor.model::LevelReader
+--
++getLevels(): List&lt;String&gt; &lt;&lt;static&gt;&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5580</x>
+      <y>3204</y>
+      <w>234</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>editor.view::EditorFrame
+--
+-serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
++instance: EditorFrame &lt;&lt;static&gt;&gt;
+-editorPanel: EditorPanel
+-saveLevelButton: JButton
+-actualLevel: JLabel
+-actualLevelNumber: String
+-popUps: List&lt;LevelsPopUpMenu&gt;
+--
+-EditorFrame(): ctor
++getInstance(): EditorFrame &lt;&lt;static&gt;&gt;
++getEditorPanel(): EditorPanel
++setEditorPanel(EditorPanel editorPanel): void
++getActualLevelNumber(): String
++setActualLevelNumber(String actualLevelNumber): void
++getActualLevel(): JLabel
++setActualLevel(JLabel actualLevel): void
++getPopUps(): List&lt;LevelsPopUpMenu&gt;
++resetEditor(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5562</x>
+      <y>3426</y>
+      <w>264</w>
+      <h>228</h>
+    </coordinates>
+    <panel_attributes>editor.view::EditorPanel
+--
+-serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
++ROWS = 24: int &lt;&lt;static&gt;&gt;
++COLS = 30: int &lt;&lt;static&gt;&gt;
++DEFAULT_SQUARE_SIZE = 20: int &lt;&lt;static&gt;&gt;
++SCALE = 1: float &lt;&lt;static&gt;&gt;
++SQUARE_SIZE = (int) (DEFAULT_SQUARE_SIZE * SCALE): int &lt;&lt;static&gt;&gt;
++PANEL_WIDTH = SQUARE_SIZE * COLS: int &lt;&lt;static&gt;&gt;
++PANEL_HEIGHT = SQUARE_SIZE * ROWS: int &lt;&lt;static&gt;&gt;
+-sprites: Sprite[][]
+-selectionPane: SpriteSelectionScrollPane
+-isMousePressed: boolean
+--
++EditorPanel(EditorFrame ef, SpriteSelectionScrollPane selPane): ctor
+-initializeGrid(): void
+#paintComponent(Graphics g): void
+-setSize(): void
++loadLevel(char[][] levelData): void
++reset(): void
++getSprites(): Sprite[][]
++getSelectionPane(): SpriteSelectionScrollPane
+-updateSprite(Sprite sprite, int x, int y): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5232</x>
+      <y>3426</y>
+      <w>300</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>editor.view::LevelsPopUpMenu
+--
++serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
+-menuType: MenuType
+-editorFrame: EditorFrame
+--
++LevelsPopUpMenu(MenuType menuType, EditorFrame editorFrame): ctor
+-rebuildMenu(): void
++handleOpenLevel(int levelNumber, EditorFrame editorFrame): void
++handleSaveLevel(int levelNumber, EditorFrame editorFrame): void
++handleDeleteLevel(int levelNumber, EditorFrame editorFrame): void
+-saveLevelImage(int levelNumber, EditorFrame editorFrame): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5904</x>
+      <y>3672</y>
+      <w>222</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>editor.view::SelectionButton
+--
+-serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
+-img: BufferedImage
+-code: char
+--
++SelectionButton(BufferedImage img, char code): ctor
++getImg(): BufferedImage
++getCode(): char
++hashCode(): int
++equals(Object obj): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5598</x>
+      <y>3738</y>
+      <w>168</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>editor.view::Sprite
+--
+-serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
+-x: int
+-y: int
+-sideLength: float
+-spriteImg: BufferedImage
+--
++Sprite(int x, int y, float sideLength): ctor
++getX(): int
++getY(): int
++getSideLength(): float
++getSpriteImg(): BufferedImage
++updateSpriteImg(BufferedImage img): void
++render(Graphics g): void
++renderWithoutBorder(Graphics g): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5844</x>
+      <y>3426</y>
+      <w>306</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>editor.view::SpriteSelectionScrollPane
+--
+-serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
+-blocks: List&lt;SelectionButton&gt;
+-enemies: List&lt;SelectionButton&gt;
+-players: List&lt;SelectionButton&gt;
+-others: List&lt;SelectionButton&gt;
+-selectedButton: SelectionButton
+--
++SpriteSelectionScrollPane(): ctor
+-addCategory(JPanel panel, String title, List&lt;SelectionButton&gt; buttons): void
+-addBlocks(): void
+-addEnemies(): void
+-addPlayers(): void
+-setSize(): void
++deselectAllButtons(): void
++getCurrentButton(): SelectionButton
++setCurrentButton(SelectionButton selectedButton): void
+#paintComponent(Graphics g): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>4680</x>
+      <y>3600</y>
+      <w>540</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>editor.controller
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>4854</x>
+      <y>3396</y>
+      <w>366</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>editor.model
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>5226</x>
+      <y>3180</y>
+      <w>936</w>
+      <h>714</h>
+    </coordinates>
+    <panel_attributes>editor.view
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4488</x>
+      <y>2676</y>
+      <w>414</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>game.controller::ActionListenersManager
+--
++setCurrentUser(User user): ActionListener &lt;&lt;static&gt;&gt;
++startEditor(): ActionListener &lt;&lt;static&gt;&gt;
++showLeaderboard(): ActionListener &lt;&lt;static&gt;&gt;
++showUserSelection(JPopupMenu userSelectionPopUp, JButton userSelectionButton): ActionListener &lt;&lt;static&gt;&gt;
++updateUserSelection(User user, JPopupMenu userSelectionPopUp): ActionListener &lt;&lt;static&gt;&gt;
++showNewUserDialog(): ActionListener &lt;&lt;static&gt;&gt;
++chooseAvatar(JLabel avatarPreviewLabel, JButton chooseAvatarButton): ActionListener &lt;&lt;static&gt;&gt;
++resumeGame(Controller controller): ActionListener &lt;&lt;static&gt;&gt;
++backToMenu(Controller controller): ActionListener &lt;&lt;static&gt;&gt;
++enableCheats(): ActionListener &lt;&lt;static&gt;&gt;
++enableInvincibility(JToggleButton button): ItemListener &lt;&lt;static&gt;&gt;
++skipLevel(): ActionListener &lt;&lt;static&gt;&gt;
++spawnSpecialBubble(String bubbleType): ActionListener &lt;&lt;static&gt;&gt;
++spawnRandomPowerup(): ActionListener &lt;&lt;static&gt;&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4296</x>
+      <y>2754</y>
+      <w>186</w>
+      <h>258</h>
+    </coordinates>
+    <panel_attributes>game.controller::Controller
+--
+-gameThread: Thread
+-running: boolean
+-GAME_SPEED = 1.0f: float
+-FPS_SET = 120: int
+-UPS_SET = (int) (200 * GAME_SPEED): int
+-gameFrame: GameFrame
+-playing: Playing
+-menu: Menu
+-end: End
+-pause: Pause
+-model: Model
+-view: View
+--
++Controller(): ctor
++getPlaying(): Playing
++getMenu(): Menu
++getPause(): Pause
++setPause(Pause pause): void
++getEnd(): End
++getGameFrame(): GameFrame
++startGameLoop(): void
++stopGameLoop(): void
++resetGame(): void
+-update(): void
++run(): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4650</x>
+      <y>2880</y>
+      <w>144</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>game.controller.gamestates::End
+--
+--
++End(Controller game): ctor
++update(): void
++keyPressed(KeyEvent e): void
++keyReleased(KeyEvent e): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4494</x>
+      <y>2880</y>
+      <w>150</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>game.controller.gamestates::Menu
+--
+--
++Menu(Controller game): ctor
++update(): void
++keyPressed(KeyEvent e): void
++keyReleased(KeyEvent e): void
++startGame(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4800</x>
+      <y>2880</y>
+      <w>150</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>game.controller.gamestates::Pause
+--
+--
++Pause(Controller controller): ctor
++update(): void
++keyPressed(KeyEvent e): void
++keyReleased(KeyEvent e): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4494</x>
+      <y>2958</y>
+      <w>156</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>game.controller.gamestates::Playing
+--
+--
++Playing(Controller controller): ctor
++update(): void
++keyPressed(KeyEvent e): void
++keyReleased(KeyEvent e): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4842</x>
+      <y>2958</y>
+      <w>150</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>game.controller.gamestates::State
+--
+#controller: Controller
+--
++State(Controller controller): ctor
++getController(): Controller</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4656</x>
+      <y>2958</y>
+      <w>180</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+game.controller.gamestates::Statemethods
+--
+-
++update(): void
++keyPressed(KeyEvent e): void
++keyReleased(KeyEvent e): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4914</x>
+      <y>2676</y>
+      <w>174</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>game.controller::InputManager
+--
+-controller: Controller
+--
++InputManager(Controller controller): ctor
++keyTyped(KeyEvent e): void
++keyPressed(KeyEvent e): void
++keyReleased(KeyEvent e): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4320</x>
+      <y>2688</y>
+      <w>138</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>game.controller::JBubbleBobble
+--
+
++main(String[] args): void &lt;&lt;static&gt;&gt;
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>4284</x>
+      <y>2646</y>
+      <w>822</w>
+      <h>432</h>
+    </coordinates>
+    <panel_attributes>game.controller
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>4488</x>
+      <y>2862</y>
+      <w>510</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>game.controller.gamestates
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5304</x>
+      <y>2724</y>
+      <w>114</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5304</x>
+      <y>2748</y>
+      <w>114</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5688</x>
+      <y>3390</y>
+      <w>42</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5376</x>
+      <y>3390</y>
+      <w>330</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;60.0;530.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5688</x>
+      <y>3390</y>
+      <w>294</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>470.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5676</x>
+      <y>3648</y>
+      <w>42</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>6006</x>
+      <y>3600</y>
+      <w>42</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4170</x>
+      <y>2604</y>
+      <w>834</w>
+      <h>402</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>1370.0;120.0;610.0;10.0;140.0;40.0;10.0;650.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4914</x>
+      <y>2772</y>
+      <w>174</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>&lt;Enumeration&gt;
+game.controller.gamestates::GameState
+--
+PLAYING
+MENU
+WIN
+LOSS
+PAUSE
+--
++ state: GameState &lt;&lt;static&gt;&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3282</x>
+      <y>2754</y>
+      <w>318</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>game.view::AnimationAndImagesLoader
+--
+-playerAnimations = new HashMap(): Map&lt;String, ImageIcon&gt; &lt;&lt;static&gt;&gt;
+-PLAYER_WALK_LEFT = "player/left_walk.gif": String &lt;&lt;static&gt;&gt;
+-PLAYER_WALK_RIGHT = "player/right_walk.gif": String &lt;&lt;static&gt;&gt;
+-PLAYER_STUN_LEFT = "player/stun_left.gif": String &lt;&lt;static&gt;&gt;
+-PLAYER_STUN_RIGHT = "player/stun_right.gif": String &lt;&lt;static&gt;&gt;
+-PLAYER_BUBBLE_LEFT = "player/bubble_left.gif": String &lt;&lt;static&gt;&gt;
+-PLAYER_BUBBLE_RIGHT = "player/bubble_right.gif": String &lt;&lt;static&gt;&gt;
+--
+-loadImageIcon(String relativePath): ImageIcon &lt;&lt;static&gt;&gt;
+-getPlayerAnimation(String animationKey): ImageIcon &lt;&lt;static&gt;&gt;
++getPlayerImage(String animationKey): Image &lt;&lt;static&gt;&gt;
+-loadEntityAnimation(String relativePath): ImageIcon &lt;&lt;static&gt;&gt;
++loadEntityImage(String relativePath): Image &lt;&lt;static&gt;&gt;
++loadBubblePoppingImage(): Image &lt;&lt;static&gt;&gt;
++loadBubbleEnemyImage(char code): Image &lt;&lt;static&gt;&gt;
++loadEnemyImage(char code, Direction direction, ColorState color): Image &lt;&lt;static&gt;&gt;
++loadDeadEnemyImage(char code): Image &lt;&lt;static&gt;&gt;
++getImage(char imageCode): BufferedImage &lt;&lt;static&gt;&gt;
++getImage(Character type, String position): BufferedImage &lt;&lt;static&gt;&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4074</x>
+      <y>2754</y>
+      <w>162</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>game.view::AudioManager
+--
+-instance: AudioManager &lt;&lt;static&gt;&gt;
+--
+-AudioManager(): ctor
++getInstance(): AudioManager &lt;&lt;static&gt;&gt;
++play(String filename): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3642</x>
+      <y>3024</y>
+      <w>240</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>game.view::CheatButton
+--
+-serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
+--
++CheatButton(Image img, ActionListener actionListener): ctor</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3672</x>
+      <y>2934</y>
+      <w>186</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>game.view.frames::CheatFrame
+--
+-serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
+--
++CheatFrame(): ctor
+-addButtons(): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3888</x>
+      <y>2922</y>
+      <w>288</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>game.view.frames::GameFrame
+--
+-serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
+-layoutPanel: JPanel
+-levelPanel: LevelPanel
+-menuPanel: MenuPanel
+-winPanel: EndPanel
+-lossPanel: EndPanel
+-pausePanel: PausePanel
+-scoreLabel: JLabel
+-highScoreLabel: JLabel
+--
++GameFrame(Controller controller, InputManager playerController): ctor
++getLevelPanel(): LevelPanel
++getMenuPanel(): MenuPanel
++showState(Screen screen): void
++updateScoreAndHighscore(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3258</x>
+      <y>2982</y>
+      <w>186</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>game.view::ImageLoader
+--
++importImg(String path): BufferedImage &lt;&lt;static&gt;&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3540</x>
+      <y>3354</y>
+      <w>174</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>game.view.panels::EndPanel
+--
+-serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
+-img: Image
+--
++EndPanel(Ending ending): ctor
+#paintComponent(Graphics g): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3528</x>
+      <y>3294</y>
+      <w>204</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>game.view.panels::LeaderboardPanel
+--
+-serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
+--
++LeaderboardPanel(): ctor
+#paintComponent(Graphics g): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3480</x>
+      <y>3162</y>
+      <w>252</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>game.view.panels::LevelPanel
+--
++serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
++SCALE = 1.5f: float &lt;&lt;static&gt;&gt;
+-tilesImage: BufferedImage
+--
++LevelPanel(): ctor
+-setPanelSize(): void
++renderTilesOnce(GameFrame gameFrame): void
++startLevelTransition(int levelNumber): void
+#paintComponent(Graphics g): void
+-renderPlayer(Player player, Graphics g): void
+-renderEnemy(Enemy enemy, Graphics g): void
+-renderEntity(Entity entity, Graphics g): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3294</x>
+      <y>3162</y>
+      <w>180</w>
+      <h>138</h>
+    </coordinates>
+    <panel_attributes>game.view.panels::MenuPanel
+--
+-serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
+-menuImage: BufferedImage
+-currentUserPanel: UserPanel
+-userSelectionPopUp: JPopupMenu
+--
++MenuPanel(): ctor
+-loadImage(): void
+-initMenu(): void
+-updateUserSelectionPopUp(): void
++updateCurrentUserPanel(): void
++showLeaderboard(): void
+#paintComponent(Graphics g): void
++showNewUserDialog(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3738</x>
+      <y>3294</y>
+      <w>300</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>game.view.panels::PausePanel
+--
+-serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
+-levelImage: BufferedImage
+-levelPanel: LevelPanel
+--
++PausePanel(LevelPanel levelPanel, Controller controller): ctor
++drawBackground(): void
+-blurImage(): void
+#paintComponent(Graphics g): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3738</x>
+      <y>3162</y>
+      <w>294</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>game.view.panels::TransitionPanel
+--
+-serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
+-currentLevelImage: Image
+-nextLevelImage: Image
+-progress: float
+-transitionTimer: Timer
++TRANSITION_DURATION = 2000: int &lt;&lt;static&gt;&gt;
+-gameFrame: GameFrame
+--
++TransitionPanel(GameFrame gameFrame): ctor
++startTransition(Image currentImage, Image nextImage): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3324</x>
+      <y>3318</y>
+      <w>174</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>game.view.panels::UserPanel
+--
+-serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
+-userButton: JButton
+--
++UserPanel(User user): ctor
++getUserButton(): JButton
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3624</x>
+      <y>2754</y>
+      <w>414</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>game.view::View
+--
+-instance: View &lt;&lt;static&gt;&gt;
+-gameFrame: GameFrame
+-levelPanel: LevelPanel
+-cheatFrame: CheatFrame
+-level: Level
+-transitionPanel: TransitionPanel
+--
+-View(GameFrame gameFrame, LevelPanel levelPanel, TransitionPanel transitionPanel): ctor
++getInstance(GameFrame gameFrame): View &lt;&lt;static&gt;&gt;
++getInstance(): View &lt;&lt;static&gt;&gt;
++getGameFrame(): GameFrame
++getMenuPanel(): MenuPanel
++getLevelPanel(): LevelPanel
++getTransitionPanel(): TransitionPanel
++getLevel(): Level
++getCheatFrame(): CheatFrame
++setCheatFrame(CheatFrame cheatFrame): void
++update(Observable o, Object arg): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>3138</x>
+      <y>2718</y>
+      <w>1116</w>
+      <h>714</h>
+    </coordinates>
+    <panel_attributes>game.view
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>3624</x>
+      <y>2898</y>
+      <w>564</w>
+      <h>186</h>
+    </coordinates>
+    <panel_attributes>game.view.frames
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>3288</x>
+      <y>3144</y>
+      <w>756</w>
+      <h>276</h>
+    </coordinates>
+    <panel_attributes>game.view.panels
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3756</x>
+      <y>2982</y>
+      <w>42</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4032</x>
+      <y>2772</y>
+      <w>54</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>70.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3336</x>
+      <y>3006</y>
+      <w>126</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;190.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3444</x>
+      <y>2946</y>
+      <w>48</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>40.0;10.0;10.0;330.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3594</x>
+      <y>2928</y>
+      <w>90</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3438</x>
+      <y>2964</y>
+      <w>246</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;70.0;390.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>444</x>
+      <y>2208</y>
+      <w>312</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>/game.model.bubbles::Bubble/
+--
+#lifeSpan: float
+--
++Bubble(float x, float y, float width, float height, char code): ctor
++Bubble(float x, float y, float width, float height, float lifeSpan, char code): ctor
++getLifeSpan(): float
++setLifeSpan(float lifeSpan): void
+#decreaseLifeSpan(float k): void
++pop(): void
+#rise(float airSpeed): void
+#updateYPos(): void
++updateEntity(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>462</x>
+      <y>2028</y>
+      <w>264</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>game.model.bubbles::BubbleFactory
+--
+-bubblesSpawnPoints: List&lt;Float&gt;
+--
++BubbleFactory(List&lt;Float&gt; bubbleSpawnPoints): ctor
++createPlayerBubble(float x, float y, float xSpeed): PlayerBubble
++createSpecialBubble(): Bubble
++createSpecialBubble(Bubble bubble): Bubble
++createExtendBubble(): ExtendBubble
+-setSpecialBubblePosition(Bubble bubble): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>828</x>
+      <y>2022</y>
+      <w>234</w>
+      <h>312</h>
+    </coordinates>
+    <panel_attributes>game.model.bubbles::BubbleManager
+--
+-bubbleFactory: BubbleFactory
+-specialBubbles: List&lt;Bubble&gt;
+-playerBubbles: List&lt;PlayerBubble&gt;
+-fireBalls: List&lt;FireBall&gt;
+-bolts: List&lt;Bolt&gt;
+-waters: List&lt;Water&gt;
+-spawnSpecialBubbleTimer: Timer
+-waterUpdateTimer: Timer
+--
++BubbleManager(List&lt;Float&gt; bubbleSpawnPoints): ctor
++createPlayerBubble(float x, float y, float xSpeed): void
++createSpecialBubble(): void
++createSpecialBubble(Bubble specialBubble): void
++createExtendBubble(): void
++addBubble(Bubble bubble): void
++removeBubble(Bubble bubble): void
++removePlayerBubble(PlayerBubble playerBubble): void
++addFireBall(FireBall fireBall): void
++removeFireBall(FireBall fireBall): void
++addBolt(Bolt bolt): void
++removeBolt(Bolt bolt): void
++addWater(Water water): void
++removeWater(Water water): void
++getBubbles(): List&lt;Bubble&gt;
++getPlayerBubbles(): List&lt;PlayerBubble&gt;
++getFireBalls(): List&lt;FireBall&gt;
++getBolts(): List&lt;Bolt&gt;
++getWaters(): List&lt;Water&gt;
++updateBubbles(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1050</x>
+      <y>2418</y>
+      <w>162</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>game.model.bubbles::ExtendBubble
+--
++CODES = { '(', ')', '[', ']', '{', '}' }: char[] &lt;&lt;static&gt;&gt;
+-codesIndex: int &lt;&lt;static&gt;&gt;
+--
++ExtendBubble(): ctor
++incrementCodesIndex(): void &lt;&lt;static&gt;&gt;
++pop(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>546</x>
+      <y>2418</y>
+      <w>150</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>game.model.bubbles::FireBubble
+--
++CODE = '-': char &lt;&lt;static&gt;&gt;
+--
++FireBubble(): ctor
++pop(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>18</x>
+      <y>2418</y>
+      <w>348</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>game.model.bubbles::PlayerBubble
+--
+-lastKillTime: long &lt;&lt;static&gt;&gt;
++CODE = '°': char &lt;&lt;static&gt;&gt;
+-extraTimeHorizontalMoving = 1: float &lt;&lt;static&gt;&gt;
+-extraXSpeed = 1: float &lt;&lt;static&gt;&gt;
+-popTimer: Timer
+-enemy: Enemy
+-hasEnemy: boolean
+-timeHorizontalMoving: float
+-isPopped: boolean
+--
++PlayerBubble(float x, float y, float width, float height, float xSpeed, float airSpeed): ctor
++getExtraTravelTime(): float &lt;&lt;static&gt;&gt;
++setExtraTravelTime(float extraTravelTime): void &lt;&lt;static&gt;&gt;
++getExtraXSpeed(): float &lt;&lt;static&gt;&gt;
++setExtraXSpeed(float extraXSpeed): void &lt;&lt;static&gt;&gt;
++getEnemy(): Enemy
++setEnemy(Enemy enemy): void
++hasEnemy(): boolean
++getTimeHorizontalMoving(): float
++setTimeHorizontalMoving(float timeHorizontalMoving): void
++isHasEnemy(): boolean
++setHasEnemy(boolean hasEnemy): void
++isPopped(): boolean
++resetLifeSpan(): void
+#decreaseTimeHorizontalMoving(float k): void
+#rise(float airSpeed): void
++pop(): void
++popAndKill(): void
++updateEntity(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>372</x>
+      <y>2418</y>
+      <w>162</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>game.model.bubbles::SpecialBubble
+--
++CODE = '%': char &lt;&lt;static&gt;&gt;
+--
++SpecialBubble(): ctor
++pop(): void
++updateEntity(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>900</x>
+      <y>2550</y>
+      <w>180</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>game.model.bubbles.special_effects::Bolt
+--
++BOLT_SPEED = 2: float &lt;&lt;static&gt;&gt;
++CODE = '?': char &lt;&lt;static&gt;&gt;
+--
++Bolt(float x, float y): ctor
+-setBoltXSpeed(): void
++updateXPos(): void
++updateEntity(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>462</x>
+      <y>2550</y>
+      <w>192</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>game.model.bubbles.special_effects::FireBall
+--
++CODE = '#': char &lt;&lt;static&gt;&gt;
++fireState: FireState
+--
++FireBall(float x, float y, FireState fireState): ctor
++FireBall(float x, float y): ctor
++getFireState(): FireState
+#updateYPos(): void
+-spawnFireBalls(): void
++expand(): void
+-scheduleRemoval(long delay): void
++updateEntity(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>660</x>
+      <y>2550</y>
+      <w>228</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>game.model.bubbles.special_effects::Water
+--
++CODE = '_': char &lt;&lt;static&gt;&gt;
+-capturedEntity: MovingEntity
+-watersToSpawn: int
+-lifeSpan: int
+--
++Water(float x, float y, int watersToSpawn): ctor
++getCapturedEntity(): MovingEntity
++setCapturedEntity(MovingEntity capturedEntity): void
+-delete(): void
+-updatePosition(): void
++updateEntity(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>870</x>
+      <y>2418</y>
+      <w>168</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>game.model.bubbles::ThunderBubble
+--
++CODE = '+': char &lt;&lt;static&gt;&gt;
+--
++ThunderBubble(): ctor
++pop(): void
++updateEntity(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>702</x>
+      <y>2418</y>
+      <w>156</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>game.model.bubbles::WaterBubble
+--
++CODE = '/': char &lt;&lt;static&gt;&gt;
+--
++WaterBubble(): ctor
++pop(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1446</x>
+      <y>2976</y>
+      <w>228</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>game.model.enemies::Banebou
+--
++CODE = 'N': char &lt;&lt;static&gt;&gt;
+--
++Banebou(float x, float y): ctor
++Banebou(float x, float y, float width, float height): ctor
++changeDirection(): void
++jump(): void
++gravity(): void
++updateEntity(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1470</x>
+      <y>3096</y>
+      <w>222</w>
+      <h>186</h>
+    </coordinates>
+    <panel_attributes>game.model.enemies::Boss
+--
++CODE = 'B': char &lt;&lt;static&gt;&gt;
+-lives: int
+-invulnerabilityTimer: Timer
+-isInvulnerable: boolean
+--
++Boss(float x, float y): ctor
++getInvulnerabilityTimer(): Timer
++getLives(): int
++setInvulnerabilityTimer(Timer invincibilityTimer): void
++changeDirection(): void
+-randomizeDirection(): void
++updateXPos(): void
++updateYPos(): void
++removeEnemy(): void
++updateEntity(): void
++looseLife(): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1716</x>
+      <y>2802</y>
+      <w>258</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>/game.model.enemies::Enemy/
+--
++RED_TIME = 15000: int &lt;&lt;static&gt;&gt;
+-colorState: ColorState
+#redXSpeed: float
+#movementSpeed: float
+-dead: boolean
+#isStopped: boolean
+--
++Enemy(float x, float y, char code): ctor
++Enemy(float x, float y, float width, float height, char code): ctor
++getMovementSpeed(): float
++isDead(): boolean
++isStopped(): boolean
++getColorState(): ColorState
++setMovementSpeed(float speed): void
++setStopped(boolean isStopped): void
++setColorState(ColorState colorState): void
++kill(): void
++removeEnemy(): void
++randomBoolean(int chances): boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1758</x>
+      <y>2538</y>
+      <w>168</w>
+      <h>186</h>
+    </coordinates>
+    <panel_attributes>game.model.enemies::EnemyManager
+--
+-enemies: List&lt;Enemy&gt;
+-lasers: List&lt;Laser&gt;
+-shootLaserTimer: Timer
+-changeColorTimer: Timer
+--
++EnemyManager(): ctor
++addEnemy(Enemy enemy): void
++addLaser(Laser laser): void
++removeEnemy(Enemy enemy): void
++removeLaser(Laser laser): void
++getEnemies(): List&lt;Enemy&gt;
++getLasers(): List&lt;Laser&gt;
++getHazards(): List&lt;MovingEntity&gt;
+-numberOfInvaders(): long
++updateEnemies(): void
++isBoss(): boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1716</x>
+      <y>3096</y>
+      <w>222</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>game.model.enemies::Invader
+--
++CODE = 'I': char &lt;&lt;static&gt;&gt;
++ATTACK_INTERVAL = 1000: long &lt;&lt;static&gt;&gt;
+-landed: boolean
+--
++Invader(float x, float y, float width, float height): ctor
++Invader(float x, float y): ctor
++changeDirection(): void
+-randomizeDirection(): void
++gravity(): void
++shoot(): void
++updateEntity(): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1722</x>
+      <y>3282</y>
+      <w>210</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>game.model.enemies::Laser
+--
++CODE = '"': char &lt;&lt;static&gt;&gt;
+--
++Laser(float x, float y, float width, float height): ctor
+#updateYPos(): void
++updateEntity(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1980</x>
+      <y>3084</y>
+      <w>222</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>game.model.enemies::Monsta
+--
++CODE = 'M': char &lt;&lt;static&gt;&gt;
++FLIGHT_SPEED = 0.3f: float &lt;&lt;static&gt;&gt;
+--
++Monsta(float x, float y): ctor
++Monsta(float x, float y, float width, float height): ctor
+-initializeMonsta(): void
++changeDirection(): void
++updateEntity(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2070</x>
+      <y>2814</y>
+      <w>216</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>game.model.enemies::Pulpul
+--
++CODE = 'U': char &lt;&lt;static&gt;&gt;
+--
++Pulpul(float x, float y): ctor
++Pulpul(float x, float y, float width, float height): ctor
+-initializePulpul(): void
++changeDirection(): void
+-randomizeDirection(): void
++updateXPos(): void
++updateYPos(): void
++updateEntity(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1422</x>
+      <y>2802</y>
+      <w>234</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>game.model.enemies::SkelMonsta
+--
++CODE = 'S': char &lt;&lt;static&gt;&gt;
++FLIGHT_SPEED = 0.4f: float &lt;&lt;static&gt;&gt;
+-isMoving: boolean
+--
++SkelMonsta(float x, float y): ctor
++SkelMonsta(float x, float y, float width, float height): ctor
++isMoving(): boolean
++setMoving(boolean isMoving): void
+-trackPlayer(): void
+-initializeSkelMonsta(): void
++updateXPos(): void
++updateYPos(): void
++updateEntity(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2082</x>
+      <y>2964</y>
+      <w>144</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>game.model.enemies::ZenChan
+--
++CODE = 'Z': char &lt;&lt;static&gt;&gt;
+--
++ZenChan(float x, float y): ctor
++changeDirection(): void
++gravity(): void
++updateEntity(): void
++jump(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1452</x>
+      <y>600</y>
+      <w>276</w>
+      <h>294</h>
+    </coordinates>
+    <panel_attributes>/game.model.entities::Entity/
+--
+#x, y: float
+#width, height: float
+-code: char
+--
++Entity(float x, float y, float width, float height, char code): ctor
++Entity(float x, float y, char code): ctor
++checkCollision(T entity, U otherEntity): Optional&lt;U&gt; &lt;&lt;static&gt;&gt;
++checkCollision(T entity, List&lt;U&gt; list): Optional&lt;U&gt; &lt;&lt;static&gt;&gt;
++checkBottomCollision(T entity, List&lt;U&gt; list): Optional&lt;U&gt; &lt;&lt;static&gt;&gt;
++checkTopCollision(T entity, List&lt;U&gt; list): Optional&lt;U&gt; &lt;&lt;static&gt;&gt;
++checkCollisions(List&lt;T&gt; list1, List&lt;U&gt; list2): Optional&lt;Entity[]&gt; &lt;&lt;static&gt;&gt;
++roundPosition(float position): float &lt;&lt;static&gt;&gt;
++getX(): float
++getY(): float
++getWidth(): float
++getHeight(): float
++getCode(): char
++getPosition(): float[]
++setX(float x): void
++setY(float y): void
++setPosition(float x, float y): void
++setHeight(float height): void
++setWidth(float width): void
++hit(Entity entity): boolean
++topHit(Entity entity): boolean
++bottomHit(Entity entity): boolean
++getDistanceFrom(Entity entity): float
++hashCode(): int
++equals(Object obj): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1446</x>
+      <y>936</y>
+      <w>282</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>/game.model.entities::MovingEntity/
+--
++GRAVITY = 0.02f: float &lt;&lt;static&gt;&gt;
++MAX_FALLING_SPEED = 1.6f: float &lt;&lt;static&gt;&gt;
+#direction: Direction
+#xSpeed: float
+#airSpeed: float
+#jumpSpeed: float
+#fallSpeedAfterCollision: float
+#inAir: boolean
+--
++MovingEntity(float x, float y, char code): ctor
++MovingEntity(float x, float y, float width, float height, char code): ctor
++getxSpeed(): float
++getAirSpeed(): float
++getDirection(): Direction
++setxSpeed(float xSpeed): void
++setAirSpeed(float airSpeed): void
++setJumpSpeed(float jumpSpeed): void
++setDirection(Direction direction): void
++updateXPos(): void
+#updateYPos(): void
++resetInAir(): void
++stop(): void
++move(float speed): void
++updateEntity(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1824</x>
+      <y>606</y>
+      <w>246</w>
+      <h>582</h>
+    </coordinates>
+    <panel_attributes>game.model.entities::Player
+--
++CODE = 'P': char &lt;&lt;static&gt;&gt;
++NUMBER_OF_LIVES = 3: int &lt;&lt;static&gt;&gt;
++INVULNERABILITY_INTERVAL = 5000: long &lt;&lt;static&gt;&gt;
++ATTACK_INTERVAL = 100: long &lt;&lt;static&gt;&gt;
+-instance: Player &lt;&lt;static&gt;&gt;
+-stunTimer: Timer
+-invulnerabilityTimer: Timer
+-bubbleDirection: Direction
+-lives: int
+-isStunned: boolean
+-attackSpeed: long
+-extraXSpeed: float
+-previousX: float
+-isJumping: boolean
+-isInvulnerable: boolean
+-canShoot: boolean
+-specialBubbleActive: boolean
+-crystalRingActive: boolean
+-amethystRingActive: boolean
+-rubyRingActive: boolean
+--
+-Player(float x, float y, float width, float height): ctor
++getInstance(): Player
++getInstance(float x, float y, float width, float height): Player
++getLives(): int
++getBubbleDirection(): Direction
++isJumping(): boolean
++isStunned(): boolean
++canShoot(): boolean
++getSpecialBubbleActive(): boolean
++isCrystalRingActive(): boolean
++isAmethystRingActive(): boolean
++isRubyRingActive(): boolean
++isInvulnerable(): boolean
++setDirection(Direction direction): void
++setX(float x): void
++setExtraXSpeed(float extraXSpeed): void
++setJumping(boolean isJumping): void
++setLives(int lives): void
++setSpecialBubbleActive(boolean specialBubbleActive): void
++setCrystalRingActive(boolean crystalRingActive): void
++getInvulnerabilityTimer(): Timer
++setInvulnerabilityTimer(Timer invincibilityTimer): void
++setAmethystRingActive(boolean amethystRingActive): void
++setRubyRingActive(boolean rubyRingActive): void
++setInvulnerable(boolean isInvulnerable): void
++setStunned(boolean isStunned): void
++setCanShoot(boolean canShoot): void
++setBubbleDirection(Direction bubbleDirection): void
++increaseFiringRate(long delta): void
++decreaseFiringRate(long delta): void
++gravity(): void
++jump(): void
++looseLife(): void
++heal(): void
++move(float speed): void
++shoot(): void
++stun(int stunTime): void
++updateEntity(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1134</x>
+      <y>852</y>
+      <w>198</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>game.model::Fruit
+--
+-points: int
+--
++Fruit(float x, float y, FruitType fruitType): ctor
++randomFruitType(): FruitType &lt;&lt;static&gt;&gt;
++getPoints(): int
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1170</x>
+      <y>738</y>
+      <w>126</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>game.model::FruitManager
+--
+-fruits: List&lt;Fruit&gt;
+--
++FruitManager(): ctor
++getFruits(): List&lt;Fruit&gt;
++addFruit(Fruit fruit): void
++removeFruit(Fruit fruit): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2436</x>
+      <y>756</y>
+      <w>288</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>game.model::HelpMethods
+--
++canMoveHere(float x, float y, float width, float height): boolean &lt;&lt;static&gt;&gt;
+-isSolid(float x, float y): boolean &lt;&lt;static&gt;&gt;
++isEntityInsideWall(Entity entity): boolean &lt;&lt;static&gt;&gt;
++isEntityInsideWall(float x, float y, float width, float height): boolean &lt;&lt;static&gt;&gt;
++isEntityGrounded(MovingEntity movingEntity): boolean &lt;&lt;static&gt;&gt;
++isSolidHorizontalLine(float x1, float x2, float y): boolean &lt;&lt;static&gt;&gt;
++isSolidVerticalLine(float x, float y1, float y2): boolean &lt;&lt;static&gt;&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1920</x>
+      <y>2136</y>
+      <w>180</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+game.model.interfaces::ChangeDirection
+--
+--
+~changeDirection(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2106</x>
+      <y>2136</y>
+      <w>144</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+game.model.interfaces::Gravity
+--
+--
+~gravity(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1920</x>
+      <y>2196</y>
+      <w>144</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+game.model.interfaces::Jumping
+--
+--
+~jump(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2070</x>
+      <y>2196</y>
+      <w>150</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+game.model.interfaces::Shooting
+--
+--
+~shoot(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1920</x>
+      <y>2256</y>
+      <w>156</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+game.model.interfaces::Vulnerable
+--
+--
+~looseLife(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1182</x>
+      <y>48</y>
+      <w>282</w>
+      <h>492</h>
+    </coordinates>
+    <panel_attributes>game.model.level::Level
+--
++NUM_HORIZONTAL_TILES = 30: int &lt;&lt;static&gt;&gt;
++NUM_VERTICAL_TILES = 24: int &lt;&lt;static&gt;&gt;
++GAME_WIDTH = NUM_HORIZONTAL_TILES * Tile.TILE_SIZE: int &lt;&lt;static&gt;&gt;
++GAME_HEIGHT = NUM_VERTICAL_TILES * Tile.TILE_SIZE: int &lt;&lt;static&gt;&gt;
+-simultaneousKills: int &lt;&lt;static&gt;&gt;
+-player: Player
+-tiles: List&lt;Tile&gt;
+-enemyManager: EnemyManager
+-bubbleManager: BubbleManager
+-powerupManager: PowerupManager
+-fruitManager: FruitManager
+-lvlData: char[][]
+-playerSpawnPoint: float[]
+-bubblesSpawnPoints: List&lt;Float&gt;
+-levelNumber: int
+--
++Level(int levelNumber): ctor
++getLevelNumber(): int
++setLevelNumber(int levelNumber): void
++getLvlData(): char[][]
++getEntities(): List&lt;Entity&gt;
++getPowerupManager(): PowerupManager
++getFruitManager(): FruitManager
++getPlayer(): Player
++setPlayer(Player player): void
++addPlayer(Player player): void
++setPlayerSpawnPoint(float x, float y): void
++getPlayerSpawnPoint(): float[]
++getEnemyManager(): EnemyManager
++setEnemyManager(EnemyManager eManager): void
++addEnemy(Enemy enemy): void
+-setEnemyInBubble(PlayerBubble b, Enemy e): void
++getSimultaneousKills(): int &lt;&lt;static&gt;&gt;
++setSimultaneousKills(int simultaneousKills): void &lt;&lt;static&gt;&gt;
++getBubbleManager(): BubbleManager
++setBubbleManager(BubbleManager bManager): void
++getBubblesSpawnPoints(): List&lt;Float&gt;
+-setBubblesSpawnPoints(): void
++getTiles(): List&lt;Tile&gt;
++setTiles(List&lt;Tile&gt; tiles): void
++addTile(Tile tile): void
++captureEnemies(): void
+-checkJump(): void
+-checkPlayerBubbleCollisions(): void
++checkLooseLife(): void
+-checkSpecialCollisions(): void
+-checkPowerupCollisions(): void
+-checkFruitCollisions(): void
+-checkAllCollisions(): void
++updateLevel(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>900</x>
+      <y>204</y>
+      <w>204</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>game.model.level::LevelLoader
+--
+-PLAYER = 'P': char &lt;&lt;static&gt;&gt;
+-ZEN_CHAN = 'Z': char &lt;&lt;static&gt;&gt;
+-MONSTA = 'M': char &lt;&lt;static&gt;&gt;
+-BANEBOU = 'N': char &lt;&lt;static&gt;&gt;
+-PULPUL = 'U': char &lt;&lt;static&gt;&gt;
+-SKELMONSTA = 'S': char &lt;&lt;static&gt;&gt;
+-INVADER = 'I': char &lt;&lt;static&gt;&gt;
+-BOSS = 'B': char &lt;&lt;static&gt;&gt;
+--
++readLevelFile(int levelNum): char[][] &lt;&lt;static&gt;&gt;
++loadLevel(Level level, int levelNum): char[][] &lt;&lt;static&gt;&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1578</x>
+      <y>60</y>
+      <w>252</w>
+      <h>336</h>
+    </coordinates>
+    <panel_attributes>game.model::Model
+--
+-instance: Model &lt;&lt;static&gt;&gt;
+-nextLevelTimer: Timer
+-levels: List&lt;Level&gt;
+-levelIterator: Iterator&lt;Level&gt;
+-currentLevel: Level
+-users: List&lt;User&gt;
+-currentUser: User
+-toUpdate = true: boolean
+-modelState: ModelState
+--
+-Model(): ctor
++getInstance(): Model
++resetModel(): void
++getCurrentLevel(): Level
++getLevels(): List&lt;Level&gt;
++getModelState(): ModelState
++getUsers(): List&lt;User&gt;
++getCurrentUser(): User
++getUserByNickname(String selectedNickname): User
++isToUpdate(): boolean
++setWin(): void
++setModelState(ModelState state): void
++setCurrentUser(User currentUser): void
++setToUpdate(boolean toUpdate): void
++setCurrentUserByNickname(String selectedNickname): void
++addUser(User user): void
++loadLevels(): void
++nextLevel(): void
++nextLevelTransition(): void
++updateModel(): void
+-updatePoints(): void
+-loadUsers(): void
++sendNotification(Object arg): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3150</x>
+      <y>3066</y>
+      <w>228</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>game.model::Paths
+--
+-pathsMap = new HashMap(): Map&lt;Character, String&gt;
+--
++getPath(Character letter): String &lt;&lt;static&gt;&gt;
++getAbsolutePath(String relativePath): String &lt;&lt;static&gt;&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2826</x>
+      <y>5322</y>
+      <w>168</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>game.model.powerups::AmethystRing
+--
++CODE = '=': char &lt;&lt;static&gt;&gt;
++SPAWN_CONDITION = 2: int &lt;&lt;static&gt;&gt;
++POINTS = 1000: int &lt;&lt;static&gt;&gt;
++DURATION = 8000: long &lt;&lt;static&gt;&gt;
+--
++AmethystRing(): ctor
++effect(): void
++resetToNormal(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2790</x>
+      <y>4758</y>
+      <w>198</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>game.model.powerups::BlueCandy
+--
++CODE = '£': char &lt;&lt;static&gt;&gt;
++SPAWN_CONDITION = 15: int
++POINTS = 100: int
++DURATION = 10000: long
++INCREASED_X_SPEED_AMOUNT = 2: float
+--
++BlueCandy(): ctor
++effect(): void
++resetToNormal(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2538</x>
+      <y>5460</y>
+      <w>138</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>game.model.powerups::Clock
+--
++CODE = '*': char &lt;&lt;static&gt;&gt;
++SPAWN_CONDITION = 1: int &lt;&lt;static&gt;&gt;
++POINTS = 200: int &lt;&lt;static&gt;&gt;
++DURATION = 6000: long &lt;&lt;static&gt;&gt;
+--
++Clock(): ctor
++effect(): void
++resetToNormal(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2826</x>
+      <y>5106</y>
+      <w>156</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>game.model.powerups::CrystalRing
+--
++CODE = '&amp;': char &lt;&lt;static&gt;&gt;
++SPAWN_CONDITION = 2: int &lt;&lt;static&gt;&gt;
++POINTS = 1000: int &lt;&lt;static&gt;&gt;
++DURATION = 3000: long &lt;&lt;static&gt;&gt;
+--
++CrystalRing(): ctor
++effect(): void
++resetToNormal(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2712</x>
+      <y>5442</y>
+      <w>150</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>game.model.powerups::Dynamite
+--
++CODE = '^': char &lt;&lt;static&gt;&gt;
++SPAWN_CONDITION = 1: int &lt;&lt;static&gt;&gt;
++POINTS = 200: int &lt;&lt;static&gt;&gt;
++DURATION = 1: long &lt;&lt;static&gt;&gt;
+--
++Dynamite(): ctor
++effect(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3072</x>
+      <y>5076</y>
+      <w>174</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>game.model.powerups::OrangeParasol
+--
++SPAWN_CONDITION = 2: int &lt;&lt;static&gt;&gt;
+--
++OrangeParasol(): ctor
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2820</x>
+      <y>5004</y>
+      <w>198</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>/game.model.powerups::Parasol/
+--
++CODE = '@': char &lt;&lt;static&gt;&gt;
+-POINTS = 5000: int &lt;&lt;static&gt;&gt;
+-DURATION = 0: long &lt;&lt;static&gt;&gt;
+-levelsToSkip: int &lt;&lt;static&gt;&gt;
+--
++Parasol(float x, float y, int levelsToSkip): ctor
++effect(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2556</x>
+      <y>4758</y>
+      <w>216</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>game.model.powerups::PinkCandy
+--
++CODE = '!': char &lt;&lt;static&gt;&gt;
++SPAWN_CONDITION = 30: int &lt;&lt;static&gt;&gt;
++POINTS = 100: int &lt;&lt;static&gt;&gt;
++DURATION = 10000: long &lt;&lt;static&gt;&gt;
++INCREASED_TRAVEL_TIME_AMOUNT = 2: float &lt;&lt;static&gt;&gt;
+--
++PinkCandy(): ctor
++effect(): void
++resetToNormal(): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2328</x>
+      <y>5082</y>
+      <w>270</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>/game.model.powerups::Powerup/
+--
+#points: int
+#duration: long
+#toRemove: boolean
+--
++Powerup(float x, float y, char code, int points, long duration): ctor
++getPoints(): long
++getDuration(): long
++isToRemove(): boolean
++effect(): void
++resetToNormal(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1716</x>
+      <y>4866</y>
+      <w>528</w>
+      <h>564</h>
+    </coordinates>
+    <panel_attributes>game.model.powerups::PowerupFactory
+--
+-distanceTravelled: float
+-numberOfJumpsOnBubbles: int
+-numberOfBubbles: int
+-numberOfBubblesPopped: int
+-numberOfFireBubblesPopped: int
+-numberOfWaterBubblesPopped: int
+-numberOfThunderBubblesPopped: int
+-numberOfSpecialBubblesPopped: int
+-numberOfExtendBubblesPopped: int
+-numberOfYellowCandies: int
+-numberOfBlueCandies: int
+-numberOfPinkCandies: int
+-lvlData: char[][]
+--
++PowerupFactory(char[][] lvlData): ctor
++getDistanceTravelled(): float
++getNumberOfJumpsOnBubbles(): int
++getNumberOfBubbles(): int
++getNumberOfBubblesPopped(): int
++getNumberOfFireBubblesPopped(): int
++getNumberOfWaterBubblesPopped(): int
++getNumberOfThunderBubblesPopped(): int
++getNumberOfSpecialBubblesPopped(): int
++getNumberOfExtendBubblesPopped(): int
++getNumberOfYellowCandies(): int
++getNumberOfBlueCandies(): int
++getNumberOfPinkCandies(): int
++setDistanceTravelled(float distanceTravelled): void
++setNumberOfJumpsOnBubbles(int numberOfJumpsOnBubbles): void
++setNumberOfBubbles(int numberOfBubbles): void
++setNumberOfBubblesPopped(int numberOfBubblesPopped): void
++setNumberOfFireBubblesPopped(int numberOfFireBubblesPopped): void
++setNumberOfWaterBubblesPopped(int numberOfWaterBubblesPopped): void
++setNumberOfThunderBubblesPopped(int numberOfThunderBubblesPopped): void
++setNumberOfSpecialBubblesPopped(int numberOfSpecialBubblesPopped): void
++setNumberOfExtendBubblesPopped(int numberOfExtendBubblesPopped): void
++setNumberOfYellowCandies(int numberOfYellowCandies): void
++setNumberOfBlueCandies(int numberOfBlueCandies): void
++setNumberOfPinkCandies(int numberOfPinkCandies): void
++increaseNumberOfJumpsOnBubbles(): void
++increaseNumberOfBubbles(): void
++increaseNumberOfBubblesPopped(): void
++increaseNumberOfFireBubblesPopped(): void
++increaseNumberOfWaterBubblesPopped(): void
++increaseNumberOfThunderBubblesPopped(): void
++increaseNumberOfSpecialBubblesPopped(): void
++increaseNumberOfExtendBubblesPopped(): void
++increaseNumberOfYellowCandies(): void
++increaseNumberOfBlueCandies(): void
++increaseNumberOfPinkCandies(): void
++increaseDistanceTraveled(float newDistance): void
++getPercentDiff(float a, float b): float
++getPowerupsConditionCompletions(): HashMap&lt;Class&lt;? extends Powerup&gt;, Float&gt;
+-addIfPositive(HashMap&lt;Class&lt;? extends Powerup&gt;, Float&gt; results, Class&lt;? extends Powerup&gt; powerupClass, float percentDiff): void
++createPowerup(PowerupManager powerupManager): Powerup
++createRandomPowerup(PowerupManager powerupManager): Powerup
++setPowerupPosition(Powerup powerup, PowerupManager powerupManager): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2352</x>
+      <y>4896</y>
+      <w>180</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>game.model.powerups::PowerupManager
+--
+-powerups: List&lt;Powerup&gt;
+-powerupFactory: PowerupFactory
+-spawnTimer: Timer
+--
++PowerupManager(char[][] lvlData): ctor
++getPowerups(): List&lt;Powerup&gt;
++getPowerupFactory(): PowerupFactory
++createPowerup(): void
++createRandomPowerup(): void
++isTherePowerup(int x, int y): boolean
++addPowerup(Powerup powerup): void
++removePowerup(Powerup powerup): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3072</x>
+      <y>4968</y>
+      <w>168</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>game.model.powerups::PurpleParasol
+--
++SPAWN_CONDITION = 4: int &lt;&lt;static&gt;&gt;
+--
++PurpleParasol(): ctor</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3072</x>
+      <y>5022</y>
+      <w>156</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>game.model.powerups::RedParasol
+--
++SPAWN_CONDITION = 3: int &lt;&lt;static&gt;&gt;
+--
++RedParasol(): ctor
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2826</x>
+      <y>5208</y>
+      <w>150</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>game.model.powerups::RubyRing
+--
++CODE = '.': char &lt;&lt;static&gt;&gt;
++SPAWN_CONDITION = 2: int &lt;&lt;static&gt;&gt;
++POINTS = 1000: int &lt;&lt;static&gt;&gt;
++DURATION = 3000: long &lt;&lt;static&gt;&gt;
+--
++RubyRing(): ctor
++effect(): void
++resetToNormal(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2280</x>
+      <y>5460</y>
+      <w>234</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>game.model.powerups::Shoes
+--
++CODE = '§': char &lt;&lt;static&gt;&gt;
++SPAWN_CONDITION = 25 * Level.GAME_WIDTH: int &lt;&lt;static&gt;&gt;
++POINTS = 100: int &lt;&lt;static&gt;&gt;
++DURATION = 10000: long &lt;&lt;static&gt;&gt;
++INCREASED_X_SPEED_AMOUNT = 2f: float &lt;&lt;static&gt;&gt;
+--
++Shoes(): ctor
++effect(): void
++resetToNormal(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2820</x>
+      <y>4890</y>
+      <w>210</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>game.model.powerups::YellowCandy
+--
++CODE = '$': char &lt;&lt;static&gt;&gt;
++SPAWN_CONDITION = 5: int &lt;&lt;static&gt;&gt;
++POINTS = 100: int &lt;&lt;static&gt;&gt;
++INCREASED_FIRING_RATE_AMOUNT = 1: int &lt;&lt;static&gt;&gt;
++DURATION = 10000: long &lt;&lt;static&gt;&gt;
+--
++YellowCandy(): ctor
++effect(): void
++resetToNormal(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1146</x>
+      <y>612</y>
+      <w>156</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>game.model.tiles::Tile
+--
++TILE_SIZE = 16: int &lt;&lt;static&gt;&gt;
+--
++Tile(float x, float y, char code): ctor</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1950</x>
+      <y>72</y>
+      <w>438</w>
+      <h>264</h>
+    </coordinates>
+    <panel_attributes>game.model.user::User
+--
+-nickname: String
+-highScore: int
+-avatarPath: String
+-points: int
+-playedGames: int
+-gamesWon: int
+-gamesLost: int
+--
++User(String nickname, int highScore, String avatarPath, int playedGames, int gamesWon, int gamesLost): ctor
++getPlayedGames(): int
++setPlayedGames(int playedGames): void
++getGamesWon(): int
++setGamesWon(int gamesWon): void
++getGamesLost(): int
++setGamesLost(int gamesLost): void
++getAvatarPath(): String
++setAvatarPath(String avatarPath): void
++getNickname(): String
++setNickname(String nickname): void
++getHighScore(): int
++setHighScore(int highScore): void
++getPoints(): int
++addPoints(int pointsAmount): void
++addLostGame(): void
++addWonGame(): void
++setPoints(int points): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1950</x>
+      <y>348</y>
+      <w>420</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>game.model.user::UserMethods
+--
++getUsersData(): HashMap&lt;String, List&lt;Integer&gt;&gt; &lt;&lt;static&gt;&gt;
++saveUsersData(String nickname, int highScore, int gamesPlayed, int gamesWon, int gamesLost): void &lt;&lt;static&gt;&gt;
++saveLastUser(User user): void &lt;&lt;static&gt;&gt;
++getLastUser(String path): String &lt;&lt;static&gt;&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>282</x>
+      <y>0</y>
+      <w>3432</w>
+      <h>1956</h>
+    </coordinates>
+    <panel_attributes>game.model
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>0</x>
+      <y>1986</y>
+      <w>1230</w>
+      <h>756</h>
+    </coordinates>
+    <panel_attributes>game.model.bubbles
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>456</x>
+      <y>2532</y>
+      <w>666</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>game.model.bubbles.special_effects
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1404</x>
+      <y>2514</y>
+      <w>894</w>
+      <h>852</h>
+    </coordinates>
+    <panel_attributes>game.model.enemies
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1404</x>
+      <y>570</y>
+      <w>804</w>
+      <h>642</h>
+    </coordinates>
+    <panel_attributes>game.model.entities
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1914</x>
+      <y>2118</y>
+      <w>342</w>
+      <h>204</h>
+    </coordinates>
+    <panel_attributes>game.model.interfaces
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>864</x>
+      <y>18</y>
+      <w>618</w>
+      <h>540</h>
+    </coordinates>
+    <panel_attributes>game.model.level
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1704</x>
+      <y>4722</y>
+      <w>1560</w>
+      <h>978</h>
+    </coordinates>
+    <panel_attributes>game.model.powerups
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1938</x>
+      <y>54</y>
+      <w>474</w>
+      <h>408</h>
+    </coordinates>
+    <panel_attributes>game.model.user
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1224</x>
+      <y>804</y>
+      <w>42</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1722</x>
+      <y>738</y>
+      <w>114</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>170.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1590</x>
+      <y>888</y>
+      <w>42</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>204</x>
+      <y>2334</y>
+      <w>462</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;140.0;750.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>720</x>
+      <y>2076</y>
+      <w>120</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;180.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>732</x>
+      <y>2124</y>
+      <w>108</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;140.0;160.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>588</x>
+      <y>2124</y>
+      <w>42</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>468</x>
+      <y>2334</y>
+      <w>198</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;140.0;310.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>630</x>
+      <y>2334</y>
+      <w>54</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;140.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>648</x>
+      <y>2334</y>
+      <w>144</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>220.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>648</x>
+      <y>2334</y>
+      <w>312</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>500.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>648</x>
+      <y>2334</y>
+      <w>510</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>830.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>774</x>
+      <y>2478</y>
+      <w>42</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>954</x>
+      <y>2484</y>
+      <w>42</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>624</x>
+      <y>2478</y>
+      <w>42</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1830</x>
+      <y>2718</y>
+      <w>42</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1650</x>
+      <y>2880</y>
+      <w>78</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1668</x>
+      <y>2910</y>
+      <w>66</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;140.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1668</x>
+      <y>3012</y>
+      <w>84</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;140.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1734</x>
+      <y>3012</y>
+      <w>72</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>100.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1968</x>
+      <y>2976</y>
+      <w>102</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>150.0;180.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1968</x>
+      <y>2886</y>
+      <w>114</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>170.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1968</x>
+      <y>2970</y>
+      <w>126</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>190.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1818</x>
+      <y>3222</y>
+      <w>42</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1098</x>
+      <y>258</y>
+      <w>96</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2238</x>
+      <y>4950</y>
+      <w>126</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;190.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2430</x>
+      <y>5022</y>
+      <w>42</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2238</x>
+      <y>5118</y>
+      <w>102</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>150.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3012</x>
+      <y>5034</y>
+      <w>72</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>100.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3012</x>
+      <y>5040</y>
+      <w>72</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>100.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2592</x>
+      <y>4866</y>
+      <w>84</w>
+      <h>246</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;390.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2592</x>
+      <y>4866</y>
+      <w>228</w>
+      <h>246</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>360.0;10.0;10.0;390.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2592</x>
+      <y>4938</y>
+      <w>240</w>
+      <h>174</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>380.0;10.0;10.0;270.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2592</x>
+      <y>5040</y>
+      <w>246</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>390.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3012</x>
+      <y>4992</y>
+      <w>72</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2592</x>
+      <y>5166</y>
+      <w>246</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>390.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2592</x>
+      <y>5166</y>
+      <w>192</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>300.0;460.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2478</x>
+      <y>5184</y>
+      <w>132</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>200.0;460.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2376</x>
+      <y>5184</y>
+      <w>120</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;460.0;180.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2592</x>
+      <y>5124</y>
+      <w>246</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>390.0;20.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1824</x>
+      <y>186</y>
+      <w>138</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>210.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1824</x>
+      <y>198</y>
+      <w>138</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>210.0;310.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1458</x>
+      <y>186</y>
+      <w>132</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
+  </element>
+</diagram>
