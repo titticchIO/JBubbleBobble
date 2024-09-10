@@ -6,6 +6,9 @@ import game.view.frames.GameFrame.Screen;
 import game.controller.gamestates.Playing;
 import game.model.Model;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import game.controller.gamestates.End;
 import game.controller.gamestates.GameState;
 import game.controller.gamestates.Menu;
@@ -39,6 +42,14 @@ public class Controller implements Runnable {
 	 * and game frame. Displays the menu screen by default.
 	 */
 	public Controller() {
+		new Timer("Music Timer").schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				AudioManager.getInstance().play(Paths
+						.getAbsolutePath("Audio/Sound Tacks/01 Introduction ~ Main Theme (online-audio-converter.com).wav"));
+			}
+		},0, 107000);
 		model = Model.getInstance();
 		menu = new Menu(this);
 		end = new End(this);
