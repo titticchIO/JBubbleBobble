@@ -253,7 +253,7 @@ public class BubbleManager {
 
 		if (spawnSpecialBubbleTimer == null) {
 			spawnSpecialBubbleTimer = new Timer("Spawn Special Bubble");
-			long nextBubbleInterval = Model.getInstance().getCurrentLevel().getEnemyManager().isBoss() ? 3000 : 20000;
+			long nextBubbleInterval = Model.getInstance().getCurrentLevel().getEnemyManager().isBoss() ? 3000 : 10000;
 			spawnSpecialBubbleTimer.schedule(new TimerTask() {
 
 				@Override
