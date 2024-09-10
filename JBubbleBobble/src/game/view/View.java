@@ -35,7 +35,7 @@ public class View implements Observer {
 	 */
 	public static View getInstance(GameFrame gameFrame) {
 		if (instance == null)
-			instance = new View(gameFrame, new LevelPanel(), new TransitionPanel(gameFrame));
+			instance = new View(gameFrame, new LevelPanel(), new TransitionPanel());
 		return instance;
 	}
 

@@ -4,16 +4,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import game.controller.ActionListenersManager;
-import game.controller.gamestates.GameState;
-import game.model.Model;
 import game.model.level.Level;
-import game.view.frames.GameFrame;
 
 /**
  * A JPanel {@code TransitionPanel} that handles the transition effect between
