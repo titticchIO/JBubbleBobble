@@ -127,7 +127,7 @@ public class Pulpul extends Enemy implements ChangeDirection {
 		else if (y < -2)
 			setY(Level.GAME_HEIGHT);
 		else {
-			if (HelpMethods.canMoveHere(x, y + airSpeed, width, height))
+			if (HelpMethods.canMoveHere(x, y + airSpeed, width, height)||isDead())
 				setY(y + airSpeed);
 			else
 				changeDirection(); // Change direction if it hits an obstacle
