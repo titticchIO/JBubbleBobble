@@ -1,6 +1,7 @@
 package game.model.bubbles;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -227,10 +228,10 @@ public class BubbleManager {
 	// Other Methods
 
 	/**
-	 * Updates all bubbles managed by this {@code BubbleManager}, including
-	 * special bubbles, player bubbles, fireballs, bolts, and water bubbles.
-	 * This method also handles the scheduling of special bubble spawns and
-	 * water bubble updates using timers.
+	 * Updates all bubbles managed by this {@code BubbleManager}, including special
+	 * bubbles, player bubbles, fireballs, bolts, and water bubbles. This method
+	 * also handles the scheduling of special bubble spawns and water bubble updates
+	 * using timers.
 	 */
 	public void updateBubbles() {
 		createExtendBubble();
@@ -253,12 +254,18 @@ public class BubbleManager {
 
 		if (spawnSpecialBubbleTimer == null) {
 			spawnSpecialBubbleTimer = new Timer("Spawn Special Bubble");
-			long nextBubbleInterval = Model.getInstance().getCurrentLevel().getEnemyManager().isBoss() ? 3000 : 10000;
+			long nextBubbleInterval = Model.getInstance().getCurrentLevel().getEnemyManager().isBoss() ? 2000 : 10000;
 			spawnSpecialBubbleTimer.schedule(new TimerTask() {
 
 				@Override
 				public void run() {
-					createSpecialBubble();
+					if (Model.getInstance().getCurrentLevel().getEnemyManager().isBoss()) {
+						switch (new Random().nextInt(2)) {
+						case 0 -> createSpecialBubble(new ThunderBubble());
+						case 1 -> createSpecialBubble(new FireBubble());
+						}
+					} else
+						createSpecialBubble();
 					spawnSpecialBubbleTimer.cancel();
 					spawnSpecialBubbleTimer = null;
 				}
