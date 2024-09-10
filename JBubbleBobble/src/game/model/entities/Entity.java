@@ -58,21 +58,6 @@ public abstract class Entity {
 	}
 
 	/**
-	 * Checks if an entity collides with the top of any entity in a list.
-	 * 
-	 * @param <T>    The type of the entity to check.
-	 * @param <U>    The type of entities in the list.
-	 * @param entity The entity to check for top collision.
-	 * @param list   The list of entities to check against.
-	 * @return An {@code Optional} containing the first entity in the list that
-	 *         collides with the top of the given entity, or
-	 *         {@code Optional.empty()} if no collision is detected.
-	 */
-	public static <T extends Entity, U extends Entity> Optional<U> checkTopCollision(T entity, List<U> list) {
-		return list.stream().filter(x -> x.bottomHit(entity)).findFirst();
-	}
-
-	/**
 	 * Checks if an entity collides with any entity in a list.
 	 * 
 	 * @param <T>    The type of the entity to check.
@@ -259,17 +244,6 @@ public abstract class Entity {
 	 */
 	public boolean topHit(Entity entity) {
 		return this.y >= entity.y + entity.height && this.y < entity.y + entity.height + this.height
-				&& this.x < entity.x + entity.width && this.x + this.width > entity.x;
-	}
-
-	/**
-	 * Checks if this entity has collided with the bottom of another entity.
-	 * 
-	 * @param entity The other entity to check bottom collision against.
-	 * @return {@code true} if there is a bottom collision, {@code false} otherwise.
-	 */
-	public boolean bottomHit(Entity entity) {
-		return this.y + this.height <= entity.y && this.y + this.height > entity.y - this.height
 				&& this.x < entity.x + entity.width && this.x + this.width > entity.x;
 	}
 

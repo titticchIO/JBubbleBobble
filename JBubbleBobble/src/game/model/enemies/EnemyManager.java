@@ -103,10 +103,6 @@ public class EnemyManager {
 		return hazards;
 	}
 
-	private long numberOfInvaders() {
-		return enemies.stream().filter(x -> x instanceof Invader).count();
-	}
-
 	/**
 	 * Updates all managed enemies and lasers by invoking their respective update
 	 * methods.

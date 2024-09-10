@@ -1413,7 +1413,6 @@ bg=yellow</panel_attributes>
 +getEnemies(): List&lt;Enemy&gt;
 +getLasers(): List&lt;Laser&gt;
 +getHazards(): List&lt;MovingEntity&gt;
--numberOfInvaders(): long
 +updateEnemies(): void
 +isBoss(): boolean
 </panel_attributes>
@@ -1569,7 +1568,6 @@ bg=yellow</panel_attributes>
 +checkCollision(T entity, U otherEntity): Optional&lt;U&gt; &lt;&lt;static&gt;&gt;
 +checkCollision(T entity, List&lt;U&gt; list): Optional&lt;U&gt; &lt;&lt;static&gt;&gt;
 +checkBottomCollision(T entity, List&lt;U&gt; list): Optional&lt;U&gt; &lt;&lt;static&gt;&gt;
-+checkTopCollision(T entity, List&lt;U&gt; list): Optional&lt;U&gt; &lt;&lt;static&gt;&gt;
 +checkCollisions(List&lt;T&gt; list1, List&lt;U&gt; list2): Optional&lt;Entity[]&gt; &lt;&lt;static&gt;&gt;
 +roundPosition(float position): float &lt;&lt;static&gt;&gt;
 +getX(): float
@@ -1585,7 +1583,6 @@ bg=yellow</panel_attributes>
 +setWidth(float width): void
 +hit(Entity entity): boolean
 +topHit(Entity entity): boolean
-+bottomHit(Entity entity): boolean
 +getDistanceFrom(Entity entity): float
 +hashCode(): int
 +equals(Object obj): boolean</panel_attributes>
