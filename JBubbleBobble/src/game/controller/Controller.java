@@ -47,7 +47,7 @@ public class Controller implements Runnable {
 			@Override
 			public void run() {
 				AudioManager.getInstance().play(Paths
-						.getAbsolutePath("Audio/Sound Tacks/01 Introduction ~ Main Theme (online-audio-converter.com).wav"));
+						.getAbsolutePath("audio/soundtrack.wav"));
 			}
 		},0, 107000);
 		model = Model.getInstance();
