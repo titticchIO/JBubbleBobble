@@ -18,7 +18,6 @@ import javax.swing.JPopupMenu;
 
 import editor.controller.ActionListenersManager;
 import editor.model.LevelManager;
-import editor.model.LevelReader;
 import game.model.level.LevelLoader;
 
 /**
@@ -55,7 +54,7 @@ public class LevelsPopUpMenu extends JPopupMenu {
         removeAll();
 
         // Update the list of levels
-        List<String> levels = LevelReader.getLevels();
+        List<String> levels = LevelManager.getLevels();
         System.out.println(levels.size());
 
         // JPanel to hold the buttons

@@ -9,7 +9,7 @@ import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import editor.model.LevelReader;
+import editor.model.LevelManager;
 import game.model.entities.Player;
 import game.model.level.Level;
 import game.model.user.User;
@@ -205,7 +205,7 @@ public class Model extends Observable {
 		levels = new ArrayList<>();
 		levelIterator = levels.iterator();
 		currentUser.setPoints(0); // Reset score
-		LevelReader.getLevels().forEach(s -> {
+		LevelManager.getLevels().forEach(s -> {
 			levels.add(new Level(Integer.parseInt(s)));
 		});
 		currentLevel = levels.getFirst();
