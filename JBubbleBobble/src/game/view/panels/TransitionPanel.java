@@ -35,16 +35,13 @@ public class TransitionPanel extends JPanel {
 
 	/** Duration of the transition in milliseconds. */
 	public static final int TRANSITION_DURATION = 2000;
-	private GameFrame gameFrame;
-	private ActionListener advanceAnimation;
 
 	/**
 	 * Constructs a new TransitionPanel with the specified GameFrame.
 	 *
 	 * @param gameFrame the GameFrame that this panel is associated with
 	 */
-	public TransitionPanel(GameFrame gameFrame) {
-		this.gameFrame = gameFrame;
+	public TransitionPanel() {
 
 		Dimension size = new Dimension((int) (Level.GAME_WIDTH * LevelPanel.SCALE),
 				(int) (Level.GAME_HEIGHT * LevelPanel.SCALE));

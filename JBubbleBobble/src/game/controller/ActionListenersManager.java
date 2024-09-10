@@ -190,7 +190,7 @@ public class ActionListenersManager {
 				}
 
 				long elapsed = System.currentTimeMillis() - startTime;
-				transitionPanel.setProgress(Math.min(1.0f, elapsed / (float) transitionPanel.TRANSITION_DURATION));
+				transitionPanel.setProgress(Math.min(1.0f, elapsed / (float) TransitionPanel.TRANSITION_DURATION));
 
 				if (transitionPanel.getProgress() >= 1.0f) {
 					transitionPanel.getTransitionTimer().stop();
