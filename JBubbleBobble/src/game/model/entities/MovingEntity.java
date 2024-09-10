@@ -179,14 +179,13 @@ public abstract class MovingEntity extends Entity {
 	protected void updateYPos() {
 		inAir = !HelpMethods.isEntityGrounded(this);
 
-		// Verifica se l'entità è fuori dai limiti dello schermo
+		// Checks if the entity is outside the level and wraps around.
 		if (y > Level.GAME_HEIGHT + 1) {
-			setY(-1); // Se cade fuori dallo schermo, riposizionala in cima
+			setY(-1);
 			return;
 		}
-
 		if (y < -2) {
-			setY(Level.GAME_HEIGHT); // Se va oltre il soffitto, riportala in basso
+			setY(Level.GAME_HEIGHT);
 			return;
 		}
 
@@ -199,21 +198,17 @@ public abstract class MovingEntity extends Entity {
 			return;
 		}
 
-		// Movimento libero in aria
+		//Collisions with tiles
 		float delta = 0;
-
-		// Incrementa delta mentre sei in aria fino a raggiungere airSpeed
 		while (delta < airSpeed && HelpMethods.canMoveHere(x, y + delta, width, height)) {
-			delta += 0.001f; // Maggiore precisione per evitare salti errati
+			delta += 0.001f;
 		}
 
-		// Se delta non raggiunge airSpeed, un ostacolo è stato colpito
 		if (delta < airSpeed) {
-			setY(y - 1); // Muovi leggermente verso l'alto per evitare sovrapposizioni
-			resetInAir(); // Resetta lo stato in aria
+			setY(y - 1);
+			resetInAir();
 		}
-
-		setY(y + delta); // Aggiorna y con il delta calcolato
+		setY(y + delta);
 	}
 
 	/**
