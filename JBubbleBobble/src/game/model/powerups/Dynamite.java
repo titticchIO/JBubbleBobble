@@ -1,6 +1,7 @@
 package game.model.powerups;
 
 import game.model.Model;
+import game.model.enemies.Boss;
 import game.model.enemies.Enemy;
 
 /**
@@ -25,7 +26,12 @@ public class Dynamite extends Powerup {
 	@Override
 	public void effect() {
 		setX(-200);
-		Model.getInstance().getCurrentLevel().getEnemyManager().getEnemies().forEach(Enemy::kill);
+		Model.getInstance().getCurrentLevel().getEnemyManager().getEnemies().forEach(e -> {switch (e) {
+			case Boss boss -> boss.looseLife();
+			default -> e.kill();
+			}
+		});
+
 	}
 
 }
