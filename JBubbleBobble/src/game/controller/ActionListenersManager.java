@@ -173,6 +173,11 @@ public class ActionListenersManager {
 
 	}
 
+	/**
+	 * Advances the progress of the transition in the TransitionPanel
+	 * @param transitionPanel the Panel that manages the transition between levels
+	 * @return the ActionListener to perform the action
+	 */
 	public static ActionListener advanceTransition(TransitionPanel transitionPanel) {
 		return new ActionListener() {
 
