@@ -25,16 +25,16 @@
 
 // This text will be stored with each diagram;  use it for notes.
 DAJEROMADAJE</help_text>
-  <zoom_level>5</zoom_level>
+  <zoom_level>1</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4190</x>
-      <y>3010</y>
-      <w>440</w>
-      <h>75</h>
+      <x>325</x>
+      <y>642</y>
+      <w>88</w>
+      <h>15</h>
     </coordinates>
-    <panel_attributes>editor.controller::ActionListenersManager
+    <panel_attributes>ActionListenersManager
 --
 +newGridButton(EditorPanel editorPanel, SpriteSelectionScrollPane selectionPane): ActionListener &lt;&lt;static&gt;&gt;
 +openGridButton(LevelsPopUpMenu levelSelectionPopup, JButton openGridButton): ActionListener &lt;&lt;static&gt;&gt;
@@ -48,19 +48,19 @@ DAJEROMADAJE</help_text>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4335</x>
-      <y>2840</y>
-      <w>190</w>
-      <h>115</h>
+      <x>324</x>
+      <y>600</y>
+      <w>38</w>
+      <h>23</h>
     </coordinates>
-    <panel_attributes>editor.model::LevelManager
+    <panel_attributes>LevelManager
 --
 +LEVELS_REL_PATH = "resources/levels": String &lt;&lt;static&gt;&gt;
 +ROWS = 24: int &lt;&lt;static&gt;&gt;
 +COLS = 30: int &lt;&lt;static&gt;&gt;
 -level: char[][] &lt;&lt;static&gt;&gt;
 --
-+LevelManager(): ctor
++LevelManager(): &lt;&lt;Constructor&gt;&gt;
 +getLevels(): List&lt;String&gt; &lt;&lt;static&gt;&gt;
 +setLevel(char[][] levelData): void &lt;&lt;static&gt;&gt;
 +emptyLevel(): void &lt;&lt;static&gt;&gt;
@@ -74,12 +74,12 @@ DAJEROMADAJE</help_text>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4935</x>
-      <y>2665</y>
-      <w>195</w>
-      <h>160</h>
+      <x>486</x>
+      <y>604</y>
+      <w>39</w>
+      <h>32</h>
     </coordinates>
-    <panel_attributes>editor.view::EditorFrame
+    <panel_attributes>EditorFrame
 --
 -serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
 +instance: EditorFrame &lt;&lt;static&gt;&gt;
@@ -89,7 +89,7 @@ DAJEROMADAJE</help_text>
 -actualLevelNumber: String
 -popUps: List&lt;LevelsPopUpMenu&gt;
 --
--EditorFrame(): ctor
+-EditorFrame(): &lt;&lt;Constructor&gt;&gt;
 +getInstance(): EditorFrame &lt;&lt;static&gt;&gt;
 +getEditorPanel(): EditorPanel
 +setEditorPanel(EditorPanel editorPanel): void
@@ -105,12 +105,12 @@ DAJEROMADAJE</help_text>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4920</x>
-      <y>2850</y>
-      <w>220</w>
-      <h>190</h>
+      <x>483</x>
+      <y>641</y>
+      <w>44</w>
+      <h>38</h>
     </coordinates>
-    <panel_attributes>editor.view::EditorPanel
+    <panel_attributes>EditorPanel
 --
 -serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
 +ROWS = 24: int &lt;&lt;static&gt;&gt;
@@ -124,7 +124,7 @@ DAJEROMADAJE</help_text>
 -selectionPane: SpriteSelectionScrollPane
 -isMousePressed: boolean
 --
-+EditorPanel(EditorFrame ef, SpriteSelectionScrollPane selPane): ctor
++EditorPanel(EditorFrame ef, SpriteSelectionScrollPane selPane): &lt;&lt;Constructor&gt;&gt;
 -initializeGrid(): void
 #paintComponent(Graphics g): void
 -setSize(): void
@@ -139,18 +139,18 @@ DAJEROMADAJE</help_text>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4645</x>
-      <y>2850</y>
-      <w>250</w>
-      <h>100</h>
+      <x>429</x>
+      <y>641</y>
+      <w>50</w>
+      <h>20</h>
     </coordinates>
-    <panel_attributes>editor.view::LevelsPopUpMenu
+    <panel_attributes>LevelsPopUpMenu
 --
 +serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
 -menuType: MenuType
 -editorFrame: EditorFrame
 --
-+LevelsPopUpMenu(MenuType menuType, EditorFrame editorFrame): ctor
++LevelsPopUpMenu(MenuType menuType, EditorFrame editorFrame): &lt;&lt;Constructor&gt;&gt;
 -rebuildMenu(): void
 +handleOpenLevel(int levelNumber, EditorFrame editorFrame): void
 +handleSaveLevel(int levelNumber, EditorFrame editorFrame): void
@@ -162,18 +162,18 @@ DAJEROMADAJE</help_text>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5205</x>
-      <y>3055</y>
-      <w>185</w>
-      <h>85</h>
+      <x>540</x>
+      <y>677</y>
+      <w>37</w>
+      <h>17</h>
     </coordinates>
-    <panel_attributes>editor.view::SelectionButton
+    <panel_attributes>SelectionButton
 --
 -serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
 -img: BufferedImage
 -code: char
 --
-+SelectionButton(BufferedImage img, char code): ctor
++SelectionButton(BufferedImage img, char code): &lt;&lt;Constructor&gt;&gt;
 +getImg(): BufferedImage
 +getCode(): char
 +hashCode(): int
@@ -183,12 +183,12 @@ DAJEROMADAJE</help_text>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4950</x>
-      <y>3110</y>
-      <w>140</w>
-      <h>125</h>
+      <x>489</x>
+      <y>684</y>
+      <w>28</w>
+      <h>25</h>
     </coordinates>
-    <panel_attributes>editor.view::Sprite
+    <panel_attributes>Sprite
 --
 -serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
 -x: int
@@ -196,7 +196,7 @@ DAJEROMADAJE</help_text>
 -sideLength: float
 -spriteImg: BufferedImage
 --
-+Sprite(int x, int y, float sideLength): ctor
++Sprite(int x, int y, float sideLength): &lt;&lt;Constructor&gt;&gt;
 +getX(): int
 +getY(): int
 +getSideLength(): float
@@ -209,12 +209,12 @@ DAJEROMADAJE</help_text>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5155</x>
-      <y>2850</y>
-      <w>255</w>
-      <h>150</h>
+      <x>530</x>
+      <y>641</y>
+      <w>51</w>
+      <h>30</h>
     </coordinates>
-    <panel_attributes>editor.view::SpriteSelectionScrollPane
+    <panel_attributes>SpriteSelectionScrollPane
 --
 -serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
 -blocks: List&lt;SelectionButton&gt;
@@ -223,7 +223,7 @@ DAJEROMADAJE</help_text>
 -others: List&lt;SelectionButton&gt;
 -selectedButton: SelectionButton
 --
-+SpriteSelectionScrollPane(): ctor
++SpriteSelectionScrollPane(): &lt;&lt;Constructor&gt;&gt;
 -addCategory(JPanel panel, String title, List&lt;SelectionButton&gt; buttons): void
 -addBlocks(): void
 -addEnemies(): void
@@ -239,10 +239,10 @@ DAJEROMADAJE</help_text>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>4185</x>
-      <y>2995</y>
-      <w>450</w>
-      <h>105</h>
+      <x>324</x>
+      <y>639</y>
+      <w>90</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>editor.controller
 bg=green</panel_attributes>
@@ -251,10 +251,10 @@ bg=green</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>4330</x>
-      <y>2825</y>
-      <w>210</w>
-      <h>135</h>
+      <x>323</x>
+      <y>597</y>
+      <w>42</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>editor.model
 bg=orange</panel_attributes>
@@ -263,10 +263,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>4640</x>
-      <y>2645</y>
-      <w>780</w>
-      <h>595</h>
+      <x>427</x>
+      <y>600</y>
+      <w>156</w>
+      <h>119</h>
     </coordinates>
     <panel_attributes>editor.view
 bg=yellow</panel_attributes>
@@ -275,12 +275,12 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4025</x>
-      <y>2225</y>
-      <w>345</w>
-      <h>130</h>
+      <x>1055</x>
+      <y>244</y>
+      <w>69</w>
+      <h>26</h>
     </coordinates>
-    <panel_attributes>game.controller::ActionListenersManager
+    <panel_attributes>ActionListenersManager
 --
 +setCurrentUser(User user): ActionListener &lt;&lt;static&gt;&gt;
 +startEditor(): ActionListener &lt;&lt;static&gt;&gt;
@@ -302,12 +302,12 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3865</x>
-      <y>2290</y>
-      <w>155</w>
-      <h>215</h>
+      <x>1023</x>
+      <y>257</y>
+      <w>31</w>
+      <h>43</h>
     </coordinates>
-    <panel_attributes>game.controller::Controller
+    <panel_attributes>Controller
 --
 -gameThread: Thread
 -running: boolean
@@ -322,7 +322,7 @@ bg=yellow</panel_attributes>
 -model: Model
 -view: View
 --
-+Controller(): ctor
++Controller(): &lt;&lt;Constructor&gt;&gt;
 +getPlaying(): Playing
 +getMenu(): Menu
 +getPause(): Pause
@@ -339,15 +339,15 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4260</x>
-      <y>2400</y>
-      <w>120</w>
-      <h>55</h>
+      <x>1102</x>
+      <y>279</y>
+      <w>24</w>
+      <h>11</h>
     </coordinates>
-    <panel_attributes>game.controller.gamestates::End
+    <panel_attributes>End
 --
 --
-+End(Controller game): ctor
++End(Controller game): &lt;&lt;Constructor&gt;&gt;
 +update(): void
 +keyPressed(KeyEvent e): void
 +keyReleased(KeyEvent e): void
@@ -357,15 +357,15 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4130</x>
-      <y>2400</y>
-      <w>125</w>
-      <h>60</h>
+      <x>1076</x>
+      <y>279</y>
+      <w>25</w>
+      <h>12</h>
     </coordinates>
-    <panel_attributes>game.controller.gamestates::Menu
+    <panel_attributes>Menu
 --
 --
-+Menu(Controller game): ctor
++Menu(Controller game): &lt;&lt;Constructor&gt;&gt;
 +update(): void
 +keyPressed(KeyEvent e): void
 +keyReleased(KeyEvent e): void
@@ -376,15 +376,15 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4385</x>
-      <y>2400</y>
-      <w>125</w>
-      <h>50</h>
+      <x>1127</x>
+      <y>279</y>
+      <w>25</w>
+      <h>10</h>
     </coordinates>
-    <panel_attributes>game.controller.gamestates::Pause
+    <panel_attributes>Pause
 --
 --
-+Pause(Controller controller): ctor
++Pause(Controller controller): &lt;&lt;Constructor&gt;&gt;
 +update(): void
 +keyPressed(KeyEvent e): void
 +keyReleased(KeyEvent e): void
@@ -394,15 +394,15 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4130</x>
-      <y>2465</y>
-      <w>130</w>
-      <h>55</h>
+      <x>1076</x>
+      <y>292</y>
+      <w>26</w>
+      <h>11</h>
     </coordinates>
-    <panel_attributes>game.controller.gamestates::Playing
+    <panel_attributes>Playing
 --
 --
-+Playing(Controller controller): ctor
++Playing(Controller controller): &lt;&lt;Constructor&gt;&gt;
 +update(): void
 +keyPressed(KeyEvent e): void
 +keyReleased(KeyEvent e): void
@@ -412,29 +412,29 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4420</x>
-      <y>2465</y>
-      <w>125</w>
-      <h>45</h>
+      <x>1134</x>
+      <y>292</y>
+      <w>25</w>
+      <h>9</h>
     </coordinates>
-    <panel_attributes>game.controller.gamestates::State
+    <panel_attributes>State
 --
 #controller: Controller
 --
-+State(Controller controller): ctor
++State(Controller controller): &lt;&lt;Constructor&gt;&gt;
 +getController(): Controller</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4265</x>
-      <y>2465</y>
-      <w>150</w>
-      <h>50</h>
+      <x>1103</x>
+      <y>292</y>
+      <w>30</w>
+      <h>10</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
-game.controller.gamestates::Statemethods
+Statemethods
 --
 -
 +update(): void
@@ -445,16 +445,16 @@ game.controller.gamestates::Statemethods
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4380</x>
-      <y>2225</y>
-      <w>145</w>
-      <h>75</h>
+      <x>1126</x>
+      <y>244</y>
+      <w>29</w>
+      <h>15</h>
     </coordinates>
-    <panel_attributes>game.controller::InputManager
+    <panel_attributes>InputManager
 --
 -controller: Controller
 --
-+InputManager(Controller controller): ctor
++InputManager(Controller controller): &lt;&lt;Constructor&gt;&gt;
 +keyTyped(KeyEvent e): void
 +keyPressed(KeyEvent e): void
 +keyReleased(KeyEvent e): void</panel_attributes>
@@ -463,12 +463,12 @@ game.controller.gamestates::Statemethods
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3885</x>
-      <y>2235</y>
-      <w>115</w>
-      <h>40</h>
+      <x>1027</x>
+      <y>246</y>
+      <w>23</w>
+      <h>8</h>
     </coordinates>
-    <panel_attributes>game.controller::JBubbleBobble
+    <panel_attributes>JBubbleBobble
 --
 
 +main(String[] args): void &lt;&lt;static&gt;&gt;
@@ -479,10 +479,10 @@ game.controller.gamestates::Statemethods
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>3855</x>
-      <y>2200</y>
-      <w>820</w>
-      <h>360</h>
+      <x>1021</x>
+      <y>239</y>
+      <w>164</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>game.controller
 bg=green</panel_attributes>
@@ -491,10 +491,10 @@ bg=green</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>4125</x>
-      <y>2385</y>
-      <w>425</w>
-      <h>145</h>
+      <x>1075</x>
+      <y>276</y>
+      <w>85</w>
+      <h>29</h>
     </coordinates>
     <panel_attributes>game.controller.gamestates
 bg=green</panel_attributes>
@@ -503,10 +503,10 @@ bg=green</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4705</x>
-      <y>2265</y>
-      <w>95</w>
-      <h>20</h>
+      <x>974</x>
+      <y>617</y>
+      <w>19</w>
+      <h>4</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 extend</panel_attributes>
@@ -515,10 +515,10 @@ extend</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4705</x>
-      <y>2285</y>
-      <w>95</w>
-      <h>20</h>
+      <x>974</x>
+      <y>620</y>
+      <w>19</w>
+      <h>4</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
@@ -527,10 +527,10 @@ extend</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5025</x>
-      <y>2820</y>
-      <w>35</w>
-      <h>40</h>
+      <x>504</x>
+      <y>635</y>
+      <w>7</w>
+      <h>8</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
@@ -539,61 +539,61 @@ extend</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4765</x>
-      <y>2820</y>
-      <w>275</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-&lt;&lt;use&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;60.0;530.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>5025</x>
-      <y>2820</y>
-      <w>245</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-&lt;&lt;use&gt;&gt;</panel_attributes>
-    <additional_attributes>470.0;60.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>5015</x>
-      <y>3035</y>
+      <x>453</x>
+      <y>622</y>
       <w>35</w>
-      <h>85</h>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;190.0;330.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5290</x>
-      <y>2995</y>
-      <w>35</w>
-      <h>70</h>
+      <x>524</x>
+      <y>621</y>
+      <w>29</w>
+      <h>22</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+    <additional_attributes>270.0;200.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>502</x>
+      <y>678</y>
+      <w>7</w>
+      <h>8</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>557</x>
+      <y>670</y>
+      <w>7</w>
+      <h>9</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4380</x>
-      <y>2305</y>
-      <w>145</w>
-      <h>75</h>
+      <x>1126</x>
+      <y>260</y>
+      <w>29</w>
+      <h>15</h>
     </coordinates>
     <panel_attributes>&lt;Enumeration&gt;
-game.controller.gamestates::GameState
+GameState
 --
 PLAYING
 MENU
@@ -608,12 +608,12 @@ PAUSE
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2830</x>
-      <y>2290</y>
-      <w>265</w>
-      <h>165</h>
+      <x>1024</x>
+      <y>103</y>
+      <w>53</w>
+      <h>33</h>
     </coordinates>
-    <panel_attributes>game.view::AnimationAndImagesLoader
+    <panel_attributes>AnimationAndImagesLoader
 --
 -playerAnimations = new HashMap(): Map&lt;String, ImageIcon&gt; &lt;&lt;static&gt;&gt;
 -PLAYER_WALK_LEFT = "player/left_walk.gif": String &lt;&lt;static&gt;&gt;
@@ -639,16 +639,16 @@ PAUSE
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2830</x>
-      <y>2540</y>
-      <w>135</w>
-      <h>50</h>
+      <x>1024</x>
+      <y>153</y>
+      <w>27</w>
+      <h>10</h>
     </coordinates>
-    <panel_attributes>game.view::AudioManager
+    <panel_attributes>AudioManager
 --
 -instance: AudioManager &lt;&lt;static&gt;&gt;
 --
--AudioManager(): ctor
+-AudioManager(): &lt;&lt;Constructor&gt;&gt;
 +getInstance(): AudioManager &lt;&lt;static&gt;&gt;
 +play(String filename): void
 </panel_attributes>
@@ -657,43 +657,43 @@ PAUSE
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3595</x>
-      <y>2505</y>
-      <w>200</w>
-      <h>40</h>
+      <x>1177</x>
+      <y>146</y>
+      <w>40</w>
+      <h>8</h>
     </coordinates>
-    <panel_attributes>game.view::CheatButton
+    <panel_attributes>CheatButton
 --
 -serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
 --
-+CheatButton(Image img, ActionListener actionListener): ctor</panel_attributes>
++CheatButton(Image img, ActionListener actionListener): &lt;&lt;Constructor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3595</x>
-      <y>2435</y>
-      <w>155</w>
-      <h>45</h>
+      <x>1177</x>
+      <y>132</y>
+      <w>31</w>
+      <h>9</h>
     </coordinates>
-    <panel_attributes>game.view.frames::CheatFrame
+    <panel_attributes>CheatFrame
 --
 -serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
 --
-+CheatFrame(): ctor
++CheatFrame(): &lt;&lt;Constructor&gt;&gt;
 -addButtons(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3595</x>
-      <y>2300</y>
-      <w>240</w>
-      <h>130</h>
+      <x>1177</x>
+      <y>105</y>
+      <w>48</w>
+      <h>26</h>
     </coordinates>
-    <panel_attributes>game.view.frames::GameFrame
+    <panel_attributes>GameFrame
 --
 -serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
 -layoutPanel: JPanel
@@ -705,7 +705,7 @@ PAUSE
 -scoreLabel: JLabel
 -highScoreLabel: JLabel
 --
-+GameFrame(Controller controller, InputManager playerController): ctor
++GameFrame(Controller controller, InputManager playerController): &lt;&lt;Constructor&gt;&gt;
 +getLevelPanel(): LevelPanel
 +getMenuPanel(): MenuPanel
 +showState(Screen screen): void
@@ -716,12 +716,12 @@ PAUSE
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2830</x>
-      <y>2460</y>
-      <w>155</w>
-      <h>25</h>
+      <x>1024</x>
+      <y>137</y>
+      <w>31</w>
+      <h>5</h>
     </coordinates>
-    <panel_attributes>game.view::ImageLoader
+    <panel_attributes>ImageLoader
 --
 +importImg(String path): BufferedImage &lt;&lt;static&gt;&gt;
 </panel_attributes>
@@ -730,51 +730,51 @@ PAUSE
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3170</x>
-      <y>2750</y>
-      <w>145</w>
-      <h>50</h>
+      <x>1092</x>
+      <y>195</y>
+      <w>29</w>
+      <h>10</h>
     </coordinates>
-    <panel_attributes>game.view.panels::EndPanel
+    <panel_attributes>EndPanel
 --
 -serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
 -img: Image
 --
-+EndPanel(Ending ending): ctor
++EndPanel(Ending ending): &lt;&lt;Constructor&gt;&gt;
 #paintComponent(Graphics g): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3165</x>
-      <y>2700</y>
-      <w>170</w>
-      <h>45</h>
+      <x>1090</x>
+      <y>185</y>
+      <w>34</w>
+      <h>9</h>
     </coordinates>
-    <panel_attributes>game.view.panels::LeaderboardPanel
+    <panel_attributes>LeaderboardPanel
 --
 -serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
 --
-+LeaderboardPanel(): ctor
++LeaderboardPanel(): &lt;&lt;Constructor&gt;&gt;
 #paintComponent(Graphics g): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3125</x>
-      <y>2590</y>
-      <w>210</w>
-      <h>105</h>
+      <x>1083</x>
+      <y>163</y>
+      <w>42</w>
+      <h>21</h>
     </coordinates>
-    <panel_attributes>game.view.panels::LevelPanel
+    <panel_attributes>LevelPanel
 --
 +serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
 +SCALE = 1.5f: float &lt;&lt;static&gt;&gt;
 -tilesImage: BufferedImage
 --
-+LevelPanel(): ctor
++LevelPanel(): &lt;&lt;Constructor&gt;&gt;
 -setPanelSize(): void
 +renderTilesOnce(GameFrame gameFrame): void
 +startLevelTransition(int levelNumber): void
@@ -787,19 +787,19 @@ PAUSE
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2975</x>
-      <y>2590</y>
-      <w>150</w>
-      <h>115</h>
+      <x>1053</x>
+      <y>163</y>
+      <w>30</w>
+      <h>23</h>
     </coordinates>
-    <panel_attributes>game.view.panels::MenuPanel
+    <panel_attributes>MenuPanel
 --
 -serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
 -menuImage: BufferedImage
 -currentUserPanel: UserPanel
 -userSelectionPopUp: JPopupMenu
 --
-+MenuPanel(): ctor
++MenuPanel(): &lt;&lt;Constructor&gt;&gt;
 -loadImage(): void
 -initMenu(): void
 -updateUserSelectionPopUp(): void
@@ -813,18 +813,18 @@ PAUSE
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3335</x>
-      <y>2700</y>
-      <w>250</w>
-      <h>75</h>
+      <x>1125</x>
+      <y>185</y>
+      <w>50</w>
+      <h>15</h>
     </coordinates>
-    <panel_attributes>game.view.panels::PausePanel
+    <panel_attributes>PausePanel
 --
 -serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
 -levelImage: BufferedImage
 -levelPanel: LevelPanel
 --
-+PausePanel(LevelPanel levelPanel, Controller controller): ctor
++PausePanel(LevelPanel levelPanel, Controller controller): &lt;&lt;Constructor&gt;&gt;
 +drawBackground(): void
 -blurImage(): void
 #paintComponent(Graphics g): void
@@ -834,12 +834,12 @@ PAUSE
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3335</x>
-      <y>2590</y>
-      <w>245</w>
-      <h>100</h>
+      <x>1126</x>
+      <y>163</y>
+      <w>49</w>
+      <h>20</h>
     </coordinates>
-    <panel_attributes>game.view.panels::TransitionPanel
+    <panel_attributes>TransitionPanel
 --
 -serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
 -currentLevelImage: Image
@@ -847,26 +847,25 @@ PAUSE
 -progress: float
 -transitionTimer: Timer
 +TRANSITION_DURATION = 2000: int &lt;&lt;static&gt;&gt;
--gameFrame: GameFrame
 --
-+TransitionPanel(GameFrame gameFrame): ctor
++TransitionPanel(): &lt;&lt;Constructor&gt;&gt;
 +startTransition(Image currentImage, Image nextImage): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2995</x>
-      <y>2720</y>
-      <w>145</w>
-      <h>50</h>
+      <x>1057</x>
+      <y>189</y>
+      <w>29</w>
+      <h>10</h>
     </coordinates>
-    <panel_attributes>game.view.panels::UserPanel
+    <panel_attributes>UserPanel
 --
 -serialVersionUID = 1L: long &lt;&lt;static&gt;&gt;
 -userButton: JButton
 --
-+UserPanel(User user): ctor
++UserPanel(User user): &lt;&lt;Constructor&gt;&gt;
 +getUserButton(): JButton
 </panel_attributes>
     <additional_attributes/>
@@ -874,12 +873,12 @@ PAUSE
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3110</x>
-      <y>2295</y>
-      <w>345</w>
-      <h>105</h>
+      <x>1080</x>
+      <y>104</y>
+      <w>69</w>
+      <h>21</h>
     </coordinates>
-    <panel_attributes>game.view::View
+    <panel_attributes>View
 --
 -instance: View &lt;&lt;static&gt;&gt;
 -gameFrame: GameFrame
@@ -888,7 +887,7 @@ PAUSE
 -level: Level
 -transitionPanel: TransitionPanel
 --
--View(GameFrame gameFrame, LevelPanel levelPanel, TransitionPanel transitionPanel): ctor
+-View(GameFrame gameFrame, LevelPanel levelPanel, TransitionPanel transitionPanel): &lt;&lt;Constructor&gt;&gt;
 +getInstance(GameFrame gameFrame): View &lt;&lt;static&gt;&gt;
 +getInstance(): View &lt;&lt;static&gt;&gt;
 +getGameFrame(): GameFrame
@@ -906,10 +905,10 @@ PAUSE
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>2820</x>
-      <y>2270</y>
-      <w>1030</w>
-      <h>550</h>
+      <x>1022</x>
+      <y>99</y>
+      <w>206</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>game.view
 bg=yellow</panel_attributes>
@@ -918,10 +917,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>3585</x>
-      <y>2285</y>
-      <w>255</w>
-      <h>285</h>
+      <x>1175</x>
+      <y>102</y>
+      <w>51</w>
+      <h>57</h>
     </coordinates>
     <panel_attributes>game.view.frames
 bg=yellow</panel_attributes>
@@ -930,10 +929,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>2970</x>
-      <y>2575</y>
-      <w>630</w>
-      <h>230</h>
+      <x>1052</x>
+      <y>160</y>
+      <w>126</w>
+      <h>46</h>
     </coordinates>
     <panel_attributes>game.view.panels
 bg=yellow</panel_attributes>
@@ -942,10 +941,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3660</x>
-      <y>2475</y>
-      <w>35</w>
-      <h>40</h>
+      <x>1190</x>
+      <y>140</y>
+      <w>7</w>
+      <h>8</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
@@ -954,17 +953,17 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2860</x>
-      <y>1440</y>
-      <w>260</w>
-      <h>110</h>
+      <x>932</x>
+      <y>392</y>
+      <w>52</w>
+      <h>22</h>
     </coordinates>
-    <panel_attributes>/game.model.bubbles::Bubble/
+    <panel_attributes>/Bubble/
 --
 #lifeSpan: float
 --
-+Bubble(float x, float y, float width, float height, char code): ctor
-+Bubble(float x, float y, float width, float height, float lifeSpan, char code): ctor
++Bubble(float x, float y, float width, float height, char code): &lt;&lt;Constructor&gt;&gt;
++Bubble(float x, float y, float width, float height, float lifeSpan, char code): &lt;&lt;Constructor&gt;&gt;
 +getLifeSpan(): float
 +setLifeSpan(float lifeSpan): void
 #decreaseLifeSpan(float k): void
@@ -978,16 +977,16 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2850</x>
-      <y>1285</y>
-      <w>220</w>
-      <h>85</h>
+      <x>930</x>
+      <y>361</y>
+      <w>44</w>
+      <h>17</h>
     </coordinates>
-    <panel_attributes>game.model.bubbles::BubbleFactory
+    <panel_attributes>BubbleFactory
 --
 -bubblesSpawnPoints: List&lt;Float&gt;
 --
-+BubbleFactory(List&lt;Float&gt; bubbleSpawnPoints): ctor
++BubbleFactory(List&lt;Float&gt; bubbleSpawnPoints): &lt;&lt;Constructor&gt;&gt;
 +createPlayerBubble(float x, float y, float xSpeed): PlayerBubble
 +createSpecialBubble(): Bubble
 +createSpecialBubble(Bubble bubble): Bubble
@@ -999,12 +998,12 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2550</x>
-      <y>1290</y>
-      <w>195</w>
-      <h>260</h>
+      <x>870</x>
+      <y>362</y>
+      <w>39</w>
+      <h>52</h>
     </coordinates>
-    <panel_attributes>game.model.bubbles::BubbleManager
+    <panel_attributes>BubbleManager
 --
 -bubbleFactory: BubbleFactory
 -specialBubbles: List&lt;Bubble&gt;
@@ -1015,7 +1014,7 @@ bg=yellow</panel_attributes>
 -spawnSpecialBubbleTimer: Timer
 -waterUpdateTimer: Timer
 --
-+BubbleManager(List&lt;Float&gt; bubbleSpawnPoints): ctor
++BubbleManager(List&lt;Float&gt; bubbleSpawnPoints): &lt;&lt;Constructor&gt;&gt;
 +createPlayerBubble(float x, float y, float xSpeed): void
 +createSpecialBubble(): void
 +createSpecialBubble(Bubble specialBubble): void
@@ -1041,17 +1040,17 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3045</x>
-      <y>1615</y>
-      <w>135</w>
-      <h>70</h>
+      <x>970</x>
+      <y>427</y>
+      <w>27</w>
+      <h>12</h>
     </coordinates>
-    <panel_attributes>game.model.bubbles::ExtendBubble
+    <panel_attributes>ExtendBubble
 --
 +CODES = { '(', ')', '[', ']', '{', '}' }: char[] &lt;&lt;static&gt;&gt;
 -codesIndex: int &lt;&lt;static&gt;&gt;
 --
-+ExtendBubble(): ctor
++ExtendBubble(): &lt;&lt;Constructor&gt;&gt;
 +incrementCodesIndex(): void &lt;&lt;static&gt;&gt;
 +pop(): void
 </panel_attributes>
@@ -1060,16 +1059,16 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2635</x>
-      <y>1615</y>
-      <w>125</w>
-      <h>55</h>
+      <x>887</x>
+      <y>427</y>
+      <w>25</w>
+      <h>11</h>
     </coordinates>
-    <panel_attributes>game.model.bubbles::FireBubble
+    <panel_attributes>FireBubble
 --
 +CODE = '-': char &lt;&lt;static&gt;&gt;
 --
-+FireBubble(): ctor
++FireBubble(): &lt;&lt;Constructor&gt;&gt;
 +pop(): void
 </panel_attributes>
     <additional_attributes/>
@@ -1077,12 +1076,12 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2200</x>
-      <y>1615</y>
-      <w>290</w>
-      <h>250</h>
+      <x>800</x>
+      <y>427</y>
+      <w>58</w>
+      <h>50</h>
     </coordinates>
-    <panel_attributes>game.model.bubbles::PlayerBubble
+    <panel_attributes>PlayerBubble
 --
 -lastKillTime: long &lt;&lt;static&gt;&gt;
 +CODE = '°': char &lt;&lt;static&gt;&gt;
@@ -1094,7 +1093,7 @@ bg=yellow</panel_attributes>
 -timeHorizontalMoving: float
 -isPopped: boolean
 --
-+PlayerBubble(float x, float y, float width, float height, float xSpeed, float airSpeed): ctor
++PlayerBubble(float x, float y, float width, float height, float xSpeed, float airSpeed): &lt;&lt;Constructor&gt;&gt;
 +getExtraTravelTime(): float &lt;&lt;static&gt;&gt;
 +setExtraTravelTime(float extraTravelTime): void &lt;&lt;static&gt;&gt;
 +getExtraXSpeed(): float &lt;&lt;static&gt;&gt;
@@ -1119,16 +1118,16 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2495</x>
-      <y>1615</y>
-      <w>135</w>
-      <h>60</h>
+      <x>859</x>
+      <y>427</y>
+      <w>27</w>
+      <h>12</h>
     </coordinates>
-    <panel_attributes>game.model.bubbles::SpecialBubble
+    <panel_attributes>SpecialBubble
 --
 +CODE = '%': char &lt;&lt;static&gt;&gt;
 --
-+SpecialBubble(): ctor
++SpecialBubble(): &lt;&lt;Constructor&gt;&gt;
 +pop(): void
 +updateEntity(): void
 </panel_attributes>
@@ -1137,17 +1136,17 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2280</x>
-      <y>1515</y>
-      <w>150</w>
-      <h>80</h>
+      <x>816</x>
+      <y>407</y>
+      <w>30</w>
+      <h>16</h>
     </coordinates>
-    <panel_attributes>game.model.bubbles.special_effects::Bolt
+    <panel_attributes>Bolt
 --
 +BOLT_SPEED = 2: float &lt;&lt;static&gt;&gt;
 +CODE = '?': char &lt;&lt;static&gt;&gt;
 --
-+Bolt(float x, float y): ctor
++Bolt(float x, float y): &lt;&lt;Constructor&gt;&gt;
 -setBoltXSpeed(): void
 +updateXPos(): void
 +updateEntity(): void
@@ -1157,18 +1156,18 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2275</x>
-      <y>1285</y>
-      <w>160</w>
-      <h>110</h>
+      <x>815</x>
+      <y>361</y>
+      <w>32</w>
+      <h>22</h>
     </coordinates>
-    <panel_attributes>game.model.bubbles.special_effects::FireBall
+    <panel_attributes>FireBall
 --
 +CODE = '#': char &lt;&lt;static&gt;&gt;
 +fireState: FireState
 --
-+FireBall(float x, float y, FireState fireState): ctor
-+FireBall(float x, float y): ctor
++FireBall(float x, float y, FireState fireState): &lt;&lt;Constructor&gt;&gt;
++FireBall(float x, float y): &lt;&lt;Constructor&gt;&gt;
 +getFireState(): FireState
 #updateYPos(): void
 -spawnFireBalls(): void
@@ -1181,19 +1180,19 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2245</x>
-      <y>1400</y>
-      <w>190</w>
-      <h>110</h>
+      <x>809</x>
+      <y>384</y>
+      <w>38</w>
+      <h>22</h>
     </coordinates>
-    <panel_attributes>game.model.bubbles.special_effects::Water
+    <panel_attributes>Water
 --
 +CODE = '_': char &lt;&lt;static&gt;&gt;
 -capturedEntity: MovingEntity
 -watersToSpawn: int
 -lifeSpan: int
 --
-+Water(float x, float y, int watersToSpawn): ctor
++Water(float x, float y, int watersToSpawn): &lt;&lt;Constructor&gt;&gt;
 +getCapturedEntity(): MovingEntity
 +setCapturedEntity(MovingEntity capturedEntity): void
 -delete(): void
@@ -1205,16 +1204,16 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2900</x>
-      <y>1615</y>
-      <w>140</w>
-      <h>60</h>
+      <x>940</x>
+      <y>427</y>
+      <w>28</w>
+      <h>11</h>
     </coordinates>
-    <panel_attributes>game.model.bubbles::ThunderBubble
+    <panel_attributes>ThunderBubble
 --
 +CODE = '+': char &lt;&lt;static&gt;&gt;
 --
-+ThunderBubble(): ctor
++ThunderBubble(): &lt;&lt;Constructor&gt;&gt;
 +pop(): void
 +updateEntity(): void
 </panel_attributes>
@@ -1223,16 +1222,16 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2765</x>
-      <y>1615</y>
-      <w>130</w>
-      <h>55</h>
+      <x>913</x>
+      <y>427</y>
+      <w>26</w>
+      <h>11</h>
     </coordinates>
-    <panel_attributes>game.model.bubbles::WaterBubble
+    <panel_attributes>WaterBubble
 --
 +CODE = '/': char &lt;&lt;static&gt;&gt;
 --
-+WaterBubble(): ctor
++WaterBubble(): &lt;&lt;Constructor&gt;&gt;
 +pop(): void
 </panel_attributes>
     <additional_attributes/>
@@ -1240,17 +1239,17 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1460</x>
-      <y>1625</y>
-      <w>190</w>
-      <h>85</h>
+      <x>631</x>
+      <y>435</y>
+      <w>38</w>
+      <h>17</h>
     </coordinates>
-    <panel_attributes>game.model.enemies::Banebou
+    <panel_attributes>Banebou
 --
 +CODE = 'N': char &lt;&lt;static&gt;&gt;
 --
-+Banebou(float x, float y): ctor
-+Banebou(float x, float y, float width, float height): ctor
++Banebou(float x, float y): &lt;&lt;Constructor&gt;&gt;
++Banebou(float x, float y, float width, float height): &lt;&lt;Constructor&gt;&gt;
 +changeDirection(): void
 +jump(): void
 +gravity(): void
@@ -1261,19 +1260,19 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1975</x>
-      <y>1440</y>
-      <w>185</w>
-      <h>155</h>
+      <x>744</x>
+      <y>394</y>
+      <w>37</w>
+      <h>31</h>
     </coordinates>
-    <panel_attributes>game.model.enemies::Boss
+    <panel_attributes>Boss
 --
 +CODE = 'B': char &lt;&lt;static&gt;&gt;
 -lives: int
 -invulnerabilityTimer: Timer
 -isInvulnerable: boolean
 --
-+Boss(float x, float y): ctor
++Boss(float x, float y): &lt;&lt;Constructor&gt;&gt;
 +getInvulnerabilityTimer(): Timer
 +getLives(): int
 +setInvulnerabilityTimer(Timer invincibilityTimer): void
@@ -1289,12 +1288,12 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1685</x>
-      <y>1480</y>
-      <w>215</w>
-      <h>180</h>
+      <x>681</x>
+      <y>371</y>
+      <w>43</w>
+      <h>36</h>
     </coordinates>
-    <panel_attributes>/game.model.enemies::Enemy/
+    <panel_attributes>/Enemy/
 --
 +RED_TIME = 15000: int &lt;&lt;static&gt;&gt;
 -colorState: ColorState
@@ -1303,8 +1302,8 @@ bg=yellow</panel_attributes>
 -dead: boolean
 #isStopped: boolean
 --
-+Enemy(float x, float y, char code): ctor
-+Enemy(float x, float y, float width, float height, char code): ctor
++Enemy(float x, float y, char code): &lt;&lt;Constructor&gt;&gt;
++Enemy(float x, float y, float width, float height, char code): &lt;&lt;Constructor&gt;&gt;
 +getMovementSpeed(): float
 +isDead(): boolean
 +isStopped(): boolean
@@ -1321,19 +1320,19 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1720</x>
-      <y>1260</y>
-      <w>140</w>
-      <h>155</h>
+      <x>639</x>
+      <y>355</y>
+      <w>28</w>
+      <h>31</h>
     </coordinates>
-    <panel_attributes>game.model.enemies::EnemyManager
+    <panel_attributes>EnemyManager
 --
 -enemies: List&lt;Enemy&gt;
 -lasers: List&lt;Laser&gt;
 -shootLaserTimer: Timer
 -changeColorTimer: Timer
 --
-+EnemyManager(): ctor
++EnemyManager(): &lt;&lt;Constructor&gt;&gt;
 +addEnemy(Enemy enemy): void
 +addLaser(Laser laser): void
 +removeEnemy(Enemy enemy): void
@@ -1349,19 +1348,19 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1685</x>
-      <y>1725</y>
-      <w>185</w>
-      <h>110</h>
+      <x>682</x>
+      <y>456</y>
+      <w>37</w>
+      <h>22</h>
     </coordinates>
-    <panel_attributes>game.model.enemies::Invader
+    <panel_attributes>Invader
 --
 +CODE = 'I': char &lt;&lt;static&gt;&gt;
 +ATTACK_INTERVAL = 1000: long &lt;&lt;static&gt;&gt;
 -landed: boolean
 --
-+Invader(float x, float y, float width, float height): ctor
-+Invader(float x, float y): ctor
++Invader(float x, float y, float width, float height): &lt;&lt;Constructor&gt;&gt;
++Invader(float x, float y): &lt;&lt;Constructor&gt;&gt;
 +changeDirection(): void
 -randomizeDirection(): void
 +gravity(): void
@@ -1372,16 +1371,16 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1935</x>
-      <y>1305</y>
-      <w>175</w>
-      <h>60</h>
+      <x>632</x>
+      <y>388</y>
+      <w>35</w>
+      <h>12</h>
     </coordinates>
-    <panel_attributes>game.model.enemies::Laser
+    <panel_attributes>Laser
 --
 +CODE = '"': char &lt;&lt;static&gt;&gt;
 --
-+Laser(float x, float y, float width, float height): ctor
++Laser(float x, float y, float width, float height): &lt;&lt;Constructor&gt;&gt;
 #updateYPos(): void
 +updateEntity(): void
 </panel_attributes>
@@ -1390,18 +1389,18 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1905</x>
-      <y>1715</y>
-      <w>185</w>
-      <h>85</h>
+      <x>720</x>
+      <y>461</y>
+      <w>37</w>
+      <h>17</h>
     </coordinates>
-    <panel_attributes>game.model.enemies::Monsta
+    <panel_attributes>Monsta
 --
 +CODE = 'M': char &lt;&lt;static&gt;&gt;
 +FLIGHT_SPEED = 0.3f: float &lt;&lt;static&gt;&gt;
 --
-+Monsta(float x, float y): ctor
-+Monsta(float x, float y, float width, float height): ctor
++Monsta(float x, float y): &lt;&lt;Constructor&gt;&gt;
++Monsta(float x, float y, float width, float height): &lt;&lt;Constructor&gt;&gt;
 -initializeMonsta(): void
 +changeDirection(): void
 +updateEntity(): void
@@ -1411,17 +1410,17 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1470</x>
-      <y>1745</y>
-      <w>180</w>
-      <h>105</h>
+      <x>644</x>
+      <y>456</y>
+      <w>36</w>
+      <h>21</h>
     </coordinates>
-    <panel_attributes>game.model.enemies::Pulpul
+    <panel_attributes>Pulpul
 --
 +CODE = 'U': char &lt;&lt;static&gt;&gt;
 --
-+Pulpul(float x, float y): ctor
-+Pulpul(float x, float y, float width, float height): ctor
++Pulpul(float x, float y): &lt;&lt;Constructor&gt;&gt;
++Pulpul(float x, float y, float width, float height): &lt;&lt;Constructor&gt;&gt;
 -initializePulpul(): void
 +changeDirection(): void
 -randomizeDirection(): void
@@ -1434,19 +1433,19 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1440</x>
-      <y>1480</y>
-      <w>195</w>
-      <h>130</h>
+      <x>626</x>
+      <y>406</y>
+      <w>39</w>
+      <h>26</h>
     </coordinates>
-    <panel_attributes>game.model.enemies::SkelMonsta
+    <panel_attributes>SkelMonsta
 --
 +CODE = 'S': char &lt;&lt;static&gt;&gt;
 +FLIGHT_SPEED = 0.4f: float &lt;&lt;static&gt;&gt;
 -isMoving: boolean
 --
-+SkelMonsta(float x, float y): ctor
-+SkelMonsta(float x, float y, float width, float height): ctor
++SkelMonsta(float x, float y): &lt;&lt;Constructor&gt;&gt;
++SkelMonsta(float x, float y, float width, float height): &lt;&lt;Constructor&gt;&gt;
 +isMoving(): boolean
 +setMoving(boolean isMoving): void
 -trackPlayer(): void
@@ -1460,16 +1459,16 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1990</x>
-      <y>1615</y>
-      <w>120</w>
-      <h>80</h>
+      <x>742</x>
+      <y>434</y>
+      <w>24</w>
+      <h>16</h>
     </coordinates>
-    <panel_attributes>game.model.enemies::ZenChan
+    <panel_attributes>ZenChan
 --
 +CODE = 'Z': char &lt;&lt;static&gt;&gt;
 --
-+ZenChan(float x, float y): ctor
++ZenChan(float x, float y): &lt;&lt;Constructor&gt;&gt;
 +changeDirection(): void
 +gravity(): void
 +updateEntity(): void
@@ -1480,19 +1479,19 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1495</x>
-      <y>540</y>
-      <w>230</w>
-      <h>245</h>
+      <x>661</x>
+      <y>209</y>
+      <w>46</w>
+      <h>49</h>
     </coordinates>
-    <panel_attributes>/game.model.entities::Entity/
+    <panel_attributes>/Entity/
 --
 #x, y: float
 #width, height: float
 -code: char
 --
-+Entity(float x, float y, float width, float height, char code): ctor
-+Entity(float x, float y, char code): ctor
++Entity(float x, float y, float width, float height, char code): &lt;&lt;Constructor&gt;&gt;
++Entity(float x, float y, char code): &lt;&lt;Constructor&gt;&gt;
 +checkCollision(T entity, U otherEntity): Optional&lt;U&gt; &lt;&lt;static&gt;&gt;
 +checkCollision(T entity, List&lt;U&gt; list): Optional&lt;U&gt; &lt;&lt;static&gt;&gt;
 +checkBottomCollision(T entity, List&lt;U&gt; list): Optional&lt;U&gt; &lt;&lt;static&gt;&gt;
@@ -1519,12 +1518,12 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1490</x>
-      <y>820</y>
-      <w>235</w>
-      <h>210</h>
+      <x>660</x>
+      <y>265</y>
+      <w>47</w>
+      <h>42</h>
     </coordinates>
-    <panel_attributes>/game.model.entities::MovingEntity/
+    <panel_attributes>/MovingEntity/
 --
 +GRAVITY = 0.02f: float &lt;&lt;static&gt;&gt;
 +MAX_FALLING_SPEED = 1.6f: float &lt;&lt;static&gt;&gt;
@@ -1535,8 +1534,8 @@ bg=yellow</panel_attributes>
 #fallSpeedAfterCollision: float
 #inAir: boolean
 --
-+MovingEntity(float x, float y, char code): ctor
-+MovingEntity(float x, float y, float width, float height, char code): ctor
++MovingEntity(float x, float y, char code): &lt;&lt;Constructor&gt;&gt;
++MovingEntity(float x, float y, float width, float height, char code): &lt;&lt;Constructor&gt;&gt;
 +getxSpeed(): float
 +getAirSpeed(): float
 +getDirection(): Direction
@@ -1556,12 +1555,12 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1805</x>
-      <y>545</y>
-      <w>205</w>
-      <h>485</h>
+      <x>723</x>
+      <y>210</y>
+      <w>41</w>
+      <h>97</h>
     </coordinates>
-    <panel_attributes>game.model.entities::Player
+    <panel_attributes>Player
 --
 +CODE = 'P': char &lt;&lt;static&gt;&gt;
 +NUMBER_OF_LIVES = 3: int &lt;&lt;static&gt;&gt;
@@ -1584,7 +1583,7 @@ bg=yellow</panel_attributes>
 -amethystRingActive: boolean
 -rubyRingActive: boolean
 --
--Player(float x, float y, float width, float height): ctor
+-Player(float x, float y, float width, float height): &lt;&lt;Constructor&gt;&gt;
 +getInstance(): Player
 +getInstance(float x, float y, float width, float height): Player
 +getLives(): int
@@ -1628,16 +1627,16 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>830</x>
-      <y>510</y>
-      <w>165</w>
-      <h>50</h>
+      <x>528</x>
+      <y>225</y>
+      <w>33</w>
+      <h>10</h>
     </coordinates>
-    <panel_attributes>game.model::Fruit
+    <panel_attributes>Fruit
 --
 -points: int
 --
-+Fruit(float x, float y, FruitType fruitType): ctor
++Fruit(float x, float y, FruitType fruitType): &lt;&lt;Constructor&gt;&gt;
 +randomFruitType(): FruitType &lt;&lt;static&gt;&gt;
 +getPoints(): int
 </panel_attributes>
@@ -1646,16 +1645,16 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>860</x>
-      <y>385</y>
-      <w>105</w>
-      <h>60</h>
+      <x>534</x>
+      <y>200</y>
+      <w>21</w>
+      <h>12</h>
     </coordinates>
-    <panel_attributes>game.model::FruitManager
+    <panel_attributes>FruitManager
 --
 -fruits: List&lt;Fruit&gt;
 --
-+FruitManager(): ctor
++FruitManager(): &lt;&lt;Constructor&gt;&gt;
 +getFruits(): List&lt;Fruit&gt;
 +addFruit(Fruit fruit): void
 +removeFruit(Fruit fruit): void
@@ -1665,12 +1664,12 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>720</x>
-      <y>595</y>
-      <w>240</w>
-      <h>75</h>
+      <x>509</x>
+      <y>105</y>
+      <w>48</w>
+      <h>15</h>
     </coordinates>
-    <panel_attributes>game.model::HelpMethods
+    <panel_attributes>HelpMethods
 --
 +canMoveHere(float x, float y, float width, float height): boolean &lt;&lt;static&gt;&gt;
 -isSolid(float x, float y): boolean &lt;&lt;static&gt;&gt;
@@ -1684,13 +1683,13 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3030</x>
-      <y>1055</y>
-      <w>150</w>
-      <h>45</h>
+      <x>710</x>
+      <y>508</y>
+      <w>18</w>
+      <h>9</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
-game.model.interfaces::ChangeDirection
+ChangeDirection
 --
 --
 ~changeDirection(): void
@@ -1701,13 +1700,13 @@ game.model.interfaces::ChangeDirection
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3185</x>
-      <y>1055</y>
-      <w>120</w>
-      <h>45</h>
+      <x>659</x>
+      <y>508</y>
+      <w>13</w>
+      <h>9</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
-game.model.interfaces::Gravity
+Gravity
 --
 --
 ~gravity(): void
@@ -1718,13 +1717,13 @@ game.model.interfaces::Gravity
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3030</x>
-      <y>1105</y>
-      <w>120</w>
-      <h>45</h>
+      <x>675</x>
+      <y>508</y>
+      <w>14</w>
+      <h>9</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
-game.model.interfaces::Jumping
+Jumping
 --
 --
 ~jump(): void
@@ -1735,13 +1734,13 @@ game.model.interfaces::Jumping
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3155</x>
-      <y>1105</y>
-      <w>125</w>
-      <h>45</h>
+      <x>692</x>
+      <y>508</y>
+      <w>15</w>
+      <h>9</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
-game.model.interfaces::Shooting
+Shooting
 --
 --
 ~shoot(): void
@@ -1752,13 +1751,13 @@ game.model.interfaces::Shooting
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3030</x>
-      <y>1155</y>
-      <w>130</w>
-      <h>45</h>
+      <x>731</x>
+      <y>508</y>
+      <w>15</w>
+      <h>9</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
-game.model.interfaces::Vulnerable
+Vulnerable
 --
 --
 ~looseLife(): void
@@ -1769,12 +1768,12 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1270</x>
-      <y>35</y>
-      <w>245</w>
-      <h>410</h>
+      <x>613</x>
+      <y>108</y>
+      <w>49</w>
+      <h>82</h>
     </coordinates>
-    <panel_attributes>game.model.level::Level
+    <panel_attributes>Level
 --
 +NUM_HORIZONTAL_TILES = 30: int &lt;&lt;static&gt;&gt;
 +NUM_VERTICAL_TILES = 24: int &lt;&lt;static&gt;&gt;
@@ -1792,7 +1791,7 @@ game.model.interfaces::Vulnerable
 -bubblesSpawnPoints: List&lt;Float&gt;
 -levelNumber: int
 --
-+Level(int levelNumber): ctor
++Level(int levelNumber): &lt;&lt;Constructor&gt;&gt;
 +getLevelNumber(): int
 +setLevelNumber(int levelNumber): void
 +getLvlData(): char[][]
@@ -1832,12 +1831,12 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1035</x>
-      <y>165</y>
-      <w>170</w>
-      <h>110</h>
+      <x>569</x>
+      <y>134</y>
+      <w>34</w>
+      <h>22</h>
     </coordinates>
-    <panel_attributes>game.model.level::LevelLoader
+    <panel_attributes>LevelLoader
 --
 -PLAYER = 'P': char &lt;&lt;static&gt;&gt;
 -ZEN_CHAN = 'Z': char &lt;&lt;static&gt;&gt;
@@ -1856,12 +1855,12 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1600</x>
-      <y>45</y>
-      <w>210</w>
-      <h>280</h>
+      <x>684</x>
+      <y>110</y>
+      <w>42</w>
+      <h>56</h>
     </coordinates>
-    <panel_attributes>game.model::Model
+    <panel_attributes>Model
 --
 -instance: Model &lt;&lt;static&gt;&gt;
 -nextLevelTimer: Timer
@@ -1873,7 +1872,7 @@ game.model.interfaces::Vulnerable
 -toUpdate = true: boolean
 -modelState: ModelState
 --
--Model(): ctor
+-Model(): &lt;&lt;Constructor&gt;&gt;
 +getInstance(): Model
 +resetModel(): void
 +getCurrentLevel(): Level
@@ -1902,12 +1901,12 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2830</x>
-      <y>2490</y>
-      <w>190</w>
-      <h>45</h>
+      <x>1024</x>
+      <y>143</y>
+      <w>38</w>
+      <h>9</h>
     </coordinates>
-    <panel_attributes>game.model::Paths
+    <panel_attributes>Paths
 --
 -pathsMap = new HashMap(): Map&lt;Character, String&gt;
 --
@@ -1919,19 +1918,19 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1000</x>
-      <y>1730</y>
-      <w>140</w>
-      <h>85</h>
+      <x>528</x>
+      <y>449</y>
+      <w>28</w>
+      <h>17</h>
     </coordinates>
-    <panel_attributes>game.model.powerups::AmethystRing
+    <panel_attributes>AmethystRing
 --
 +CODE = '=': char &lt;&lt;static&gt;&gt;
 +SPAWN_CONDITION = 2: int &lt;&lt;static&gt;&gt;
 +POINTS = 1000: int &lt;&lt;static&gt;&gt;
 +DURATION = 8000: long &lt;&lt;static&gt;&gt;
 --
-+AmethystRing(): ctor
++AmethystRing(): &lt;&lt;Constructor&gt;&gt;
 +effect(): void
 +resetToNormal(): void
 </panel_attributes>
@@ -1940,12 +1939,12 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1030</x>
-      <y>1265</y>
-      <w>165</w>
-      <h>95</h>
+      <x>534</x>
+      <y>356</y>
+      <w>33</w>
+      <h>19</h>
     </coordinates>
-    <panel_attributes>game.model.powerups::BlueCandy
+    <panel_attributes>BlueCandy
 --
 +CODE = '£': char &lt;&lt;static&gt;&gt;
 +SPAWN_CONDITION = 15: int
@@ -1953,7 +1952,7 @@ game.model.interfaces::Vulnerable
 +DURATION = 10000: long
 +INCREASED_X_SPEED_AMOUNT = 2: float
 --
-+BlueCandy(): ctor
++BlueCandy(): &lt;&lt;Constructor&gt;&gt;
 +effect(): void
 +resetToNormal(): void
 </panel_attributes>
@@ -1962,19 +1961,19 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>720</x>
-      <y>1730</y>
-      <w>115</w>
-      <h>85</h>
+      <x>472</x>
+      <y>449</y>
+      <w>23</w>
+      <h>17</h>
     </coordinates>
-    <panel_attributes>game.model.powerups::Clock
+    <panel_attributes>Clock
 --
 +CODE = '*': char &lt;&lt;static&gt;&gt;
 +SPAWN_CONDITION = 1: int &lt;&lt;static&gt;&gt;
 +POINTS = 200: int &lt;&lt;static&gt;&gt;
 +DURATION = 6000: long &lt;&lt;static&gt;&gt;
 --
-+Clock(): ctor
++Clock(): &lt;&lt;Constructor&gt;&gt;
 +effect(): void
 +resetToNormal(): void
 </panel_attributes>
@@ -1983,19 +1982,19 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1060</x>
-      <y>1555</y>
-      <w>130</w>
-      <h>75</h>
+      <x>540</x>
+      <y>414</y>
+      <w>26</w>
+      <h>15</h>
     </coordinates>
-    <panel_attributes>game.model.powerups::CrystalRing
+    <panel_attributes>CrystalRing
 --
 +CODE = '&amp;': char &lt;&lt;static&gt;&gt;
 +SPAWN_CONDITION = 2: int &lt;&lt;static&gt;&gt;
 +POINTS = 1000: int &lt;&lt;static&gt;&gt;
 +DURATION = 3000: long &lt;&lt;static&gt;&gt;
 --
-+CrystalRing(): ctor
++CrystalRing(): &lt;&lt;Constructor&gt;&gt;
 +effect(): void
 +resetToNormal(): void
 </panel_attributes>
@@ -2004,19 +2003,19 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>855</x>
-      <y>1730</y>
-      <w>125</w>
-      <h>65</h>
+      <x>499</x>
+      <y>449</y>
+      <w>25</w>
+      <h>13</h>
     </coordinates>
-    <panel_attributes>game.model.powerups::Dynamite
+    <panel_attributes>Dynamite
 --
 +CODE = '^': char &lt;&lt;static&gt;&gt;
 +SPAWN_CONDITION = 1: int &lt;&lt;static&gt;&gt;
 +POINTS = 200: int &lt;&lt;static&gt;&gt;
 +DURATION = 1: long &lt;&lt;static&gt;&gt;
 --
-+Dynamite(): ctor
++Dynamite(): &lt;&lt;Constructor&gt;&gt;
 +effect(): void
 </panel_attributes>
     <additional_attributes/>
@@ -2024,35 +2023,35 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1265</x>
-      <y>1530</y>
-      <w>145</w>
-      <h>35</h>
+      <x>581</x>
+      <y>409</y>
+      <w>29</w>
+      <h>7</h>
     </coordinates>
-    <panel_attributes>game.model.powerups::OrangeParasol
+    <panel_attributes>OrangeParasol
 --
 +SPAWN_CONDITION = 2: int &lt;&lt;static&gt;&gt;
 --
-+OrangeParasol(): ctor
++OrangeParasol(): &lt;&lt;Constructor&gt;&gt;
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1055</x>
-      <y>1470</y>
-      <w>165</w>
-      <h>70</h>
+      <x>539</x>
+      <y>397</y>
+      <w>33</w>
+      <h>14</h>
     </coordinates>
-    <panel_attributes>/game.model.powerups::Parasol/
+    <panel_attributes>/Parasol/
 --
 +CODE = '@': char &lt;&lt;static&gt;&gt;
 -POINTS = 5000: int &lt;&lt;static&gt;&gt;
 -DURATION = 0: long &lt;&lt;static&gt;&gt;
 -levelsToSkip: int &lt;&lt;static&gt;&gt;
 --
-+Parasol(float x, float y, int levelsToSkip): ctor
++Parasol(float x, float y, int levelsToSkip): &lt;&lt;Constructor&gt;&gt;
 +effect(): void
 </panel_attributes>
     <additional_attributes/>
@@ -2060,12 +2059,12 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>835</x>
-      <y>1265</y>
-      <w>180</w>
-      <h>95</h>
+      <x>495</x>
+      <y>356</y>
+      <w>36</w>
+      <h>19</h>
     </coordinates>
-    <panel_attributes>game.model.powerups::PinkCandy
+    <panel_attributes>PinkCandy
 --
 +CODE = '!': char &lt;&lt;static&gt;&gt;
 +SPAWN_CONDITION = 30: int &lt;&lt;static&gt;&gt;
@@ -2073,7 +2072,7 @@ game.model.interfaces::Vulnerable
 +DURATION = 10000: long &lt;&lt;static&gt;&gt;
 +INCREASED_TRAVEL_TIME_AMOUNT = 2: float &lt;&lt;static&gt;&gt;
 --
-+PinkCandy(): ctor
++PinkCandy(): &lt;&lt;Constructor&gt;&gt;
 +effect(): void
 +resetToNormal(): void</panel_attributes>
     <additional_attributes/>
@@ -2081,18 +2080,18 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>535</x>
-      <y>1530</y>
-      <w>225</w>
-      <h>90</h>
+      <x>435</x>
+      <y>409</y>
+      <w>45</w>
+      <h>18</h>
     </coordinates>
-    <panel_attributes>/game.model.powerups::Powerup/
+    <panel_attributes>/Powerup/
 --
 #points: int
 #duration: long
 #toRemove: boolean
 --
-+Powerup(float x, float y, char code, int points, long duration): ctor
++Powerup(float x, float y, char code, int points, long duration): &lt;&lt;Constructor&gt;&gt;
 +getPoints(): long
 +getDuration(): long
 +isToRemove(): boolean
@@ -2104,12 +2103,12 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>25</x>
-      <y>1350</y>
-      <w>440</w>
-      <h>470</h>
+      <x>334</x>
+      <y>373</y>
+      <w>88</w>
+      <h>94</h>
     </coordinates>
-    <panel_attributes>game.model.powerups::PowerupFactory
+    <panel_attributes>PowerupFactory
 --
 -distanceTravelled: float
 -numberOfJumpsOnBubbles: int
@@ -2125,7 +2124,7 @@ game.model.interfaces::Vulnerable
 -numberOfPinkCandies: int
 -lvlData: char[][]
 --
-+PowerupFactory(char[][] lvlData): ctor
++PowerupFactory(char[][] lvlData): &lt;&lt;Constructor&gt;&gt;
 +getDistanceTravelled(): float
 +getNumberOfJumpsOnBubbles(): int
 +getNumberOfBubbles(): int
@@ -2174,18 +2173,18 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>555</x>
-      <y>1375</y>
-      <w>150</w>
-      <h>110</h>
+      <x>439</x>
+      <y>378</y>
+      <w>30</w>
+      <h>22</h>
     </coordinates>
-    <panel_attributes>game.model.powerups::PowerupManager
+    <panel_attributes>PowerupManager
 --
 -powerups: List&lt;Powerup&gt;
 -powerupFactory: PowerupFactory
 -spawnTimer: Timer
 --
-+PowerupManager(char[][] lvlData): ctor
++PowerupManager(char[][] lvlData): &lt;&lt;Constructor&gt;&gt;
 +getPowerups(): List&lt;Powerup&gt;
 +getPowerupFactory(): PowerupFactory
 +createPowerup(): void
@@ -2199,50 +2198,50 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1265</x>
-      <y>1440</y>
-      <w>140</w>
-      <h>35</h>
+      <x>581</x>
+      <y>391</y>
+      <w>28</w>
+      <h>7</h>
     </coordinates>
-    <panel_attributes>game.model.powerups::PurpleParasol
+    <panel_attributes>PurpleParasol
 --
 +SPAWN_CONDITION = 4: int &lt;&lt;static&gt;&gt;
 --
-+PurpleParasol(): ctor</panel_attributes>
++PurpleParasol(): &lt;&lt;Constructor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1265</x>
-      <y>1485</y>
-      <w>130</w>
-      <h>35</h>
+      <x>581</x>
+      <y>400</y>
+      <w>26</w>
+      <h>7</h>
     </coordinates>
-    <panel_attributes>game.model.powerups::RedParasol
+    <panel_attributes>RedParasol
 --
 +SPAWN_CONDITION = 3: int &lt;&lt;static&gt;&gt;
 --
-+RedParasol(): ctor
++RedParasol(): &lt;&lt;Constructor&gt;&gt;
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1060</x>
-      <y>1640</y>
-      <w>125</w>
-      <h>85</h>
+      <x>540</x>
+      <y>431</y>
+      <w>25</w>
+      <h>17</h>
     </coordinates>
-    <panel_attributes>game.model.powerups::RubyRing
+    <panel_attributes>RubyRing
 --
 +CODE = '.': char &lt;&lt;static&gt;&gt;
 +SPAWN_CONDITION = 2: int &lt;&lt;static&gt;&gt;
 +POINTS = 1000: int &lt;&lt;static&gt;&gt;
 +DURATION = 3000: long &lt;&lt;static&gt;&gt;
 --
-+RubyRing(): ctor
++RubyRing(): &lt;&lt;Constructor&gt;&gt;
 +effect(): void
 +resetToNormal(): void
 </panel_attributes>
@@ -2251,12 +2250,12 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>510</x>
-      <y>1730</y>
-      <w>195</w>
-      <h>95</h>
+      <x>429</x>
+      <y>448</y>
+      <w>39</w>
+      <h>19</h>
     </coordinates>
-    <panel_attributes>game.model.powerups::Shoes
+    <panel_attributes>Shoes
 --
 +CODE = '§': char &lt;&lt;static&gt;&gt;
 +SPAWN_CONDITION = 25 * Level.GAME_WIDTH: int &lt;&lt;static&gt;&gt;
@@ -2264,7 +2263,7 @@ game.model.interfaces::Vulnerable
 +DURATION = 10000: long &lt;&lt;static&gt;&gt;
 +INCREASED_X_SPEED_AMOUNT = 2f: float &lt;&lt;static&gt;&gt;
 --
-+Shoes(): ctor
++Shoes(): &lt;&lt;Constructor&gt;&gt;
 +effect(): void
 +resetToNormal(): void
 </panel_attributes>
@@ -2273,12 +2272,12 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1055</x>
-      <y>1375</y>
-      <w>175</w>
-      <h>85</h>
+      <x>539</x>
+      <y>378</y>
+      <w>35</w>
+      <h>17</h>
     </coordinates>
-    <panel_attributes>game.model.powerups::YellowCandy
+    <panel_attributes>YellowCandy
 --
 +CODE = '$': char &lt;&lt;static&gt;&gt;
 +SPAWN_CONDITION = 5: int &lt;&lt;static&gt;&gt;
@@ -2286,7 +2285,7 @@ game.model.interfaces::Vulnerable
 +INCREASED_FIRING_RATE_AMOUNT = 1: int &lt;&lt;static&gt;&gt;
 +DURATION = 10000: long &lt;&lt;static&gt;&gt;
 --
-+YellowCandy(): ctor
++YellowCandy(): &lt;&lt;Constructor&gt;&gt;
 +effect(): void
 +resetToNormal(): void
 </panel_attributes>
@@ -2295,27 +2294,27 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>985</x>
-      <y>600</y>
-      <w>130</w>
-      <h>40</h>
+      <x>604</x>
+      <y>210</y>
+      <w>26</w>
+      <h>8</h>
     </coordinates>
-    <panel_attributes>game.model.tiles::Tile
+    <panel_attributes>Tile
 --
 +TILE_SIZE = 16: int &lt;&lt;static&gt;&gt;
 --
-+Tile(float x, float y, char code): ctor</panel_attributes>
++Tile(float x, float y, char code): &lt;&lt;Constructor&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1910</x>
-      <y>55</y>
-      <w>365</w>
-      <h>220</h>
+      <x>744</x>
+      <y>112</y>
+      <w>73</w>
+      <h>44</h>
     </coordinates>
-    <panel_attributes>game.model.user::User
+    <panel_attributes>User
 --
 -nickname: String
 -highScore: int
@@ -2325,7 +2324,7 @@ game.model.interfaces::Vulnerable
 -gamesWon: int
 -gamesLost: int
 --
-+User(String nickname, int highScore, String avatarPath, int playedGames, int gamesWon, int gamesLost): ctor
++User(String nickname, int highScore, String avatarPath, int playedGames, int gamesWon, int gamesLost): &lt;&lt;Constructor&gt;&gt;
 +getPlayedGames(): int
 +setPlayedGames(int playedGames): void
 +getGamesWon(): int
@@ -2348,12 +2347,12 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1910</x>
-      <y>285</y>
-      <w>350</w>
-      <h>55</h>
+      <x>744</x>
+      <y>158</y>
+      <w>70</w>
+      <h>11</h>
     </coordinates>
-    <panel_attributes>game.model.user::UserMethods
+    <panel_attributes>UserMethods
 --
 +getUsersData(): HashMap&lt;String, List&lt;Integer&gt;&gt; &lt;&lt;static&gt;&gt;
 +saveUsersData(String nickname, int highScore, int gamesPlayed, int gamesWon, int gamesLost): void &lt;&lt;static&gt;&gt;
@@ -2365,22 +2364,10 @@ game.model.interfaces::Vulnerable
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>0</x>
-      <y>0</y>
-      <w>3370</w>
-      <h>2075</h>
-    </coordinates>
-    <panel_attributes>game.model
-bg=orange</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLPackage</id>
-    <coordinates>
-      <x>2190</x>
-      <y>1245</y>
-      <w>1000</w>
-      <h>630</h>
+      <x>797</x>
+      <y>353</y>
+      <w>201</w>
+      <h>128</h>
     </coordinates>
     <panel_attributes>game.model.bubbles
 bg=orange</panel_attributes>
@@ -2389,10 +2376,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>2225</x>
-      <y>1270</y>
-      <w>225</w>
-      <h>335</h>
+      <x>805</x>
+      <y>358</y>
+      <w>45</w>
+      <h>67</h>
     </coordinates>
     <panel_attributes>game.model.bubbles.special_effects
 bg=orange</panel_attributes>
@@ -2401,10 +2388,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>1425</x>
-      <y>1240</y>
-      <w>745</w>
-      <h>710</h>
+      <x>624</x>
+      <y>352</y>
+      <w>158</w>
+      <h>142</h>
     </coordinates>
     <panel_attributes>game.model.enemies
 bg=orange</panel_attributes>
@@ -2413,10 +2400,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>1450</x>
-      <y>515</y>
-      <w>670</w>
-      <h>535</h>
+      <x>652</x>
+      <y>204</y>
+      <w>134</w>
+      <h>107</h>
     </coordinates>
     <panel_attributes>game.model.entities
 bg=orange</panel_attributes>
@@ -2425,10 +2412,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>3025</x>
-      <y>1040</y>
-      <w>285</w>
-      <h>175</h>
+      <x>657</x>
+      <y>502</y>
+      <w>91</w>
+      <h>19</h>
     </coordinates>
     <panel_attributes>game.model.interfaces
 bg=orange</panel_attributes>
@@ -2437,10 +2424,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>1005</x>
-      <y>15</y>
-      <w>515</w>
-      <h>445</h>
+      <x>563</x>
+      <y>104</y>
+      <w>103</w>
+      <h>89</h>
     </coordinates>
     <panel_attributes>game.model.level
 bg=orange</panel_attributes>
@@ -2449,10 +2436,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>15</x>
-      <y>1230</y>
-      <w>1405</w>
-      <h>815</h>
+      <x>332</x>
+      <y>349</y>
+      <w>281</w>
+      <h>163</h>
     </coordinates>
     <panel_attributes>game.model.powerups
 bg=orange</panel_attributes>
@@ -2461,10 +2448,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>1900</x>
-      <y>40</y>
-      <w>395</w>
-      <h>340</h>
+      <x>742</x>
+      <y>109</y>
+      <w>79</w>
+      <h>68</h>
     </coordinates>
     <panel_attributes>game.model.user
 bg=orange</panel_attributes>
@@ -2473,10 +2460,10 @@ bg=orange</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>905</x>
-      <y>440</y>
-      <w>35</w>
-      <h>80</h>
+      <x>543</x>
+      <y>211</y>
+      <w>7</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
@@ -2485,10 +2472,10 @@ bg=orange</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1720</x>
-      <y>880</y>
-      <w>95</w>
-      <h>20</h>
+      <x>706</x>
+      <y>277</y>
+      <w>19</w>
+      <h>4</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 extend</panel_attributes>
@@ -2497,10 +2484,10 @@ extend</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1610</x>
-      <y>780</y>
-      <w>35</w>
-      <h>50</h>
+      <x>684</x>
+      <y>257</y>
+      <w>7</w>
+      <h>10</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 extend</panel_attributes>
@@ -2509,10 +2496,10 @@ extend</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2370</x>
-      <y>1535</y>
-      <w>500</w>
-      <h>90</h>
+      <x>834</x>
+      <y>411</y>
+      <w>100</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 extend</panel_attributes>
@@ -2521,10 +2508,10 @@ extend</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2740</x>
-      <y>1315</y>
-      <w>120</w>
-      <h>25</h>
+      <x>908</x>
+      <y>367</y>
+      <w>24</w>
+      <h>5</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
@@ -2533,10 +2520,10 @@ extend</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2740</x>
-      <y>1460</y>
-      <w>130</w>
-      <h>25</h>
+      <x>908</x>
+      <y>396</y>
+      <w>26</w>
+      <h>5</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
@@ -2545,10 +2532,10 @@ extend</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2575</x>
-      <y>1545</y>
-      <w>295</w>
-      <h>80</h>
+      <x>875</x>
+      <y>413</y>
+      <w>59</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 extend</panel_attributes>
@@ -2557,58 +2544,58 @@ extend</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2675</x>
-      <y>1545</y>
-      <w>230</w>
-      <h>80</h>
+      <x>895</x>
+      <y>413</y>
+      <w>47</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 extend</panel_attributes>
-    <additional_attributes>440.0;10.0;10.0;140.0</additional_attributes>
+    <additional_attributes>450.0;10.0;10.0;140.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2820</x>
-      <y>1545</y>
-      <w>185</w>
-      <h>80</h>
+      <x>924</x>
+      <y>413</y>
+      <w>24</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 extend</panel_attributes>
-    <additional_attributes>350.0;10.0;10.0;140.0</additional_attributes>
+    <additional_attributes>220.0;10.0;10.0;140.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2960</x>
-      <y>1545</y>
-      <w>55</w>
-      <h>80</h>
+      <x>952</x>
+      <y>413</y>
+      <w>7</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 extend</panel_attributes>
-    <additional_attributes>90.0;10.0;10.0;140.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3010</x>
-      <y>1545</y>
-      <w>115</w>
-      <h>80</h>
+      <x>962</x>
+      <y>413</y>
+      <w>24</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 extend</panel_attributes>
-    <additional_attributes>10.0;10.0;210.0;140.0</additional_attributes>
+    <additional_attributes>10.0;10.0;220.0;140.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2430</x>
-      <y>1410</y>
-      <w>130</w>
-      <h>55</h>
+      <x>846</x>
+      <y>386</y>
+      <w>26</w>
+      <h>11</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
@@ -2617,10 +2604,10 @@ extend</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2425</x>
-      <y>1410</y>
-      <w>135</w>
-      <h>160</h>
+      <x>845</x>
+      <y>386</y>
+      <w>27</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
@@ -2629,10 +2616,10 @@ extend</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2430</x>
-      <y>1330</y>
-      <w>130</w>
-      <h>95</h>
+      <x>846</x>
+      <y>370</y>
+      <w>26</w>
+      <h>19</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
@@ -2641,310 +2628,130 @@ extend</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1780</x>
-      <y>1410</y>
+      <x>666</x>
+      <y>378</y>
+      <w>17</w>
+      <h>4</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>150.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>664</x>
+      <y>381</y>
+      <w>19</w>
+      <h>38</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>170.0;10.0;10.0;360.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>668</x>
+      <y>406</y>
+      <w>24</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>180.0;10.0;180.0;310.0;10.0;310.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>672</x>
+      <y>406</y>
+      <w>27</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>210.0;10.0;210.0;300.0;10.0;500.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>698</x>
+      <y>406</y>
+      <w>7</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;500.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>704</x>
+      <y>406</y>
       <w>35</w>
-      <h>80</h>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;290.0;330.0;550.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>723</x>
+      <y>381</y>
+      <w>23</w>
+      <h>34</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;10.0;210.0;320.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>710</x>
+      <y>406</y>
+      <w>34</w>
+      <h>31</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>20.0;10.0;20.0;290.0;320.0;290.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>649</x>
+      <y>385</y>
+      <w>7</w>
+      <h>5</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1630</x>
-      <y>1525</y>
-      <w>65</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>110.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1645</x>
-      <y>1625</y>
-      <w>50</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>80.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1635</x>
-      <y>1655</y>
-      <w>75</w>
-      <h>100</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>130.0;10.0;10.0;180.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1700</x>
-      <y>1655</y>
-      <w>45</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>10.0;10.0;40.0;140.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1895</x>
-      <y>1635</y>
-      <w>60</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>10.0;10.0;100.0;160.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1895</x>
-      <y>1525</y>
-      <w>90</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>10.0;20.0;160.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1895</x>
-      <y>1625</y>
-      <w>105</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>10.0;20.0;190.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1855</x>
-      <y>1330</y>
-      <w>90</w>
-      <h>20</h>
+      <x>602</x>
+      <y>143</y>
+      <w>13</w>
+      <h>4</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
-    <additional_attributes>160.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1200</x>
-      <y>210</y>
-      <w>80</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-&lt;&lt;use&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>460</x>
-      <y>1420</y>
-      <w>105</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-&lt;&lt;use&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;190.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>620</x>
-      <y>1480</y>
-      <w>35</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-&lt;&lt;use&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1215</x>
-      <y>1490</y>
-      <w>60</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>10.0;20.0;100.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1215</x>
-      <y>1500</y>
-      <w>60</w>
-      <h>55</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>10.0;10.0;100.0;90.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>755</x>
-      <y>1355</y>
-      <w>185</w>
-      <h>195</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>10.0;370.0;350.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>755</x>
-      <y>1355</y>
-      <w>300</w>
-      <h>200</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>10.0;380.0;580.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>755</x>
-      <y>1415</y>
-      <w>310</w>
-      <h>145</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>10.0;270.0;600.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>755</x>
-      <y>1500</y>
-      <w>305</w>
-      <h>65</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>10.0;110.0;590.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1215</x>
-      <y>1455</y>
-      <w>60</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>10.0;80.0;100.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>755</x>
-      <y>1595</y>
-      <w>310</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>10.0;10.0;600.0;140.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>755</x>
-      <y>1605</y>
-      <w>170</w>
-      <h>135</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>10.0;10.0;320.0;250.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>665</x>
-      <y>1615</y>
-      <w>115</w>
-      <h>125</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>10.0;10.0;210.0;230.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>600</x>
-      <y>1615</y>
-      <w>75</w>
-      <h>125</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>130.0;10.0;10.0;230.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>755</x>
-      <y>1575</y>
-      <w>315</w>
-      <h>25</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extend</panel_attributes>
-    <additional_attributes>10.0;20.0;610.0;30.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1805</x>
-      <y>150</y>
-      <w>115</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-&lt;&lt;use&gt;&gt;</panel_attributes>
-    <additional_attributes>210.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1510</x>
-      <y>150</y>
-      <w>100</w>
-      <h>20</h>
+      <x>421</x>
+      <y>387</y>
+      <w>20</w>
+      <h>4</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
@@ -2953,94 +2760,262 @@ extend</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>960</x>
-      <y>405</y>
-      <w>320</w>
-      <h>35</h>
+      <x>452</x>
+      <y>399</y>
+      <w>7</w>
+      <h>12</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;620.0;50.0</additional_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1045</x>
-      <y>425</y>
-      <w>235</w>
-      <h>185</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-&lt;&lt;use&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;350.0;450.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1490</x>
-      <y>440</y>
-      <w>325</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-&lt;&lt;use&gt;&gt;</panel_attributes>
-    <additional_attributes>630.0;220.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1605</x>
-      <y>1025</y>
-      <w>100</w>
-      <h>465</h>
+      <x>571</x>
+      <y>401</y>
+      <w>12</w>
+      <h>4</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 extend</panel_attributes>
-    <additional_attributes>10.0;10.0;180.0;910.0</additional_attributes>
+    <additional_attributes>10.0;20.0;100.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1110</x>
-      <y>605</y>
-      <w>395</w>
+      <x>571</x>
+      <y>403</y>
+      <w>12</w>
+      <h>11</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>479</x>
+      <y>374</y>
+      <w>37</w>
+      <h>39</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;370.0;350.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>479</x>
+      <y>374</y>
+      <w>60</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;380.0;580.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>479</x>
+      <y>386</y>
+      <w>62</w>
+      <h>29</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;270.0;600.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>479</x>
+      <y>403</y>
+      <w>61</w>
+      <h>13</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;110.0;590.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>571</x>
+      <y>394</y>
+      <w>12</w>
+      <h>10</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;80.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>479</x>
+      <y>422</y>
+      <w>62</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;10.0;600.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>479</x>
+      <y>424</y>
+      <w>34</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;10.0;320.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>461</x>
+      <y>426</y>
+      <w>23</w>
       <h>25</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 extend</panel_attributes>
-    <additional_attributes>770.0;30.0;10.0;20.0</additional_attributes>
+    <additional_attributes>10.0;10.0;210.0;230.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>990</x>
-      <y>530</y>
-      <w>515</w>
-      <h>90</h>
+      <x>447</x>
+      <y>426</y>
+      <w>16</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 extend</panel_attributes>
-    <additional_attributes>1010.0;160.0;10.0;10.0</additional_attributes>
+    <additional_attributes>140.0;10.0;10.0;220.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1615</x>
-      <y>1025</y>
-      <w>1260</w>
-      <h>425</h>
+      <x>479</x>
+      <y>418</y>
+      <w>63</w>
+      <h>5</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 extend</panel_attributes>
-    <additional_attributes>10.0;10.0;2250.0;320.0;2500.0;830.0</additional_attributes>
+    <additional_attributes>10.0;20.0;610.0;30.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>755</x>
-      <y>1600</y>
-      <w>260</w>
-      <h>140</h>
+      <x>725</x>
+      <y>131</y>
+      <w>21</w>
+      <h>4</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>190.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>661</x>
+      <y>131</y>
+      <w>25</w>
+      <h>4</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;230.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>554</x>
+      <y>186</y>
+      <w>61</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;190.0;590.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>657</x>
+      <y>189</y>
+      <w>68</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>660.0;220.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>682</x>
+      <y>306</y>
+      <w>7</w>
+      <h>67</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;650.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>629</x>
+      <y>211</y>
+      <w>34</w>
+      <h>4</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>320.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>227</y>
+      <w>103</w>
+      <h>5</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>1010.0;20.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>703</x>
+      <y>306</y>
+      <w>252</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0;2190.0;180.0;2190.0;750.0;2500.0;750.0;2500.0;860.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>479</x>
+      <y>423</y>
+      <w>52</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 extend</panel_attributes>
@@ -3049,58 +3024,58 @@ extend</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>715</x>
-      <y>1025</y>
-      <w>900</w>
-      <h>515</h>
+      <x>476</x>
+      <y>303</y>
+      <w>186</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 extend</panel_attributes>
-    <additional_attributes>1780.0;10.0;220.0;390.0;10.0;1010.0</additional_attributes>
+    <additional_attributes>1840.0;10.0;30.0;30.0;10.0;1060.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>620</x>
-      <y>440</y>
-      <w>690</w>
-      <h>945</h>
+      <x>454</x>
+      <y>189</y>
+      <w>162</w>
+      <h>190</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;1870.0;1360.0;10.0</additional_attributes>
+    <additional_attributes>10.0;1880.0;20.0;680.0;1350.0;680.0;1350.0;180.0;1600.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1295</x>
-      <y>440</y>
-      <w>435</w>
-      <h>860</h>
+      <x>642</x>
+      <y>189</y>
+      <w>7</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
-    <additional_attributes>850.0;1700.0;120.0;1180.0;10.0;10.0</additional_attributes>
+    <additional_attributes>20.0;1660.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1295</x>
-      <y>440</y>
-      <w>1315</w>
-      <h>860</h>
+      <x>631</x>
+      <y>189</y>
+      <w>251</w>
+      <h>175</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
-    <additional_attributes>2610.0;1700.0;2110.0;1530.0;10.0;1420.0;10.0;10.0</additional_attributes>
+    <additional_attributes>2490.0;1730.0;2490.0;1450.0;10.0;1440.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4705</x>
-      <y>2250</y>
-      <w>95</w>
-      <h>20</h>
+      <x>974</x>
+      <y>613</y>
+      <w>19</w>
+      <h>4</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.
 implements</panel_attributes>
@@ -3109,22 +3084,22 @@ implements</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3105</x>
-      <y>2395</y>
-      <w>45</w>
-      <h>190</h>
+      <x>1084</x>
+      <y>124</y>
+      <w>7</w>
+      <h>37</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;360.0;60.0;10.0</additional_attributes>
+    <additional_attributes>10.0;350.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3450</x>
-      <y>2335</y>
-      <w>155</w>
-      <h>25</h>
+      <x>1148</x>
+      <y>112</y>
+      <w>31</w>
+      <h>5</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
@@ -3133,10 +3108,10 @@ implements</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3450</x>
-      <y>2340</y>
-      <w>155</w>
-      <h>125</h>
+      <x>1148</x>
+      <y>113</y>
+      <w>31</w>
+      <h>25</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;use&gt;&gt;</panel_attributes>
@@ -3145,13 +3120,270 @@ implements</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4015</x>
-      <y>2450</y>
-      <w>120</w>
-      <h>20</h>
+      <x>662</x>
+      <y>477</y>
+      <w>29</w>
+      <h>33</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-
-&lt;&lt;use&gt;&gt;</panel_attributes>
-    <additional_attributes>220.0;20.0;10.0;20.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;.
+implements</panel_attributes>
+    <additional_attributes>10.0;310.0;10.0;170.0;270.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>666</x>
+      <y>449</y>
+      <w>98</w>
+      <h>61</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+implements</panel_attributes>
+    <additional_attributes>10.0;590.0;10.0;470.0;960.0;470.0;960.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>632</x>
+      <y>451</y>
+      <w>30</w>
+      <h>59</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+implements</panel_attributes>
+    <additional_attributes>280.0;570.0;280.0;470.0;10.0;470.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>669</x>
+      <y>306</y>
+      <w>124</w>
+      <h>204</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+implements</panel_attributes>
+    <additional_attributes>10.0;2020.0;10.0;1970.0;1150.0;1970.0;1150.0;240.0;800.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>691</x>
+      <y>477</y>
+      <w>30</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+implements</panel_attributes>
+    <additional_attributes>280.0;310.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>721</x>
+      <y>477</y>
+      <w>10</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+implements</panel_attributes>
+    <additional_attributes>10.0;310.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>634</x>
+      <y>451</y>
+      <w>82</w>
+      <h>59</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+implements</panel_attributes>
+    <additional_attributes>800.0;570.0;10.0;340.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>685</x>
+      <y>306</y>
+      <w>112</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+implements</panel_attributes>
+    <additional_attributes>10.0;2110.0;10.0;2180.0;1030.0;2180.0;1020.0;220.0;740.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>726</x>
+      <y>424</y>
+      <w>50</w>
+      <h>86</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+implements</panel_attributes>
+    <additional_attributes>10.0;840.0;10.0;800.0;410.0;800.0;410.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>702</x>
+      <y>301</y>
+      <w>97</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+implements</panel_attributes>
+    <additional_attributes>10.0;2160.0;10.0;2380.0;890.0;2380.0;870.0;260.0;620.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>699</x>
+      <y>477</y>
+      <w>10</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+implements</panel_attributes>
+    <additional_attributes>10.0;310.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>681</x>
+      <y>449</y>
+      <w>81</w>
+      <h>83</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+implements</panel_attributes>
+    <additional_attributes>10.0;680.0;10.0;810.0;780.0;810.0;790.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>638</x>
+      <y>451</y>
+      <w>42</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+implements</panel_attributes>
+    <additional_attributes>400.0;660.0;400.0;760.0;10.0;760.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>745</x>
+      <y>424</y>
+      <w>40</w>
+      <h>92</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+implements</panel_attributes>
+    <additional_attributes>10.0;900.0;310.0;900.0;310.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>738</x>
+      <y>297</y>
+      <w>63</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+implements</panel_attributes>
+    <additional_attributes>10.0;2200.0;10.0;2290.0;550.0;2290.0;530.0;280.0;250.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1108</x>
+      <y>91</y>
+      <w>15</w>
+      <h>5</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Observer
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>696</x>
+      <y>80</y>
+      <w>15</w>
+      <h>3</h>
+    </coordinates>
+    <panel_attributes>/Observable/
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>702</x>
+      <y>82</y>
+      <w>7</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extend</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;280.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1115</x>
+      <y>95</y>
+      <w>10</w>
+      <h>11</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+implements</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>327</x>
+      <y>97</y>
+      <w>685</w>
+      <h>459</h>
+    </coordinates>
+    <panel_attributes>game.model
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>319</x>
+      <y>64</y>
+      <w>930</w>
+      <h>512</h>
+    </coordinates>
+    <panel_attributes>game
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>317</x>
+      <y>589</y>
+      <w>289</w>
+      <h>143</h>
+    </coordinates>
+    <panel_attributes>editor
+--
+</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
