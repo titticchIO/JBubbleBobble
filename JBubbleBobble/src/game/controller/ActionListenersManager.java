@@ -179,6 +179,7 @@ public class ActionListenersManager {
 	 * @return the ActionListener to perform the action
 	 */
 	public static ActionListener advanceTransition(TransitionPanel transitionPanel) {
+		System.out.println("ciao");
 		return new ActionListener() {
 
 			private long startTime = -1;
@@ -198,7 +199,6 @@ public class ActionListenersManager {
 						View.getInstance().getGameFrame().showState(GameFrame.Screen.GAME);
 					Model.getInstance().setToUpdate(true);
 				}
-				transitionPanel.repaint();
 			}
 		};
 	}
