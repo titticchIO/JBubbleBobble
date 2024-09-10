@@ -150,17 +150,17 @@ public class View implements Observer {
 
 //			AUDIO NOTIFICATIONS:
 			case "bubble" -> AudioManager.getInstance()
-					.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (6).wav"));
+					.play(Paths.getAbsolutePath("/audio/bubble.wav"));
 			case "jump" -> AudioManager.getInstance()
-					.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (4).wav"));
+					.play(Paths.getAbsolutePath("/audio/jump.wav"));
 			case "heal" -> AudioManager.getInstance()
-					.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (20).wav"));
+					.play(Paths.getAbsolutePath("/audio/heal.wav"));
 			case "lifeLost" -> AudioManager.getInstance()
-					.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (3).wav"));
+					.play(Paths.getAbsolutePath("/audio/lifeLost.wav"));
 			case "bossHit" -> AudioManager.getInstance()
-					.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (1).wav"));
+					.play(Paths.getAbsolutePath("/audio/bossHit.wav"));
 			case "bossKill" -> AudioManager.getInstance()
-					.play(Paths.getAbsolutePath("/Audio/Sound Effects/Bubble Bobble SFX (18).wav"));
+					.play(Paths.getAbsolutePath("/audio/bossKill.wav"));
 			}
 		}
 

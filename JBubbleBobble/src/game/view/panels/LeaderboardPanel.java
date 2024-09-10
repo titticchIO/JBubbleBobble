@@ -2,7 +2,6 @@ package game.view.panels;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Component;
 import java.awt.BorderLayout;
 import java.util.List;
@@ -50,18 +49,14 @@ public class LeaderboardPanel extends JPanel {
      * and applies custom styling to the table and its header.
      */
     public LeaderboardPanel() {
-        // Usa BorderLayout per il pannello principale
         setLayout(new BorderLayout());
 
-        // Nome delle colonne per la leaderboard
         String[] columnNames = {"Player", "HighScore", "Played Games", "Games Won", "Games Lost"};
         
-        // Recupera e ordina la lista degli utenti in base al punteggio in ordine decrescente
         List<User> users = Model.getInstance().getUsers().stream()
             .sorted((u1, u2) -> Integer.compare(u2.getHighScore(), u1.getHighScore()))
             .collect(Collectors.toList());
         
-        // Crea un array di oggetti per i dati della tabella
         Object[][] data = users.stream()
             .map(user -> new Object[]{
                 user.getNickname(),
@@ -72,7 +67,6 @@ public class LeaderboardPanel extends JPanel {
             })
             .toArray(Object[][]::new);
         
-        //Creation of the table for the leaderboard
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
 			private static final long serialVersionUID = 1L;
 
@@ -86,7 +80,6 @@ public class LeaderboardPanel extends JPanel {
         table.setBackground(Color.BLACK);
         table.setForeground(Color.YELLOW);
 
-        // Custom table header
         JTableHeader header = table.getTableHeader();
         header.setDefaultRenderer(new HeaderRenderer(table));
 
