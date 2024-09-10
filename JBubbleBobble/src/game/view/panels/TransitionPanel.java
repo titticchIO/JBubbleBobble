@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import game.controller.ActionListenersManager;
 import game.controller.gamestates.GameState;
 import game.model.Model;
 import game.model.level.Level;
@@ -31,9 +32,11 @@ public class TransitionPanel extends JPanel {
 	private Image nextLevelImage;
 	private float progress;
 	private Timer transitionTimer;
+
 	/** Duration of the transition in milliseconds. */
 	public static final int TRANSITION_DURATION = 2000;
 	private GameFrame gameFrame;
+	private ActionListener advanceAnimation;
 
 	/**
 	 * Constructs a new TransitionPanel with the specified GameFrame.
@@ -46,8 +49,19 @@ public class TransitionPanel extends JPanel {
 		Dimension size = new Dimension((int) (Level.GAME_WIDTH * LevelPanel.SCALE),
 				(int) (Level.GAME_HEIGHT * LevelPanel.SCALE));
 		setPreferredSize(size);
-
 		transitionTimer = new Timer(10, null);
+	}
+
+	public Timer getTransitionTimer() {
+		return transitionTimer;
+	}
+
+	public float getProgress() {
+		return progress;
+	}
+
+	public void setProgress(float progress) {
+		this.progress = progress;
 	}
 
 	/**
@@ -66,28 +80,7 @@ public class TransitionPanel extends JPanel {
 			transitionTimer.stop();
 		}
 
-		transitionTimer = new Timer(10, new ActionListener() {
-			private long startTime = -1;
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (startTime == -1) {
-					startTime = System.currentTimeMillis();
-				}
-
-				long elapsed = System.currentTimeMillis() - startTime;
-				progress = Math.min(1.0f, elapsed / (float) TRANSITION_DURATION);
-
-				if (progress >= 1.0f) {
-					transitionTimer.stop();
-					if (GameState.state == GameState.PLAYING)
-						gameFrame.showState(GameFrame.Screen.GAME);
-					Model.getInstance().setToUpdate(true);
-				}
-
-				repaint();
-			}
-		});
+		transitionTimer = new Timer(10, ActionListenersManager.advanceTransition(this));
 
 		transitionTimer.start();
 	}

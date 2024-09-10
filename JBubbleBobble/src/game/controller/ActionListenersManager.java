@@ -1,6 +1,7 @@
 package game.controller;
 
 import java.awt.Image;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -28,7 +29,9 @@ import game.model.level.Level;
 import game.model.user.User;
 import game.view.View;
 import game.view.frames.CheatFrame;
+import game.view.frames.GameFrame;
 import game.view.frames.GameFrame.Screen;
+import game.view.panels.TransitionPanel;
 import editor.model.LevelManager;
 import editor.view.EditorFrame;
 
@@ -168,6 +171,31 @@ public class ActionListenersManager {
 			controller.resetGame();
 		};
 
+	}
+
+	public static ActionListener advanceTransition(TransitionPanel transitionPanel) {
+		return new ActionListener() {
+
+			private long startTime = -1;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (startTime == -1) {
+					startTime = System.currentTimeMillis();
+				}
+
+				long elapsed = System.currentTimeMillis() - startTime;
+				transitionPanel.setProgress(Math.min(1.0f, elapsed / (float) transitionPanel.TRANSITION_DURATION));
+
+				if (transitionPanel.getProgress() >= 1.0f) {
+					transitionPanel.getTransitionTimer().stop();
+					if (GameState.state == GameState.PLAYING)
+						View.getInstance().getGameFrame().showState(GameFrame.Screen.GAME);
+					Model.getInstance().setToUpdate(true);
+				}
+				transitionPanel.repaint();
+			}
+		};
 	}
 
 	/**
