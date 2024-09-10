@@ -92,11 +92,11 @@ public class FireBall extends MovingEntity {
 		int xPos = (int) (x / TILE_SIZE);
 		int yPos = (int) (y / TILE_SIZE);
 		for (int i = 1; i < 3; i++) {
-			if (Character.isDigit(lvlData[yPos + 1][xPos + i])) {
+			if (xPos + i < lvlData[0].length && Character.isDigit(lvlData[yPos + 1][xPos + i])) {
 				Model.getInstance().getCurrentLevel().getBubbleManager()
 						.addFireBall(new FireBall((xPos + i) * TILE_SIZE, yPos * TILE_SIZE, FireState.BURN));
 			}
-			if (Character.isDigit(lvlData[yPos + 1][xPos - i])) {
+			if (xPos - i > 0 && Character.isDigit(lvlData[yPos + 1][xPos - i])) {
 				Model.getInstance().getCurrentLevel().getBubbleManager()
 						.addFireBall(new FireBall((xPos - i) * TILE_SIZE, yPos * TILE_SIZE, FireState.BURN));
 			}
