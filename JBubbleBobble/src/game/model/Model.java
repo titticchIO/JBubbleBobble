@@ -10,6 +10,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import editor.model.LevelManager;
+import game.model.bubbles.ExtendBubble;
 import game.model.entities.Player;
 import game.model.level.Level;
 import game.model.user.User;
@@ -73,6 +74,7 @@ public class Model extends Observable {
 	public void resetModel() {
 		levels = null;
 		levelIterator = null;
+		ExtendBubble.resetCodesIndex();
 		setChanged();
 		notifyObservers(currentLevel); // Notify observers of the reset
 	}

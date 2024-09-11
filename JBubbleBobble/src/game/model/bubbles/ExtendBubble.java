@@ -36,6 +36,9 @@ public class ExtendBubble extends Bubble {
 		codesIndex = (codesIndex < CODES.length - 1) ? codesIndex + 1 : 0;
 	}
 
+	public static void resetCodesIndex() {
+		codesIndex = 0;
+	}
 	// Other Methods
 
 	/**
