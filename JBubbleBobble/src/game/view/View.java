@@ -147,7 +147,8 @@ public class View implements Observer {
 			case "transition" -> levelPanel.startLevelTransition(level.getLevelNumber() + 1);
 			case "next" -> {
 				levelPanel.renderTilesOnce(gameFrame);
-				cheatFrame.getInvincibilityButton().setSelected(false);
+				if (cheatFrame != null)
+					cheatFrame.getInvincibilityButton().setSelected(false);
 			} // Render tiles for the next level
 			case "points" -> gameFrame.updateScoreAndHighscore(); // Update score display
 

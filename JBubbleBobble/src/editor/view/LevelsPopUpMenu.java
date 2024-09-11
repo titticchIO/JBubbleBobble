@@ -55,7 +55,6 @@ public class LevelsPopUpMenu extends JPopupMenu {
 
         // Update the list of levels
         List<String> levels = LevelManager.getLevels();
-        System.out.println(levels.size());
 
         // JPanel to hold the buttons
         JPanel panel = new JPanel(new GridLayout(0, 1));

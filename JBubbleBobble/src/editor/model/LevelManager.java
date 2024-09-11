@@ -59,7 +59,6 @@ public class LevelManager {
         if (y >= 0 && y < ROWS && x >= 0 && x < COLS) 
             LevelManager.level[y][x] = tile;
         else {
-            System.out.println(x + "|" + y);
             throw new IndexOutOfBoundsException("Position out of level bounds");
         }
     }

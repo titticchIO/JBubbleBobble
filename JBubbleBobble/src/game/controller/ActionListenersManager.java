@@ -179,7 +179,6 @@ public class ActionListenersManager {
 	 * @return the ActionListener to perform the action
 	 */
 	public static ActionListener advanceTransition(TransitionPanel transitionPanel) {
-		System.out.println("ciao");
 		return new ActionListener() {
 
 			private long startTime = -1;

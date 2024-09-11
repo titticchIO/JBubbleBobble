@@ -64,7 +64,6 @@ public class SpriteSelectionScrollPane extends JScrollPane {
         addCategory(buttonPanel, "Others", others);
 
         setViewportView(buttonPanel);
-        System.out.println(getSize());
     }
 
     /**
