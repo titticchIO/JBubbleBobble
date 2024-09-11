@@ -75,7 +75,8 @@ public class Model extends Observable {
 		levels = null;
 		levelIterator = null;
 		ExtendBubble.resetCodesIndex();
-		Player.getInstance().setJumping(false);
+		if (Player.getInstance()!=null)
+			Player.getInstance().setJumping(false);
 		setChanged();
 		notifyObservers(currentLevel); // Notify observers of the reset
 	}
