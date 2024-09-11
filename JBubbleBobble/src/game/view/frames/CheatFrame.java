@@ -40,6 +40,7 @@ import game.view.ImageLoader;
 public class CheatFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private JToggleButton invincibilityButton;
 
 	/**
 	 * Constructs a {@code CheatFrame} object and initializes the frame's
@@ -53,6 +54,15 @@ public class CheatFrame extends JFrame {
 	}
 
 	/**
+	 * Retrieves the invincibility button
+	 * 
+	 * @return the invincibility button
+	 */
+	public JToggleButton getInvincibilityButton() {
+		return invincibilityButton;
+	}
+
+	/**
 	 * Adds various buttons to the frame that allow the user to activate different
 	 * cheats. The buttons include options for invincibility, skipping levels, and
 	 * spawning special bubbles or power-ups. Each button is created with an icon
@@ -63,7 +73,7 @@ public class CheatFrame extends JFrame {
 
 		buttonsPanel.setLayout(new GridLayout(0, 1));
 
-		buttonsPanel.add(new JToggleButton() {
+		invincibilityButton = new JToggleButton() {
 
 			private static final long serialVersionUID = 1L;
 
@@ -74,7 +84,9 @@ public class CheatFrame extends JFrame {
 				setBackground(Color.BLACK);
 				addItemListener(ActionListenersManager.enableInvincibility(this));
 			}
-		});
+		};
+		buttonsPanel.add(invincibilityButton);
+
 		buttonsPanel.add(
 				new CheatButton(AnimationAndImagesLoader.getImage('@', "orange"), ActionListenersManager.skipLevel()));
 		buttonsPanel.add(new CheatButton(AnimationAndImagesLoader.getImage('-'),
@@ -92,4 +104,5 @@ public class CheatFrame extends JFrame {
 
 		add(buttonsPanel);
 	}
+
 }

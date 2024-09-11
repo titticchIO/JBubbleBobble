@@ -145,22 +145,19 @@ public class View implements Observer {
 		if (arg instanceof String s) {
 			switch (s) {
 			case "transition" -> levelPanel.startLevelTransition(level.getLevelNumber() + 1);
-			case "next" -> levelPanel.renderTilesOnce(gameFrame); // Render tiles for the next level
+			case "next" -> {
+				levelPanel.renderTilesOnce(gameFrame);
+				cheatFrame.getInvincibilityButton().setSelected(false);
+			} // Render tiles for the next level
 			case "points" -> gameFrame.updateScoreAndHighscore(); // Update score display
 
 //			AUDIO NOTIFICATIONS:
-			case "bubble" -> AudioManager.getInstance()
-					.play(Paths.getAbsolutePath("/audio/bubble.wav"));
-			case "jump" -> AudioManager.getInstance()
-					.play(Paths.getAbsolutePath("/audio/jump.wav"));
-			case "heal" -> AudioManager.getInstance()
-					.play(Paths.getAbsolutePath("/audio/heal.wav"));
-			case "lifeLost" -> AudioManager.getInstance()
-					.play(Paths.getAbsolutePath("/audio/lifeLost.wav"));
-			case "bossHit" -> AudioManager.getInstance()
-					.play(Paths.getAbsolutePath("/audio/bossHit.wav"));
-			case "bossKill" -> AudioManager.getInstance()
-					.play(Paths.getAbsolutePath("/audio/bossKill.wav"));
+			case "bubble" -> AudioManager.getInstance().play(Paths.getAbsolutePath("/audio/bubble.wav"));
+			case "jump" -> AudioManager.getInstance().play(Paths.getAbsolutePath("/audio/jump.wav"));
+			case "heal" -> AudioManager.getInstance().play(Paths.getAbsolutePath("/audio/heal.wav"));
+			case "lifeLost" -> AudioManager.getInstance().play(Paths.getAbsolutePath("/audio/lifeLost.wav"));
+			case "bossHit" -> AudioManager.getInstance().play(Paths.getAbsolutePath("/audio/bossHit.wav"));
+			case "bossKill" -> AudioManager.getInstance().play(Paths.getAbsolutePath("/audio/bossKill.wav"));
 			}
 		}
 
