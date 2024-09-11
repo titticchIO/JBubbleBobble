@@ -11,7 +11,6 @@ import editor.view.EditorFrame;
 import editor.view.EditorPanel;
 import editor.view.LevelsPopUpMenu;
 import editor.view.SelectionButton;
-import editor.view.Sprite;
 import editor.view.LevelsPopUpMenu.MenuType;
 import editor.view.SpriteSelectionScrollPane;
 import static editor.view.EditorPanel.SQUARE_SIZE;

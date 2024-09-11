@@ -2,7 +2,6 @@ package game.model.powerups;
 
 import game.model.Model;
 import game.model.enemies.Boss;
-import game.model.enemies.Enemy;
 
 /**
  * The {@code Dynamite} kills all the {@code Enemy} in the level
