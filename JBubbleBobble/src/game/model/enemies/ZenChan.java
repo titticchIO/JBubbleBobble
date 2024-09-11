@@ -8,14 +8,12 @@ import game.model.interfaces.Gravity;
 import game.model.interfaces.Jumping;
 
 import static game.model.HelpMethods.isEntityInsideWall;
-
+/**
+ * The {@code ZenChan} class represents an enemy that can move horizontally and
+ * jump, switching direction when hitting a wall. It extends the {@link Enemy}
+ * class.
+ */
 public class ZenChan extends Enemy implements Gravity, Jumping, ChangeDirection {
-
-	/**
-	 * The {@code ZenChan} class represents an enemy that can move horizontally and
-	 * jump, switching direction when hitting a wall. It extends the {@link Enemy}
-	 * class.
-	 */
 
 	public static final char CODE = 'Z';
 
