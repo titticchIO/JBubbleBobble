@@ -24,9 +24,8 @@ import game.controller.gamestates.Pause;
 public class Controller implements Runnable {
 	private Thread gameThread;
 	private boolean running;
-	private final float GAME_SPEED = 1.0f;
 	private final int FPS_SET = 120;
-	private final int UPS_SET = (int) (200 * GAME_SPEED);
+	private final int UPS_SET = 200;
 	private GameFrame gameFrame;
 
 	private Playing playing;
@@ -46,10 +45,9 @@ public class Controller implements Runnable {
 
 			@Override
 			public void run() {
-				AudioManager.getInstance().play(Paths
-						.getAbsolutePath("audio/soundtrack.wav"));
+				AudioManager.getInstance().play(Paths.getAbsolutePath("audio/soundtrack.wav"));
 			}
-		},0, 107000);
+		}, 0, 107000);
 		model = Model.getInstance();
 		menu = new Menu(this);
 		end = new End(this);
