@@ -1,37 +1,30 @@
 # JBubbleBobble
+JBubbleBobble is a video game from 1986 developed by Taito and recently reimplemented in Java as a university project.
 
-JBubbleBobble è un videogioco del 1986 sviluppato da Taito e recentemente rielaborato in Java come progetto universitario. 
+## Description
+The project faithfully recreates the gameplay of the classic Bubble Bobble, where the player controls a character that must clear the level of enemies using bubbles. The game features various classes of enemies, each with unique characteristics, and different types of special bubbles that grant powers to the player. The project also implements a level editor, a user management system with a scoring system, and a leaderboard screen.
 
-## Descrizione
+## Key Features
+- Classic Bubble Bobble gameplay
+- Different types of enemies, each with its own abilities
+- Various special bubbles with different effects
+- Level editor to create and customize levels
+- User management system with score saving
+- Leaderboard screen to display the best scores
+- Use of design patterns such as MVC, Observer-Observable, Singleton, and Factory
 
-Il progetto riprende fedelmente il gameplay del classico Bubble Bobble, dove il giocatore controlla un personaggio che deve liberare il livello dai nemici utilizzando delle bolle. Il gioco presenta diverse classi di nemici, ciascuno con caratteristiche uniche, e vari tipi di bolle speciali che conferiscono poteri al giocatore. Il progetto implementa anche un editor di livelli, un sistema di gestione degli utenti con un sistema di punteggi e una schermata di leaderboard.
-
-## Caratteristiche principali
-
-- Gameplay classico di Bubble Bobble
-- Diversi tipi di nemici, ognuno con le sue abilità
-- Vari tipi di bolle speciali con effetti diversi
-- Editor di livelli per creare e personalizzare i livelli
-- Sistema di gestione degli utenti con salvataggio dei punteggi
-- Schermata di leaderboard per visualizzare i migliori punteggi
-- Utilizzo di pattern di progettazione come MVC, Observer-Observable, Singleton e Factory
-
-## Tecnologie utilizzate
-
+## Technologies Used
 - Java 11
-- Librerie Swing e AWT per l'interfaccia grafica
-- Design pattern come MVC, Observer-Observable, Singleton e Factory
+- Swing and AWT libraries for the graphical user interface
+- Design patterns such as MVC, Observer-Observable, Singleton, and Factory
 
-## Come eseguire il progetto
+## How to Run the Project
+1. Clone the repository to your computer
+2. Open the project in a Java IDE (e.g., IntelliJ IDEA or Eclipse)
+3. Compile and run the `Controller` class to start the game
 
-1. Clona il repository su il tuo computer
-2. Apri il progetto in un IDE Java (ad esempio IntelliJ IDEA o Eclipse)
-3. Compila ed esegui la classe `Controller` per avviare il gioco
+## Contributions
+This project was developed as a university project and is not actively maintained. However, if you would like to contribute to improving the game, you are welcome to do so! You can report issues, suggest improvements, or submit pull requests.
 
-## Contributi
-
-Questo progetto è stato sviluppato come progetto universitario e non è attivamente mantenuto. Tuttavia, se desideri contribuire al miglioramento del gioco, sei il benvenuto! Puoi segnalare problemi, proporre miglioramenti o inviare pull request.
-
-## Licenza
-
-Questo progetto è distribuito sotto la licenza [MIT](LICENSE).
+## License
+This project is distributed under the [MIT License](LICENSE).
