@@ -25,6 +25,3 @@ The project faithfully recreates the gameplay of the classic Bubble Bobble, wher
 
 ## Contributions
 This project was developed as a university project and is not actively maintained. However, if you would like to contribute to improving the game, you are welcome to do so! You can report issues, suggest improvements, or submit pull requests.
-
-## License
-This project is distributed under the [MIT License](LICENSE).
