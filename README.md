@@ -1,3 +1,6 @@
+# Video
+https://github.com/user-attachments/assets/05facf2d-6468-4188-84ad-b3a1540bcab0
+
 # JBubbleBobble
 JBubbleBobble is a video game from 1986 developed by Taito and recently reimplemented in Java as a university project.
 
