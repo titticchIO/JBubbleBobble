@@ -1,8 +1,7 @@
-# Video
-https://github.com/user-attachments/assets/05facf2d-6468-4188-84ad-b3a1540bcab0
-
 # JBubbleBobble
 JBubbleBobble is a video game from 1986 developed by Taito and recently reimplemented in Java as a university project.
+
+https://github.com/user-attachments/assets/7a667162-25c9-4d8a-8478-446237c26e6f
 
 ## Description
 The project faithfully recreates the gameplay of the classic Bubble Bobble, where the player controls a character that must clear the level of enemies using bubbles. The game features various classes of enemies, each with unique characteristics, and different types of special bubbles that grant powers to the player. The project also implements a level editor, a user management system with a scoring system, and a leaderboard screen.
